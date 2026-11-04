@@ -1,0 +1,17 @@
+{
+  "commit": "8021db6c59a77e65bebbedabca961ac82c90ab70",
+  "repository": "https://github.com/liyuan717/FPGA-accelerated-MIMO-System-Project",
+  "sha256": {
+    "INTEGRATION.md": "df62222cbeebacec27603d73cc5ea0007def517225ac3e35a5e9a3102d8b53a9",
+    "README.md": "ab1723d4a8d9a6d1b4d847118113da378fbfa4e33b5b8f0e88a1f0b025239aab",
+    "RF_RECEIVER_IMPLEMENTATION_REQUIREMENTS.md": "c8baa0c329b67168232b05cfbcd6c35da7f30be32cce7fb41aacc43c9549e5b5",
+    "USRP_IMPLEMENTATION_REQUIREMENTS.md": "ee40da5767d16c92c531b9842915591157fd6b962921423dcaa0aaf31ec1b472",
+    "VERIFICATION.md": "0121c3e6c54e5132195ab975c7b8677c76e73e2786c91d9168d66ed3f2fac4fb",
+    "VIDEO_PAYLOAD.md": "ad88cb7c28531e11b466360bf0d70edb377830dacbf4619fd681ddc9987540cf",
+    "air_interface.json": "02ba22ebca0fdc5a3a32cc11d507ba1c08a51d6072620ef7efa433ccf6643794",
+    "reference_mrf1.py": "284fded05641b3e90649d261ca4011fe2ccaffa5d4d45d988294a77f0f5189d7",
+    "reference_rvf2.py": "b1a2b65b553170c32d0bcc78346086b3e6d9684840bee546758ae91bd4e3932e",
+    "run_manifest.template.json": "e8cf03a20d78e3c67c0013cd9aef18ca8b368073e36a5baa45ddffc47634c335",
+    "vectors-manifest.json": "2b90002946343790daceb74c37680054a18c801051e38e04a52f74a14b5d308f"
+  }
+}

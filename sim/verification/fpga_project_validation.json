@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/submission-build-20261104/submission/project/scripts/build_fpga.py",
+    "--workspace",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/submission-build-20261104/restored-workspace",
+    "--name",
+    "submission_validate_r1",
+    "--action",
+    "validate"
+  ],
+  "returncode": 0,
+  "elapsed_s": 66.0098551609999,
+  "hardware_access": false,
+  "full_synthesis_implementation": false
+}

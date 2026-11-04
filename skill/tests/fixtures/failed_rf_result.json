@@ -1,0 +1,15 @@
+{
+  "technical_pass": false,
+  "new_RF": null,
+  "transmit_attempted": true,
+  "new_ADC": null,
+  "run_id": "d2bd6afcac4ccfe01c8a6821b76cc811",
+  "boot_id": "e3cb5d0c-38d2-48e1-a69c-45246f28a981",
+  "error": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+  "cleanup": {
+    "TX_stopped": true,
+    "board_cleanup_confirmed": true,
+    "final_idle_UART_reply": "~ # echo IDLE; cat /sys/bus/iio/devices/iio:device0/out_altvoltage0_RX_LO_powerd\r\r\nown; cat /sys/bus/iio/devices/iio:device0/out_altvoltage1_TX_LO_powerdown; cat /\r\r\nsys/bus/iio/devices/iio:device3/buffer/enable\r\nIDLE\r\nTO_DONE' '_7d18c366ef5d4829a45f92d4d0a3964a'\r\n1\r\n1\r\n0\r\n~ # printf '\\n%s%s\\n' 'PHOTO_DONE' '_7d18c366ef5d4829a45f92d4d0a3964a'\r\n\r\nPHOTO_DONE_7d18c366ef5d4829a45f92d4d0a3964a\r\n"
+  },
+  "finished_unix_ns": 1793627226579840009
+}

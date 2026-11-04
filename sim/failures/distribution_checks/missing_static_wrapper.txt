@@ -1,0 +1,55 @@
+### }
+### set hdmi_demo 0
+### set enable_hdmi_value ""
+### set legacy_hdmi_value ""
+### if {[info exists ::env(ENABLE_HDMI)]} {
+###   if {$::env(ENABLE_HDMI) ni {0 1}} {error "ENABLE_HDMI must be 0 or 1"}
+###   set enable_hdmi_value $::env(ENABLE_HDMI)
+### }
+### if {[info exists ::env(MIMO_HDMI_DEMO)]} {
+###   if {$::env(MIMO_HDMI_DEMO) ni {0 1}} {error "MIMO_HDMI_DEMO must be 0 or 1"}
+###   set legacy_hdmi_value $::env(MIMO_HDMI_DEMO)
+### }
+### if {$enable_hdmi_value ne "" && $legacy_hdmi_value ne "" &&
+###     $enable_hdmi_value ne $legacy_hdmi_value} {
+###   error "ENABLE_HDMI conflicts with legacy MIMO_HDMI_DEMO"
+### }
+### if {$enable_hdmi_value ne ""} {
+###   set hdmi_demo $enable_hdmi_value
+### } elseif {$legacy_hdmi_value ne ""} {
+###   set hdmi_demo $legacy_hdmi_value
+### }
+### set display_mode off
+### if {[info exists ::env(DISPLAY_MODE)]} {
+###   set display_mode $::env(DISPLAY_MODE)
+### }
+### if {$display_mode ni {off static dynamic}} {
+###   error "DISPLAY_MODE must be off, static or dynamic"
+### }
+### if {!$hdmi_demo && $display_mode ne "off"} {
+###   error "ENABLE_HDMI=0 requires DISPLAY_MODE=off"
+### }
+### set rx_cyclic 0
+### if {[info exists ::env(MIMO_RF_RX_CYCLIC)]} {
+###   if {$::env(MIMO_RF_RX_CYCLIC) ni {0 1}} {error "MIMO_RF_RX_CYCLIC must be 0 or 1"}
+###   set rx_cyclic $::env(MIMO_RF_RX_CYCLIC)
+### }
+### if {$rx_cyclic && (!$is_lvds || !$buffered_rx)} {
+###   error "Cyclic RX requires the buffered 2.5-V LVDS profile"
+### }
+### set_param general.maxThreads 2
+### create_project mimo_zedboard_rf $out -part $part
+### set_property target_language Verilog [current_project]
+### set_property simulator_language Mixed [current_project]
+### set_property source_mgmt_mode All [current_project]
+### add_files -norecurse [file join $root pl rtl rf_static_clkdiv.v]
+ERROR: [Vivado 12-172] File or Directory '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/deliverables/usrp-zedboard-integration-20261026/zedboard-source/pl/rtl/rf_static_clkdiv.v' does not exist
+
+    while executing
+"source [file join [file dirname [info script]] create_zedboard_rf_system.tcl]"
+    (file "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/deliverables/usrp-zedboard-inte..." line 81)
+
+    while executing
+"source [file join $hdmi_pipeline_root pl scripts create_zedboard_continuous_video_health_system.tcl]"
+    (file "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/deliverables/usrp-zedboard-inte..." line 20)
+INFO: [Common 17-206] Exiting Vivado at Wed Nov  4 07:03:02 2026...

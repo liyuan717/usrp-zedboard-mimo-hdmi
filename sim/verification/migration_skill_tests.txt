@@ -1,0 +1,12 @@
+test_byte_compare_detects_corruption (test_skill_scripts.SkillTests.test_byte_compare_detects_corruption) ... ok
+test_identity_bound_visual (test_skill_scripts.SkillTests.test_identity_bound_visual) ... ok
+test_old_iq_failure_missing_health_rejected (test_skill_scripts.SkillTests.test_old_iq_failure_missing_health_rejected) ... ok
+test_real_saved_results (test_skill_scripts.SkillTests.test_real_saved_results) ... ok
+test_reports_accept_recorded_summary_reject_negative_slack (test_skill_scripts.SkillTests.test_reports_accept_recorded_summary_reject_negative_slack) ... ok
+test_success_never_implies_visual_or_uniform_fps (test_skill_scripts.SkillTests.test_success_never_implies_visual_or_uniform_fps) ... ok
+test_wrong_expected_file_hash_rejected (test_skill_scripts.SkillTests.test_wrong_expected_file_hash_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.098s
+
+OK

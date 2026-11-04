@@ -1,0 +1,31 @@
+# Isolated, non-release FFmpeg codec candidate for the RF-video receiver.
+#
+# This fragment is applied only by linux_build_rootfs_codec_candidate.sh to a
+# fresh OUT directory.  It is deliberately not included from
+# zynq_zed_defconfig and must not be used to mutate a signed baseline rootfs.
+# FFmpeg n6.1.2-27-ge16ff06adb is the package revision in locked Buildroot
+# 2025.02.2.  The build wrapper separately verifies the reviewed source
+# archive digest before allowing an actual target compilation.
+
+BR2_PACKAGE_FFMPEG=y
+# BR2_PACKAGE_FFMPEG_GPL is not set
+# BR2_PACKAGE_FFMPEG_NONFREE is not set
+BR2_PACKAGE_FFMPEG_FFMPEG=y
+# BR2_PACKAGE_FFMPEG_FFPLAY is not set
+# BR2_PACKAGE_FFMPEG_FFPROBE is not set
+# BR2_PACKAGE_FFMPEG_XCBGRAB is not set
+# BR2_PACKAGE_FFMPEG_POSTPROC is not set
+BR2_PACKAGE_FFMPEG_SWSCALE=y
+BR2_PACKAGE_FFMPEG_ENCODERS="rawvideo"
+BR2_PACKAGE_FFMPEG_DECODERS="h264 mjpeg"
+BR2_PACKAGE_FFMPEG_MUXERS="rawvideo"
+BR2_PACKAGE_FFMPEG_DEMUXERS="h264 mjpeg"
+BR2_PACKAGE_FFMPEG_PARSERS="h264 mjpeg"
+BR2_PACKAGE_FFMPEG_BSFS=""
+BR2_PACKAGE_FFMPEG_PROTOCOLS="file pipe"
+BR2_PACKAGE_FFMPEG_FILTERS="buffer buffersink format scale"
+# BR2_PACKAGE_FFMPEG_INDEVS is not set
+# BR2_PACKAGE_FFMPEG_OUTDEVS is not set
+# Buildroot appends this field after its own defaults, so this final option
+# overrides package/ffmpeg/ffmpeg.mk's default --enable-network.
+BR2_PACKAGE_FFMPEG_EXTRACONF="--disable-network"

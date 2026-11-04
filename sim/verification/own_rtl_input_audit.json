@@ -1,0 +1,5 @@
+{
+  "own_static_source_inputs_matched": 45,
+  "mismatches": [],
+  "scope": "Direct source/constraint entries in recorded Vivado synthesis input closure, in addition to the 18 bootstrap recipes."
+}

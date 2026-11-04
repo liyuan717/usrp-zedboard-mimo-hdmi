@@ -1,0 +1,113 @@
+cmake_minimum_required(VERSION 3.16)
+project(hdmi_presenter LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+
+add_library(hdmi_presenter_core
+    src/protocol.cpp
+    src/rgb_expand.cpp
+    src/presenter.cpp
+    src/null_backend.cpp
+    src/drm_backend.cpp)
+set(HDMI_PRESENTER_CRC32_HEADER_DIR
+    "${CMAKE_CURRENT_SOURCE_DIR}/../video_codec_helper/diagnostics"
+    CACHE PATH "Directory containing canonical slice-by-8 CRC headers")
+if(NOT EXISTS "${HDMI_PRESENTER_CRC32_HEADER_DIR}/crc32_slice8_candidate.h" OR
+   NOT EXISTS "${HDMI_PRESENTER_CRC32_HEADER_DIR}/crc32_slice8_unroll_candidate.h")
+  message(FATAL_ERROR "missing baseline or canonical unroll4 CRC header; do not fall back to bitwise CRC")
+endif()
+target_include_directories(hdmi_presenter_core PUBLIC include PRIVATE "${HDMI_PRESENTER_CRC32_HEADER_DIR}")
+target_link_libraries(hdmi_presenter_core PUBLIC pthread)
+
+add_executable(hdmi-presenter src/main.cpp src/receiver.cpp src/app_runner.cpp)
+target_link_libraries(hdmi-presenter PRIVATE hdmi_presenter_core)
+
+enable_testing()
+add_executable(protocol_test tests/protocol_test.cpp)
+target_link_libraries(protocol_test PRIVATE hdmi_presenter_core)
+target_compile_options(protocol_test PRIVATE -UNDEBUG)
+add_test(NAME protocol_test COMMAND protocol_test)
+add_executable(rgb_expand_test tests/rgb_expand_test.cpp)
+target_link_libraries(rgb_expand_test PRIVATE hdmi_presenter_core)
+target_compile_options(rgb_expand_test PRIVATE -UNDEBUG)
+add_test(NAME rgb_expand_test COMMAND rgb_expand_test)
+add_executable(presenter_test tests/presenter_test.cpp)
+target_link_libraries(presenter_test PRIVATE hdmi_presenter_core)
+target_compile_options(presenter_test PRIVATE -UNDEBUG)
+add_test(NAME presenter_test COMMAND presenter_test)
+add_executable(tcp_receiver_test tests/tcp_receiver_test.cpp src/receiver.cpp)
+target_link_libraries(tcp_receiver_test PRIVATE hdmi_presenter_core)
+target_compile_options(tcp_receiver_test PRIVATE -UNDEBUG)
+add_test(NAME tcp_receiver_test COMMAND tcp_receiver_test)
+add_executable(codec_receiver_test tests/codec_receiver_test.cpp src/receiver.cpp)
+target_link_libraries(codec_receiver_test PRIVATE hdmi_presenter_core)
+target_compile_options(codec_receiver_test PRIVATE -UNDEBUG)
+add_test(NAME codec_receiver_test COMMAND codec_receiver_test)
+add_executable(codec_session_runner_test tests/codec_session_runner_test.cpp
+               src/receiver.cpp src/app_runner.cpp)
+target_link_libraries(codec_session_runner_test PRIVATE hdmi_presenter_core)
+target_compile_options(codec_session_runner_test PRIVATE -UNDEBUG)
+add_test(NAME codec_session_runner_test COMMAND codec_session_runner_test)
+add_executable(drm_session_guard_test tests/drm_session_guard_test.cpp)
+target_link_libraries(drm_session_guard_test PRIVATE hdmi_presenter_core)
+target_compile_options(drm_session_guard_test PRIVATE -UNDEBUG)
+add_test(NAME drm_session_guard_test COMMAND drm_session_guard_test)
+add_test(NAME cli_codec_completion_test
+         COMMAND sh "${CMAKE_CURRENT_SOURCE_DIR}/tests/cli_codec_completion_test.sh"
+                    $<TARGET_FILE:hdmi-presenter>)
+foreach(bad_max IN ITEMS -1 garbage 18446744073709551616)
+  string(REPLACE "-" "neg" bad_max_name "${bad_max}")
+  add_test(NAME "cli_bad_max_${bad_max_name}"
+           COMMAND hdmi-presenter --backend null --codec-output-fd 0 --max-records "${bad_max}")
+  set_tests_properties("cli_bad_max_${bad_max_name}" PROPERTIES WILL_FAIL TRUE)
+endforeach()
+add_test(NAME cli_proof_existing_path_fails
+         COMMAND sh "${CMAKE_CURRENT_SOURCE_DIR}/tests/cli_proof_existing_path_test.sh"
+                    $<TARGET_FILE:hdmi-presenter>)
+
+# The target ABI check is built only when pointed at the exact kernel UAPI tree
+# used by the ARM image.  It compares every user-space structure and ioctl
+# number used by the presenter, rather than relying on one aggregate size.
+set(HDMI_PRESENTER_KERNEL_UAPI_DIR "" CACHE PATH "Kernel include/uapi directory for ABI parity")
+set(HDMI_PRESENTER_ADI_UAPI_DIR "" CACHE PATH "Paired ADI HDMI driver's include/uapi directory for ABI parity")
+set(HDMI_PRESENTER_KERNEL_SOURCE_DIR "" CACHE PATH "Kernel source root for UAPI internal include closure")
+if(HDMI_PRESENTER_KERNEL_UAPI_DIR)
+  if(NOT EXISTS "${HDMI_PRESENTER_KERNEL_UAPI_DIR}/drm/drm.h")
+    message(FATAL_ERROR "HDMI_PRESENTER_KERNEL_UAPI_DIR must contain drm/drm.h")
+  endif()
+  if(NOT HDMI_PRESENTER_ADI_UAPI_DIR OR NOT EXISTS "${HDMI_PRESENTER_ADI_UAPI_DIR}/drm/adi_hdmi_present.h")
+    message(FATAL_ERROR "HDMI_PRESENTER_ADI_UAPI_DIR must contain drm/adi_hdmi_present.h")
+  endif()
+  add_executable(uapi_parity_test tests/uapi_parity_test.cpp)
+  target_include_directories(uapi_parity_test PRIVATE include "${HDMI_PRESENTER_ADI_UAPI_DIR}" "${HDMI_PRESENTER_KERNEL_UAPI_DIR}" "${HDMI_PRESENTER_KERNEL_UAPI_DIR}/drm")
+  # Kernel source UAPI headers use GNU named variadic macros in declarations;
+  # suppress only that imported-header diagnostic, retaining Werror for ours.
+  target_compile_options(uapi_parity_test PRIVATE -Wno-variadic-macros)
+  if(HDMI_PRESENTER_KERNEL_SOURCE_DIR)
+    target_include_directories(uapi_parity_test PRIVATE
+      "${HDMI_PRESENTER_KERNEL_SOURCE_DIR}/include"
+      "${HDMI_PRESENTER_KERNEL_SOURCE_DIR}/arch/arm/include/uapi"
+      "${HDMI_PRESENTER_KERNEL_SOURCE_DIR}/arch/arm/include")
+    target_compile_definitions(uapi_parity_test PRIVATE __EXPORTED_HEADERS__=1)
+  endif()
+  target_compile_options(uapi_parity_test PRIVATE -UNDEBUG)
+  add_test(NAME uapi_parity_test COMMAND uapi_parity_test)
+endif()
+
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(arm|ARM)")
+  target_compile_options(hdmi_presenter_core PRIVATE -mfpu=neon)
+endif()
+
+add_executable(drm_discovery_test tests/drm_discovery_test.cpp)
+target_link_libraries(drm_discovery_test PRIVATE hdmi_presenter_core)
+target_link_options(drm_discovery_test PRIVATE -Wl,--wrap=open,--wrap=close,--wrap=mmap,--wrap=munmap,--wrap=ioctl)
+target_compile_options(drm_discovery_test PRIVATE -UNDEBUG)
+add_test(NAME drm_discovery_test COMMAND drm_discovery_test)
+
+add_executable(source_pts_pacing_test tests/source_pts_pacing_test.cpp)
+target_link_libraries(source_pts_pacing_test PRIVATE hdmi_presenter_core)
+target_compile_options(source_pts_pacing_test PRIVATE -UNDEBUG)
+add_test(NAME source_pts_pacing_test COMMAND source_pts_pacing_test)

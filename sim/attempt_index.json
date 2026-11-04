@@ -1,0 +1,532 @@
+{
+  "snapshot_date": "2026-11-04",
+  "scope": "Saved web original-MP4 OTA checkpoints; stages are historical saved records, not live device state.",
+  "counts": {
+    "complete": 31,
+    "failed": 17,
+    "displaying": 1,
+    "stopped": 1
+  },
+  "runs": [
+    {
+      "run_id": "0453a2f98b258ff642c51a20a4719c09",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793494817502433120,
+      "updated_unix_ns": 1793495032858013896,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "06a3ae3afef7387f3fc74947f7a22ef7",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793625564368671800,
+      "updated_unix_ns": 1793625691682000579,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "06b2ae01afbefbb402b5ac26472ca155",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793493500980356016,
+      "updated_unix_ns": 1793493710918944711,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "0c44040b9393d34212ac2c801c32dbcc",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793626764914649129,
+      "updated_unix_ns": 1793626978212464404,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "156b8190c2ce0d90baa340b6484bd0e1",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793625730310630165,
+      "updated_unix_ns": 1793625943910700776,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": {
+        "choice": "stable",
+        "confirmed_unix_ns": 1793625948138917679
+      }
+    },
+    {
+      "run_id": "24916da2f4ab2de4d5aeab6eeec1e284",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793495271554120038,
+      "updated_unix_ns": 1793495392306347893,
+      "detail": "TimeoutError: 未到达 U-Boot；请核对处理器复位和串口连接",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "27b085335fd93e6e1795fac017c75600",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793503470571025295,
+      "updated_unix_ns": 1793503678144923395,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "2e12778013f8ea31ec3889c6bf4ae016",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793503235554614037,
+      "updated_unix_ns": 1793503447158489993,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "35a074cf831b5319f6f4a3ffe0c7bdbe",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793626119100027085,
+      "updated_unix_ns": 1793626333183721799,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "3b6f898097ff50f17896198405ccf4d4",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793501897991745363,
+      "updated_unix_ns": 1793502085237933334,
+      "detail": "URLError: <urlopen error [Errno 113] No route to host>；收尾状态未确认，请检查日志后从干净 RAM 恢复",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "3df59ae8ffc9ef93b1c7681e1d85462e",
+      "stage": "displaying",
+      "active_flag_at_saved_checkpoint": true,
+      "started_unix_ns": 1793499757444880295,
+      "updated_unix_ns": 1793499871544242589,
+      "detail": "HDMI 正在显示本轮实收原文件视频，保持约 60 秒；请观察画面",
+      "technical_pass": null,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "3fe9b1fcc16a027297a4c8683adce4fa",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793504522981066899,
+      "updated_unix_ns": 1793504729883068843,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "493e091f0b8a3f71c1367e47478e7493",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793500465366065843,
+      "updated_unix_ns": 1793500678964178749,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": {
+        "choice": "stable",
+        "confirmed_unix_ns": 1793500684632780789
+      }
+    },
+    {
+      "run_id": "4a2f5a8b9e68aa3bf014bada4d8525a8",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793500694287240726,
+      "updated_unix_ns": 1793500827011142053,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "544aa6cc5f092c42b10d9110215c079d",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793491731716307786,
+      "updated_unix_ns": 1793491942595963595,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "5636dcda2a7bb9a4c886d6e9ff7bfc31",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793500296974586727,
+      "updated_unix_ns": 1793500440867988346,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "59fe7551f43465d13b461a05cfdcf44c",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793501478918326868,
+      "updated_unix_ns": 1793501690212976404,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "5a72fa0d585f9311571ddf4479765e25",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793490666808942105,
+      "updated_unix_ns": 1793490874183039014,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": {
+        "choice": "stable",
+        "confirmed_unix_ns": 1793490922586906551
+      }
+    },
+    {
+      "run_id": "5da0f60a8c34c60c5947597a0f1b3dbd",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793497168353639078,
+      "updated_unix_ns": 1793497382557784221,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "5de2ec0f220ec6bc295a57a626c8a165",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793493309072673761,
+      "updated_unix_ns": 1793493413437625644,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "6562b66ff4d3a34c1c2d722634f919b2",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793504387036253415,
+      "updated_unix_ns": 1793504512266029506,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "69863f96431023f77ad8d9c274df696f",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793501714679630217,
+      "updated_unix_ns": 1793501879483047903,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "6f5111df55fca2cc2233e7f533cadcae",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793503006332293180,
+      "updated_unix_ns": 1793503221814684744,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "719aaa4de0b9bdbc5eed79d76a10c2ca",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793492463116222316,
+      "updated_unix_ns": 1793492680084128545,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": {
+        "choice": "stable",
+        "confirmed_unix_ns": 1793492804274878806
+      }
+    },
+    {
+      "run_id": "7a8ed269b71a0114520e451b01f03913",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793624403902294749,
+      "updated_unix_ns": 1793624648780868239,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "7c43ecd2d4d917b9d15a5c811cd0a276",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793501241863816725,
+      "updated_unix_ns": 1793501458013361810,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "81cc33394134ab17243976a0de77ecee",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793492813476588504,
+      "updated_unix_ns": 1793493023108526810,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "8fb8fae8d1998d2877b756d54e596cc6",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793495481812780571,
+      "updated_unix_ns": 1793495793145283423,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "9050cda07fc2c682e8f6adf16f6216b9",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793504163737708277,
+      "updated_unix_ns": 1793504376222491628,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "9084d3ac32e3c485b042a5ec1d1f4c58",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793626345800670023,
+      "updated_unix_ns": 1793626557593679911,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "90fbb4fcb47997b080a720ee52c1238e",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793494004412472545,
+      "updated_unix_ns": 1793494214534760287,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "97e116ff1cb3987e285e237d529cca3b",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793500849369894744,
+      "updated_unix_ns": 1793501063144618804,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "a215c2640286c808982cc9557f2e8807",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793503696530296321,
+      "updated_unix_ns": 1793503910948850742,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "a559c27a27647529e1535b6ad0e805cd",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793493764076637754,
+      "updated_unix_ns": 1793493982098843204,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "aeb4a6d04b376f0a1c360e6597991859",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793502776825783685,
+      "updated_unix_ns": 1793502990410782836,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "b016a7d31eb65842bb59922a41f392ad",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793504028562464426,
+      "updated_unix_ns": 1793504146763742912,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "b329c2769f32c2f89d9e03f2829cce17",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793502626781406141,
+      "updated_unix_ns": 1793502761901462755,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "b535b748bbd1c0d38f0d5af6c489150d",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793626603226114898,
+      "updated_unix_ns": 1793626738467007688,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: ",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "bea3c9b85a032e4c8b866a93dce71c88",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793499588862061100,
+      "updated_unix_ns": 1793499740839016502,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "c2bbea40392b37ef9364707931e05caf",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793501079174910998,
+      "updated_unix_ns": 1793501223862919158,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: ",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "cc36c785ca47c699498e83b031a06fb8",
+      "stage": "stopped",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793490949981397152,
+      "updated_unix_ns": 1793491052033658012,
+      "detail": "本轮已停止，日志已保存",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "ce74cea47be83da93d16e356c827fdd4",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793492209251198094,
+      "updated_unix_ns": 1793492416904477159,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": {
+        "choice": "stable",
+        "confirmed_unix_ns": 1793492420452546521
+      }
+    },
+    {
+      "run_id": "d2bd6afcac4ccfe01c8a6821b76cc811",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793627100176294481,
+      "updated_unix_ns": 1793627226580208301,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "d3785fd19719959bda26aea43a64ca8b",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793492443860024091,
+      "updated_unix_ns": 1793492443970375733,
+      "detail": "CalledProcessError: Command '['nmcli', '--wait', '10', 'connection', 'up', 'codex-zedboard-integration', 'ifname', 'enxec1ac33f53f0']' returned non-zero exit status 4.",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "d99541c284d220bc50971b0a192395a7",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793491164682457498,
+      "updated_unix_ns": 1793491374697533165,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": {
+        "choice": "stable",
+        "confirmed_unix_ns": 1793491462526023928
+      }
+    },
+    {
+      "run_id": "de63a9c19b5f9a2842478f8fe840e6ec",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793505111720989431,
+      "updated_unix_ns": 1793505324585901523,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "df6e086a5e8d3b81b7d5cb5f52c8fb39",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793502200589096392,
+      "updated_unix_ns": 1793502342779251666,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "e13486cee00eb929be0e05c1bf0bd9e3",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793625301227313892,
+      "updated_unix_ns": 1793625512360727641,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "e1c2ffcc7c5c838bed114f5fb0d4c6d2",
+      "stage": "complete",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793627302877152621,
+      "updated_unix_ns": 1793627514857452463,
+      "detail": "原文件视频空口、恢复与 HDMI 技术核验通过；请单独确认视觉稳定性",
+      "technical_pass": true,
+      "visual_feedback": null
+    },
+    {
+      "run_id": "f22843ce524d4b6e503ed56bfdea9dd2",
+      "stage": "failed",
+      "active_flag_at_saved_checkpoint": false,
+      "started_unix_ns": 1793502358824190996,
+      "updated_unix_ns": 1793502491618228188,
+      "detail": "RuntimeError: 板端原文件接收/显示失败：AssertionError: native receiver failed",
+      "technical_pass": false,
+      "visual_feedback": null
+    }
+  ],
+  "visual_confirmation_required": true,
+  "uncompleted_rounds_are_not_passed": true
+}

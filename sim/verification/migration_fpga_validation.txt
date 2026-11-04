@@ -1,0 +1,2185 @@
+
+****** Vivado v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Wed Nov  4 07:07:43 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/pl/scripts/create_zedboard_hdmi_pipeline_system.tcl
+# set hdmi_pipeline_root [file normalize [file join [file dirname [info script]] ../..]]
+# if {$argc != 2} {error "usage: <fresh-output> validate|synth|implement"}
+# set hdmi_pipeline_out [file normalize [lindex $argv 0]]
+# set hdmi_pipeline_action [lindex $argv 1]
+# if {$hdmi_pipeline_action ni {validate synth implement}} {error "invalid action"}
+# if {![file isdirectory $hdmi_pipeline_out]} {error "bootstrap directory missing: $hdmi_pipeline_out"}
+# set hdmi_pipeline_vivado_out [file join $hdmi_pipeline_out vivado]
+# if {[file exists $hdmi_pipeline_vivado_out]} {error "Vivado child must be fresh: $hdmi_pipeline_vivado_out"}
+# set ::env(MIMO_CONTINUOUS_VIDEO_HEALTH_ALLOW) YES
+# set saved_argv $argv
+# set saved_argc $argc
+# set argv [list $hdmi_pipeline_vivado_out validate]
+# set argc 2
+# source [file join $hdmi_pipeline_root pl scripts create_zedboard_continuous_video_health_system.tcl]
+## set continuous_root [file normalize [file join [file dirname [info script]] ../..]]
+## if {![info exists ::env(MIMO_CONTINUOUS_VIDEO_HEALTH_ALLOW)] ||
+##     $::env(MIMO_CONTINUOUS_VIDEO_HEALTH_ALLOW) ne "YES"} {
+##   error "Set MIMO_CONTINUOUS_VIDEO_HEALTH_ALLOW=YES to build the separate continuous video-health candidate"
+## }
+## set transport_hook [file join $continuous_root pl scripts add_rf_rx_continuous_transport.tcl]
+## if {![file isfile $transport_hook]} {
+##   error "Missing RXTH continuous integration hook: $transport_hook"
+## }
+## if {![info exists ::env(ADI_HDL_DIR)]} {
+##   error "ADI_HDL_DIR must name the isolated, candidate-patched ADI HDL tree"
+## }
+## set continuous_adi_root [file normalize $::env(ADI_HDL_DIR)]
+## set continuous_mailbox_component [file join $continuous_adi_root library axi_hdmi_tx component.xml]
+## set continuous_mmcm_source [file join $continuous_adi_root library xilinx common ad_mmcm_drp.v]
+## foreach path [list $continuous_mailbox_component $continuous_mmcm_source] {
+##   if {![file isfile $path]} {error "Continuous video-health candidate missing required vendor input: $path"}
+## }
+## set continuous_fd [open $continuous_mailbox_component r]
+## set continuous_component_text [read $continuous_fd]
+## close $continuous_fd
+## if {![regexp {axi_hdmi_tx_frame_mailbox\.v} $continuous_component_text]} {
+##   error "ADI HDMI component is not the candidate CDC-mailbox package"
+## }
+## set continuous_fd [open $continuous_mmcm_source r]
+## set continuous_mmcm_text [read $continuous_fd]
+## close $continuous_fd
+## if {![regexp {parameter\s+MMCM_CLK2_DIV\s*=\s*3\.000} $continuous_mmcm_text]} {
+##   error "Candidate vendor tree must retain CLKOUT2=/3 to avoid the xc7z020 auxiliary-clock pulse-width violation"
+## }
+## foreach {name value} {
+##   MIMO_RF_INTERFACE lvds_2r2t_2v5
+##   MIMO_RF_RX_BUFFERED 1
+##   MIMO_RF_RX_CYCLIC 1
+##   MIMO_RF_RX_OBSERVER 1
+##   MIMO_RF_RX_OBSERVER_ABI 3
+##   ENABLE_HDMI 1
+##   DISPLAY_MODE dynamic
+## } {
+##   if {[info exists ::env($name)] && $::env($name) ne $value} {
+##     error "$name must be $value for the continuous video-health candidate, got $::env($name)"
+##   }
+##   set ::env($name) $value
+## }
+## set ::env(MIMO_RF_RX_HEALTH_INTEGRATION_TCL) $transport_hook
+## set ::env(MIMO_RF_CONTINUOUS_TRANSPORT_EXTENSION) 1
+## set ::env(MIMO_RF_IP_TARGET) synthesis
+## source [file join [file dirname [info script]] create_zedboard_rf_system.tcl]
+### set root [file normalize [file join [file dirname [info script]] ../..]]
+### source [file join $root pl scripts rf_signoff_checks.tcl]
+#### proc rf_cdc_audit {report {details ""} {hdmi 0}} {
+####   set critical 0
+####   set unsafe 0
+####   set unknown 0
+####   set recognized 0
+####   foreach line [split $report \n] {
+####     if {[regexp {^CDC-[0-9]+[[:space:]]+(Critical|Warning|Info)[[:space:]]+([0-9]+)[[:space:]]+} $line -> severity count]} {
+####       set recognized 1
+####       if {$severity eq "Critical"} {incr critical $count}
+####     }
+####     # The non-detailed summary has endpoint/safe/unsafe/unknown/no-ASYNC_REG
+####     # columns. Do not match detailed endpoint rows or clock-name digits.
+####     if {[regexp {^(Critical|Warning|Info)[[:space:]].*[[:space:]]([0-9]+)[[:space:]]+([0-9]+)[[:space:]]+([0-9]+)[[:space:]]+([0-9]+)[[:space:]]+([0-9]+)[[:space:]]*$} $line -> severity endpoints safe bad unclassified no_async]} {
+####       set recognized 1
+####       if {$severity eq "Critical"} {incr critical $endpoints}
+####       incr unsafe $bad
+####       incr unknown $unclassified
+####     }
+####   }
+####   if {!$recognized && ![regexp -nocase {no CDC paths|no clock domain crossings} $report]} {
+####     error "Unrecognized CDC report; cannot prove crossing integrity"
+####   }
+#### 
+####   # axi_hdmi_tx contains one intentional multi-bit CDC: the frame-start write
+####   # address is stable for a complete frame and is explicitly False Path
+####   # constrained. The accompanying vdma/hdmi frame toggles use three-stage
+####   # synchronizers on both directions. Vivado reports the stable payload bus as
+####   # CDC-4 critical even though the vendor handshake protects it.
+####   #
+####   # Accept only that exact, hash-locked vendor path. Any second critical row,
+####   # changed hierarchy, changed width/count or missing False Path remains a
+####   # release failure. This is a proof-bound exception, not a general CDC waiver.
+####   set accepted_critical 0
+####   set accepted_unknown 0
+####   set exception ""
+####   if {$hdmi && $details ne "" && $critical > 0} {
+####     set critical_rows {}
+####     foreach line [split $details \n] {
+####       if {[regexp {^[[:space:]]*[0-9]+[[:space:]]+CDC-[0-9]+[[:space:]]+Critical[[:space:]]+} $line]} {
+####         lappend critical_rows $line
+####       }
+####     }
+####     if {[llength $critical_rows] == 1} {
+####       set row [lindex $critical_rows 0]
+####       set has_source [expr {[string first \
+####         "axi_hdmi_core/inst/i_vdma/vdma_fs_waddr_reg\[8:0\]/C" $row] >= 0}]
+####       set has_dest [expr {[string first \
+####         "axi_hdmi_core/inst/i_tx_core/hdmi_fs_waddr_reg\[8:0\]/D" $row] >= 0}]
+####       if {[regexp {CDC-4[[:space:]]+Critical[[:space:]]+Multi-bit unknown CDC circuitry[[:space:]]+0[[:space:]]+False Path} $row] \
+####           && $has_source && $has_dest && $unknown == 9} {
+####         set accepted_critical $critical
+####         set accepted_unknown $unknown
+####         set critical 0
+####         set unknown 0
+####         set exception "ADI_AXI_HDMI_FS_WADDR_HANDSHAKE"
+####       }
+####     }
+####   }
+####   return [dict create critical $critical unsafe $unsafe unknown $unknown \
+####     accepted_critical $accepted_critical accepted_unknown $accepted_unknown \
+####     exception $exception]
+#### }
+#### proc rf_timing_coverage {report {hdmi 0}} {
+####   # In this fixed FMC profile, eight separately synchronized GPIO status
+####   # inputs and nine slow SPI-ENSM-controlled GPIO outputs have no periodic
+####   # external clock. Two forwarded clock outputs are the remaining low-risk
+####   # entries. SPI/data interfaces themselves MUST have delay constraints.
+####   set limits [dict create no_clock 0 unconstrained_internal_endpoints 0 \
+####     multiple_clock 0 generated_clocks 0 loops 0 partial_input_delay 0 \
+####     partial_output_delay 0 latch_loops 0 no_input_delay 8 no_output_delay 11]
+####   if {$hdmi} {
+####     # Four open-drain I2C pads are asynchronous to FCLK; HDMI pixel DATA,
+####     # HS/VS/DE remain constrained. One extra forwarded HDMI clock is a clock port.
+####     dict set limits no_input_delay 12
+####     dict set limits no_output_delay 16
+####   }
+####   set failures {}
+####   # Numerical slack is insufficient if an IP clock and its jitter/derived
+####   # constraints were silently replaced by a later create_clock command.
+####   foreach line [split $report \n] {
+####     if {[regexp {^XDCC-7[[:space:]].*[[:space:]]([0-9]+)[[:space:]]*$} $line -> count] && $count > 0} {
+####       lappend failures "scoped_clock_overwritten=$count"
+####     }
+####   }
+####   foreach category [dict keys $limits] {
+####     set expression [format {checking %s \(([0-9]+)\)} $category]
+####     if {![regexp $expression $report -> count]} {
+####       lappend failures "$category=unreported"
+####     } elseif {$count > [dict get $limits $category]} {
+####       lappend failures "$category=$count"
+####     }
+####   }
+####   return $failures
+#### }
+### set out [file join $root build zedboard_rf]
+### set mode validate
+### if {$argc > 2} {error "Usage: create_zedboard_rf_system.tcl ?fresh_output_directory? ?validate|synth|implement?"}
+### if {$argc >= 1} {set out [file normalize [lindex $argv 0]]}
+### if {$argc == 2} {set mode [lindex $argv 1]}
+### if {$mode ni {validate synth implement}} {error "Invalid build mode: $mode"}
+### if {[file exists [file join $out mimo_zedboard_rf.xpr]]} {error "Choose a fresh output directory"}
+### if {![string match "2025.2*" [version -short]]} {error "ZedBoard RF build is locked to Vivado 2025.2"}
+### set part xc7z020clg484-1
+### if {[info exists ::env(MIMO_ZEDBOARD_PART)]} {set part $::env(MIMO_ZEDBOARD_PART)}
+### if {[llength [get_parts -quiet $part]] != 1} {error "Unsupported target part $part"}
+### set adi_commit 4366bd63c1fe56b680b69145981a4493c6f8753a
+### if {![info exists ::env(ADI_HDL_DIR)]} {error "Set ADI_HDL_DIR to the isolated, hash-locked ADI HDL tree"}
+### if {![info exists ::env(ADI_ALLOW_VERSION_MISMATCH)] || $::env(ADI_ALLOW_VERSION_MISMATCH) ne "YES"} {
+###   error "ADI HDL declares a different Vivado version; explicitly set ADI_ALLOW_VERSION_MISMATCH=YES"
+### }
+### set adi_root [file normalize $::env(ADI_HDL_DIR)]
+### if {![file isdirectory [file join $adi_root library]]} {error "ADI_HDL_DIR has no library directory: $adi_root"}
+### if {![file exists [file join [file dirname $adi_root] source-manifest.json]]} {error "ADI source manifest is required"}
+### set rf_interface cmos_2r2t_1v8
+### if {[info exists ::env(MIMO_RF_INTERFACE)]} {set rf_interface $::env(MIMO_RF_INTERFACE)}
+### if {$rf_interface ni {cmos_2r2t_1v8 lvds_2r2t_2v5}} {error "Unsupported RF interface profile: $rf_interface"}
+### set is_lvds [expr {$rf_interface eq "lvds_2r2t_2v5"}]
+### set rx_observer 0
+### if {[info exists ::env(MIMO_RF_RX_OBSERVER)]} {
+###   if {$::env(MIMO_RF_RX_OBSERVER) ni {0 1}} {error "MIMO_RF_RX_OBSERVER must be 0 or 1"}
+###   set rx_observer $::env(MIMO_RF_RX_OBSERVER)
+### }
+### if {$rx_observer && !$is_lvds} {error "RX observer is diagnostic LVDS only"}
+### set rx_observer_abi [expr {$rx_observer ? 1 : 0}]
+### if {[info exists ::env(MIMO_RF_RX_OBSERVER_ABI)]} {set rx_observer_abi $::env(MIMO_RF_RX_OBSERVER_ABI)}
+### if {($rx_observer && $rx_observer_abi ni {1 2 3}) || (!$rx_observer && $rx_observer_abi != 0)} {
+###   error "Observer ABI disagrees with diagnostic selection"
+### }
+### set observer_manifest_fd [open [file join [file dirname $adi_root] source-manifest.json] r]
+### set observer_manifest_text [read $observer_manifest_fd]
+### close $observer_manifest_fd
+### set observer_vendor [regexp {"diagnostic_only"\s*:\s*true} $observer_manifest_text]
+### if {$observer_vendor != $rx_observer} {error "Observer vendor manifest and explicit diagnostic selection disagree"}
+### if {$rx_observer && ![regexp "\"rx_observer_abi\"\\s*:\\s*${rx_observer_abi}(?:\\s|,)" $observer_manifest_text]} {
+###   error "Observer ABI differs from vendor manifest"
+### }
+### set buffered_rx 0
+### if {[info exists ::env(MIMO_RF_RX_BUFFERED)]} {
+###   if {$::env(MIMO_RF_RX_BUFFERED) ni {0 1}} {error "MIMO_RF_RX_BUFFERED must be 0 or 1"}
+###   set buffered_rx $::env(MIMO_RF_RX_BUFFERED)
+### }
+### if {$buffered_rx && !$is_lvds} {error "Buffered RX is qualified only for the 2.5-V LVDS profile"}
+### if {$is_lvds && $buffered_rx && $part ne "xc7z020clg484-1"} {
+###   error "Formal RF release is locked to xc7z020clg484-1; part overrides are diagnostic only"
+### }
+### set hdmi_demo 0
+### set enable_hdmi_value ""
+### set legacy_hdmi_value ""
+### if {[info exists ::env(ENABLE_HDMI)]} {
+###   if {$::env(ENABLE_HDMI) ni {0 1}} {error "ENABLE_HDMI must be 0 or 1"}
+###   set enable_hdmi_value $::env(ENABLE_HDMI)
+### }
+### if {[info exists ::env(MIMO_HDMI_DEMO)]} {
+###   if {$::env(MIMO_HDMI_DEMO) ni {0 1}} {error "MIMO_HDMI_DEMO must be 0 or 1"}
+###   set legacy_hdmi_value $::env(MIMO_HDMI_DEMO)
+### }
+### if {$enable_hdmi_value ne "" && $legacy_hdmi_value ne "" &&
+###     $enable_hdmi_value ne $legacy_hdmi_value} {
+###   error "ENABLE_HDMI conflicts with legacy MIMO_HDMI_DEMO"
+### }
+### if {$enable_hdmi_value ne ""} {
+###   set hdmi_demo $enable_hdmi_value
+### } elseif {$legacy_hdmi_value ne ""} {
+###   set hdmi_demo $legacy_hdmi_value
+### }
+### set display_mode off
+### if {[info exists ::env(DISPLAY_MODE)]} {
+###   set display_mode $::env(DISPLAY_MODE)
+### }
+### if {$display_mode ni {off static dynamic}} {
+###   error "DISPLAY_MODE must be off, static or dynamic"
+### }
+### if {!$hdmi_demo && $display_mode ne "off"} {
+###   error "ENABLE_HDMI=0 requires DISPLAY_MODE=off"
+### }
+### set rx_cyclic 0
+### if {[info exists ::env(MIMO_RF_RX_CYCLIC)]} {
+###   if {$::env(MIMO_RF_RX_CYCLIC) ni {0 1}} {error "MIMO_RF_RX_CYCLIC must be 0 or 1"}
+###   set rx_cyclic $::env(MIMO_RF_RX_CYCLIC)
+### }
+### if {$rx_cyclic && (!$is_lvds || !$buffered_rx)} {
+###   error "Cyclic RX requires the buffered 2.5-V LVDS profile"
+### }
+### set_param general.maxThreads 2
+### create_project mimo_zedboard_rf $out -part $part
+### set_property target_language Verilog [current_project]
+### set_property simulator_language Mixed [current_project]
+### set_property source_mgmt_mode All [current_project]
+### add_files -norecurse [file join $root pl rtl rf_static_clkdiv.v]
+### if {$is_lvds} {
+###   add_files -norecurse [file join $root pl rtl rf_static_clkdiv4.v]
+###   add_files -norecurse [file join $root pl rtl rf_lvds_forward_clock.v]
+### }
+### if {$buffered_rx} {
+###   add_files -norecurse [file join $root pl rtl rf_rx_elastic_fifo.v]
+###   add_files -norecurse [file join $root pl rtl rf_rx_dma_enable_monitor.v]
+### }
+### set rf_rx_health_enabled 0
+### if {[info exists ::env(MIMO_RF_RX_HEALTH_INTEGRATION_TCL)]} {
+###   set rf_rx_health_tcl [file normalize $::env(MIMO_RF_RX_HEALTH_INTEGRATION_TCL)]
+###   if {![file isfile $rf_rx_health_tcl]} {
+###     error "MIMO_RF_RX_HEALTH_INTEGRATION_TCL does not exist: $rf_rx_health_tcl"
+###   }
+###   source $rf_rx_health_tcl
+###   rf_rx_health_add_sources $root
+###   set rf_rx_health_enabled 1
+### }
+#### set rf_continuous_transport_root [file normalize [file join [file dirname [info script]] ../..]]
+#### proc rf_rx_health_add_sources {root} {
+####   global rf_continuous_transport_root
+####   foreach name {
+####     rf_rx_msb12_normalizer.v
+####     rf_rx_overflow_fault_cdc.v
+####     rf_rx_transport_metadata_async_fifo.v
+####     rf_rx_transport_framer.v
+####   } {
+####     set path [file join $root pl rtl $name]
+####     if {![file isfile $path]} {error "Missing RXTH RTL: $path"}
+####     if {![llength [get_files -quiet $path]]} {add_files -norecurse $path}
+####   }
+####   set metadata_source [file join $root pl rtl rf_rx_transport_metadata_source.v]
+####   # RX9 may reproduce one frozen pre-fix diagnostic candidate without
+####   # reverting the active RXTH source.  The override is accepted only from the
+####   # repository's immutable build snapshot; ordinary RX8/production flows have
+####   # no override and use the active source above.
+####   if {[info exists ::env(MIMO_RF_RX9_PREFX_METADATA_SOURCE)]} {
+####     set expected [file normalize [file join $root build rx8_loopback_20261026 epoch-pre-fix rf_rx_transport_metadata_source.v]]
+####     set requested [file normalize $::env(MIMO_RF_RX9_PREFX_METADATA_SOURCE)]
+####     if {$requested ne $expected || ![file isfile $requested]} {
+####       error "RX9 pre-fix metadata override is not the frozen approved snapshot"
+####     }
+####     set metadata_source $requested
+####   }
+####   if {![file isfile $metadata_source]} {error "Missing RXTH metadata source: $metadata_source"}
+####   if {![llength [get_files -quiet $metadata_source]]} {add_files -norecurse $metadata_source}
+####   add_files -fileset constrs_1 -norecurse [file join $root pl constraints rf_rx_overflow_fault_cdc.xdc]
+####   source [file join $root pl scripts add_mhgd_interleaved_candidate_module.tcl]
+####   update_compile_order -fileset sources_1
+#### }
+#### proc rf_rx_health_integrate {{ignored_health_base 0x44A10000}} {
+####   global rf_continuous_control_first rf_continuous_memory_first
+####   foreach cell {ps7 reset_rf reset_50m control_xbar memory_xbar rf_rx_pack rf_rx_elastic_buffer rf_rx_dmac rf_rx_dma_enable_monitor} {
+####     if {![llength [get_bd_cells -quiet $cell]]} {error "RXTH integration missing prerequisite cell $cell"}
+####   }
+#### 
+####   # The base builder has already reserved three control and four memory
+####   # endpoints.  For HDMI they are M11..M13/S07..S10; headless uses
+####   # M07..M09/S06..S09.  Do not resize a live interconnect here.
+####   if {![info exists ::env(MIMO_RF_CONTINUOUS_TRANSPORT_EXTENSION)] || $::env(MIMO_RF_CONTINUOUS_TRANSPORT_EXTENSION) ne "1"} {
+####     error "RXTH continuous extension was not reserved during base interconnect creation"
+####   }
+####   if {![info exists rf_continuous_control_first] || ![info exists rf_continuous_memory_first]} {
+####     error "RXTH continuous extension topology indices were not reserved by the base builder"
+####   }
+####   set rxth_control [format "M%02d_AXI" $rf_continuous_control_first]
+####   set imbc_control [format "M%02d_AXI" [expr {$rf_continuous_control_first + 1}]]
+####   set imbc_dma_control [format "M%02d_AXI" [expr {$rf_continuous_control_first + 2}]]
+####   set rxth_dest_memory [format "S%02d_AXI" $rf_continuous_memory_first]
+####   set rxth_sg_memory [format "S%02d_AXI" [expr {$rf_continuous_memory_first + 1}]]
+####   set imbc_mm2s_memory [format "S%02d_AXI" [expr {$rf_continuous_memory_first + 2}]]
+####   set imbc_s2mm_memory [format "S%02d_AXI" [expr {$rf_continuous_memory_first + 3}]]
+####   set rxth_control_clock [string map {_AXI _ACLK} $rxth_control]
+####   set imbc_control_clock [string map {_AXI _ACLK} $imbc_control]
+####   set imbc_dma_control_clock [string map {_AXI _ACLK} $imbc_dma_control]
+####   set rxth_control_reset [string map {_AXI _ARESETN} $rxth_control]
+####   set imbc_control_reset [string map {_AXI _ARESETN} $imbc_control]
+####   set imbc_dma_control_reset [string map {_AXI _ARESETN} $imbc_dma_control]
+#### 
+####   # RXTH capture DMA is an independent ADI AXI-DMAC DMAengine provider.  Its
+####   # character consumer owns only `rf_rx_transport_dmac`; normal IIO scans
+####   # remain exactly on `rf_rx_dmac` at 0x7c400000.
+####   rf_ip rf_rx_transport_dmac axi_dmac {CONFIG.DMA_TYPE_SRC 1 CONFIG.DMA_TYPE_DEST 0 CONFIG.CYCLIC 1 CONFIG.SYNC_TRANSFER_START 0 CONFIG.AXIS_TUSER_SYNC 0 CONFIG.AXI_SLICE_SRC 0 CONFIG.AXI_SLICE_DEST 0 CONFIG.DMA_2D_TRANSFER 0 CONFIG.DMA_SG_TRANSFER 1 CONFIG.DMA_DATA_WIDTH_SRC 64 CONFIG.DMA_DATA_WIDTH_SG 64 CONFIG.CACHE_COHERENT 0 CONFIG.DMA_AXI_ADDR_WIDTH 32}
+#### 
+####   # Separate candidate MHGD engine.  It remains a candidate-only module and
+####   # is not wired to legacy detector_0 or its release driver.
+####   create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 interleaved_candidate_dma
+####   set_property -dict [list CONFIG.c_include_sg 0 CONFIG.c_include_mm2s 1 CONFIG.c_include_s2mm 1 \
+####     CONFIG.c_include_mm2s_dre 0 CONFIG.c_include_s2mm_dre 0 \
+####     CONFIG.c_m_axi_mm2s_data_width 64 CONFIG.c_m_axi_s2mm_data_width 64 \
+####     CONFIG.c_m_axis_mm2s_tdata_width 64 CONFIG.c_s_axis_s2mm_tdata_width 64 \
+####     CONFIG.c_mm2s_burst_size 16 CONFIG.c_s2mm_burst_size 16 CONFIG.c_addr_width 32 \
+####     CONFIG.c_sg_length_width 16] [get_bd_cells interleaved_candidate_dma]
+####   mimo_add_interleaved_candidate_module mimo_interleaved_candidate_0
+#### 
+####   # The second FIFO is the RXTH raw-data epoch partner.  It receives the same
+####   # complete packed sample vector as IIO but has its own admission/flush
+####   # lifecycle, preventing either consumer's DMA backpressure from relabelling
+####   # the other consumer's data.  CPack may issue eight-word bursts around a
+####   # metadata/framer boundary.  The old 1024-word physical FIFO had only 1024
+####   # usable words including its skid stage, so closing a 1024-sample block in
+####   # the middle of one such burst could overflow before the new metadata was
+####   # accepted.  RXTH alone therefore uses 2048 physical entries (2047 RAM +
+####   # one skid); the legacy IIO elastic FIFO remains at its original 1024.
+####   create_bd_cell -type module -reference rf_rx_elastic_fifo rf_rx_transport_elastic_buffer
+####   set_property -dict {CONFIG.DEPTH 2048 CONFIG.ADDR_WIDTH 11} [get_bd_cells rf_rx_transport_elastic_buffer]
+####   set rxth_transport_fifo_depth [get_property CONFIG.DEPTH [get_bd_cells rf_rx_transport_elastic_buffer]]
+####   set rxth_transport_fifo_addr_width [get_property CONFIG.ADDR_WIDTH [get_bd_cells rf_rx_transport_elastic_buffer]]
+####   if {$rxth_transport_fifo_depth != 2048 || $rxth_transport_fifo_addr_width != 11} {
+####     error "RXTH transport FIFO headroom configuration readback failed: depth=$rxth_transport_fifo_depth addr_width=$rxth_transport_fifo_addr_width"
+####   }
+####   puts "RXTH_TRANSPORT_FIFO_HEADROOM_PASS depth=$rxth_transport_fifo_depth addr_width=$rxth_transport_fifo_addr_width"
+####   create_bd_cell -type module -reference rf_rx_msb12_normalizer rf_rx_transport_msb12
+####   create_bd_cell -type module -reference rf_rx_transport_metadata_source rf_rx_transport_metadata_source
+####   create_bd_cell -type module -reference rf_rx_transport_metadata_async_fifo rf_rx_transport_metadata_fifo
+####   create_bd_cell -type module -reference rf_rx_transport_framer rf_rx_transport_framer
+####   create_bd_cell -type module -reference rf_rx_dma_enable_monitor rf_rx_transport_dma_enable_monitor
+####   create_bd_cell -type module -reference rf_rx_overflow_fault_cdc rf_rx_transport_adc_fault_cdc
+#### 
+####   # The transport monitor observes only the transport DMA control register;
+####   # its enable defines the transport capture epoch.  It is not attached to the
+####   # legacy IIO DMA AXI-Lite net.
+####   rf_net ps7/FCLK_CLK0 rf_rx_transport_dma_enable_monitor/clk
+####   rf_net reset_50m/peripheral_aresetn rf_rx_transport_dma_enable_monitor/resetn
+####   rf_net ps7/FCLK_CLK0 rf_rx_transport_elastic_buffer/clk rf_rx_transport_msb12/clk \
+####     rf_rx_transport_metadata_source/src_clk rf_rx_transport_metadata_fifo/src_clk \
+####     rf_rx_transport_metadata_fifo/dst_clk rf_rx_transport_framer/clk \
+####     rf_rx_transport_dmac/s_axis_aclk
+####   rf_net reset_rf/peripheral_aresetn rf_rx_transport_elastic_buffer/resetn \
+####     rf_rx_transport_msb12/resetn rf_rx_transport_metadata_source/src_resetn
+####   rf_net axi_ad9361/l_clk rf_rx_transport_adc_fault_cdc/src_clk
+####   rf_net reset_rf_lclk/peripheral_reset rf_rx_transport_adc_fault_cdc/src_reset
+####   rf_net ps7/FCLK_CLK0 rf_rx_transport_adc_fault_cdc/dst_clk
+####   rf_net reset_rf/peripheral_reset rf_rx_transport_adc_fault_cdc/dst_reset
+####   rf_net rf_rx_fifo/din_ovf rf_rx_transport_adc_fault_cdc/src_event
+#### 
+####   # A raw data fault requests one coherent next-cycle epoch reset.  Gate the
+####   # ingress during that reset so the FIFO's documented same-cycle flush write
+####   # cannot become an unlabelled first sample.
+####   create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 rf_rx_transport_reset_or
+####   set_property -dict {CONFIG.C_OPERATION or CONFIG.C_SIZE 1} [get_bd_cells rf_rx_transport_reset_or]
+####   create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 rf_rx_transport_capture_gate
+####   set_property -dict {CONFIG.C_OPERATION and CONFIG.C_SIZE 1} [get_bd_cells rf_rx_transport_capture_gate]
+####   create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 rf_rx_transport_capture_enable
+####   set_property -dict {CONFIG.C_OPERATION not CONFIG.C_SIZE 1} [get_bd_cells rf_rx_transport_capture_enable]
+####   # DMA ownership is a hard framer reset, separate from a source-fault epoch
+####   # flush.  Disabling RXTH-DMAC therefore suppresses M_AXIS immediately and
+####   # invalidates an in-flight descriptor; Linux must ABORT/reclaim it before a
+####   # later CTRL enable starts a fresh 8224-byte RXTH block.  A raw/source fault
+####   # leaves dma_enabled asserted, so the committed packet still drains intact.
+####   create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 rf_rx_transport_framer_owner_reset
+####   set_property -dict {CONFIG.C_OPERATION and CONFIG.C_SIZE 1} [get_bd_cells rf_rx_transport_framer_owner_reset]
+####   rf_net rf_rx_transport_dma_enable_monitor/flush_sync rf_rx_transport_reset_or/Op1 \
+####     rf_rx_transport_metadata_source/transport_flush
+####   rf_net rf_rx_transport_metadata_source/raw_flush_request rf_rx_transport_reset_or/Op2
+####   rf_net rf_rx_transport_reset_or/Res rf_rx_transport_elastic_buffer/flush_sync \
+####     rf_rx_transport_metadata_fifo/transport_reset
+####   rf_net rf_rx_transport_reset_or/Res rf_rx_transport_capture_enable/Op1
+####   rf_net rf_rx_transport_capture_enable/Res rf_rx_transport_capture_gate/Op2
+####   # Source flush remains commit-immutable.  By contrast DMA owner disable
+####   # hard-resets the framer through the explicit AND below; it is a software
+####   # abort boundary, never a successful short RXTH block.
+####   rf_net reset_rf/peripheral_aresetn rf_rx_transport_framer_owner_reset/Op1
+####   rf_net rf_rx_transport_dma_enable_monitor/dma_enabled rf_rx_transport_framer_owner_reset/Op2
+####   rf_net rf_rx_transport_framer_owner_reset/Res rf_rx_transport_framer/resetn
+####   rf_net rf_rx_transport_reset_or/Res rf_rx_transport_framer/transport_flush
+####   rf_net rf_rx_pack/packed_fifo_wr_en rf_rx_transport_capture_gate/Op1 \
+####     rf_rx_transport_metadata_source/adc_sample_valid
+####   # This is the actual FIFO admission event, not raw valid.  It is the anchor
+####   # for the metadata block and therefore for every RXTH payload word.
+####   rf_net rf_rx_transport_capture_gate/Res rf_rx_transport_elastic_buffer/packed_fifo_wr_en
+####   rf_net rf_rx_transport_elastic_buffer/accepted_write rf_rx_transport_metadata_source/sample_written
+####   rf_net rf_rx_pack/packed_fifo_wr_data rf_rx_transport_elastic_buffer/packed_fifo_wr_data
+####   rf_net rf_rx_transport_elastic_buffer/ingress_drop rf_rx_transport_metadata_source/source_fifo_overflow
+####   # Held request/ack fault: no even-toggle cancellation and no clean data
+####   # admission while the source continues to assert overflow. The synchronized
+####   # fault holds epoch flush; a raw l_clk signal never enters 50-MHz logic.
+####   rf_net rf_rx_transport_adc_fault_cdc/dst_fault rf_rx_transport_metadata_source/adc_overflow
+####   rf_net rf_rx_transport_metadata_source/metadata_valid rf_rx_transport_metadata_fifo/src_valid
+####   rf_net rf_rx_transport_metadata_fifo/src_ready rf_rx_transport_metadata_source/metadata_ready
+####   rf_net rf_rx_transport_metadata_source/metadata_flags rf_rx_transport_metadata_fifo/src_flags
+####   rf_net rf_rx_transport_metadata_source/metadata_epoch rf_rx_transport_metadata_fifo/src_epoch
+####   rf_net rf_rx_transport_metadata_source/metadata_block_seq rf_rx_transport_metadata_fifo/src_block_seq
+####   rf_net rf_rx_transport_metadata_source/metadata_first_adc_sample rf_rx_transport_metadata_fifo/src_first_adc_sample
+####   rf_net rf_rx_transport_metadata_source/metadata_valid_sample_count rf_rx_transport_metadata_fifo/src_valid_sample_count
+####   rf_net rf_rx_transport_metadata_fifo/dst_valid rf_rx_transport_framer/meta_valid
+####   rf_net rf_rx_transport_framer/meta_ready rf_rx_transport_metadata_fifo/dst_ready
+####   rf_net rf_rx_transport_metadata_fifo/dst_flags rf_rx_transport_framer/meta_flags
+####   rf_net rf_rx_transport_metadata_fifo/dst_epoch rf_rx_transport_framer/meta_epoch
+####   rf_net rf_rx_transport_metadata_fifo/dst_block_seq rf_rx_transport_framer/meta_block_seq
+####   rf_net rf_rx_transport_metadata_fifo/dst_first_adc_sample rf_rx_transport_framer/meta_first_adc_sample
+####   rf_net rf_rx_transport_metadata_fifo/dst_valid_sample_count rf_rx_transport_framer/meta_valid_sample_count
+####   rf_bus rf_rx_transport_elastic_buffer/M_AXIS rf_rx_transport_msb12/S_AXIS
+####   rf_bus rf_rx_transport_msb12/M_AXIS rf_rx_transport_framer/S_AXIS
+####   rf_bus rf_rx_transport_framer/M_AXIS rf_rx_transport_dmac/s_axis
+#### 
+####   # AXI-Lite and DDR routes.  These are explicit addresses and endpoints for
+####   # the two new Linux drivers; neither aliases a legacy node.
+####   rf_bus control_xbar/$rxth_control rf_rx_transport_dmac/s_axi
+####   set rxth_control_net [get_bd_intf_nets -of_objects [get_bd_intf_pins control_xbar/$rxth_control]]
+####   if {[llength $rxth_control_net] != 1} {error "RXTH ADI DMAC control interface net is not unique"}
+####   connect_bd_intf_net -intf_net $rxth_control_net [get_bd_intf_pins control_xbar/$rxth_control] \
+####     [get_bd_intf_pins rf_rx_transport_dma_enable_monitor/AXI_MON]
+####   rf_bus control_xbar/$imbc_control mimo_interleaved_candidate_0/s_axi
+####   rf_bus control_xbar/$imbc_dma_control interleaved_candidate_dma/S_AXI_LITE
+####   rf_bus rf_rx_transport_dmac/m_dest_axi memory_xbar/$rxth_dest_memory
+####   rf_bus rf_rx_transport_dmac/m_sg_axi memory_xbar/$rxth_sg_memory
+####   rf_bus interleaved_candidate_dma/M_AXI_MM2S memory_xbar/$imbc_mm2s_memory
+####   rf_bus interleaved_candidate_dma/M_AXI_S2MM memory_xbar/$imbc_s2mm_memory
+####   rf_bus interleaved_candidate_dma/M_AXIS_MM2S mimo_interleaved_candidate_0/s_axis
+####   rf_bus mimo_interleaved_candidate_0/m_axis interleaved_candidate_dma/S_AXIS_S2MM
+#### 
+####   foreach pin [list control_xbar/$rxth_control_clock control_xbar/$imbc_control_clock \
+####       control_xbar/$imbc_dma_control_clock rf_rx_transport_dmac/s_axi_aclk \
+####       rf_rx_transport_dmac/m_dest_axi_aclk rf_rx_transport_dmac/m_sg_axi_aclk interleaved_candidate_dma/s_axi_lite_aclk \
+####       interleaved_candidate_dma/m_axi_mm2s_aclk interleaved_candidate_dma/m_axi_s2mm_aclk \
+####       mimo_interleaved_candidate_0/aclk] {rf_net ps7/FCLK_CLK0 $pin}
+####   foreach pin [list control_xbar/$rxth_control_reset control_xbar/$imbc_control_reset \
+####       control_xbar/$imbc_dma_control_reset rf_rx_transport_dmac/s_axi_aresetn \
+####       rf_rx_transport_dmac/m_dest_axi_aresetn rf_rx_transport_dmac/m_sg_axi_aresetn interleaved_candidate_dma/axi_resetn \
+####       mimo_interleaved_candidate_0/aresetn] {rf_net reset_50m/peripheral_aresetn $pin}
+#### 
+####   set cpu_space [get_bd_addr_spaces ps7/Data]
+####   foreach {offset bus} {0x7C440000 rf_rx_transport_dmac/s_axi 0x7C430000 mimo_interleaved_candidate_0/s_axi} {
+####     set seg [get_bd_addr_segs -of_objects [get_bd_intf_pins $bus]]
+####     if {[llength $seg] != 1} {error "Expected exactly one transport/candidate register segment for $bus, got $seg"}
+####     assign_bd_address -target_address_space $cpu_space -offset $offset -range 64K $seg
+####   }
+####   foreach space {rf_rx_transport_dmac/m_dest_axi rf_rx_transport_dmac/m_sg_axi interleaved_candidate_dma/Data_MM2S interleaved_candidate_dma/Data_S2MM} {
+####     assign_bd_address -target_address_space [get_bd_addr_spaces $space] -offset 0 -range 512M [get_bd_addr_segs ps7/S_AXI_HP0/HP0_DDR_LOWOCM]
+####   }
+#### 
+####   # The base script creates interrupt_concat after this early hook.  Publish a
+####   # deterministic extension for it to call instead of hard-coding a second
+####   # interrupt ABI at this location.
+####   set ::rf_continuous_extra_irqs [list \
+####     rf_rx_transport_dmac/irq \
+####     interleaved_candidate_dma/mm2s_introut \
+####     interleaved_candidate_dma/s2mm_introut]
+#### }
+#### proc rf_rx_health_address_finalize {} {
+####   # Validate the expanded interconnect before relocating this Xilinx AXI-DMA
+####   # segment.  In Vivado 2025.2 an immediately-created M12 path has not yet
+####   # populated the PS address reachability graph, even though the interface is
+####   # physically connected.  The initial validate builds that graph; `-force`
+####   # then relocates the auto-assigned segment to the driver ABI address.
+####   set cpu_space [get_bd_addr_spaces ps7/Data]
+####   set seg [get_bd_addr_segs -of_objects [get_bd_intf_pins interleaved_candidate_dma/S_AXI_LITE]]
+####   if {[llength $seg] != 1} {error "Expected exactly one candidate DMA register segment, got $seg"}
+####   assign_bd_address -force -target_address_space $cpu_space -offset 0x40420000 -range 64K $seg
+#### }
+#### proc rf_rx_health_irq_extend {concat first_free} {
+####   if {$first_free != 8} {error "RXTH/IMBC continuous IRQ ABI requires reserved F2P slots 6/7 and live slots 8..10, got first free $first_free"}
+####   foreach {source dest} {rf_rx_transport_dmac/irq In8 interleaved_candidate_dma/mm2s_introut In9 interleaved_candidate_dma/s2mm_introut In10} {
+####     rf_net $source $concat/$dest
+####   }
+####   return 11
+#### }
+#### proc rf_rx_health_assert_no_adc_dovf_connection {} {
+####   # The only source fault connection is the safe post-util_wfifo overflow
+####   # indication; a raw AD9361 l_clk pulse would be an illegal CDC shortcut.
+####   set pins [get_bd_pins -quiet -of_objects [get_bd_nets -quiet -of_objects [get_bd_pins rf_rx_transport_metadata_source/adc_overflow]]]
+####   if {[llength [get_bd_pins -quiet rf_rx_transport_metadata_source/adc_overflow]] != 1} {error "RXTH overflow pin missing"}
+####   if {[llength [get_bd_pins -quiet axi_ad9361/adc_dovf]] != 1} {error "AD9361 overflow pin missing"}
+####   if {[lsearch -exact $pins [get_bd_pins axi_ad9361/adc_dovf]] >= 0} {error "Illegal raw adc_dovf CDC into RXTH metadata source"}
+#### }
+#### proc rf_rx_health_audit_fault_cdc {out phase} {
+####   set leaf {*/rf_rx_transport_adc_fault_cdc/inst/}
+####   set cells [dict create]
+####   foreach name {src_pending src_ack_sync_0 src_ack_sync_1 dst_pending_sync_0 dst_pending_sync_1 dst_pending_sync_2} {
+####     set found [get_cells -quiet -hier -filter "NAME =~ ${leaf}${name}_reg"]
+####     if {[llength $found] != 1} {error "RX fault CDC expected one $name register, got $found"}
+####     dict set cells $name $found
+####     if {$name ne "src_pending" && ![get_property ASYNC_REG $found]} {
+####       error "RX fault CDC synchronizer lost ASYNC_REG: $found"
+####     }
+####     set clocks [get_clocks -quiet -of_objects [get_pins -quiet ${found}/C]]
+####     set period [expr {[string match "src_*" $name] ? 62.5 : 20.0}]
+####     if {[llength $clocks] != 1 || abs([get_property PERIOD $clocks]-$period) > 0.001} {
+####       error "RX fault CDC $name clock does not match $period ns: $clocks"
+####     }
+####   }
+####   set fd [open [file join $out ${phase}_rx_fault_cdc_audit.rpt] w]
+####   foreach {from to period} {
+####     src_pending dst_pending_sync_0 20.0
+####     dst_pending_sync_2 src_ack_sync_0 62.5
+####     dst_pending_sync_0 dst_pending_sync_1 20.0
+####     dst_pending_sync_1 dst_pending_sync_2 20.0
+####     src_ack_sync_0 src_ack_sync_1 62.5
+####   } {
+####     set paths [get_timing_paths -quiet -delay_type max -max_paths 1 \
+####       -from [dict get $cells $from] -to [dict get $cells $to]]
+####     if {[llength $paths] != 1 || abs([get_property REQUIREMENT $paths]-$period) > 0.001} {
+####       close $fd
+####       error "RX fault CDC path missing/incorrect requirement: $from -> $to, expected $period ns"
+####     }
+####     puts $fd "$from -> $to requirement_ns=[get_property REQUIREMENT $paths] slack_ns=[get_property SLACK $paths]"
+####   }
+####   puts $fd "six_registers_present=1 five_synchronizers_async_reg=1 local_stage_requirements_preserved=1"
+####   close $fd
+####   puts "RF_RX_FAULT_CDC_TOPOLOGY_AUDIT_PASS $phase"
+#### }
+#### set ::mimo_interleaved_repo_root [file normalize [file join [file dirname [info script]] ../..]]
+#### proc mimo_add_interleaved_candidate_module {{instance mimo_interleaved_candidate_0}} {
+####   global mimo_interleaved_repo_root
+####   if {[llength [get_bd_cells -quiet $instance]]} {error "BD cell already exists: $instance"}
+####   foreach name {mimo_cost_2x2 mimo_mhgd_interleaved_candidate mimo_axis_frame_tx mimo_mhgd_interleaved_axis_candidate mimo_mhgd_interleaved_axis_candidate_axil} {
+####     set path [file join $mimo_interleaved_repo_root pl rtl ${name}.sv]
+####     if {![file isfile $path]} {error "Missing interleaved candidate RTL: $path"}
+####     if {![llength [get_files -quiet $path]]} {add_files -norecurse $path}
+####     set_property file_type SystemVerilog [get_files $path]
+####   }
+####   set wrapper [file join $mimo_interleaved_repo_root pl rtl mimo_mhgd_interleaved_candidate_bd.v]
+####   if {![llength [get_files -quiet $wrapper]]} {add_files -norecurse $wrapper}
+####   set_property file_type Verilog [get_files $wrapper]
+####   update_compile_order -fileset sources_1
+####   set cell [create_bd_cell -type module -reference mimo_mhgd_interleaved_candidate_bd $instance]
+####   set_property -dict {CONFIG.AXIL_ADDR_WIDTH 6 CONFIG.BUILD_ID 1} $cell
+####   foreach bus {s_axi s_axis m_axis} {
+####     if {[llength [get_bd_intf_pins -quiet $instance/$bus]] != 1} {error "Interleaved candidate interface was not inferred: $instance/$bus"}
+####   }
+####   return $cell
+#### }
+### set rf_rxth_diag_enabled 0
+### if {[info exists ::env(MIMO_RF_RXTH_DIAG)]} {
+###   if {$::env(MIMO_RF_RXTH_DIAG) ni {0 1}} {error "MIMO_RF_RXTH_DIAG must be 0 or 1"}
+###   set rf_rxth_diag_enabled $::env(MIMO_RF_RXTH_DIAG)
+### }
+### if {$rf_rxth_diag_enabled} {
+###   if {![info exists ::env(MIMO_RF_RXTH_DIAG_INTEGRATION_TCL)]} {
+###     error "MIMO_RF_RXTH_DIAG=1 requires MIMO_RF_RXTH_DIAG_INTEGRATION_TCL"
+###   }
+###   set rf_rxth_diag_tcl [file normalize $::env(MIMO_RF_RXTH_DIAG_INTEGRATION_TCL)]
+###   if {![file isfile $rf_rxth_diag_tcl]} {error "RX9 diagnostic integration script missing: $rf_rxth_diag_tcl"}
+###   source $rf_rxth_diag_tcl
+###   rf_rx_transport_diag_add_sources $root
+### }
+### if {$hdmi_demo} {
+###   add_files -norecurse [file join $adi_root library common ad_iobuf.v]
+### }
+### set_property ip_repo_paths [list [file join $adi_root library]] [current_project]
+### update_ip_catalog
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/vendor/adi_hdl_verified/library'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/vivado/2025.2/data/ip'.
+### create_bd_design zedboard_rf_system
+Wrote  : </home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.srcs/sources_1/bd/zedboard_rf_system/zedboard_rf_system.bd> 
+### proc rf_ip {name core {properties {}}} {
+###   set defs [get_ipdefs -all -quiet analog.com:user:${core}:1.0]
+###   if {[llength $defs] != 1} {error "Missing or ambiguous packaged ADI IP: $core ($defs)"}
+###   create_bd_cell -type ip -vlnv analog.com:user:${core}:1.0 $name
+###   if {[llength $properties]} {set_property -dict $properties [get_bd_cells $name]}
+### }
+### proc rf_net {args} {
+###   set objects {}
+###   foreach path $args {
+###     set object [get_bd_pins -quiet $path]
+###     if {![llength $object]} {set object [get_bd_ports -quiet $path]}
+###     if {[llength $object] != 1} {error "Missing/ambiguous RF net endpoint: $path"}
+###     lappend objects $object
+###   }
+###   connect_bd_net {*}$objects
+### }
+### proc rf_bus {a b} {connect_bd_intf_net [get_bd_intf_pins $a] [get_bd_intf_pins $b]}
+### proc rf_reset {name clk resetn locked zero} {
+###   create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 $name
+###   set_property CONFIG.C_AUX_RESET_HIGH 1 [get_bd_cells $name]
+###   rf_net $resetn $name/ext_reset_in
+###   rf_net $clk $name/slowest_sync_clk
+###   rf_net $locked $name/dcm_locked
+###   rf_net $zero $name/aux_reset_in $name/mb_debug_sys_rst
+### }
+### create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 ps7
+### set_property CONFIG.PCW_IMPORT_BOARD_PRESET ZedBoard [get_bd_cells ps7]
+INFO: [PS7-1] Applying Board Preset ZedBoard...
+### set_property -dict [list \
+###   CONFIG.PCW_USE_M_AXI_GP0 1 CONFIG.PCW_USE_S_AXI_HP0 1 \
+###   CONFIG.PCW_S_AXI_HP0_DATA_WIDTH 64 CONFIG.PCW_USE_FABRIC_INTERRUPT 1 \
+###   CONFIG.PCW_IRQ_F2P_INTR 1 CONFIG.PCW_EN_CLK0_PORT 1 CONFIG.PCW_EN_RST0_PORT 1 \
+###   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ 50.0 \
+###   CONFIG.PCW_CRYSTAL_PERIPHERAL_FREQMHZ 33.333333 \
+###   CONFIG.PCW_DDR_RAM_HIGHADDR 0x1FFFFFFF \
+###   CONFIG.PCW_UIPARAM_DDR_PARTNO Custom \
+###   CONFIG.PCW_UIPARAM_DDR_MEMORY_TYPE {DDR 3} \
+###   CONFIG.PCW_UIPARAM_DDR_DRAM_WIDTH {16 Bits} \
+###   CONFIG.PCW_UIPARAM_DDR_DEVICE_CAPACITY {2048 MBits} \
+###   CONFIG.PCW_UIPARAM_DDR_ROW_ADDR_COUNT 14 \
+###   CONFIG.PCW_UIPARAM_DDR_FREQ_MHZ 400.0 \
+###   CONFIG.PCW_UIPARAM_DDR_CL 6 CONFIG.PCW_UIPARAM_DDR_CWL 5 \
+###   CONFIG.PCW_UIPARAM_DDR_T_RCD 6 CONFIG.PCW_UIPARAM_DDR_T_RP 6 \
+###   CONFIG.PCW_UIPARAM_DDR_T_RC 55.0 CONFIG.PCW_UIPARAM_DDR_T_RAS_MIN 40.0 \
+###   CONFIG.PCW_UIPARAM_DDR_T_FAW 50.0 \
+###   CONFIG.PCW_UIPARAM_DDR_DQS_TO_CLK_DELAY_0 0.025 \
+###   CONFIG.PCW_UIPARAM_DDR_DQS_TO_CLK_DELAY_1 0.028 \
+###   CONFIG.PCW_UIPARAM_DDR_DQS_TO_CLK_DELAY_2 0.001 \
+###   CONFIG.PCW_UIPARAM_DDR_DQS_TO_CLK_DELAY_3 0.001] [get_bd_cells ps7]
+### make_bd_intf_pins_external [get_bd_intf_pins ps7/DDR]
+### make_bd_intf_pins_external [get_bd_intf_pins ps7/FIXED_IO]
+### set_property name DDR [get_bd_intf_ports DDR_0]
+### set_property name FIXED_IO [get_bd_intf_ports FIXED_IO_0]
+### create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 detector_dma
+### set_property -dict [list CONFIG.c_include_sg 0 CONFIG.c_include_mm2s 1 CONFIG.c_include_s2mm 1 \
+###   CONFIG.c_include_mm2s_dre 0 CONFIG.c_include_s2mm_dre 0 CONFIG.c_m_axi_mm2s_data_width 64 \
+###   CONFIG.c_m_axi_s2mm_data_width 64 CONFIG.c_m_axis_mm2s_tdata_width 64 \
+###   CONFIG.c_s_axis_s2mm_tdata_width 64 CONFIG.c_mm2s_burst_size 16 \
+###   CONFIG.c_s2mm_burst_size 16 CONFIG.c_addr_width 32 CONFIG.c_sg_length_width 14] [get_bd_cells detector_dma]
+### source [file join $root pl scripts add_detector_module.tcl]
+#### set mimo_detector_repo_root [file normalize [file join [file dirname [info script]] ../..]]
+#### proc mimo_add_detector_module {{instance detector_0}} {
+####     global mimo_detector_repo_root
+####     if {[current_bd_design -quiet] eq ""} {error "Open or create a Block Design first"}
+####     if {[llength [get_bd_cells -quiet $instance]]} {error "BD cell already exists: $instance"}
+####     foreach name {mimo_lcg_rng mimo_qam_stepper mimo_gradient_2x2 mimo_cost_2x2 mimo_axis_frame_rx mimo_mhgd_kernel_2x2 mimo_axis_frame_tx mimo_axi_lite_regs mimo_mhgd_axis_top} {
+####         set path [file join $mimo_detector_repo_root pl rtl ${name}.sv]
+####         if {![file exists $path]} {error "Missing Detector RTL: $path"}
+####         if {![llength [get_files -quiet $path]]} {add_files -norecurse $path}
+####         set_property file_type SystemVerilog [get_files $path]
+####     }
+####     update_compile_order -fileset sources_1
+####     set wrapper [file join $mimo_detector_repo_root pl rtl mimo_detector_bd.v]
+####     if {![llength [get_files -quiet $wrapper]]} {add_files -norecurse $wrapper}
+####     set_property file_type Verilog [get_files $wrapper]
+####     update_compile_order -fileset sources_1
+####     set cell [create_bd_cell -type module -reference mimo_detector_bd $instance]
+####     set_property -dict {CONFIG.AXIL_ADDR_WIDTH 6 CONFIG.BUILD_ID 1} $cell
+####     foreach bus {s_axi s_axis m_axis} {
+####         if {[llength [get_bd_intf_pins -quiet $instance/$bus]] != 1} {
+####             error "Detector interface was not inferred: $instance/$bus"
+####         }
+####     }
+####     return $cell
+#### }
+### mimo_add_detector_module detector_0
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'irq' of definition 'xilinx.com:signal:interrupt:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'irq' of definition 'xilinx.com:signal:interrupt:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 's_axi'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_RESET' with value 'aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'PROTOCOL' with value 'AXI4LITE'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'DATA_WIDTH' with value '32'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'ADDR_WIDTH' with value '6'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_BURST' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_LOCK' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_CACHE' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_REGION' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_QOS' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'TDATA_NUM_BYTES' with value '8'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'HAS_TKEEP' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'HAS_TLAST' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'HAS_TREADY' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'TDATA_NUM_BYTES' with value '8'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'HAS_TKEEP' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'HAS_TLAST' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'HAS_TREADY' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'irq': Added interface parameter 'SENSITIVITY' with value 'LEVEL_HIGH'.
+INFO: [IP_Flow 19-7067] Note that bus interface 'aclk' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-7067] Note that bus interface 's_axi' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-7067] Note that bus interface 's_axis' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-7067] Note that bus interface 'm_axis' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+### set control_targets 7
+### set memory_masters 6
+### if {$hdmi_demo} {
+###   incr control_targets 4
+###   incr memory_masters 1
+### }
+### set continuous_transport_extension 0
+### if {[info exists ::env(MIMO_RF_CONTINUOUS_TRANSPORT_EXTENSION)]} {
+###   if {$::env(MIMO_RF_CONTINUOUS_TRANSPORT_EXTENSION) ni {0 1}} {error "MIMO_RF_CONTINUOUS_TRANSPORT_EXTENSION must be 0 or 1"}
+###   set continuous_transport_extension $::env(MIMO_RF_CONTINUOUS_TRANSPORT_EXTENSION)
+### }
+### if {$continuous_transport_extension} {
+###   # Base endpoints are M00..M06 and S00..S05.  HDMI, if selected, owns the
+###   # next M07..M10 and S06.  Preserve that deployed HDMI ABI while allowing a
+###   # headless receiver to reserve M07..M09/S06..S09 instead.
+###   set ::rf_continuous_control_first [expr {$hdmi_demo ? 11 : 7}]
+###   set ::rf_continuous_memory_first [expr {$hdmi_demo ? 7 : 6}]
+###   incr control_targets 3
+###   incr memory_masters 4
+### }
+### if {$rf_rxth_diag_enabled} {
+###   if {!$continuous_transport_extension || !$rf_rx_health_enabled} {
+###     error "RX9 diagnostics require the isolated RXTH continuous transport"
+###   }
+###   if {$hdmi_demo} {error "RX9 diagnostic ABI reserves headless control_xbar/M10 only"}
+###   # Headless base M00..M06 plus RXTH/IMBC M07..M09 leave M10 unused.
+###   set ::rf_rxth_diag_control_index 10
+###   incr control_targets
+### }
+### create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 control_xbar
+### set_property CONFIG.NUM_MI $control_targets [get_bd_cells control_xbar]
+### create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 memory_xbar
+### set_property -dict [list CONFIG.NUM_SI $memory_masters CONFIG.NUM_MI 1 CONFIG.NUM_CLKS 1] [get_bd_cells memory_xbar]
+### rf_bus ps7/M_AXI_GP0 control_xbar/S00_AXI
+### foreach {mi bus} {
+###   M00_AXI detector_0/s_axi M01_AXI detector_dma/S_AXI_LITE
+### } {rf_bus control_xbar/$mi $bus}
+### rf_bus detector_dma/M_AXI_MM2S memory_xbar/S00_AXI
+### rf_bus detector_dma/M_AXI_S2MM memory_xbar/S01_AXI
+### rf_bus memory_xbar/M00_AXI ps7/S_AXI_HP0
+### rf_bus detector_dma/M_AXIS_MM2S detector_0/s_axis
+### rf_bus detector_0/m_axis detector_dma/S_AXIS_S2MM
+### foreach {name value} {constant_zero 0 constant_one 1} {
+###   create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 $name
+###   set_property -dict [list CONFIG.CONST_WIDTH 1 CONFIG.CONST_VAL $value] [get_bd_cells $name]
+### }
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilconstant:1.0 for the IP type xilinx.com:ip:xlconstant:1.1 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlconstant:1.1 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilconstant:1.0 for the IP type xilinx.com:ip:xlconstant:1.1 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlconstant:1.1 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+### create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 reset_50m
+### set_property CONFIG.C_AUX_RESET_HIGH 1 [get_bd_cells reset_50m]
+### rf_net ps7/FCLK_RESET0_N reset_50m/ext_reset_in
+### rf_net constant_one/dout reset_50m/dcm_locked
+### rf_net constant_zero/dout reset_50m/aux_reset_in reset_50m/mb_debug_sys_rst
+### if {$hdmi_demo} {
+###   rf_ip axi_hdmi_clkgen axi_clkgen {CONFIG.CLKIN_PERIOD 20.000 CONFIG.VCO_DIV 1 CONFIG.VCO_MUL 20.000 CONFIG.CLK0_DIV 6.750}
+###   rf_ip axi_hdmi_core axi_hdmi_tx {CONFIG.INTERFACE 16_BIT CONFIG.OUT_CLK_POLARITY 1}
+###   rf_ip axi_hdmi_dma axi_dmac [list CONFIG.DMA_TYPE_SRC 0 CONFIG.DMA_TYPE_DEST 1 \
+###     CONFIG.CYCLIC true CONFIG.AXI_SLICE_SRC 0 CONFIG.AXI_SLICE_DEST 0 \
+###     CONFIG.DMA_2D_TRANSFER true CONFIG.DMA_DATA_WIDTH_SRC 64]
+###   create_bd_cell -type ip -vlnv xilinx.com:ip:axi_iic:2.1 axi_iic_main
+###   rf_ip sys_i2c_mixer util_i2c_mixer
+### 
+###   foreach {direction port} {O hdmi_out_clk O hdmi_vsync O hdmi_hsync O hdmi_data_e} {
+###     create_bd_port -dir $direction $port
+###   }
+###   create_bd_port -dir O -from 15 -to 0 hdmi_data
+###   rf_net axi_hdmi_core/hdmi_out_clk hdmi_out_clk
+###   rf_net axi_hdmi_core/hdmi_16_vsync hdmi_vsync
+###   rf_net axi_hdmi_core/hdmi_16_hsync hdmi_hsync
+###   rf_net axi_hdmi_core/hdmi_16_data_e hdmi_data_e
+###   rf_net axi_hdmi_core/hdmi_16_data hdmi_data
+### 
+###   create_bd_port -dir IO -from 1 -to 0 iic_mux_scl
+###   create_bd_port -dir IO -from 1 -to 0 iic_mux_sda
+###   rf_bus axi_iic_main/IIC sys_i2c_mixer/upstream
+###   foreach {name signal} {iic_mux_scl_iobuf scl iic_mux_sda_iobuf sda} {
+###     create_bd_cell -type module -reference ad_iobuf $name
+###     set_property CONFIG.DATA_WIDTH 2 [get_bd_cells $name]
+###     rf_net sys_i2c_mixer/downstream_${signal}_O $name/dio_i
+###     rf_net sys_i2c_mixer/downstream_${signal}_T $name/dio_t
+###     rf_net $name/dio_o sys_i2c_mixer/downstream_${signal}_I
+###     rf_net $name/dio_p iic_mux_${signal}
+###   }
+### 
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_clkgen/clk
+###   rf_net axi_hdmi_clkgen/clk_0 axi_hdmi_core/reference_clk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_core/vdma_clk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_core/s_axi_aclk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_clkgen/s_axi_aclk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_dma/s_axi_aclk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_dma/m_src_axi_aclk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_dma/m_axis_aclk
+###   rf_net ps7/FCLK_CLK0 axi_iic_main/s_axi_aclk
+###   foreach pin {axi_hdmi_core/s_axi_aresetn axi_hdmi_clkgen/s_axi_aresetn \
+###       axi_hdmi_dma/s_axi_aresetn axi_hdmi_dma/m_src_axi_aresetn \
+###       axi_iic_main/s_axi_aresetn} {
+###     rf_net reset_50m/peripheral_aresetn $pin
+###   }
+###   rf_bus axi_hdmi_dma/m_axis axi_hdmi_core/s_axis
+### }
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+### create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 delay_clock
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+### set_property -dict {CONFIG.PRIM_IN_FREQ 50.000 CONFIG.CLKOUT1_REQUESTED_OUT_FREQ 200.000 \
+###   CONFIG.PRIM_SOURCE No_buffer CONFIG.USE_RESET true CONFIG.RESET_TYPE ACTIVE_LOW} [get_bd_cells delay_clock]
+### rf_net ps7/FCLK_CLK0 delay_clock/clk_in1
+### rf_net ps7/FCLK_RESET0_N delay_clock/resetn
+### set adi_cmos_or_lvds [expr {$is_lvds ? 0 : 1}]
+### rf_ip axi_ad9361 axi_ad9361 [list CONFIG.ID 0 CONFIG.CMOS_OR_LVDS_N $adi_cmos_or_lvds CONFIG.MODE_1R1T 0 \
+###   CONFIG.DELAY_REFCLK_FREQUENCY 200 CONFIG.DAC_DDS_TYPE 1 CONFIG.DAC_DDS_CORDIC_DW 14 \
+###   CONFIG.ADC_INIT_DELAY 0 CONFIG.DAC_IODELAY_ENABLE 0 CONFIG.USE_SSI_CLK [expr {!$is_lvds}]]
+### rf_net delay_clock/clk_out1 axi_ad9361/delay_clk
+### set rf_locked delay_clock/locked
+### if {$is_lvds} {
+###   foreach {direction port} {I rx_clk_in_p I rx_clk_in_n I rx_frame_in_p I rx_frame_in_n O tx_frame_out_p O tx_frame_out_n} {
+###     create_bd_port -dir $direction $port; rf_net $port axi_ad9361/$port
+###   }
+###   foreach {direction port} {I rx_data_in_p I rx_data_in_n O tx_data_out_p O tx_data_out_n} {
+###     create_bd_port -dir $direction -from 5 -to 0 $port; rf_net $port axi_ad9361/$port
+###   }
+###   foreach port {enable txnrx} {create_bd_port -dir O $port; rf_net axi_ad9361/$port $port}
+###   # Center BOTH DDR capture edges in the 16-MHz source-synchronous eye.  This
+###   # is an actual MMCM phase shift, not a relaxed input-delay/hold exception.
+###   # Native ADI USE_SSI_CLK=0 uses .clk for the I/O logic; its unused raw clock
+###   # receiver is optimized away.  Software must keep DATA_CLK at 16 MHz and
+###   # perform native PN training at the current 4-MSPS rate, never sweep rates.
+###   create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 rf_sampling_clock
+###   set_property -dict {CONFIG.PRIM_IN_FREQ 16.000 CONFIG.PRIM_SOURCE Differential_clock_capable_pin \
+###     CONFIG.CLKOUT1_REQUESTED_OUT_FREQ 16.000 CONFIG.CLKOUT1_REQUESTED_PHASE 90.000 \
+###     CONFIG.CLKOUT2_USED true CONFIG.CLKOUT2_REQUESTED_OUT_FREQ 16.000 CONFIG.CLKOUT2_REQUESTED_PHASE 0.000 \
+###     CONFIG.USE_RESET true CONFIG.RESET_TYPE ACTIVE_LOW} [get_bd_cells rf_sampling_clock]
+###   rf_net rx_clk_in_p rf_sampling_clock/clk_in1_p
+###   rf_net rx_clk_in_n rf_sampling_clock/clk_in1_n
+###   rf_net ps7/FCLK_RESET0_N rf_sampling_clock/resetn
+###   rf_net rf_sampling_clock/clk_out1 axi_ad9361/clk
+###   # Forwarded TX clock is deliberately 90 degrees earlier than TX data;
+###   # the original zero-skew ADI clock ODDR is unused/optimized away. Both
+###   # clocks share the same MMCM, and STA must retain their real relationship.
+###   create_bd_cell -type module -reference rf_lvds_forward_clock rf_fb_clock
+###   rf_net rf_sampling_clock/clk_out2 rf_fb_clock/clk
+###   create_bd_port -dir O tx_clk_out_p
+###   create_bd_port -dir O tx_clk_out_n
+###   rf_net rf_fb_clock/tx_clk_p tx_clk_out_p
+###   rf_net rf_fb_clock/tx_clk_n tx_clk_out_n
+###   create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 rf_clock_locks
+###   set_property -dict {CONFIG.C_SIZE 1 CONFIG.C_OPERATION and} [get_bd_cells rf_clock_locks]
+###   rf_net delay_clock/locked rf_clock_locks/Op1
+###   rf_net rf_sampling_clock/locked rf_clock_locks/Op2
+###   set rf_locked rf_clock_locks/Res
+### } else {
+###   rf_net axi_ad9361/l_clk axi_ad9361/clk
+###   foreach {direction port} {I rx_clk_in I rx_frame_in O tx_clk_out O tx_frame_out} {
+###     create_bd_port -dir $direction $port; rf_net $port axi_ad9361/$port
+###   }
+###   foreach {direction port} {I rx_data_in O tx_data_out} {
+###     create_bd_port -dir $direction -from 11 -to 0 $port; rf_net $port axi_ad9361/$port
+###   }
+###   foreach port {enable txnrx} {create_bd_port -dir O $port; rf_net axi_ad9361/$port $port}
+### }
+WARNING: [BD 41-1306] The connection to interface pin </rf_sampling_clock/clk_in1_p> is being overridden by the user with net </rx_clk_in_p_1>. This pin will not be connected as a part of interface connection <CLK_IN1_D>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+WARNING: [BD 41-1306] The connection to interface pin </rf_sampling_clock/clk_in1_n> is being overridden by the user with net </rx_clk_in_n_1>. This pin will not be connected as a part of interface connection <CLK_IN1_D>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'tx_clk_n' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'tx_clk_p' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+WARNING: [IP_Flow 19-5661] Bus Interface 'clk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'clk' has no FREQ_HZ parameter.
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'tx_clk_n': FREQ_HZ bus parameter is missing for output clock interface.
+CRITICAL WARNING: [IP_Flow 19-4751] Bus Interface 'tx_clk_p': FREQ_HZ bus parameter is missing for output clock interface.
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilvector_logic:1.0 for the IP type xilinx.com:ip:util_vector_logic:2.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:util_vector_logic:2.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+### rf_net constant_zero/dout axi_ad9361/tdd_sync
+### set sample_clk_cell rf_static_clkdiv
+### if {$is_lvds} {set sample_clk_cell rf_static_clkdiv4}
+### create_bd_cell -type module -reference $sample_clk_cell $sample_clk_cell
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+WARNING: [IP_Flow 19-5661] Bus Interface 'clk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'clk' has no FREQ_HZ parameter.
+### rf_net axi_ad9361/l_clk ${sample_clk_cell}/clk
+### set rf_stream_clk ${sample_clk_cell}/clk_out
+### if {$is_lvds} {set rf_stream_clk ps7/FCLK_CLK0}
+### rf_reset reset_rf $rf_stream_clk ps7/FCLK_RESET0_N $rf_locked constant_zero/dout
+### create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 reset_rf_lclk
+### set_property -dict {CONFIG.C_EXT_RESET_HIGH 1 CONFIG.C_AUX_RESET_HIGH 1} [get_bd_cells reset_rf_lclk]
+CRITICAL WARNING: [BD 41-737] Cannot set the parameter C_EXT_RESET_HIGH on /reset_rf_lclk. It is read-only.
+### rf_net axi_ad9361/l_clk reset_rf_lclk/slowest_sync_clk
+### rf_net axi_ad9361/rst reset_rf_lclk/ext_reset_in
+### rf_net $rf_locked reset_rf_lclk/dcm_locked
+### rf_net constant_zero/dout reset_rf_lclk/aux_reset_in reset_rf_lclk/mb_debug_sys_rst
+### rf_ip rf_rx_fifo util_wfifo {CONFIG.NUM_OF_CHANNELS 4 CONFIG.DIN_ADDRESS_WIDTH 4 CONFIG.DIN_DATA_WIDTH 16 CONFIG.DOUT_DATA_WIDTH 16}
+### rf_ip rf_rx_pack util_cpack2 {CONFIG.NUM_OF_CHANNELS 4 CONFIG.SAMPLE_DATA_WIDTH 16 CONFIG.INTERFACE_TYPE 1}
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: packed_fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: packed_fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+### rf_ip rf_rx_dmac axi_dmac [list CONFIG.DMA_TYPE_SRC [expr {$buffered_rx ? 1 : 2}] CONFIG.DMA_TYPE_DEST 0 CONFIG.CYCLIC $rx_cyclic CONFIG.SYNC_TRANSFER_START 1 CONFIG.AXIS_TUSER_SYNC 0 CONFIG.AXI_SLICE_SRC 0 CONFIG.AXI_SLICE_DEST 0 CONFIG.DMA_2D_TRANSFER 0 CONFIG.DMA_SG_TRANSFER 1 CONFIG.DMA_DATA_WIDTH_SRC 64 CONFIG.DMA_DATA_WIDTH_SG 64 CONFIG.CACHE_COHERENT 0 CONFIG.DMA_AXI_ADDR_WIDTH 32]
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+### rf_net axi_ad9361/l_clk rf_rx_fifo/din_clk
+### rf_net reset_rf_lclk/peripheral_reset rf_rx_fifo/din_rst
+### rf_net $rf_stream_clk rf_rx_fifo/dout_clk rf_rx_pack/clk
+### if {$buffered_rx} {
+###   create_bd_cell -type module -reference rf_rx_elastic_fifo rf_rx_elastic_buffer
+###   rf_net $rf_stream_clk rf_rx_elastic_buffer/clk rf_rx_dmac/s_axis_aclk
+###   rf_net reset_rf/peripheral_aresetn rf_rx_elastic_buffer/resetn
+###   rf_net rf_rx_pack/packed_fifo_wr_data rf_rx_elastic_buffer/packed_fifo_wr_data
+###   rf_net rf_rx_elastic_buffer/packed_fifo_wr_overflow rf_rx_pack/packed_fifo_wr_overflow
+###   # packed_sync is a *word alignment* signal (high on every full four-lane
+###   # sample), not a capture boundary.  Flush only while Linux disables this
+###   # DMAC via CTRL.ENABLE, preserving leftovers across short descriptors.
+###   create_bd_cell -type module -reference rf_rx_dma_enable_monitor rf_rx_dma_enable_monitor
+###   rf_net $rf_stream_clk rf_rx_dma_enable_monitor/clk
+###   # Mirror the DMAC control plane's reset, not the RF MMCM lock reset. If
+###   # lock drops, FIFO data are discarded but the observed CTRL bit must not
+###   # silently diverge from the DMAC register. Software abort/restart is still
+###   # mandatory after a clock interruption; this is not a DMA-idle handshake.
+###   rf_net reset_50m/peripheral_aresetn rf_rx_dma_enable_monitor/resetn
+###   # The read-only AXI_MON interface joins the entire existing AXI-Lite net
+###   # below. Scalar input-to-input taps would override/disconnect the slave's
+###   # constituent write-channel pins in IP Integrator.
+###   rf_net rf_rx_dma_enable_monitor/flush_sync rf_rx_elastic_buffer/flush_sync
+###   create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 rf_rx_capture_write_gate
+###   set_property -dict {CONFIG.C_OPERATION and CONFIG.C_SIZE 1} [get_bd_cells rf_rx_capture_write_gate]
+###   # Continuous disabled flush intentionally retains *no* old sample. The
+###   # FIFO's standalone single-cycle flush may accept a coincident new word;
+###   # gating ingress here makes CTRL.ENABLE the precise capture-window boundary.
+###   rf_net rf_rx_pack/packed_fifo_wr_en rf_rx_capture_write_gate/Op1
+###   rf_net rf_rx_dma_enable_monitor/dma_enabled rf_rx_capture_write_gate/Op2
+###   rf_net rf_rx_capture_write_gate/Res rf_rx_elastic_buffer/packed_fifo_wr_en
+###   rf_bus rf_rx_elastic_buffer/M_AXIS rf_rx_dmac/s_axis
+### } else {
+###   rf_net $rf_stream_clk rf_rx_dmac/fifo_wr_clk
+###   rf_bus rf_rx_pack/packed_fifo_wr rf_rx_dmac/fifo_wr
+### }
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'resetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'resetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'M_AXIS'.
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'ASSOCIATED_RESET' with value 'resetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'resetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'M_AXIS': Added interface parameter 'TDATA_NUM_BYTES' with value '8'.
+INFO: [IP_Flow 19-4728] Bus Interface 'M_AXIS': Added interface parameter 'HAS_TKEEP' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'M_AXIS': Added interface parameter 'HAS_TLAST' with value '1'.
+INFO: [IP_Flow 19-7067] Note that bus interface 'clk' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+WARNING: [BD 41-1306] The connection to interface pin </rf_rx_pack/packed_fifo_wr_data> is being overridden by the user with net <rf_rx_pack_packed_fifo_wr_data>. This pin will not be connected as a part of interface connection <packed_fifo_wr>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+WARNING: [BD 41-1306] The connection to interface pin </rf_rx_pack/packed_fifo_wr_overflow> is being overridden by the user with net <rf_rx_elastic_buffer_packed_fifo_wr_overflow>. This pin will not be connected as a part of interface connection <packed_fifo_wr>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'resetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'resetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'AXI_MON' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'AXI_MON' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'AXI_MON'.
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'ASSOCIATED_RESET' with value 'resetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'resetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'AXI_MON': Added interface parameter 'PROTOCOL' with value 'AXI4LITE'.
+INFO: [IP_Flow 19-4728] Bus Interface 'AXI_MON': Added interface parameter 'ADDR_WIDTH' with value '32'.
+INFO: [IP_Flow 19-4728] Bus Interface 'AXI_MON': Added interface parameter 'DATA_WIDTH' with value '32'.
+INFO: [IP_Flow 19-7067] Note that bus interface 'clk' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilvector_logic:1.0 for the IP type xilinx.com:ip:util_vector_logic:2.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:util_vector_logic:2.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+WARNING: [BD 41-1306] The connection to interface pin </rf_rx_pack/packed_fifo_wr_en> is being overridden by the user with net <rf_rx_pack_packed_fifo_wr_en>. This pin will not be connected as a part of interface connection <packed_fifo_wr>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+### if {$rf_rx_health_enabled} {
+###   if {!$buffered_rx} {error "RX health monitor requires buffered LVDS RX"}
+###   rf_rx_health_integrate 0x44A10000
+### }
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+WARNING: [IP_Flow 19-3374] An attempt to modify the value of disabled parameter 'AXIS_TUSER_SYNC' from 'true' to '0' has been ignored for IP 'rf_rx_transport_dmac'
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 's_axi'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'ASSOCIATED_RESET' with value 'aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aclk': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'PROTOCOL' with value 'AXI4LITE'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'DATA_WIDTH' with value '32'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'ADDR_WIDTH' with value '6'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_BURST' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_LOCK' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_CACHE' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_REGION' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi': Added interface parameter 'HAS_QOS' with value '0'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'TDATA_NUM_BYTES' with value '8'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'HAS_TKEEP' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'HAS_TLAST' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'HAS_TREADY' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axis': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'TDATA_NUM_BYTES' with value '8'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'HAS_TKEEP' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'HAS_TLAST' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'HAS_TREADY' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'm_axis': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-7067] Note that bus interface 'aclk' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-7067] Note that bus interface 's_axi' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-7067] Note that bus interface 's_axis' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-7067] Note that bus interface 'm_axis' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+RXTH_TRANSPORT_FIFO_HEADROOM_PASS depth=2048 addr_width=11
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'resetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'resetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'M_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'S_AXIS'.
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'ASSOCIATED_RESET' with value 'resetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 'resetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'TDATA_NUM_BYTES' with value '8'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'HAS_TKEEP' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'HAS_TLAST' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'HAS_TREADY' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'M_AXIS': Added interface parameter 'TDATA_NUM_BYTES' with value '8'.
+INFO: [IP_Flow 19-4728] Bus Interface 'M_AXIS': Added interface parameter 'HAS_TKEEP' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'M_AXIS': Added interface parameter 'HAS_TLAST' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'M_AXIS': Added interface parameter 'HAS_TREADY' with value '1'.
+INFO: [IP_Flow 19-7067] Note that bus interface 'clk' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'src_resetn' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'src_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'src_resetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'src_clk': Added interface parameter 'ASSOCIATED_RESET' with value 'src_resetn'.
+WARNING: [IP_Flow 19-5661] Bus Interface 'src_clk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'src_clk' has no FREQ_HZ parameter.
+INFO: [IP_Flow 19-1976] HDL Parser: Replacing 'RECORD_WIDTH' by 176 for port or parameter 'din'
+INFO: [IP_Flow 19-1976] HDL Parser: Replacing 'RECORD_WIDTH' by 176 for port or parameter 'dout'
+INFO: [IP_Flow 19-5107] Inferred bus interface 'transport_reset' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'dst_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'src_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+WARNING: [IP_Flow 19-5661] Bus Interface 'dst_clk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'dst_clk' has no FREQ_HZ parameter.
+WARNING: [IP_Flow 19-5661] Bus Interface 'src_clk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'src_clk' has no FREQ_HZ parameter.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'captured_flags' has a dependency on the module local parameter or undefined parameter 'FLAG_META_SEQUENCE_MISMATCH'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'collect_uses_input' has a dependency on the module local parameter or undefined parameter 'ST_COLLECT'.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'm_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axis' of definition 'xilinx.com:interface:axis:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'resetn' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'resetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'm_axis'.
+INFO: [IP_Flow 19-4728] Bus Interface 'clk': Added interface parameter 'ASSOCIATED_RESET' with value 'resetn'.
+WARNING: [IP_Flow 19-11770] Clock interface 'clk' has no FREQ_HZ parameter.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'dst_reset' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'src_reset' of definition 'xilinx.com:signal:reset:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'dst_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'src_clk' of definition 'xilinx.com:signal:clock:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'dst_clk': Added interface parameter 'ASSOCIATED_RESET' with value 'dst_reset'.
+INFO: [IP_Flow 19-4728] Bus Interface 'src_clk': Added interface parameter 'ASSOCIATED_RESET' with value 'src_reset'.
+WARNING: [IP_Flow 19-5661] Bus Interface 'dst_clk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'dst_clk' has no FREQ_HZ parameter.
+WARNING: [IP_Flow 19-5661] Bus Interface 'src_clk' does not have any bus interfaces associated with it.
+WARNING: [IP_Flow 19-11770] Clock interface 'src_clk' has no FREQ_HZ parameter.
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilvector_logic:1.0 for the IP type xilinx.com:ip:util_vector_logic:2.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:util_vector_logic:2.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilvector_logic:1.0 for the IP type xilinx.com:ip:util_vector_logic:2.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:util_vector_logic:2.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilvector_logic:1.0 for the IP type xilinx.com:ip:util_vector_logic:2.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:util_vector_logic:2.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilvector_logic:1.0 for the IP type xilinx.com:ip:util_vector_logic:2.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:util_vector_logic:2.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+Slave segment '/rf_rx_transport_dmac/s_axi/axi_lite' is being assigned into address space '/ps7/Data' at <0x7C44_0000 [ 64K ]>.
+Slave segment '/mimo_interleaved_candidate_0/s_axi/reg0' is being assigned into address space '/ps7/Data' at <0x7C43_0000 [ 64K ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/rf_rx_transport_dmac/m_dest_axi' at <0x0000_0000 [ 512M ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/rf_rx_transport_dmac/m_sg_axi' at <0x0000_0000 [ 512M ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/interleaved_candidate_dma/Data_MM2S' at <0x0000_0000 [ 512M ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/interleaved_candidate_dma/Data_S2MM' at <0x0000_0000 [ 512M ]>.
+### rf_net reset_rf/peripheral_aresetn rf_rx_fifo/dout_rstn
+### rf_net reset_rf/peripheral_reset rf_rx_pack/reset
+### foreach {i channel} {0 i0 1 q0 2 i1 3 q1} {
+###   foreach field {enable valid data} {rf_net axi_ad9361/adc_${field}_$channel rf_rx_fifo/din_${field}_$i}
+###   rf_net rf_rx_fifo/dout_enable_$i rf_rx_pack/enable_$i
+###   rf_net rf_rx_fifo/dout_data_$i rf_rx_pack/fifo_wr_data_$i
+### }
+### rf_net rf_rx_fifo/din_ovf axi_ad9361/adc_dovf
+### if {$rf_rx_health_enabled} {
+###   # The health hook was intentionally inserted before lane wiring so its AXIS
+###   # endpoints could be checked.  Now that the AD9361 l_clk-domain overflow net
+###   # exists, prove it did not acquire a monitor connection.
+###   rf_rx_health_assert_no_adc_dovf_connection
+### }
+### rf_net rf_rx_fifo/dout_valid_0 rf_rx_pack/fifo_wr_en
+### rf_net rf_rx_pack/fifo_wr_overflow rf_rx_fifo/dout_ovf
+### rf_net rf_rx_pack/packed_sync rf_rx_dmac/sync
+### rf_ip rf_tx_fifo util_rfifo {CONFIG.NUM_OF_CHANNELS 4 CONFIG.DIN_ADDRESS_WIDTH 4 CONFIG.DIN_DATA_WIDTH 16 CONFIG.DOUT_DATA_WIDTH 16}
+### rf_ip rf_tx_unpack util_upack2 {CONFIG.NUM_OF_CHANNELS 4 CONFIG.SAMPLE_DATA_WIDTH 16}
+### rf_ip rf_tx_dmac axi_dmac {CONFIG.DMA_TYPE_SRC 0 CONFIG.DMA_TYPE_DEST 1 CONFIG.CYCLIC 1 CONFIG.AXI_SLICE_SRC 0 CONFIG.AXI_SLICE_DEST 0 CONFIG.DMA_2D_TRANSFER 0 CONFIG.DMA_SG_TRANSFER 1 CONFIG.DMA_DATA_WIDTH_DEST 64 CONFIG.DMA_DATA_WIDTH_SG 64 CONFIG.CACHE_COHERENT 0 CONFIG.DMA_AXI_ADDR_WIDTH 32}
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+### rf_net axi_ad9361/l_clk rf_tx_fifo/dout_clk
+### rf_net reset_rf_lclk/peripheral_reset rf_tx_fifo/dout_rst
+### rf_net $rf_stream_clk rf_tx_fifo/din_clk rf_tx_unpack/clk rf_tx_dmac/m_axis_aclk
+### rf_net reset_rf/peripheral_aresetn rf_tx_fifo/din_rstn
+### rf_net reset_rf/peripheral_reset rf_tx_unpack/reset
+### foreach {i channel} {0 i0 1 q0 2 i1 3 q1} {
+###   foreach field {enable valid data} {rf_net axi_ad9361/dac_${field}_$channel rf_tx_fifo/dout_${field}_$i}
+###   rf_net rf_tx_unpack/enable_$i rf_tx_fifo/din_enable_$i
+###   rf_net rf_tx_unpack/fifo_rd_valid rf_tx_fifo/din_valid_in_$i
+###   rf_net rf_tx_unpack/fifo_rd_data_$i rf_tx_fifo/din_data_$i
+### }
+### rf_net rf_tx_fifo/dout_unf axi_ad9361/dac_dunf
+### rf_net rf_tx_unpack/fifo_rd_en rf_tx_fifo/din_valid_0
+### rf_net rf_tx_unpack/fifo_rd_underflow rf_tx_fifo/din_unf
+### rf_bus rf_tx_dmac/m_axis rf_tx_unpack/s_axis
+### if {$is_lvds} {
+###   foreach dmac {rf_rx_dmac rf_tx_dmac} {
+###     set_property -dict {CONFIG.ASYNC_CLK_REQ_SRC false CONFIG.ASYNC_CLK_SRC_DEST false \
+###       CONFIG.ASYNC_CLK_DEST_REQ false CONFIG.ASYNC_CLK_REQ_SG false \
+###       CONFIG.ASYNC_CLK_SRC_SG false CONFIG.ASYNC_CLK_DEST_SG false} [get_bd_cells $dmac]
+###   }
+### }
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+### create_bd_cell -type ip -vlnv xilinx.com:ip:axi_quad_spi:3.2 rf_spi
+### set_property -dict {CONFIG.C_USE_STARTUP 0 CONFIG.C_NUM_SS_BITS 1 CONFIG.C_SPI_MODE 0 CONFIG.C_SPI_MEMORY 0 CONFIG.C_NUM_TRANSFER_BITS 8 CONFIG.C_SCK_RATIO 16} [get_bd_cells rf_spi]
+### foreach {name direction pin} {spi_clk O sck_o spi_mosi O io0_o spi_miso I io1_i spi_csn O ss_o} {
+###   create_bd_port -dir $direction $name
+###   rf_net $name rf_spi/$pin
+### }
+WARNING: [BD 41-1306] The connection to interface pin </rf_spi/sck_o> is being overridden by the user with net <rf_spi_sck_o>. This pin will not be connected as a part of interface connection <SPI_0>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+WARNING: [BD 41-1306] The connection to interface pin </rf_spi/io0_o> is being overridden by the user with net <rf_spi_io0_o>. This pin will not be connected as a part of interface connection <SPI_0>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+WARNING: [BD 41-1306] The connection to interface pin </rf_spi/io1_i> is being overridden by the user with net <spi_miso_1>. This pin will not be connected as a part of interface connection <SPI_0>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+WARNING: [BD 41-1306] The connection to interface pin </rf_spi/ss_o> is being overridden by the user with net <rf_spi_ss_o>. This pin will not be connected as a part of interface connection <SPI_0>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+### rf_net constant_zero/dout rf_spi/sck_i rf_spi/io0_i
+WARNING: [BD 41-1306] The connection to interface pin </rf_spi/sck_i> is being overridden by the user with net </constant_zero_dout>. This pin will not be connected as a part of interface connection <SPI_0>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+WARNING: [BD 41-1306] The connection to interface pin </rf_spi/io0_i> is being overridden by the user with net </constant_zero_dout>. This pin will not be connected as a part of interface connection <SPI_0>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+### rf_net constant_one/dout rf_spi/ss_i
+WARNING: [BD 41-1306] The connection to interface pin </rf_spi/ss_i> is being overridden by the user with net </constant_one_dout>. This pin will not be connected as a part of interface connection <SPI_0>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+### rf_net ps7/FCLK_CLK0 rf_spi/ext_spi_clk
+### create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 rf_gpio
+### set_property -dict {CONFIG.C_GPIO_WIDTH 9 CONFIG.C_ALL_OUTPUTS 1 CONFIG.C_IS_DUAL 1 CONFIG.C_GPIO2_WIDTH 8 CONFIG.C_ALL_INPUTS_2 1 CONFIG.C_DOUT_DEFAULT 0x00000000 CONFIG.C_INTERRUPT_PRESENT 0} [get_bd_cells rf_gpio]
+### foreach {i dest external} {0 gpio_resetb 1 1 gpio_en_agc 1 2 gpio_sync 1 3 axi_ad9361/up_enable 0 4 axi_ad9361/up_txnrx 0} {
+###   create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 gpio_bit$i
+###   set_property -dict [list CONFIG.DIN_WIDTH 9 CONFIG.DIN_FROM $i CONFIG.DIN_TO $i CONFIG.DOUT_WIDTH 1] [get_bd_cells gpio_bit$i]
+###   rf_net rf_gpio/gpio_io_o gpio_bit$i/Din
+###   if {$external} {create_bd_port -dir O $dest}
+###   rf_net gpio_bit$i/Dout $dest
+### }
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+WARNING: [BD 41-1306] The connection to interface pin </rf_gpio/gpio_io_o> is being overridden by the user with net <rf_gpio_gpio_io_o>. This pin will not be connected as a part of interface connection <GPIO>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+### create_bd_port -dir O -from 3 -to 0 gpio_ctl
+### create_bd_port -dir I -from 7 -to 0 gpio_status
+### rf_net gpio_status rf_gpio/gpio2_io_i
+WARNING: [BD 41-1306] The connection to interface pin </rf_gpio/gpio2_io_i> is being overridden by the user with net <gpio_status_1>. This pin will not be connected as a part of interface connection <GPIO2>, and might not recreate the connectivity as expected using the writ_bd_tcl command.
+### create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 gpio_ctl_concat
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilconcat:1.0 for the IP type xilinx.com:ip:xlconcat:2.1 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlconcat:2.1 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+### set_property CONFIG.NUM_PORTS 4 [get_bd_cells gpio_ctl_concat]
+### foreach {i bit} {5 0 6 1 7 2 8 3} {
+###   create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 gpio_ctl_bit$bit
+###   set_property -dict [list CONFIG.DIN_WIDTH 9 CONFIG.DIN_FROM $i CONFIG.DIN_TO $i CONFIG.DOUT_WIDTH 1] [get_bd_cells gpio_ctl_bit$bit]
+###   rf_net rf_gpio/gpio_io_o gpio_ctl_bit$bit/Din
+###   rf_net gpio_ctl_bit$bit/Dout gpio_ctl_concat/In$bit
+### }
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilslice:1.0 for the IP type xilinx.com:ip:xlslice:1.0 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlslice:1.0 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+### rf_net gpio_ctl_concat/dout gpio_ctl
+### set clocks [list ps7/M_AXI_GP0_ACLK ps7/S_AXI_HP0_ACLK control_xbar/ACLK control_xbar/S00_ACLK \
+###   control_xbar/M00_ACLK control_xbar/M01_ACLK control_xbar/M02_ACLK control_xbar/M03_ACLK control_xbar/M04_ACLK control_xbar/M05_ACLK control_xbar/M06_ACLK \
+###   memory_xbar/aclk \
+###   reset_50m/slowest_sync_clk detector_0/aclk detector_dma/s_axi_lite_aclk detector_dma/m_axi_mm2s_aclk detector_dma/m_axi_s2mm_aclk \
+###   axi_ad9361/s_axi_aclk rf_rx_dmac/s_axi_aclk rf_rx_dmac/m_dest_axi_aclk rf_rx_dmac/m_sg_axi_aclk rf_tx_dmac/s_axi_aclk rf_tx_dmac/m_src_axi_aclk rf_tx_dmac/m_sg_axi_aclk rf_spi/s_axi_aclk rf_gpio/s_axi_aclk]
+### foreach pin $clocks {rf_net ps7/FCLK_CLK0 $pin}
+### set resets [list control_xbar/ARESETN control_xbar/S00_ARESETN control_xbar/M00_ARESETN control_xbar/M01_ARESETN control_xbar/M02_ARESETN control_xbar/M03_ARESETN control_xbar/M04_ARESETN control_xbar/M05_ARESETN control_xbar/M06_ARESETN \
+###   memory_xbar/aresetn \
+###   detector_0/aresetn detector_dma/axi_resetn axi_ad9361/s_axi_aresetn rf_rx_dmac/s_axi_aresetn rf_rx_dmac/m_dest_axi_aresetn rf_rx_dmac/m_sg_axi_aresetn rf_tx_dmac/s_axi_aresetn rf_tx_dmac/m_src_axi_aresetn rf_tx_dmac/m_sg_axi_aresetn rf_spi/s_axi_aresetn rf_gpio/s_axi_aresetn]
+### foreach pin $resets {rf_net reset_50m/peripheral_aresetn $pin}
+### if {$rf_rxth_diag_enabled} {
+###   # M10 belongs to the separately selected RX9 observer, but its interconnect
+###   # clock/reset must be valid during the base graph's first validation (which
+###   # precedes RX9 cell creation to avoid tying observer inputs to zero).
+###   rf_net ps7/FCLK_CLK0 control_xbar/M10_ACLK
+###   rf_net reset_50m/peripheral_aresetn control_xbar/M10_ARESETN
+### }
+### if {$hdmi_demo} {
+###   foreach pin {control_xbar/M07_ACLK control_xbar/M08_ACLK \
+###       control_xbar/M09_ACLK control_xbar/M10_ACLK} {
+###     rf_net ps7/FCLK_CLK0 $pin
+###   }
+###   foreach pin {control_xbar/M07_ARESETN control_xbar/M08_ARESETN \
+###       control_xbar/M09_ARESETN control_xbar/M10_ARESETN} {
+###     rf_net reset_50m/peripheral_aresetn $pin
+###   }
+###   foreach {mi bus} {M07_AXI axi_hdmi_clkgen/s_axi M08_AXI axi_hdmi_dma/s_axi \
+###       M09_AXI axi_hdmi_core/s_axi M10_AXI axi_iic_main/S_AXI} {
+###     rf_bus control_xbar/$mi $bus
+###   }
+### }
+### foreach {mi bus} {M02_AXI axi_ad9361/s_axi M04_AXI rf_tx_dmac/s_axi M05_AXI rf_spi/AXI_LITE M06_AXI rf_gpio/S_AXI} {rf_bus control_xbar/$mi $bus}
+### if {$buffered_rx} {
+###   rf_bus control_xbar/M03_AXI rf_rx_dmac/s_axi
+###   set rx_control_net [get_bd_intf_nets -of_objects [get_bd_intf_pins control_xbar/M03_AXI]]
+###   if {[llength $rx_control_net] != 1} {error "RX DMAC control interface net is not unique"}
+###   connect_bd_intf_net -intf_net $rx_control_net [get_bd_intf_pins control_xbar/M03_AXI] \
+###     [get_bd_intf_pins rf_rx_dma_enable_monitor/AXI_MON]
+### } else {
+###   rf_bus control_xbar/M03_AXI rf_rx_dmac/s_axi
+### }
+### foreach {si bus} {S02_AXI rf_rx_dmac/m_dest_axi S03_AXI rf_rx_dmac/m_sg_axi S04_AXI rf_tx_dmac/m_src_axi S05_AXI rf_tx_dmac/m_sg_axi} {rf_bus $bus memory_xbar/$si}
+### if {$hdmi_demo} {rf_bus axi_hdmi_dma/m_src_axi memory_xbar/S06_AXI}
+### create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 interrupt_concat
+INFO: [BD 5-1043] It is recommended to use inline hdl version xilinx.com:inline_hdl:ilconcat:1.0 for the IP type xilinx.com:ip:xlconcat:2.1 for improved performance and reduced disk space. IPs with VLNV xilinx.com:ip:xlconcat:2.1 will not be supported from release 2025.2. More information on inline hdl IP is available in UG994 
+### set_property CONFIG.NUM_PORTS 16 [get_bd_cells interrupt_concat]
+### foreach {source dest} {detector_0/irq In0 detector_dma/mm2s_introut In1 detector_dma/s2mm_introut In2 rf_rx_dmac/irq In3 rf_tx_dmac/irq In4 rf_spi/ip2intc_irpt In5} {rf_net $source interrupt_concat/$dest}
+### set first_free_irq 6
+### if {$hdmi_demo} {
+###   foreach {source dest} {axi_hdmi_dma/irq In6 axi_iic_main/iic2intc_irpt In7} {
+###     rf_net $source interrupt_concat/$dest
+###   }
+###   set first_free_irq 8
+### }
+### if {!$hdmi_demo && $rf_rx_health_enabled} {
+###   rf_net constant_zero/dout interrupt_concat/In6
+###   rf_net constant_zero/dout interrupt_concat/In7
+###   set first_free_irq 8
+### }
+### if {$rf_rx_health_enabled && [llength [info procs rf_rx_health_irq_extend]]} {
+###   set first_free_irq [rf_rx_health_irq_extend interrupt_concat $first_free_irq]
+### }
+### for {set index $first_free_irq} {$index < 16} {incr index} {rf_net constant_zero/dout interrupt_concat/In$index}
+### rf_net interrupt_concat/dout ps7/IRQ_F2P
+### set cpu_space [get_bd_addr_spaces ps7/Data]
+### foreach {offset bus} {0x43C00000 detector_0/s_axi 0x40400000 detector_dma/S_AXI_LITE 0x79020000 axi_ad9361/s_axi 0x7C400000 rf_rx_dmac/s_axi 0x7C420000 rf_tx_dmac/s_axi 0x44A00000 rf_spi/AXI_LITE 0x41200000 rf_gpio/S_AXI} {
+###   set seg [get_bd_addr_segs -of_objects [get_bd_intf_pins $bus]]
+###   if {[llength $seg] != 1} {error "Expected exactly one register segment for $bus, got $seg"}
+###   assign_bd_address -target_address_space $cpu_space -offset $offset -range 64K $seg
+### }
+Slave segment '/detector_0/s_axi/reg0' is being assigned into address space '/ps7/Data' at <0x43C0_0000 [ 64K ]>.
+Slave segment '/detector_dma/S_AXI_LITE/Reg' is being assigned into address space '/ps7/Data' at <0x4040_0000 [ 64K ]>.
+Slave segment '/axi_ad9361/s_axi/axi_lite' is being assigned into address space '/ps7/Data' at <0x7902_0000 [ 64K ]>.
+Slave segment '/rf_rx_dmac/s_axi/axi_lite' is being assigned into address space '/ps7/Data' at <0x7C40_0000 [ 64K ]>.
+Slave segment '/rf_tx_dmac/s_axi/axi_lite' is being assigned into address space '/ps7/Data' at <0x7C42_0000 [ 64K ]>.
+Slave segment '/rf_spi/AXI_LITE/Reg' is being assigned into address space '/ps7/Data' at <0x44A0_0000 [ 64K ]>.
+Slave segment '/rf_gpio/S_AXI/Reg' is being assigned into address space '/ps7/Data' at <0x4120_0000 [ 64K ]>.
+### if {$hdmi_demo} {
+###   foreach {offset bus} {0x79000000 axi_hdmi_clkgen/s_axi 0x43000000 axi_hdmi_dma/s_axi \
+###       0x70E00000 axi_hdmi_core/s_axi 0x41600000 axi_iic_main/S_AXI} {
+###     set seg [get_bd_addr_segs -of_objects [get_bd_intf_pins $bus]]
+###     if {[llength $seg] != 1} {error "Expected exactly one HDMI register segment for $bus, got $seg"}
+###     assign_bd_address -target_address_space $cpu_space -offset $offset -range 64K $seg
+###   }
+### }
+Slave segment '/axi_hdmi_clkgen/s_axi/axi_lite' is being assigned into address space '/ps7/Data' at <0x7900_0000 [ 64K ]>.
+Slave segment '/axi_hdmi_dma/s_axi/axi_lite' is being assigned into address space '/ps7/Data' at <0x4300_0000 [ 64K ]>.
+Slave segment '/axi_hdmi_core/s_axi/axi_lite' is being assigned into address space '/ps7/Data' at <0x70E0_0000 [ 64K ]>.
+Slave segment '/axi_iic_main/S_AXI/Reg' is being assigned into address space '/ps7/Data' at <0x4160_0000 [ 64K ]>.
+### foreach space {detector_dma/Data_MM2S detector_dma/Data_S2MM rf_rx_dmac/m_dest_axi rf_rx_dmac/m_sg_axi rf_tx_dmac/m_src_axi rf_tx_dmac/m_sg_axi} {
+###   assign_bd_address -target_address_space [get_bd_addr_spaces $space] -offset 0 -range 512M [get_bd_addr_segs ps7/S_AXI_HP0/HP0_DDR_LOWOCM]
+### }
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/detector_dma/Data_MM2S' at <0x0000_0000 [ 512M ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/detector_dma/Data_S2MM' at <0x0000_0000 [ 512M ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/rf_rx_dmac/m_dest_axi' at <0x0000_0000 [ 512M ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/rf_rx_dmac/m_sg_axi' at <0x0000_0000 [ 512M ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/rf_tx_dmac/m_src_axi' at <0x0000_0000 [ 512M ]>.
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/rf_tx_dmac/m_sg_axi' at <0x0000_0000 [ 512M ]>.
+### if {$hdmi_demo} {
+###   assign_bd_address -target_address_space [get_bd_addr_spaces axi_hdmi_dma/m_src_axi] -offset 0 -range 512M [get_bd_addr_segs ps7/S_AXI_HP0/HP0_DDR_LOWOCM]
+### }
+Slave segment '/ps7/S_AXI_HP0/HP0_DDR_LOWOCM' is being assigned into address space '/axi_hdmi_dma/m_src_axi' at <0x0000_0000 [ 512M ]>.
+### validate_bd_design
+CRITICAL WARNING: [BD 41-1356] Slave segment </interleaved_candidate_dma/S_AXI_LITE/Reg> is not assigned into address space </ps7/Data>. Please use Address Editor to either assign or exclude it.
+WARNING: [BD 5-699] No address segments matched 'get_bd_addr_segs -addressing -of_objects /interleaved_candidate_dma/S_AXI_LITE'
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+clk_domain: zedboard_rf_system_ps7_0_FCLK_CLK0, clk_domain_1: zedboard_rf_system_delay_clock_0_clk_out1, clkDomainValSrc_1: DEFAULT, clk_domain_ctrl: 0
+clk_domain: zedboard_rf_system_ps7_0_FCLK_CLK0, clk_domain_1: zedboard_rf_system_ps7_0_FCLK_CLK0, clkDomainValSrc_1: PROPAGATED, clk_domain_ctrl: 0
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_rx_dmac' with propagated value(29). Command ignored
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_rx_transport_dmac' with propagated value(29). Command ignored
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_tx_dmac' with propagated value(29). Command ignored
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S00_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S01_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S02_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S03_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S04_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S05_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S06_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S07_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S08_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S09_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S10_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [xilinx.com:ip:smartconnect:1.0-1] zedboard_rf_system_memory_xbar_0: SmartConnect zedboard_rf_system_memory_xbar_0 is in High-performance Mode.
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /delay_clock clk_wiz propagate
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /rf_sampling_clock clk_wiz propagate
+INFO: [xilinx.com:ip:util_vector_logic:2.0-10] /rf_rx_transport_framer_owner_reset IP set output pin Res type to "rst" when Input pin Op1 type is "rst" and Input pin Op2 type is "undef".
+INFO: [xilinx.com:ip:axi_quad_spi:3.2-1] /rf_spi 
+                   #######################################################################################
+                   INFO: AXI Quad SPI core's AXI Lite Clock and EXT SPI CLK are synchronous to each other.
+                   ########################################################################################
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+validate_bd_design: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 2222.418 ; gain = 184.938 ; free physical = 848 ; free virtual = 6913
+### if {$rf_rx_health_enabled && [llength [info procs rf_rx_health_address_finalize]]} {
+###   rf_rx_health_address_finalize
+###   validate_bd_design
+### }
+Slave segment '/interleaved_candidate_dma/S_AXI_LITE/Reg' is being assigned into address space '/ps7/Data' at <0x4042_0000 [ 64K ]>.
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+clk_domain: zedboard_rf_system_ps7_0_FCLK_CLK0, clk_domain_1: zedboard_rf_system_ps7_0_FCLK_CLK0, clkDomainValSrc_1: PROPAGATED, clk_domain_ctrl: 0
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_rx_dmac' with propagated value(29). Command ignored
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_rx_transport_dmac' with propagated value(29). Command ignored
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_tx_dmac' with propagated value(29). Command ignored
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S00_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S01_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S02_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S03_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S04_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S05_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S06_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S07_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S08_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S09_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S10_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [xilinx.com:ip:smartconnect:1.0-1] zedboard_rf_system_memory_xbar_0: SmartConnect zedboard_rf_system_memory_xbar_0 is in High-performance Mode.
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /delay_clock clk_wiz propagate
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /rf_sampling_clock clk_wiz propagate
+INFO: [xilinx.com:ip:util_vector_logic:2.0-10] /rf_rx_transport_framer_owner_reset IP set output pin Res type to "rst" when Input pin Op1 type is "rst" and Input pin Op2 type is "undef".
+INFO: [xilinx.com:ip:axi_quad_spi:3.2-1] /rf_spi 
+                   #######################################################################################
+                   INFO: AXI Quad SPI core's AXI Lite Clock and EXT SPI CLK are synchronous to each other.
+                   ########################################################################################
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+validate_bd_design: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2256.074 ; gain = 33.656 ; free physical = 799 ; free virtual = 6866
+### if {$rf_rxth_diag_enabled} {
+###   # First let the base/RXTH address graph settle.  Creating status inputs
+###   # earlier would make this required first validation tie them to zero.  The
+###   # RX9 observer is then attached only to already-built production nets.
+###   rf_rx_transport_diag_create
+###   rf_rx_transport_diag_tap_all
+### }
+### validate_bd_design
+INFO: [BD 5-320] Validate design is not run, since the design is already validated.
+### save_bd_design
+Wrote  : </home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.srcs/sources_1/bd/zedboard_rf_system/zedboard_rf_system.bd> 
+### set bd [get_files */zedboard_rf_system.bd]
+### set_property synth_checkpoint_mode None $bd
+### set rf_ip_target all
+### if {[info exists ::env(MIMO_RF_IP_TARGET)]} {set rf_ip_target $::env(MIMO_RF_IP_TARGET)}
+### if {$rf_ip_target ni {all synthesis}} {error "MIMO_RF_IP_TARGET must be all or synthesis"}
+### generate_target $rf_ip_target $bd
+INFO: [BD 41-1662] The design 'zedboard_rf_system.bd' is already validated. Therefore parameter propagation will not be re-run.
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+INFO: [Common 17-14] Message 'BD 41-49' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+Verilog Output written to : /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/synth/zedboard_rf_system.v
+Verilog Output written to : /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/sim/zedboard_rf_system.v
+Verilog Output written to : /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/hdl/zedboard_rf_system_wrapper.v
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ps7 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block detector_dma .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block detector_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block control_xbar/xbar .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block control_xbar/s00_couplers/auto_pc .
+Exporting to file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/ip/zedboard_rf_system_memory_xbar_0/bd_0/hw_handoff/zedboard_rf_system_memory_xbar_0.hwh
+Generated Hardware Definition File /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/ip/zedboard_rf_system_memory_xbar_0/bd_0/synth/zedboard_rf_system_memory_xbar_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block memory_xbar .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block constant_zero .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block constant_one .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block reset_50m .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_hdmi_clkgen .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_hdmi_core .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_hdmi_dma .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_iic_main .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block sys_i2c_mixer .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block iic_mux_scl_iobuf .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block iic_mux_sda_iobuf .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block delay_clock .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block axi_ad9361 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_sampling_clock .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_fb_clock .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_clock_locks .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_static_clkdiv4 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block reset_rf .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block reset_rf_lclk .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_fifo .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_pack .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_dmac .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_elastic_buffer .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_dma_enable_monitor .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_capture_write_gate .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_dmac .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block interleaved_candidate_dma .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block mimo_interleaved_candidate_0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_elastic_buffer .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_msb12 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_metadata_source .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_metadata_fifo .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_framer .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_dma_enable_monitor .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_adc_fault_cdc .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_reset_or .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_capture_gate .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_capture_enable .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_rx_transport_framer_owner_reset .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_tx_fifo .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_tx_unpack .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_tx_dmac .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_spi .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block rf_gpio .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_bit0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_bit1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_bit2 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_bit3 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_bit4 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_ctl_concat .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_ctl_bit0 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_ctl_bit1 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_ctl_bit2 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block gpio_ctl_bit3 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block interrupt_concat .
+Exporting to file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/hw_handoff/zedboard_rf_system.hwh
+Generated Hardware Definition File /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/synth/zedboard_rf_system.hwdef
+INFO: [BD 41-3262] Generated VHDL Instantiation Template file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/zedboard_rf_system.vho
+INFO: [BD 41-3262] Generated Verilog Instantiation Template file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/zedboard_rf_system.veo
+INFO: [BD 41-3262] Generated System Verilog Instantiation Template file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/zedboard_rf_system_sv.sveo
+generate_target: Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2399.902 ; gain = 143.828 ; free physical = 527 ; free virtual = 6729
+### set wrappers [make_wrapper -files $bd -top]
+### add_files -norecurse $wrappers
+### set_property top zedboard_rf_system_wrapper [current_fileset]
+### set physical_xdc [file join $root pl constraints zedboard_fmcomms3_cmos_1v8.xdc]
+### if {$is_lvds} {set physical_xdc [file join $root pl constraints zedboard_fmcomms3_lvds_2v5.xdc]}
+### add_files -fileset constrs_1 -norecurse $physical_xdc
+### if {$hdmi_demo} {
+###   add_files -fileset constrs_1 -norecurse [file join $root pl constraints zedboard_hdmi_adv7511.xdc]
+### }
+### if {$is_lvds} {add_files -fileset constrs_1 -norecurse [file join $root pl constraints zedboard_rf_sync_attributes.xdc]}
+### set external_budget_xdc ""
+### set external_budget_status ""
+### if {[info exists ::env(MIMO_RF_EXTERNAL_BUDGET_XDC)]} {
+###   set external_budget_xdc [file normalize $::env(MIMO_RF_EXTERNAL_BUDGET_XDC)]
+###   if {![file exists $external_budget_xdc]} {error "MIMO_RF_EXTERNAL_BUDGET_XDC does not exist: $external_budget_xdc"}
+###   set budget_fd [open $external_budget_xdc r]
+###   set budget_text [read $budget_fd]
+###   close $budget_fd
+###   if {![regexp {# profile_status=([A-Z_]+)} $budget_text -> external_budget_status]} {
+###     error "RF timing-budget XDC must be generated by generate_zedboard_rf_timing.py and carry profile_status"
+###   }
+###   if {$external_budget_status ni {PREBOARD_CONSERVATIVE_APPROVED MEASURED_APPROVED}} {
+###     error "RF timing-budget status is not approved for an offline candidate: $external_budget_status"
+###   }
+###   add_files -fileset constrs_1 -norecurse $external_budget_xdc
+### }
+### update_compile_order -fileset sources_1
+### set spi_budget_xdc ""
+### if {$is_lvds && [info exists ::env(MIMO_RF_SPI_BUDGET_XDC)]} {
+###   set spi_budget_xdc [file normalize $::env(MIMO_RF_SPI_BUDGET_XDC)]
+###   if {![file isfile $spi_budget_xdc]} {error "Missing SPI timing model: $spi_budget_xdc"}
+###   set spi_fd [open $spi_budget_xdc r]
+###   set spi_text [read $spi_fd]
+###   close $spi_fd
+###   if {$is_lvds && ![regexp {# spi_mode=1\y} $spi_text]} {
+###     error "LVDS SPI XDC must match ADI spi-cpha: runtime CPOL=0/CPHA=1"
+###   }
+###   add_files -fileset constrs_1 -norecurse $spi_budget_xdc
+### }
+### write_bd_tcl -force [file join $out rebuild_zedboard_rf_bd.tcl]
+WARNING: [BD 41-2937] The design that will be created by this Tcl script contains the following user IPs:
+/axi_hdmi_clkgen, /axi_hdmi_core, /axi_hdmi_dma, /sys_i2c_mixer, /axi_ad9361, /rf_rx_fifo, /rf_rx_pack, /rf_rx_dmac, /rf_rx_transport_dmac, /rf_tx_fifo, /rf_tx_unpack, /rf_tx_dmac
+Please add the following user repository(s):
+/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/vendor/adi_hdl_verified/library
+before sourcing this Tcl script or use write_project_tcl.
+WARNING: [BD 41-2925] The design that will be created by this Tcl script contains the following module references: mimo_detector_bd, ad_iobuf, ad_iobuf, rf_lvds_forward_clock, rf_static_clkdiv4, rf_rx_elastic_fifo, rf_rx_dma_enable_monitor, mimo_mhgd_interleaved_candidate_bd, rf_rx_elastic_fifo, rf_rx_msb12_normalizer, rf_rx_transport_metadata_source, rf_rx_transport_metadata_async_fifo, rf_rx_transport_framer, rf_rx_dma_enable_monitor, rf_rx_overflow_fault_cdc.
+Please add the sources of those modules before sourcing this Tcl script or use write_project_tcl.
+INFO: [BD 5-148] Tcl file written out </home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/rebuild_zedboard_rf_bd.tcl>.
+
+### set fd [open [file join $out address_map.tsv] w]
+### puts $fd "segment\toffset\trange"
+### foreach seg [get_bd_addr_segs -of_objects [get_bd_addr_spaces]] {if {[get_property CLASS $seg] eq "bd_addr_seg"} {puts $fd "$seg\t[get_property OFFSET $seg]\t[get_property RANGE $seg]"}}
+### close $fd
+### set fd [open [file join $out rf_build_receipt.txt] w]
+### set interface_clock_hz [expr {$is_lvds ? 16000000 : 8000000}]
+### set sample_clock_divider [expr {$is_lvds ? 4 : 2}]
+### foreach line [list "vivado=[version -short]" "part=$part" "adi_commit=$adi_commit" "adi_hdl_dir=$adi_root" "interface_profile=$rf_interface" "vadj_mv=[expr {$is_lvds ? 2500 : 1800}]" "rx_channels=2" "tx_channels=2" "mode_cmos_2r2t=[expr {!$is_lvds}]" "mode_lvds_2r2t=$is_lvds" "rf_mode_switching=forbidden_requires_reset_and_rebuild" "sample_rate_hz=4000000" "interface_clock_hz=$interface_clock_hz" "sample_clock_divider=$sample_clock_divider" "idelay_refclk_mhz=200" "control_axi_clock_hz=50000000" "detector_base=0x43C00000" "detector_dma_base=0x40400000" "rf_base=0x79020000" "rf_rx_dma_base=0x7C400000" "rf_tx_dma_base=0x7C420000" "rf_spi_base=0x44A00000" "rf_gpio_base=0x41200000" "irq_detector=0" "irq_detector_dma_mm2s=1" "irq_detector_dma_s2mm=2" "irq_rf_rx_dma=3" "irq_rf_tx_dma=4" "irq_rf_spi=5" "external_budget_xdc=$external_budget_xdc" "external_budget_status=$external_budget_status" "artifact_state=DIAGNOSTIC_ONLY_NOT_DEPLOYABLE" "bitstream_hardware_acceptance=0"] {puts $fd $line}
+### puts $fd "rx_observer_abi=$rx_observer_abi"
+### puts $fd "diagnostic_only=$rx_observer"
+### puts $fd "hdmi_demo=$hdmi_demo"
+### puts $fd "enable_hdmi=$hdmi_demo"
+### puts $fd "display_mode=$display_mode"
+### puts $fd "rf_rx_health_monitor=$rf_rx_health_enabled"
+### if {$rf_rx_health_enabled} {puts $fd "rf_rx_health_base=0x44A10000"}
+### puts $fd "rx9_transport_diagnostic=$rf_rxth_diag_enabled"
+### if {$rf_rxth_diag_enabled} {puts $fd "rx9_transport_diagnostic_base=0x7C460000"}
+### if {$hdmi_demo} {
+###   puts $fd "hdmi_base=0x70E00000"
+###   puts $fd "hdmi_dma_base=0x43000000"
+###   puts $fd "hdmi_clock_base=0x79000000"
+###   puts $fd "i2c_base=0x41600000"
+###   puts $fd "irq_hdmi_dma=6"
+###   puts $fd "irq_i2c=7"
+### }
+### close $fd
+### puts "ZEDBOARD_RF_BD_VALIDATED True"
+ZEDBOARD_RF_BD_VALIDATED True
+### if {$mode ne "validate"} {
+###   if {$mode eq "implement"} {
+###     set_property strategy Performance_ExplorePostRoutePhysOpt [get_runs impl_1]
+###   }
+###   if {$is_lvds && $buffered_rx} {
+###     source [file join $root pl scripts capture_zedboard_rf_inputs.tcl]
+###   }
+###   launch_runs synth_1 -jobs 2
+###   wait_on_run synth_1
+###   if {[get_property PROGRESS [get_runs synth_1]] ne "100%"} {error "RF synthesis failed"}
+###   open_run synth_1
+###   if {[llength [get_cells -hier -quiet -filter {IS_BLACKBOX == 1}]]} {error "Black boxes remain"}
+###   report_utilization -file [file join $out synthesis_utilization.rpt]
+###   report_timing_summary -report_unconstrained -file [file join $out synthesis_timing.rpt]
+###   report_drc -file [file join $out synthesis_drc.rpt]
+###   if {[llength [info procs rf_rx_health_audit_fault_cdc]]} {
+###     rf_rx_health_audit_fault_cdc $out synthesis
+###   }
+###   puts "ZEDBOARD_RF_SYNTHESIS_COMPLETE True"
+### }
+### if {$mode eq "implement"} {
+###   # The AD9361 source-synchronous clock has a short internal hold path through
+###   # vendor DSP/SRL logic.  Ask Vivado for its non-destructive post-route
+###   # physical-optimization strategy rather than masking the path with a timing
+###   # exception; acceptance still requires non-negative setup and hold reports.
+###   # Route first.  Bit/XSA release is a separate, fail-closed phase below.
+###   launch_runs impl_1 -to_step route_design -jobs 2
+###   wait_on_run impl_1
+###   # A run intentionally stopped at route_design reports 83.33% because the
+###   # strategy still has its automatic post-route phys_opt step pending.  Check
+###   # the routed checkpoint instead of treating that expected progress value as
+###   # a failed implementation.
+###   set impl_dir [get_property DIRECTORY [get_runs impl_1]]
+###   set routed_dcp [file join $impl_dir zedboard_rf_system_wrapper_routed.dcp]
+###   set impl_status [get_property STATUS [get_runs impl_1]]
+###   if {![file exists $routed_dcp] || [string match -nocase "*error*" $impl_status] || [string match -nocase "*fail*" $impl_status]} {
+###     error "RF route_design did not complete: status=$impl_status checkpoint=$routed_dcp"
+###   }
+###   # A run stopped at route_design has no open implementation run.  Reopen the
+###   # exact routed checkpoint so the following physical hold repair operates on
+###   # the routed netlist, rather than failing on an unavailable post-route run.
+###   open_checkpoint $routed_dcp
+###   # This fixes the actual short FDRE-to-FDRE DDS hold paths with router/hold
+###   # buffers.  It is a physical fix, not an XDC waiver; retain its checkpoint
+###   # so an independent signoff invocation audits the same routed image.
+###   phys_opt_design -directive ExploreWithAggressiveHoldFix
+###   route_design
+###   write_checkpoint -force [file join $out rf_signoff_route.dcp]
+###   if {[llength [info procs rf_rx_health_audit_fault_cdc]]} {
+###     rf_rx_health_audit_fault_cdc $out implementation
+###   }
+###   report_methodology -file [file join $out implementation_methodology.rpt]
+###   report_timing_summary -report_unconstrained -file [file join $out implementation_timing.rpt]
+###   report_pulse_width -all_violators -file [file join $out implementation_pulse_width.rpt]
+###   report_drc -file [file join $out implementation_drc.rpt]
+###   report_cdc -file [file join $out implementation_cdc.rpt]
+###   if {$hdmi_demo} {
+###     report_cdc -details -file [file join $out implementation_cdc_details.rpt]
+###   }
+###   set timing_fd [open [file join $out implementation_timing.rpt] r]
+###   set coverage_errors [rf_timing_coverage [read $timing_fd] $hdmi_demo]
+###   close $timing_fd
+###   set cdc_fd [open [file join $out implementation_cdc.rpt] r]
+###   set cdc_text [read $cdc_fd]
+###   close $cdc_fd
+###   set cdc_details ""
+###   if {$hdmi_demo} {
+###     set cdc_details_fd [open [file join $out implementation_cdc_details.rpt] r]
+###     set cdc_details [read $cdc_details_fd]
+###     close $cdc_details_fd
+###   }
+###   set pulse_fd [open [file join $out implementation_pulse_width.rpt] r]
+###   set pulse_text [read $pulse_fd]
+###   close $pulse_fd
+###   set setup [get_timing_paths -quiet -delay_type max -max_paths 1]
+###   set hold [get_timing_paths -quiet -delay_type min -max_paths 1]
+###   if {[llength $setup] != 1 || [llength $hold] != 1} {error "No routed setup/hold path available for release gate"}
+###   set setup_slack [get_property SLACK $setup]
+###   set hold_slack [get_property SLACK $hold]
+###   set severe [get_drc_violations -quiet -filter {SEVERITY == Error || SEVERITY == {Critical Warning}}]
+###   set setup_pass [expr {$setup_slack >= 0}]
+###   set hold_pass [expr {$hold_slack >= 0}]
+###   # report_pulse_width lists explicit violations with this token.  Keep the
+###   # complete report as evidence; do not use a timing exception to silence it.
+###   set pulse_width_pass [expr {[string first "VIOLATED" $pulse_text] < 0}]
+###   set drc_pass [expr {![llength $severe]}]
+###   set cdc_counts [rf_cdc_audit $cdc_text $cdc_details $hdmi_demo]
+###   set cdc_pass [expr {[dict get $cdc_counts critical] == 0 && [dict get $cdc_counts unsafe] == 0 && [dict get $cdc_counts unknown] == 0}]
+###   set gate_errors {}
+###   if {!$setup_pass} {lappend gate_errors "setup_slack=$setup_slack"}
+###   if {!$hold_pass} {lappend gate_errors "hold_slack=$hold_slack"}
+###   if {!$pulse_width_pass} {lappend gate_errors "pulse_width"}
+###   if {!$drc_pass} {lappend gate_errors "drc=$severe"}
+###   if {!$cdc_pass} {lappend gate_errors "cdc=$cdc_counts"}
+###   if {$external_budget_xdc eq ""} {lappend gate_errors "external_budget_xdc_missing"}
+###   if {$is_lvds && $spi_budget_xdc eq ""} {lappend gate_errors "spi_external_budget_xdc_missing"}
+###   if {$is_lvds && [llength $coverage_errors]} {lappend gate_errors "timing_coverage=$coverage_errors"}
+###   if {[llength $gate_errors]} {
+###     set fd [open [file join $out rf_deployment_status.txt] w]
+###     puts $fd "artifact_state=TIMING_FAILED_NOT_DEPLOYABLE"
+###     puts $fd "setup_slack_ns=$setup_slack"
+###     puts $fd "hold_slack_ns=$hold_slack"
+###     puts $fd "setup_pass=$setup_pass"
+###     puts $fd "hold_pass=$hold_pass"
+###     puts $fd "pulse_width_pass=$pulse_width_pass"
+###     puts $fd "drc_pass=$drc_pass"
+###     puts $fd "cdc_pass=$cdc_pass"
+###     puts $fd "cdc_exception=[dict get $cdc_counts exception]"
+###     puts $fd "cdc_accepted_critical_endpoints=[dict get $cdc_counts accepted_critical]"
+###     puts $fd "cdc_accepted_unknown_endpoints=[dict get $cdc_counts accepted_unknown]"
+###     puts $fd "external_budget_xdc=$external_budget_xdc"
+###     puts $fd "release_gate_errors=$gate_errors"
+###     close $fd
+###     error "RF release gate rejected before write_bitstream/write_hw_platform: $gate_errors"
+###   }
+###   # write_bitstream operates on the in-memory, post-hold-fix implementation.
+###   # Do not relaunch impl_1 here: doing so would discard the audited checkpoint.
+###   if {$is_lvds && $buffered_rx} {
+###     puts [exec $rf_python -I [file join $root pl scripts rf_build_provenance.py] verify --repo $root --build $out]
+###   }
+###   write_bitstream -force [file join $out zedboard_rf.bit]
+###   write_hw_platform -fixed -include_bit -force -file [file join $out zedboard_rf.xsa]
+###   if {$is_lvds && $buffered_rx} {
+###     puts [exec $rf_python -I [file join $root pl scripts rf_build_provenance.py] seal --repo $root --build $out]
+###   }
+###   set fd [open [file join $out rf_deployment_status.txt] w]
+###   if {$external_budget_status eq "MEASURED_APPROVED"} {
+###     set artifact_state "OFFLINE_SIGNOFF_PASSED_HARDWARE_ACCEPTANCE_PENDING"
+###   } else {
+###     set artifact_state "PREBOARD_OFFLINE_CANDIDATE_PASSED_HARDWARE_ACCEPTANCE_PENDING"
+###   }
+###   if {$rx_observer} {set artifact_state "RX_OBSERVER_DIAGNOSTIC_ONLY_HARDWARE_ACCEPTANCE_PENDING"}
+###   puts $fd "artifact_state=$artifact_state"
+###   puts $fd "rx_observer_abi=$rx_observer_abi"
+###   puts $fd "diagnostic_only=$rx_observer"
+###   puts $fd "setup_slack_ns=$setup_slack"
+###   puts $fd "hold_slack_ns=$hold_slack"
+###   puts $fd "setup_pass=$setup_pass"
+###   puts $fd "hold_pass=$hold_pass"
+###   puts $fd "pulse_width_pass=$pulse_width_pass"
+###   puts $fd "drc_pass=$drc_pass"
+###   puts $fd "cdc_pass=$cdc_pass"
+###   puts $fd "cdc_exception=[dict get $cdc_counts exception]"
+###   puts $fd "cdc_accepted_critical_endpoints=[dict get $cdc_counts accepted_critical]"
+###   puts $fd "cdc_accepted_unknown_endpoints=[dict get $cdc_counts accepted_unknown]"
+###   puts $fd "interface_profile=$rf_interface"
+###   puts $fd "vadj_mv=[expr {$is_lvds ? 2500 : 1800}]"
+###   puts $fd "rx_channels=2"
+###   puts $fd "tx_channels=2"
+###   puts $fd "sample_rate_hz=4000000"
+###   puts $fd "interface_clock_hz=$interface_clock_hz"
+###   puts $fd "sample_clock_divider=$sample_clock_divider"
+###   puts $fd "sampling_clock_phase_degrees=[expr {$is_lvds ? 90 : 0}]"
+###   puts $fd "tx_fb_clock_phase_degrees=0"
+###   puts $fd "dma_stream_clock_hz=[expr {$is_lvds ? 50000000 : 4000000}]"
+###   puts $fd "spi_external_budget_xdc=$spi_budget_xdc"
+###   puts $fd "spi_runtime_mode=1"
+###   puts $fd "spi_clock_hz=3125000"
+###   puts $fd "rf_rx_transport=[expr {$buffered_rx ? {elastic_axis} : {direct_fifo}}]"
+###   puts $fd "rf_rx_dma_source_type=[expr {$buffered_rx ? 1 : 2}]"
+###   puts $fd "rf_rx_elastic_depth_words=[expr {$buffered_rx ? 1024 : 0}]"
+###   puts $fd "rf_rx_flush_mode=[expr {$buffered_rx ? {dmac_ctrl_enable_monitor} : {legacy_fifo}}]"
+###   puts $fd "io_coverage_pass=1"
+###   puts $fd "external_budget_xdc=$external_budget_xdc"
+###   puts $fd "external_budget_status=$external_budget_status"
+###   puts $fd "signoff_checkpoint=rf_signoff_route.dcp"
+###   close $fd
+###   puts "ZEDBOARD_RF_IMPLEMENTATION_COMPLETE True"
+### }
+### puts "ZEDBOARD_RF_PROJECT [file join $out mimo_zedboard_rf.xpr]"
+ZEDBOARD_RF_PROJECT /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.xpr
+# set argv $saved_argv
+# set argc $saved_argc
+# source [file join $hdmi_pipeline_root pl scripts add_hdmi_presentation_observer.tcl]
+## set ::hdmi_presentation_observer_root [file normalize [file join [file dirname [info script]] ../..]]
+## proc hdmi_presentation_require_one {description objects} {
+##   if {[llength $objects] != 1} {error "$description: expected exactly one object, got [llength $objects]: $objects"}
+##   return [lindex $objects 0]
+## }
+## proc hdmi_presentation_axis_monitor_attach {source monitor} {
+##   set source_if [get_bd_intf_pins -quiet $source]
+##   set monitor_if [get_bd_intf_pins -quiet $monitor/S_AXIS]
+##   if {[llength $source_if] != 1 || [llength $monitor_if] != 1} {
+##     error "HDMI AXIS monitor pin cardinality source=$source monitor=$monitor"
+##   }
+##   set existing [get_bd_intf_nets -quiet -of_objects $source_if]
+##   if {[llength $existing] != 1} {
+##     error "HDMI AXIS source must have exactly one existing interface net: $source got $existing"
+##   }
+##   set before [get_bd_intf_pins -quiet -of_objects $existing]
+##   if {[llength $before] < 2 || [lsearch -exact $before $source_if] < 0} {
+##     error "HDMI AXIS source lacks producer/consumer before monitor attach: net=$existing endpoints=$before"
+##   }
+##   # Do not replay or reconnect the original DMA endpoint: append precisely one
+##   # X_INTERFACE_MODE=monitor endpoint to the established inferred AXIS net.
+##   connect_bd_intf_net -intf_net $existing $source_if $monitor_if
+##   set after [get_bd_intf_pins -quiet -of_objects $existing]
+##   foreach endpoint $before {
+##     if {[lsearch -exact $after $endpoint] < 0} {
+##       error "HDMI AXIS monitor replaced established endpoint $endpoint on $existing"
+##     }
+##   }
+##   if {[lsearch -exact $after $monitor_if] < 0 || [llength $after] != [expr {[llength $before] + 1}]} {
+##     error "HDMI AXIS monitor did not append exactly one endpoint: net=$existing before=$before after=$after"
+##   }
+##   puts "HDMI_AXIS_MONITOR_AUDIT_PASS source=$source monitor=$monitor/S_AXIS net=$existing endpoints=$after"
+## }
+## proc add_hdmi_presentation_observer {{base 0x44A20000}} {
+##   set root $::hdmi_presentation_observer_root
+##   set rtl [file join $root pl rtl hdmi_presentation_observer.v]
+##   set axis_monitor_rtl [file join $root pl rtl rf_axis_status_monitor.v]
+##   foreach rtl_path [list $rtl $axis_monitor_rtl] {
+##     if {![file exists $rtl_path]} {error "Missing observer integration RTL: $rtl_path"}
+##   }
+##   if {[llength [get_bd_cells -quiet hdmi_presentation_observer]]} {error "observer cell already exists"}
+##   foreach cell {ps7 reset_50m control_xbar interrupt_concat axi_hdmi_dma axi_hdmi_core} {
+##     if {![llength [get_bd_cells -quiet $cell]]} {error "Required HDMI integration cell absent: $cell"}
+##   }
+##   foreach rtl_path [list $rtl $axis_monitor_rtl] {
+##     if {![llength [get_files -quiet $rtl_path]]} {add_files -norecurse $rtl_path}
+##   }
+##   set xdc [file join $root pl constraints hdmi_presentation_observer_cdc.xdc]
+##   if {![file exists $xdc]} {error "Missing observer CDC constraints: $xdc"}
+##   if {![llength [get_files -quiet $xdc]]} {add_files -fileset constrs_1 -norecurse $xdc}
+##   # This constraint targets synthesized hierarchy.  Applying it during
+##   # synthesis finds no stable synthesized cells and, more importantly, the
+##   # old flow marked it `used_in_implementation false`, so the actual route
+##   # never inherited the exception.  Keep it for implementation; the explicit
+##   # post-synthesis audit below reads the same immutable file when needed.
+##   set_property used_in_synthesis false [get_files $xdc]
+##   set_property used_in_implementation true [get_files $xdc]
+##   update_compile_order -fileset sources_1
+##   create_bd_cell -type module -reference hdmi_presentation_observer hdmi_presentation_observer
+##   create_bd_cell -type module -reference rf_axis_status_monitor hdmi_presentation_axis_monitor
+## 
+##   # AXI-Lite: reserve exactly one new control_xbar MI.  This is intentionally
+##   # a derived-design mutation, never a live RF-build mutation.
+##   set old_mi [get_property CONFIG.NUM_MI [get_bd_cells control_xbar]]
+##   if {$old_mi eq ""} {error "control_xbar has no CONFIG.NUM_MI"}
+##   set new_mi $old_mi
+##   set_property CONFIG.NUM_MI [expr {$old_mi + 1}] [get_bd_cells control_xbar]
+##   set mi [format "M%02d_AXI" $new_mi]
+##   foreach pin [list "control_xbar/$mi" "control_xbar/M[format %02d $new_mi]_ACLK" "control_xbar/M[format %02d $new_mi]_ARESETN"] {
+##     if {![llength [get_bd_pins -quiet $pin]] && ![llength [get_bd_intf_pins -quiet $pin]]} {error "control_xbar expansion missing $pin"}
+##   }
+##   connect_bd_intf_net [get_bd_intf_pins control_xbar/$mi] [get_bd_intf_pins hdmi_presentation_observer/S_AXI]
+##   connect_bd_net -net [hdmi_presentation_require_one "observer xbar clock net" [get_bd_nets -quiet -of_objects [get_bd_pins ps7/FCLK_CLK0]]] [get_bd_pins "control_xbar/M[format %02d $new_mi]_ACLK"]
+##   connect_bd_net -net [hdmi_presentation_require_one "observer xbar reset net" [get_bd_nets -quiet -of_objects [get_bd_pins reset_50m/peripheral_aresetn]]] [get_bd_pins "control_xbar/M[format %02d $new_mi]_ARESETN"]
+##   connect_bd_net -net [hdmi_presentation_require_one "observer FCLK net" [get_bd_nets -quiet -of_objects [get_bd_pins ps7/FCLK_CLK0]]] [get_bd_pins hdmi_presentation_observer/s_axi_aclk]
+##   connect_bd_net -net [hdmi_presentation_require_one "observer reset net" [get_bd_nets -quiet -of_objects [get_bd_pins reset_50m/peripheral_aresetn]]] [get_bd_pins hdmi_presentation_observer/s_axi_aresetn]
+## 
+##   hdmi_presentation_axis_monitor_attach axi_hdmi_dma/m_axis hdmi_presentation_axis_monitor
+##   connect_bd_net [get_bd_pins hdmi_presentation_axis_monitor/observed_tvalid] [get_bd_pins hdmi_presentation_observer/axis_tvalid]
+##   connect_bd_net [get_bd_pins hdmi_presentation_axis_monitor/observed_tready] [get_bd_pins hdmi_presentation_observer/axis_tready]
+##   connect_bd_net [get_bd_pins hdmi_presentation_axis_monitor/observed_tlast]  [get_bd_pins hdmi_presentation_observer/axis_tlast]
+##   set vsync_net [hdmi_presentation_require_one "HDMI VSYNC monitor net" [get_bd_nets -quiet -of_objects [get_bd_pins axi_hdmi_core/hdmi_16_vsync]]]
+##   connect_bd_net -net $vsync_net [get_bd_pins hdmi_presentation_observer/hdmi_vsync_async]
+## 
+##   # F2P[11] is stable after HDMI=6/I2C=7/RXTH=8/IMBC=9,10.  It maps to Linux
+##   # GIC SPI 55 for this Zynq interrupt topology.  Require a real unused net;
+##   # silently replacing a live RF interrupt is prohibited.
+##   set irq_pin [get_bd_pins interrupt_concat/In11]
+##   set irq_net [hdmi_presentation_require_one "F2P[11] existing net" [get_bd_nets -quiet -of_objects $irq_pin]]
+##   set irq_drivers [get_bd_pins -quiet -of_objects $irq_net -filter {DIR == O}]
+##   if {[llength $irq_drivers] != 1 || ![string match "*/constant_zero/dout" [lindex $irq_drivers 0]]} {
+##     error "F2P[11] is not the required unused constant-zero slot: drivers=$irq_drivers"
+##   }
+##   disconnect_bd_net $irq_net $irq_pin
+##   # The constant-zero net can fan out to other unused F2P slots.  Reusing it
+##   # here would create a multiple-driver net, not replace In11's source.
+##   set observer_irq_net [create_bd_net hdmi_presentation_observer_irq]
+##   connect_bd_net -net $observer_irq_net [get_bd_pins hdmi_presentation_observer/irq] $irq_pin
+##   set observer_irq_drivers [get_bd_pins -quiet -of_objects $observer_irq_net -filter {DIR == O}]
+##   set observer_irq_sinks [get_bd_pins -quiet -of_objects $observer_irq_net -filter {DIR == I}]
+##   if {[llength $observer_irq_drivers] != 1 || ![string match "*/hdmi_presentation_observer/irq" [lindex $observer_irq_drivers 0]] ||
+##       [llength $observer_irq_sinks] != 1 || ![string match "*/interrupt_concat/In11" [lindex $observer_irq_sinks 0]]} {
+##     error "observer IRQ net must contain exactly observer->In11: drivers=$observer_irq_drivers sinks=$observer_irq_sinks"
+##   }
+## 
+##   set cpu_space [hdmi_presentation_require_one "PS data address space" [get_bd_addr_spaces ps7/Data]]
+##   set seg [hdmi_presentation_require_one "observer AXI segment" [get_bd_addr_segs -of_objects [get_bd_intf_pins hdmi_presentation_observer/S_AXI]]]
+##   assign_bd_address -target_address_space $cpu_space -offset $base -range 64K $seg
+## 
+##   validate_bd_design
+##   puts "HDMI_PRESENTATION_OBSERVER_ATTACHED base=$base f2p=11 gic_spi=55"
+## }
+## proc hdmi_presentation_observer_require_synced_stage {from_cell to_cell report_dir tag} {
+##   set from_clock [get_clocks -quiet -of_objects [get_pins -quiet -of_objects $from_cell -filter {REF_PIN_NAME == C}]]
+##   set to_clock [get_clocks -quiet -of_objects [get_pins -quiet -of_objects $to_cell -filter {REF_PIN_NAME == C}]]
+##   if {[llength $from_clock] != 1 || [llength $to_clock] != 1 || [lindex $from_clock 0] ne [lindex $to_clock 0]} {
+##     error "Observer synchronizer stage lacks one common propagated clock: $from_cell=$from_clock $to_cell=$to_clock"
+##   }
+##   set timing_report [file join $report_dir "hdmi_pipeline_observer_${tag}_timing.rpt"]
+##   set exception_report [file join $report_dir "hdmi_pipeline_observer_${tag}_exceptions.rpt"]
+##   report_timing -from $from_cell -to $to_cell -max_paths 2 -file $timing_report
+##   report_exceptions -from $from_cell -to $to_cell -file $exception_report
+##   set fd [open $timing_report r]; set timing_text [read $fd]; close $fd
+##   set fd [open $exception_report r]; set exception_text [read $fd]; close $fd
+##   if {![regexp {Slack \(MET\)} $timing_text] || ![regexp {Path Group:[[:space:]]+clk_fpga_0} $timing_text]} {
+##     error "Observer synchronizer stage is not actively timed by clk_fpga_0: $from_cell -> $to_cell"
+##   }
+##   if {[regexp {Timing Exception:[[:space:]]+False Path} $timing_text] || ![regexp {No valid timing exceptions found\.} $exception_text]} {
+##     error "Observer synchronizer stage has an unintended timing exception: $from_cell -> $to_cell"
+##   }
+## }
+## proc audit_hdmi_presentation_observer_post_synth {report_dir} {
+##   if {![file isdirectory $report_dir]} {error "Observer audit report directory does not exist: $report_dir"}
+##   set xdc [get_files -quiet *hdmi_presentation_observer_cdc.xdc]
+##   if {[llength $xdc] != 1} {error "Expected exactly one loaded observer CDC XDC, got $xdc"}
+##   # XDC is implementation-only because it selects synthesized cells.  Apply
+##   # the exact same file now, after synthesis, so this audit proves the real
+##   # first-stage exception rather than relying on a pre-elaboration query.
+##   read_xdc [lindex $xdc 0]
+##   set sync_cells [get_cells -hier -quiet -filter {NAME =~ *hdmi_presentation_observer*/vsync_m1_reg || NAME =~ *hdmi_presentation_observer*/vsync_m2_reg || NAME =~ *hdmi_presentation_observer*/vsync_m3_reg}]
+##   if {[llength $sync_cells] != 3} {error "Expected three synthesized VSYNC synchronizer flops, got $sync_cells"}
+##   set first_sync [get_cells -hier -quiet -filter {NAME =~ *hdmi_presentation_observer*/vsync_m1_reg}]
+##   if {[llength $first_sync] != 1} {error "Expected one synthesized VSYNC first-stage flop, got $first_sync"}
+##   set first_d [get_pins -quiet -of_objects $first_sync -filter {REF_PIN_NAME == D}]
+##   if {[llength $first_d] != 1} {error "Expected one synthesized VSYNC first-stage D pin, got $first_d"}
+##   foreach sync_cell $sync_cells {
+##     if {[get_property ASYNC_REG $sync_cell] ni {1 TRUE}} {error "Observer synchronizer lacks ASYNC_REG: $sync_cell"}
+##   }
+##   set first_paths [get_timing_paths -quiet -to $first_d -max_paths 2]
+##   if {[llength $first_paths] != 1} {error "Observer first stage must expose exactly one monitored async path, got $first_paths"}
+##   set first_path [lindex $first_paths 0]
+##   set first_start [get_property STARTPOINT_PIN $first_path]
+##   set first_end [get_property ENDPOINT_PIN $first_path]
+##   if {![string match "*/axi_hdmi_core/inst/i_tx_core/hdmi_16_vsync_reg/C" $first_start] || $first_end ne $first_d} {
+##     error "Observer first-stage false path has unexpected endpoints: start=$first_start end=$first_end"
+##   }
+##   set first_timing_report [file join $report_dir hdmi_pipeline_observer_first_stage_timing.rpt]
+##   set first_exception_report [file join $report_dir hdmi_pipeline_observer_first_stage_exceptions.rpt]
+##   report_timing -to $first_d -max_paths 2 -file $first_timing_report
+##   report_exceptions -to $first_d -file $first_exception_report
+##   set fd [open $first_timing_report r]; set first_timing_text [read $fd]; close $fd
+##   set fd [open $first_exception_report r]; set first_exception_text [read $fd]; close $fd
+##   if {![regexp {Timing Exception:[[:space:]]+False Path} $first_timing_text]} {
+##     error "Observer async first stage lacks an effective false-path exception"
+##   }
+##   if {[regexp {No valid timing exceptions found\.} $first_exception_text]} {
+##     error "Observer async first stage has no timing exception"
+##   }
+##   set false_rows [regexp -all -line {^[[:space:]]*[0-9]+.*[[:space:]]false[[:space:]]+false[[:space:]]*$} $first_exception_text]
+##   if {$false_rows != 1} {error "Observer async first stage must have one exact setup+hold false path, got $false_rows"}
+##   set m2 [hdmi_presentation_require_one "observer m2 cell" [get_cells -hier -quiet -filter {NAME =~ *hdmi_presentation_observer*/vsync_m2_reg}]]
+##   set m3 [hdmi_presentation_require_one "observer m3 cell" [get_cells -hier -quiet -filter {NAME =~ *hdmi_presentation_observer*/vsync_m3_reg}]]
+##   hdmi_presentation_observer_require_synced_stage $first_sync $m2 $report_dir m1_to_m2
+##   hdmi_presentation_observer_require_synced_stage $m2 $m3 $report_dir m2_to_m3
+##   puts "HDMI_PRESENTATION_OBSERVER_POST_SYNTH_AUDIT_PASS"
+## }
+# source [file join $hdmi_pipeline_root pl scripts hdmi_pipeline_post_synth_audit.tcl]
+## proc hdmi_pipeline_audit_observer_source_and_synth {} {
+##   global hdmi_pipeline_out
+##   set xdc [get_files -quiet *hdmi_presentation_observer_cdc.xdc]
+##   if {[llength $xdc] != 1} {error "Expected exactly one loaded observer CDC XDC, got $xdc"}
+##   set fd [open [lindex $xdc 0] r]; set text [read $fd]; close $fd
+##   if {![regexp {vsync_m1_reg} $text] || ![regexp {set_false_path -to \$hdmi_presentation_vsync_first_d} $text]} {
+##     error "Loaded observer CDC XDC does not constrain only the first synchronizer D pin"
+##   }
+##   # XDC accepts timing commands, not general Tcl flow control.  An `if` was
+##   # silently rejected by Vivado (Designutils 20-1307), so a superficially
+##   # correct file left this CDC path timed.  Keep cardinality checks in the
+##   # explicit post-synthesis audit and reject the ineffective pattern here.
+##   if {[regexp -line {^[[:space:]]*if[[:space:]]} $text]} {
+##     error "Observer CDC XDC must not use unsupported Tcl control flow"
+##   }
+##   audit_hdmi_presentation_observer_post_synth $hdmi_pipeline_out
+## }
+# add_hdmi_presentation_observer
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'write_bad_addr' has a dependency on the module local parameter or undefined parameter 'REG_EVENT_POP'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'queue_partial' has a dependency on the module local parameter or undefined parameter 'REG_QUEUE_SUBMIT'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'push_id' has a dependency on the module local parameter or undefined parameter 'REG_QUEUE_SUBMIT'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'control_write' has a dependency on the module local parameter or undefined parameter 'REG_CONTROL'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'pop_write' has a dependency on the module local parameter or undefined parameter 'REG_EVENT_POP'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'irq_w1c' has a dependency on the module local parameter or undefined parameter 'REG_IRQ_STATUS'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'error_w1c' has a dependency on the module local parameter or undefined parameter 'REG_ERROR_STATUS'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'visible_irq_status' has a dependency on the module local parameter or undefined parameter 'IRQ_PRESENT'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'irq_events' has a dependency on the module local parameter or undefined parameter 'IRQ_DMA_EOF'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'irq_events' has a dependency on the module local parameter or undefined parameter 'IRQ_PROTOCOL'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'irq_events' has a dependency on the module local parameter or undefined parameter 'IRQ_QUEUE_FULL'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'irq_events' has a dependency on the module local parameter or undefined parameter 'IRQ_VSYNC'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'error_events' has a dependency on the module local parameter or undefined parameter 'IRQ_PROTOCOL'.
+WARNING: [IP_Flow 19-587] [HDL Parser] HDL port or parameter 'error_events' has a dependency on the module local parameter or undefined parameter 'IRQ_QUEUE_FULL'.
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi_aclk' of definition 'xilinx.com:signal:clock:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi_aclk' of definition 'xilinx.com:signal:clock:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi_aresetn' of definition 'xilinx.com:signal:reset:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 's_axi_aresetn' of definition 'xilinx.com:signal:reset:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI' of definition 'xilinx.com:interface:aximm:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXI' of definition 'xilinx.com:interface:aximm:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'irq' of definition 'xilinx.com:signal:interrupt:1.0' (from Xilinx Repository).
+INFO: [IP_Flow 19-4728] Bus Interface 'irq': Added interface parameter 'SENSITIVITY' with value 'LEVEL_HIGH'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi_aclk': Added interface parameter 'ASSOCIATED_BUSIF' with value 'S_AXI'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi_aclk': Added interface parameter 'ASSOCIATED_RESET' with value 's_axi_aresetn'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi_aclk': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-4728] Bus Interface 's_axi_aresetn': Added interface parameter 'POLARITY' with value 'ACTIVE_LOW'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI': Added interface parameter 'PROTOCOL' with value 'AXI4LITE'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI': Added interface parameter 'ADDR_WIDTH' with value '16'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXI': Added interface parameter 'DATA_WIDTH' with value '32'.
+INFO: [IP_Flow 19-7067] Note that bus interface 's_axi_aclk' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from X_INTERFACE_INFO parameter from HDL file).
+INFO: [IP_Flow 19-5107] Inferred bus interface 'S_AXIS' of definition 'xilinx.com:interface:axis:1.0' (from 'X_INTERFACE_INFO' attribute).
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'TDATA_NUM_BYTES' with value '8'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'HAS_TKEEP' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'HAS_TLAST' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'HAS_TREADY' with value '1'.
+INFO: [IP_Flow 19-4728] Bus Interface 'S_AXIS': Added interface parameter 'FREQ_HZ' with value '50000000'.
+INFO: [IP_Flow 19-7067] Note that bus interface 'S_AXIS' has a fixed FREQ_HZ of '50000000'. This value will be respected whenever this IP is instantiated in IP Integrator.
+HDMI_AXIS_MONITOR_AUDIT_PASS source=axi_hdmi_dma/m_axis monitor=hdmi_presentation_axis_monitor/S_AXIS net=/axi_hdmi_dma_m_axis endpoints=/axi_hdmi_dma/m_axis /axi_hdmi_core/s_axis /hdmi_presentation_axis_monitor/S_AXIS
+Slave segment '/hdmi_presentation_observer/S_AXI/reg0' is being assigned into address space '/ps7/Data' at <0x44A2_0000 [ 64K ]>.
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+clk_domain: zedboard_rf_system_ps7_0_FCLK_CLK0, clk_domain_1: zedboard_rf_system_ps7_0_FCLK_CLK0, clkDomainValSrc_1: PROPAGATED, clk_domain_ctrl: 0
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_rx_dmac' with propagated value(29). Command ignored
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_rx_transport_dmac' with propagated value(29). Command ignored
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_tx_dmac' with propagated value(29). Command ignored
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S00_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S01_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S02_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S03_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S04_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S05_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S06_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S07_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S08_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S09_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S10_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [xilinx.com:ip:smartconnect:1.0-1] zedboard_rf_system_memory_xbar_0: SmartConnect zedboard_rf_system_memory_xbar_0 is in High-performance Mode.
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /delay_clock clk_wiz propagate
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /rf_sampling_clock clk_wiz propagate
+INFO: [xilinx.com:ip:util_vector_logic:2.0-10] /rf_rx_transport_framer_owner_reset IP set output pin Res type to "rst" when Input pin Op1 type is "rst" and Input pin Op2 type is "undef".
+INFO: [xilinx.com:ip:axi_quad_spi:3.2-1] /rf_spi 
+                   #######################################################################################
+                   INFO: AXI Quad SPI core's AXI Lite Clock and EXT SPI CLK are synchronous to each other.
+                   ########################################################################################
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+validate_bd_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2944.168 ; gain = 0.000 ; free physical = 533 ; free virtual = 6689
+HDMI_PRESENTATION_OBSERVER_ATTACHED base=0x44A20000 f2p=11 gic_spi=55
+# set ps [get_bd_cells ps7]
+# set_property -dict [list CONFIG.PCW_USE_S_AXI_HP1 {1} CONFIG.PCW_S_AXI_HP1_DATA_WIDTH {64} CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {50}] $ps
+# create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 hdmi_hp1_smc
+# set_property -dict [list CONFIG.NUM_SI {1} CONFIG.NUM_MI {1}] [get_bd_cells hdmi_hp1_smc]
+# foreach endpoint {axi_hdmi_dma/m_src_axi rf_rx_transport_dmac/m_dest_axi rf_rx_transport_dmac/m_sg_axi interleaved_candidate_dma/M_AXI_MM2S interleaved_candidate_dma/M_AXI_S2MM} {
+#   if {[llength [get_bd_intf_pins -quiet $endpoint]] != 1} {error "Expected one HP endpoint: $endpoint"}
+# }
+# foreach p {S06_AXI S07_AXI S08_AXI S09_AXI S10_AXI} {
+#   set pin [get_bd_intf_pins -quiet memory_xbar/$p]
+#   if {[llength $pin] != 1} {error "Expected one existing memory_xbar port: $p"}
+#   set n [get_bd_intf_nets -quiet -of_objects $pin]
+#   if {[llength $n] != 1} {error "Expected one existing memory net at $p, got $n"}
+#   disconnect_bd_intf_net $n $pin
+# }
+# foreach {src dst} {rf_rx_transport_dmac/m_dest_axi S06_AXI rf_rx_transport_dmac/m_sg_axi S07_AXI interleaved_candidate_dma/M_AXI_MM2S S08_AXI interleaved_candidate_dma/M_AXI_S2MM S09_AXI} {
+#   connect_bd_intf_net [get_bd_intf_pins $src] [get_bd_intf_pins memory_xbar/$dst]
+# }
+# set_property CONFIG.NUM_SI {10} [get_bd_cells memory_xbar]
+# connect_bd_intf_net [get_bd_intf_pins axi_hdmi_dma/m_src_axi] [get_bd_intf_pins hdmi_hp1_smc/S00_AXI]
+# connect_bd_intf_net [get_bd_intf_pins hdmi_hp1_smc/M00_AXI] [get_bd_intf_pins ps7/S_AXI_HP1]
+# set hpclk [get_bd_nets -quiet -of_objects [get_bd_pins ps7/FCLK_CLK0]]
+# set hprst [get_bd_nets -quiet -of_objects [get_bd_pins reset_50m/peripheral_aresetn]]
+# if {[llength $hpclk] != 1 || [llength $hprst] != 1} {error "HP1 clock/reset net lookup failed"}
+# connect_bd_net -net $hpclk [get_bd_pins ps7/S_AXI_HP1_ACLK] [get_bd_pins hdmi_hp1_smc/aclk]
+# connect_bd_net -net $hprst [get_bd_pins hdmi_hp1_smc/aresetn]
+# set old_hdmi [get_bd_addr_segs -quiet -of_objects [get_bd_addr_spaces axi_hdmi_dma/m_src_axi]]
+# if {![llength $old_hdmi]} {error "HDMI DMA has no pre-existing HP0 address segment to migrate"}
+# set hp1_seg [get_bd_addr_segs -quiet ps7/S_AXI_HP1/HP1_DDR_LOWOCM]
+# if {[llength $hp1_seg] != 1} {error "Expected exactly one PS HP1 DDR segment, got $hp1_seg"}
+# foreach old $old_hdmi {
+#   if {![string match "*/axi_hdmi_dma/m_src_axi/*" $old]} {
+#     error "Refusing to delete a non-HDMI master address segment: $old"
+#   }
+# }
+# delete_bd_objs $old_hdmi
+# assign_bd_address -target_address_space [get_bd_addr_spaces axi_hdmi_dma/m_src_axi] -offset 0 -range 512M $hp1_seg
+Slave segment '/ps7/S_AXI_HP1/HP1_DDR_LOWOCM' is being assigned into address space '/axi_hdmi_dma/m_src_axi' at <0x0000_0000 [ 512M ]>.
+# validate_bd_design
+WARNING: [BD 41-3281] Instance '/ps7' is connected on both sides by SmartConnects and cannot automatically configure itself to match the endpoints. Please manually configure its AXI interfaces as required for the design.
+CRITICAL WARNING: [BD 41-51] Could not find bus definition for the interface: fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: fifo_wr 
+clk_domain: zedboard_rf_system_ps7_0_FCLK_CLK0, clk_domain_1: zedboard_rf_system_ps7_0_FCLK_CLK0, clkDomainValSrc_1: PROPAGATED, clk_domain_ctrl: 0
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_rx_dmac' with propagated value(29). Command ignored
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_rx_transport_dmac' with propagated value(29). Command ignored
+WARNING: [BD 41-702] Propagation TCL tries to overwrite USER strength parameter DMA_AXI_ADDR_WIDTH(32) on '/rf_tx_dmac' with propagated value(29). Command ignored
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S00_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S01_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S02_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S03_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S04_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S05_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S06_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S07_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S08_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/memory_xbar/S09_AXI' to master interface '/memory_xbar/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [xilinx.com:ip:smartconnect:1.0-1] zedboard_rf_system_memory_xbar_0: SmartConnect zedboard_rf_system_memory_xbar_0 is in High-performance Mode.
+INFO: [BD 5-943] Reserving offset range <0x0000_0000 [ 512M ]> from slave interface '/hdmi_hp1_smc/S00_AXI' to master interface '/hdmi_hp1_smc/M00_AXI'. This will be used by smartconnect on path for routing.
+INFO: [xilinx.com:ip:smartconnect:1.0-1] zedboard_rf_system_hdmi_hp1_smc_0: SmartConnect zedboard_rf_system_hdmi_hp1_smc_0 is in High-performance Mode.
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /delay_clock clk_wiz propagate
+INFO: [xilinx.com:ip:clk_wiz:6.0-1] /rf_sampling_clock clk_wiz propagate
+INFO: [xilinx.com:ip:util_vector_logic:2.0-10] /rf_rx_transport_framer_owner_reset IP set output pin Res type to "rst" when Input pin Op1 type is "rst" and Input pin Op2 type is "undef".
+INFO: [xilinx.com:ip:axi_quad_spi:3.2-1] /rf_spi 
+                   #######################################################################################
+                   INFO: AXI Quad SPI core's AXI Lite Clock and EXT SPI CLK are synchronous to each other.
+                   ########################################################################################
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+validate_bd_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2944.168 ; gain = 0.000 ; free physical = 547 ; free virtual = 6704
+# save_bd_design
+Wrote  : </home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.srcs/sources_1/bd/zedboard_rf_system/zedboard_rf_system.bd> 
+# set hdmi_pipeline_top_bd [get_files -quiet */zedboard_rf_system.bd]
+# if {[llength $hdmi_pipeline_top_bd] != 1} {
+#   error "Expected exactly one top-level zedboard_rf_system.bd, got $hdmi_pipeline_top_bd"
+# }
+# generate_target synthesis $hdmi_pipeline_top_bd
+INFO: [BD 41-1662] The design 'zedboard_rf_system.bd' is already validated. Therefore parameter propagation will not be re-run.
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+CRITICAL WARNING: [BD 41-49] Could not find abstraction definition for the interface: packed_fifo_wr 
+Verilog Output written to : /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/synth/zedboard_rf_system.v
+Verilog Output written to : /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/sim/zedboard_rf_system.v
+Verilog Output written to : /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/hdl/zedboard_rf_system_wrapper.v
+INFO: [BD 41-1029] Generation completed for the IP Integrator block ps7 .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block control_xbar/xbar .
+Exporting to file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/ip/zedboard_rf_system_memory_xbar_0/bd_0/hw_handoff/zedboard_rf_system_memory_xbar_0.hwh
+Generated Hardware Definition File /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/ip/zedboard_rf_system_memory_xbar_0/bd_0/synth/zedboard_rf_system_memory_xbar_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block memory_xbar .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block control_xbar/s00_couplers/auto_pc .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block hdmi_presentation_observer .
+INFO: [BD 41-1029] Generation completed for the IP Integrator block hdmi_presentation_axis_monitor .
+Exporting to file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/ip/zedboard_rf_system_hdmi_hp1_smc_0/bd_0/hw_handoff/zedboard_rf_system_hdmi_hp1_smc_0.hwh
+Generated Hardware Definition File /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/ip/zedboard_rf_system_hdmi_hp1_smc_0/bd_0/synth/zedboard_rf_system_hdmi_hp1_smc_0.hwdef
+INFO: [BD 41-1029] Generation completed for the IP Integrator block hdmi_hp1_smc .
+Exporting to file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/hw_handoff/zedboard_rf_system.hwh
+Generated Hardware Definition File /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/synth/zedboard_rf_system.hwdef
+INFO: [BD 41-3262] Generated VHDL Instantiation Template file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/zedboard_rf_system.vho
+INFO: [BD 41-3262] Generated Verilog Instantiation Template file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/zedboard_rf_system.veo
+INFO: [BD 41-3262] Generated System Verilog Instantiation Template file /home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado/mimo_zedboard_rf.gen/sources_1/bd/zedboard_rf_system/zedboard_rf_system_sv.sveo
+generate_target: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2944.168 ; gain = 0.000 ; free physical = 470 ; free virtual = 6676
+# make_wrapper -files $hdmi_pipeline_top_bd -top
+# update_compile_order -fileset sources_1
+# if {$hdmi_pipeline_action eq "validate"} {puts "HDMI_PIPELINE_VALIDATE_PASS hp1=64 rf_hp0=preserved"; return}
+HDMI_PIPELINE_VALIDATE_PASS hp1=64 rf_hp0=preserved
+INFO: [Common 17-206] Exiting Vivado at Wed Nov  4 07:08:47 2026...

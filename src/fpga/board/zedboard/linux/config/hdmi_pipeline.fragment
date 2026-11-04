@@ -1,0 +1,32 @@
+# Isolated kernel configuration for the ZedBoard RF + native DRM/KMS HDMI
+# pipeline.  This fragment deliberately does NOT use the historical
+# DRM_ADI_AXI_HDMI in-tree driver: the presentation driver is an external
+# module and must be built against the Module.symvers produced by this exact
+# kernel output tree.
+#
+# The adjacent producer applies this fragment with scripts/config and then
+# runs olddefconfig.  DRM_MIPI_DSI and REGMAP_I2C are intentionally not forced
+# here: modern DRM_I2C_ADV7511 selects both, and the producer verifies that
+# their resolved values are non-n in the final .config.
+
+# RF diagnostic support retained alongside the baseline AD9361 / AXI-DMAC
+# configuration.  DEBUG_FS enables AD9361 PN/BIST diagnostics.
+CONFIG_DEBUG_FS=y
+CONFIG_CF_AXI_DDS=y
+
+# Board-side I2C controller and the ADI AXI clock generator.  Modular keeps
+# boot dependencies explicit; the load order is emitted from final modinfo.
+CONFIG_I2C_XILINX=m
+CONFIG_COMMON_CLK_AXI_CLKGEN=m
+
+# Native DRM/KMS bridge path for the external presentation module.
+CONFIG_DRM=y
+CONFIG_DRM_KMS_HELPER=y
+CONFIG_DRM_BRIDGE=y
+CONFIG_DRM_GEM_DMA_HELPER=y
+CONFIG_DRM_I2C_ADV7511=m
+
+# No legacy in-tree ADI AXI HDMI driver and no /dev/fb0 compatibility layer:
+# the planned userspace presenter uses native KMS modesetting.
+# CONFIG_DRM_ADI_AXI_HDMI is not set
+# CONFIG_DRM_FBDEV_EMULATION is not set

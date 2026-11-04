@@ -1,0 +1,16 @@
+{
+  "removed_paths": [
+    "/home/mimo/.ssh",
+    "/home/mimo/.ssh/authorized_keys"
+  ],
+  "password_files_locked": [
+    "/etc/shadow"
+  ],
+  "matching_board_runtime_pins": 14,
+  "distribution_rootfs_hardware_retested": false,
+  "scope": "Reference rootfs removes inherited login grants and locks password hashes; no SD written, all 14 runtime component hashes unchanged.",
+  "entries": 2575,
+  "sha256": "8763e7c9600a53512681eddecdd01c8255033f2ba8ff755a1438cecb85319db8",
+  "bytes": 31465910,
+  "runtime_components_bytes_changed": false
+}

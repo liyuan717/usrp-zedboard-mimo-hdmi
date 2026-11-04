@@ -1,0 +1,31 @@
+Python path configuration:
+  PYTHONHOME = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr'
+  PYTHONPATH = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/resume6-candidate/runtime/python:/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/resume6-candidate/runtime/python/tools'
+  program name = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr/bin/python3.12'
+  isolated = 0
+  environment = 1
+  user site = 1
+  safe_path = 0
+  import site = 1
+  is in build tree = 0
+  stdlib dir = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr/lib/python3.12'
+  sys._base_executable = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr/bin/python3.12'
+  sys.base_prefix = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr'
+  sys.base_exec_prefix = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr'
+  sys.platlibdir = 'lib'
+  sys.executable = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr/bin/python3.12'
+  sys.prefix = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr'
+  sys.exec_prefix = '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr'
+  sys.path = [
+    '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/resume6-candidate/runtime/python',
+    '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/resume6-candidate/runtime/python/tools',
+    '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr/lib/python312.zip',
+    '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr/lib/python3.12',
+    '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/usr/lib/python3.12/lib-dynload',
+  ]
+Fatal Python error: init_fs_encoding: failed to get the Python codec of the filesystem encoding
+Python runtime state: core initialized
+ModuleNotFoundError: No module named 'encodings'
+
+Current thread 0x4082a160 (most recent call first):
+  <no Python frame>

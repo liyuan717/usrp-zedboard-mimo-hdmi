@@ -1,0 +1,15 @@
+{
+  "technical_pass": false,
+  "new_RF": null,
+  "transmit_attempted": true,
+  "new_ADC": null,
+  "run_id": "b535b748bbd1c0d38f0d5af6c489150d",
+  "boot_id": "31a41345-f738-4637-bdbf-8a16a340a7a2",
+  "error": "RuntimeError: 板端原文件接收/显示失败：AssertionError: ",
+  "cleanup": {
+    "TX_stopped": true,
+    "board_cleanup_confirmed": true,
+    "final_idle_UART_reply": "~ # echo IDLE; cat /sys/bus/iio/devices/iio:device0/out_altvoltage0_RX_LO_powerd\r\r\nown; cat /sys/bus/iio/devices/iio:device0/out_altvoltage1_TX_LO_powerdown; cat /\r\r\nsys/bus/iio/devices/iio:device3/buffer/enable\r\nIDLE\r\nTO_DONE' '_8b31da6fa1d24e19afb220557db6a1ec'\r\n1\r\n1\r\n0\r\n~ # printf '\\n%s%s\\n' 'PHOTO_DONE' '_8b31da6fa1d24e19afb220557db6a1ec'\r\n\r\nPHOTO_DONE_8b31da6fa1d24e19afb220557db6a1ec\r\n"
+  },
+  "finished_unix_ns": 1793626738466911896
+}

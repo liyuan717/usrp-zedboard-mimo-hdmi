@@ -1,0 +1,13 @@
+{
+  "valid": true,
+  "ADC": {
+    "blocks": 5120,
+    "all_headers_CRC_flags_continuity_alignment_valid": true,
+    "sha256": "4a632c1f83cc6c8ccf4c61359097323400a03b109dedc88879094669f12d819e"
+  },
+  "RF_records": 773,
+  "unique_RF_frames": 770,
+  "CRC_correct_byte_identical_packets": 1546,
+  "original_file_byte_identical": true,
+  "original_file_sha256": "598e751ec208580bec9c3bc530b4e64a3ce99408b2727f39e128a995954edf8c"
+}

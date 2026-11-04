@@ -1,0 +1,13 @@
+# Display support for the optional RF+HDMI bitstream.
+# The framebuffer emulation is required by the demo receiver's /dev/fb0 path.
+CONFIG_VIDEO=y
+CONFIG_FB=y
+CONFIG_FB_DEVICE=y
+CONFIG_DRM=y
+CONFIG_DRM_KMS_HELPER=y
+CONFIG_DRM_GEM_DMA_HELPER=y
+CONFIG_DRM_FBDEV_EMULATION=y
+CONFIG_DRM_ADI_AXI_HDMI=y
+CONFIG_DRM_I2C_ADV7511=y
+CONFIG_I2C_XILINX=y
+CONFIG_COMMON_CLK_AXI_CLKGEN=y

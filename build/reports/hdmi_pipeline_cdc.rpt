@@ -1,0 +1,25 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Oct 26 13:32:49 2026
+| Host         : Camellia running 64-bit major release  (build 9200)
+| Command      : report_cdc -file G:/fpga_transformer/zedboard_rf_migration/build/hp1v1t/hdmi_pipeline_cdc.rpt
+| Design       : zedboard_rf_system_wrapper
+| Device       : 7z020-clg484
+| Speed File   : -1  PRODUCTION 1.12 2019-11-22
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+CDC Report
+
+Severity  Source Clock                                     Destination Clock                                CDC Type                 Exceptions               Endpoints  Safe  Unsafe  Unknown  No ASYNC_REG  
+--------  -----------------------------------------------  -----------------------------------------------  -----------------------  -----------------------  ---------  ----  ------  -------  ------------  
+Warning   clk_out1_zedboard_rf_system_rf_sampling_clock_0  clk_fpga_0                                       No Common Primary Clock  Max Delay Datapath Only        266   266       0        0             0  
+Warning   mmcm_clk_0_s                                     clk_fpga_0                                       User Ignored             False Path                      50    50       0        0             0  
+Warning   clk_fpga_0                                       clk_out1_zedboard_rf_system_rf_sampling_clock_0  No Common Primary Clock  Max Delay Datapath Only        996   996       0        0             0  
+Warning   clk_fpga_0                                       mmcm_clk_0_s                                     Safely Timed             Max Delay Datapath Only        219   219       0        0             0  
+Info      ad9361_spi_clk                                   clk_fpga_0                                       Safely Timed             None                             1     1       0        0             0  
+Info      input port clock                                 clk_fpga_0                                       No Common Primary Clock  False Path                      10    10       0        0             0  
+Info      clk_out1_zedboard_rf_system_rf_sampling_clock_0  clk_out1_zedboard_rf_system_delay_clock_0        No Common Primary Clock  False Path                       1     1       0        0             0  
+Info      rx_clk_in_p                                      clk_out1_zedboard_rf_system_rf_sampling_clock_0  Safely Timed             None                             7     7       0        0             0  
+

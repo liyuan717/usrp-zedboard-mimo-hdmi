@@ -1,0 +1,17 @@
+{
+  "source_repository": "liyuan717/FPGA-accelerated-MIMO-System-Project",
+  "source_branch": "main",
+  "source_commit": "fdc1b75c33411a24b49e9a7d8c8b719a5494e99e",
+  "source_package_sha256": "abc3aa29c13226087e5153a28edb6e848d1d02e1b859a4ada0bc72b092b4386c",
+  "current_source_rar_sha256": "03d04b36b493dc825627a2eae95d990381fe5e95155a471518a8f727a2f1f087",
+  "code_bytes_unchanged": true,
+  "other_branches_copied": false,
+  "new_hardware_test": false,
+  "source_inventory_reduction_only": {
+    "path": "src/fpga/vendor_metadata/source-manifest.json",
+    "original_vendor_tree_entries": 3486,
+    "retained_inventory_entries": 462,
+    "retained_row_hashes_unchanged": true
+  },
+  "supplemental_used_dependency_sources": 24
+}

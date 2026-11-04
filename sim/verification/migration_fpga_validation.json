@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "/vivado/2025.2/Vivado/bin/vivado",
+    "-mode",
+    "batch",
+    "-nojournal",
+    "-log",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4/vivado.log",
+    "-source",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/pl/scripts/create_zedboard_hdmi_pipeline_system.tcl",
+    "-tclargs",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_release_r2/deliverables/usrp-zedboard-integration-20261026/zedboard-source/build/competition_validate_r4",
+    "validate"
+  ],
+  "returncode": 0,
+  "action": "validate",
+  "hardware_test": false,
+  "fresh_curated_source_workspace": true,
+  "hardware_access": false,
+  "full_synthesis_implementation": false,
+  "validation_marker": "HDMI_PIPELINE_VALIDATE_PASS hp1=64 rf_hp0=preserved",
+  "source_files": 797,
+  "stdout_sha256": "c2ba09b38d203aaa743c32bf29c323dda2dee9445a55048f53f2ce5276e3804c"
+}

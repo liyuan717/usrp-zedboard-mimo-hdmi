@@ -1,0 +1,16 @@
+metric,value,unit,measurement_scope,evidence
+luts,43781,count,routed,build/reports/postroute_utilization.rpt
+ffs,48484,count,routed,build/reports/postroute_utilization.rpt
+bram_tiles,22.5,count,routed,build/reports/postroute_utilization.rpt
+dsps,41,count,routed,build/reports/postroute_utilization.rpt
+wns,0.160,ns,routed,build/reports/hdmi_pipeline_timing.rpt
+whs,0.010,ns,routed,build/reports/hdmi_pipeline_timing.rpt
+sintel_playback,4.29854929334537,fps,physical_HDMI,board/results/runs/5a72fa0d585f9311571ddf4479765e25/evidence/hdmi-proof.json
+bunny_playback,4.486606917525321,fps,physical_HDMI,board/results/runs/d99541c284d220bc50971b0a192395a7/evidence/hdmi-proof.json
+input_rate,5,fps,nominal_source,board/results/runs/5a72fa0d585f9311571ddf4479765e25/original-file-profile.json
+sintel_correct_crc,1674,packets,fresh_RF,board/results/runs/5a72fa0d585f9311571ddf4479765e25/result.json
+bunny_correct_crc,1546,packets,fresh_RF,board/results/runs/d99541c284d220bc50971b0a192395a7/result.json
+sintel_unique_rf,834,frames,fresh_RF,board/results/runs/5a72fa0d585f9311571ddf4479765e25/result.json
+bunny_unique_rf,770,frames,fresh_RF,board/results/runs/d99541c284d220bc50971b0a192395a7/result.json
+native_original_historical,60.98177652,s,different_fresh_IQ_no_speedup_ratio,report/performance.md
+native_accelerated_historical,23.95066324,s,different_fresh_IQ_no_speedup_ratio,report/performance.md

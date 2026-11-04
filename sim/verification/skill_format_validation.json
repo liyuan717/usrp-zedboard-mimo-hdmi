@@ -1,0 +1,26 @@
+[
+  {
+    "skill": "clean-runtime",
+    "returncode": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": ""
+  },
+  {
+    "skill": "display-isolation",
+    "returncode": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": ""
+  },
+  {
+    "skill": "evidence-first",
+    "returncode": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": ""
+  },
+  {
+    "skill": "reproducible-fpga",
+    "returncode": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": ""
+  }
+]

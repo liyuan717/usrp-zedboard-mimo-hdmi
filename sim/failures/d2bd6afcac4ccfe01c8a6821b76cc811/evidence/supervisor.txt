@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/link-live/photo-console/board_supervisor.py", line 47, in main
+    assert child.returncode==0,'native receiver failed'
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: native receiver failed

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "profile_id": "lvds_2r2t_2v5_spi_mode1",
+  "status": "PREBOARD_CONSERVATIVE_APPROVED",
+  "controller_clock_hz": 50000000,
+  "sck_ratio": 16,
+  "spi_mode": 1,
+  "protocol_edges": "CPOL=0/CPHA=1: external MISO launches on rising SCLK; AD9361 captures MOSI on falling SCLK. CS is constrained against both first-rising setup and last-falling hold as a conservative periodic envelope. The 50-MHz controller input register is constrained without a CE multicycle exception; first-bit/last-bit framing still needs simulation and actual SPI identity acceptance.",
+  "device_reference": "ADI AD9361 datasheet Rev. G and UG-570 SPI timing section: 1.8-V reference tCO=3..8 ns, input setup=2 ns/hold=1 ns, CS setup=1 ns/hold=0 ns. These are reference values, NOT a guaranteed 2.5-V PVT measurement.",
+  "primary_sources": [
+    "https://www.analog.com/media/en/technical-documentation/data-sheets/AD9361.pdf",
+    "https://www.analog.com/media/en/technical-documentation/user-guides/AD9361_Reference_Manual_UG-570.pdf"
+  ],
+  "device_model": {
+    "miso_tco_min_ns": 0.0,
+    "miso_tco_max_ns": 12.0,
+    "mosi_setup_ns": 2.0,
+    "mosi_hold_ns": 1.0,
+    "cs_setup_ns": 1.0,
+    "cs_hold_ns": 0.0
+  },
+  "board_assumptions": {
+    "clock_and_return_trace_min_ns": 0.0,
+    "clock_and_return_trace_max_ns": 2.0,
+    "output_data_minus_clock_min_ns": -0.5,
+    "output_data_minus_clock_max_ns": 0.5,
+    "margin_ns": 0.25,
+    "basis": "An offline engineering envelope broadens the public 1.8-V tCO interval to 0..12 ns; this is not a guarantee at 2.5 V. If actual PVT/trace bounds exceed it, reduce the controller clock and reimplement rather than hide timing paths. Board SPI identity/PN tests and timing review remain required."
+  }
+}

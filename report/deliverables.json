@@ -1,0 +1,50 @@
+{
+  "version": "2026-11-04",
+  "track": "自主选题赛道",
+  "group": "初级组",
+  "delivery": "complete_current_accepted_engineering_version",
+  "scope": "finite original-file OTA recovery followed by HDMI playback",
+  "source_main_commit": "fdc1b75c33411a24b49e9a7d8c8b719a5494e99e",
+  "items": [
+    {
+      "path": "src",
+      "role": "functional_source",
+      "index": "build/source_manifest.json"
+    },
+    {
+      "path": "sim",
+      "role": "verification_and_failures",
+      "index": "sim/readme.md"
+    },
+    {
+      "path": "build",
+      "role": "build_tools_and_reports",
+      "index": "build/reports"
+    },
+    {
+      "path": "board",
+      "role": "hardware_results_and_asset_pins",
+      "index": "board/results/acceptance.json"
+    },
+    {
+      "path": "data",
+      "role": "pinned_runtime_and_references",
+      "index": "data/manifest.json"
+    },
+    {
+      "path": "skill",
+      "role": "reusable_workflows_and_checkers",
+      "index": "skill/readme.md"
+    },
+    {
+      "path": "report",
+      "role": "design_performance_collaboration_reproduction",
+      "index": "report/design_report.md"
+    }
+  ],
+  "unfinished_branches_included": false,
+  "algorithm_changes": false,
+  "SD_written": false,
+  "offline_delivery_checks": "sim/verification/migration_summary.json",
+  "build_entry": "build/scripts/build_fpga.py"
+}

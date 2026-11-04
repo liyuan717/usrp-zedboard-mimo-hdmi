@@ -1,0 +1,76 @@
+{
+  "valid": false,
+  "new_RF": true,
+  "new_ADC": true,
+  "original_file_mode": true,
+  "run_id": "b535b748bbd1c0d38f0d5af6c489150d",
+  "boot_id": "31a41345-f738-4637-bdbf-8a16a340a7a2",
+  "visual_pass": false,
+  "native_summary": {
+    "schema": "mrf1-native-rx-backend-v1",
+    "mode": "rxonly",
+    "started": true,
+    "blocks": 5120,
+    "capture_pool_blocks": 5120,
+    "capture_pool_bytes": 42106880,
+    "captured_blocks": 5120,
+    "detected_frames": 835,
+    "delivered_frames": 835,
+    "crc_rejected_frames": 0,
+    "delivery": {
+      "mode": "file",
+      "ipc_enqueued_records": 0,
+      "ipc_dropped_records": 0,
+      "ipc_drop_consumer_absent": 0,
+      "ipc_drop_congested": 0,
+      "ipc_drop_interrupted": 0,
+      "ipc_sender_queue_high_watermark_available": false,
+      "ipc_socket_send_buffer_bytes": 0
+    },
+    "elapsed_ns": 33994038146,
+    "queue_high_watermarks": {
+      "capture": 0,
+      "frames": 1,
+      "delivery": 1
+    },
+    "frontend": {
+      "rejected_blocks": 1,
+      "continuity_resets": 327,
+      "acquisition_attempts": 331,
+      "acquisition_failures": 323
+    },
+    "timings": {
+      "capture_read": {
+        "calls": 5120,
+        "total_ns": 1072695400,
+        "maximum_ns": 4896606
+      },
+      "frontend_feed": {
+        "calls": 3466,
+        "total_ns": 26158903263,
+        "maximum_ns": 929105259
+      },
+      "detector_batch": {
+        "calls": 835,
+        "total_ns": 5166176452,
+        "maximum_ns": 9837666
+      },
+      "delivery_write": {
+        "calls": 835,
+        "total_ns": 34666596,
+        "maximum_ns": 145266
+      }
+    },
+    "video_frame_rate_verified": false
+  },
+  "failure": "AssertionError: ",
+  "kernel_error_lines": [],
+  "rx_lo_powerdown": "1",
+  "tx_lo_powerdown": "1",
+  "adc_buffer_enable": "0",
+  "rxth_after": {
+    "ring_halts": 0,
+    "ready_blocks": 0,
+    "ring_capacity": 64
+  }
+}

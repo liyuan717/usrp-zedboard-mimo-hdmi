@@ -1,0 +1,54 @@
+cmake_minimum_required(VERSION 3.16)
+project(mrf1_native_frontend LANGUAGES CXX)
+
+# Deliberately dependency-free: the board rootfs does not need Eigen, Python,
+# NumPy, or an FFT library for this bounded 2x2 receiver.
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+option(MRF1_NF_ENABLE_PROFILE "Enable diagnostic per-stage counters" OFF)
+option(MRF1_NF_BUILD_TOOLS "Build standalone frontend diagnostic tools" ON)
+
+add_library(mrf1_native_frontend STATIC
+  src/mrf1_native_frontend.cpp
+)
+target_include_directories(mrf1_native_frontend PUBLIC include)
+target_compile_options(mrf1_native_frontend PRIVATE -Wall -Wextra -Wpedantic -Werror)
+if(MRF1_NF_ENABLE_PROFILE)
+  target_compile_definitions(mrf1_native_frontend PRIVATE MRF1_NF_ENABLE_PROFILE)
+endif()
+
+add_executable(mrf1_native_frontend_tests tests/native_frontend_test.cpp)
+target_link_libraries(mrf1_native_frontend_tests PRIVATE mrf1_native_frontend)
+target_compile_options(mrf1_native_frontend_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+if(MSVC)
+  target_compile_options(mrf1_native_frontend_tests PRIVATE /UNDEBUG)
+else()
+  # Keep release-library optimisation while ensuring test assertions execute.
+  target_compile_options(mrf1_native_frontend_tests PRIVATE -UNDEBUG)
+endif()
+
+enable_testing()
+add_test(NAME mrf1_native_frontend_tests COMMAND mrf1_native_frontend_tests)
+
+# White-box regression for the lock-local SFO evidence window.  It includes
+# the implementation in exactly one test translation unit and deliberately
+# does not link the production static library, so there is no ODR duplicate.
+add_executable(mrf1_native_frontend_window_tests tests/native_frontend_window_test.cpp)
+target_include_directories(mrf1_native_frontend_window_tests PRIVATE include)
+target_compile_options(mrf1_native_frontend_window_tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+if(MSVC)
+  target_compile_options(mrf1_native_frontend_window_tests PRIVATE /UNDEBUG)
+else()
+  target_compile_options(mrf1_native_frontend_window_tests PRIVATE -UNDEBUG)
+endif()
+add_test(NAME mrf1_native_frontend_window_tests COMMAND mrf1_native_frontend_window_tests)
+
+if(MRF1_NF_BUILD_TOOLS)
+  foreach(tool IN ITEMS rxth_file_check rxth_debug_dump rxth_task_dump rxth_task_stream_dump rxth_tracking_benchmark rxth_tracking_trace)
+    add_executable(mrf1_${tool} tools/${tool}.cpp)
+    target_link_libraries(mrf1_${tool} PRIVATE mrf1_native_frontend)
+    target_compile_options(mrf1_${tool} PRIVATE -Wall -Wextra -Wpedantic -Werror)
+  endforeach()
+endif()

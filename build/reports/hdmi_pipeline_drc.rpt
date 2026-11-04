@@ -1,0 +1,368 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Oct 26 13:32:48 2026
+| Host         : Camellia running 64-bit major release  (build 9200)
+| Command      : report_drc -file G:/fpga_transformer/zedboard_rf_migration/build/hp1v1t/hdmi_pipeline_drc.rpt
+| Design       : zedboard_rf_system_wrapper
+| Device       : xc7z020clg484-1
+| Speed File   : -1
+| Design State : Fully Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: checkpoint_zedboard_rf_system_wrapper_routed
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 62
++-----------+----------+-------------------------------------------------------------------+--------+
+| Rule      | Severity | Description                                                       | Checks |
++-----------+----------+-------------------------------------------------------------------+--------+
+| DPIP-1    | Warning  | Input pipelining                                                  | 3      |
+| DPOP-1    | Warning  | PREG Output pipelining                                            | 4      |
+| DPOP-2    | Warning  | MREG Output pipelining                                            | 4      |
+| REQP-1839 | Warning  | RAMB36 async control check                                        | 18     |
+| RTSTAT-10 | Warning  | No routable loads                                                 | 1      |
+| AVAL-4    | Advisory | enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND | 24     |
+| REQP-165  | Advisory | writefirst                                                        | 4      |
+| REQP-181  | Advisory | writefirst                                                        | 4      |
++-----------+----------+-------------------------------------------------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+DPIP-1#1 Warning
+Input pipelining  
+DSP zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1 input zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#2 Warning
+Input pipelining  
+DSP zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out input zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#3 Warning
+Input pipelining  
+DSP zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out__0 input zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPOP-1#1 Warning
+PREG Output pipelining  
+DSP zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1 output zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#2 Warning
+PREG Output pipelining  
+DSP zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1__0 output zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#3 Warning
+PREG Output pipelining  
+DSP zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out output zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#4 Warning
+PREG Output pipelining  
+DSP zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out__0 output zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out__0/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-2#1 Warning
+MREG Output pipelining  
+DSP zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1 multiplier stage zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#2 Warning
+MREG Output pipelining  
+DSP zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1__0 multiplier stage zedboard_rf_system_i/detector_0/inst/u_detector/u_kernel/u_rng/value1__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#3 Warning
+MREG Output pipelining  
+DSP zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out multiplier stage zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#4 Warning
+MREG Output pipelining  
+DSP zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out__0 multiplier stage zedboard_rf_system_i/mimo_interleaved_candidate_0/inst/u_core/u_candidate/u_core/p_0_out__0/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+REQP-1839#1 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/m_ram_reg/ADDRARDADDR[6] (net: zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/Q[0]) which is driven by a register (zedboard_rf_system_i/rf_rx_fifo/inst/dout_raddr_reg[0]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#2 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/m_ram_reg/ADDRARDADDR[7] (net: zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/Q[1]) which is driven by a register (zedboard_rf_system_i/rf_rx_fifo/inst/dout_raddr_reg[1]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#3 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/m_ram_reg/ADDRARDADDR[8] (net: zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/Q[2]) which is driven by a register (zedboard_rf_system_i/rf_rx_fifo/inst/dout_raddr_reg[2]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#4 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/m_ram_reg/ADDRARDADDR[9] (net: zedboard_rf_system_i/rf_rx_fifo/inst/i_mem/Q[3]) which is driven by a register (zedboard_rf_system_i/rf_rx_fifo/inst/dout_raddr_reg[3]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#5 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_dmac/inst/i_transfer/i_request_arb/i_store_and_forward/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_dmac/inst/i_transfer/i_request_arb/i_store_and_forward/i_mem/m_ram_reg/ENARDEN (net: zedboard_rf_system_i/rf_tx_dmac/inst/i_transfer/i_request_arb/i_store_and_forward/i_mem/E[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_valid_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#6 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/ADDRBWRADDR[10] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg_0[4]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_waddr_reg[4]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#7 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/ADDRBWRADDR[6] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg_0[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_waddr_reg[0]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#8 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/ADDRBWRADDR[7] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg_0[1]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_waddr_reg[1]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#9 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/ADDRBWRADDR[8] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg_0[2]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_waddr_reg[2]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#10 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/ADDRBWRADDR[9] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg_0[3]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_waddr_reg[3]) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#11 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/WEBWE[0] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/WEBWE[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_wr_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#12 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/WEBWE[1] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/WEBWE[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_wr_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#13 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/WEBWE[2] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/WEBWE[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_wr_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#14 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/WEBWE[3] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/WEBWE[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_wr_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#15 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/WEBWE[4] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/WEBWE[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_wr_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#16 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/WEBWE[5] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/WEBWE[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_wr_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#17 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/WEBWE[6] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/WEBWE[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_wr_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#18 Warning
+RAMB36 async control check  
+The RAMB36E1 zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg has an input control pin zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/m_ram_reg/WEBWE[7] (net: zedboard_rf_system_i/rf_tx_fifo/inst/i_mem/WEBWE[0]) which is driven by a register (zedboard_rf_system_i/rf_tx_fifo/inst/din_wr_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+RTSTAT-10#1 Warning
+No routable loads  
+26 net(s) have no routable loads. The problem bus(es) and/or net(s) are zedboard_rf_system_i/rf_rx_transport_metadata_fifo/inst/metadata_fifo_i/gnuram_async_fifo.xpm_fifo_base_inst/overflow,
+zedboard_rf_system_i/rf_rx_transport_metadata_fifo/inst/metadata_fifo_i/gnuram_async_fifo.xpm_fifo_base_inst/underflow,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/data_valid,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/overflow,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/underflow,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.RX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/wr_ack,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/data_valid,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/overflow,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/rd_data_count[4:0],
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/underflow,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/FIFO_EXISTS.TX_FIFO_II/gnuram_async_fifo.xpm_fifo_base_inst/wr_ack,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/LOGIC_FOR_MD_0_GEN.SPI_MODULE_I/io0_t,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/LOGIC_FOR_MD_0_GEN.SPI_MODULE_I/io1_t,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/LOGIC_FOR_MD_0_GEN.SPI_MODULE_I/sck_t,
+zedboard_rf_system_i/rf_spi/U0/NO_DUAL_QUAD_MODE.QSPI_NORMAL/QSPI_LEGACY_MD_GEN.QSPI_CORE_INTERFACE_I/LOGIC_FOR_MD_0_GEN.SPI_MODULE_I/ss_t
+ (the first 15 of 18 listed nets/buses).
+Related violations: <none>
+
+AVAL-4#1 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_rx/i_rx_channel_0/i_ad_iqcor/g_loop[0].i_mul_i/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#2 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_rx/i_rx_channel_0/i_ad_iqcor/g_loop[0].i_mul_q/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#3 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_rx/i_rx_channel_1/i_ad_iqcor/g_loop[0].i_mul_i/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#4 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_rx/i_rx_channel_1/i_ad_iqcor/g_loop[0].i_mul_q/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#5 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_rx/i_rx_channel_2/i_ad_iqcor/g_loop[0].i_mul_i/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#6 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_rx/i_rx_channel_2/i_ad_iqcor/g_loop[0].i_mul_q/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#7 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_rx/i_rx_channel_3/i_ad_iqcor/g_loop[0].i_mul_i/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#8 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_rx/i_rx_channel_3/i_ad_iqcor/g_loop[0].i_mul_q/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#9 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_0/i_ad_iqcor/g_loop[0].i_mul_i/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#10 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_0/i_ad_iqcor/g_loop[0].i_mul_q/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#11 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_0/i_dds/dds_phase[1].i_dds_2/i_dds_1_0/i_dds_scale/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#12 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_0/i_dds/dds_phase[1].i_dds_2/i_dds_1_1/i_dds_scale/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#13 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_1/i_ad_iqcor/g_loop[0].i_mul_i/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#14 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_1/i_ad_iqcor/g_loop[0].i_mul_q/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#15 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_1/i_dds/dds_phase[1].i_dds_2/i_dds_1_0/i_dds_scale/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#16 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_1/i_dds/dds_phase[1].i_dds_2/i_dds_1_1/i_dds_scale/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#17 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_2/i_ad_iqcor/g_loop[0].i_mul_i/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#18 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_2/i_ad_iqcor/g_loop[0].i_mul_q/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#19 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_2/i_dds/dds_phase[1].i_dds_2/i_dds_1_0/i_dds_scale/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#20 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_2/i_dds/dds_phase[1].i_dds_2/i_dds_1_1/i_dds_scale/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#21 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_3/i_ad_iqcor/g_loop[0].i_mul_i/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#22 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_3/i_ad_iqcor/g_loop[0].i_mul_q/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#23 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_3/i_dds/dds_phase[1].i_dds_2/i_dds_1_0/i_dds_scale/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#24 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+zedboard_rf_system_i/axi_ad9361/inst/i_tx/i_tx_channel_3/i_dds/dds_phase[1].i_dds_2/i_dds_1_1/i_dds_scale/i_mult_macro/dsp_v5_1.DSP48_V5_1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+REQP-165#1 Advisory
+writefirst  
+Synchronous clocking is detected for BRAM (zedboard_rf_system_i/detector_dma/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/GEN_INCLUDE_MM2S_SF.I_RD_SF/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_1) in SDP mode with WRITE_FIRST write-mode. This is the preferred mode for best power characteristics, however it may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+REQP-165#2 Advisory
+writefirst  
+Synchronous clocking is detected for BRAM (zedboard_rf_system_i/detector_dma/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_ENABLE_INDET_BTT_SF.I_INDET_BTT/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_1) in SDP mode with WRITE_FIRST write-mode. This is the preferred mode for best power characteristics, however it may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+REQP-165#3 Advisory
+writefirst  
+Synchronous clocking is detected for BRAM (zedboard_rf_system_i/interleaved_candidate_dma/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/GEN_INCLUDE_MM2S_SF.I_RD_SF/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_1) in SDP mode with WRITE_FIRST write-mode. This is the preferred mode for best power characteristics, however it may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+REQP-165#4 Advisory
+writefirst  
+Synchronous clocking is detected for BRAM (zedboard_rf_system_i/interleaved_candidate_dma/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_ENABLE_INDET_BTT_SF.I_INDET_BTT/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_1) in SDP mode with WRITE_FIRST write-mode. This is the preferred mode for best power characteristics, however it may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+REQP-181#1 Advisory
+writefirst  
+Synchronous clocking is detected for BRAM (zedboard_rf_system_i/detector_dma/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/GEN_INCLUDE_MM2S_SF.I_RD_SF/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0) in SDP mode with WRITE_FIRST write-mode. This is the preferred mode for best power characteristics, however it may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+REQP-181#2 Advisory
+writefirst  
+Synchronous clocking is detected for BRAM (zedboard_rf_system_i/detector_dma/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_ENABLE_INDET_BTT_SF.I_INDET_BTT/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0) in SDP mode with WRITE_FIRST write-mode. This is the preferred mode for best power characteristics, however it may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+REQP-181#3 Advisory
+writefirst  
+Synchronous clocking is detected for BRAM (zedboard_rf_system_i/interleaved_candidate_dma/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/GEN_INCLUDE_MM2S_SF.I_RD_SF/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0) in SDP mode with WRITE_FIRST write-mode. This is the preferred mode for best power characteristics, however it may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+REQP-181#4 Advisory
+writefirst  
+Synchronous clocking is detected for BRAM (zedboard_rf_system_i/interleaved_candidate_dma/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_ENABLE_INDET_BTT_SF.I_INDET_BTT/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0) in SDP mode with WRITE_FIRST write-mode. This is the preferred mode for best power characteristics, however it may exhibit address collisions if the same address appears on both read and write ports resulting in unknown or corrupted read data. It is suggested to confirm via simulation that an address collision never occurs and if so it is suggested to try and avoid this situation. If address collisions cannot be avoided, the write-mode may be set to READ_FIRST which guarantees that the read data is the prior contents of the memory at the cost of additional power in the design. See the FPGA Memory Resources User Guide for additional information.
+Related violations: <none>
+
+

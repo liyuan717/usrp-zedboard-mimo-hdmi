@@ -1,0 +1,10 @@
+{
+  "target_repository": "liyuan717/usrp-zedboard-mimo-hdmi",
+  "cloud_full_readback_SHA256_verified": true,
+  "bytes": 225162361,
+  "sha256": "f9db871089372a96db162964ef34f78fded7dcaaa2aca79febd0e6fefa9422d0",
+  "method": "authenticated HTTP range reconstruction; full SHA256",
+  "parallel_workers": 12,
+  "segments": 128,
+  "elapsed_s": 144.22538781166077
+}

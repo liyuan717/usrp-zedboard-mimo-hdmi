@@ -1,0 +1,55 @@
+###   foreach {name signal} {iic_mux_scl_iobuf scl iic_mux_sda_iobuf sda} {
+###     create_bd_cell -type module -reference ad_iobuf $name
+###     set_property CONFIG.DATA_WIDTH 2 [get_bd_cells $name]
+###     rf_net sys_i2c_mixer/downstream_${signal}_O $name/dio_i
+###     rf_net sys_i2c_mixer/downstream_${signal}_T $name/dio_t
+###     rf_net $name/dio_o sys_i2c_mixer/downstream_${signal}_I
+###     rf_net $name/dio_p iic_mux_${signal}
+###   }
+### 
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_clkgen/clk
+###   rf_net axi_hdmi_clkgen/clk_0 axi_hdmi_core/reference_clk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_core/vdma_clk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_core/s_axi_aclk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_clkgen/s_axi_aclk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_dma/s_axi_aclk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_dma/m_src_axi_aclk
+###   rf_net ps7/FCLK_CLK0 axi_hdmi_dma/m_axis_aclk
+###   rf_net ps7/FCLK_CLK0 axi_iic_main/s_axi_aclk
+###   foreach pin {axi_hdmi_core/s_axi_aresetn axi_hdmi_clkgen/s_axi_aresetn \
+###       axi_hdmi_dma/s_axi_aresetn axi_hdmi_dma/m_src_axi_aresetn \
+###       axi_iic_main/s_axi_aresetn} {
+###     rf_net reset_50m/peripheral_aresetn $pin
+###   }
+###   rf_bus axi_hdmi_dma/m_axis axi_hdmi_core/s_axis
+### }
+couldn't read file "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/vendor/adi_hdl_verified/library/axi_clkgen/gui/axi_clkgen_v1_0.gtcl": no such file or directory
+    while executing
+"source [file join [file dirname [file dirname [info script]]] gui/axi_clkgen_v1_0.gtcl]"
+    (file "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/vendor/adi_hdl_verified/library..." line 3)
+WARNING: [IP_Flow 19-3303] Errors found in sourcing XGUI file '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/vendor/adi_hdl_verified/library/axi_clkgen/xgui/axi_clkgen_v1_0.tcl'. 
+ERROR: [IP_Flow 19-3428] Failed to create Customization object axi_hdmi_clkgen
+CRITICAL WARNING: [IP_Flow 19-5622] Failed to create IP instance 'zedboard_rf_system_axi_hdmi_clkgen_0'. Failed to customize IP instance 'zedboard_rf_system_axi_hdmi_clkgen_0'. Failed to load customization data
+ERROR: [BD 41-1712] Create IP failed with errors
+ERROR: [BD 5-7] Error: running create_bd_cell  -vlnv analog.com:user:axi_clkgen:1.0 -type ip -name axi_hdmi_clkgen .
+ERROR: [Common 17-39] 'create_bd_cell' failed due to earlier errors.
+
+    while executing
+"create_bd_cell -type ip -vlnv analog.com:user:${core}:1.0 $name"
+    (procedure "rf_ip" line 4)
+    invoked from within
+"rf_ip axi_hdmi_clkgen axi_clkgen {CONFIG.CLKIN_PERIOD 20.000 CONFIG.VCO_DIV 1 CONFIG.VCO_MUL 20.000 CONFIG.CLK0_DIV 6.750}"
+    invoked from within
+"if {$hdmi_demo} {
+  rf_ip axi_hdmi_clkgen axi_clkgen {CONFIG.CLKIN_PERIOD 20.000 CONFIG.VCO_DIV 1 CONFIG.VCO_MUL 20.000 CONFIG.CLK0_DIV 6.750}
+  rf_ip..."
+    (file "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/deliverables/usrp-zedboard-inte..." line 295)
+
+    while executing
+"source [file join [file dirname [info script]] create_zedboard_rf_system.tcl]"
+    (file "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/deliverables/usrp-zedboard-inte..." line 81)
+
+    while executing
+"source [file join $hdmi_pipeline_root pl scripts create_zedboard_continuous_video_health_system.tcl]"
+    (file "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/deliverables/usrp-zedboard-inte..." line 20)
+INFO: [Common 17-206] Exiting Vivado at Wed Nov  4 07:04:17 2026...

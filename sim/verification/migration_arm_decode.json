@@ -1,0 +1,17 @@
+{
+  "valid": true,
+  "tests": [
+    {
+      "file": "01_sintel_1024x600_5fps_5s.mp4",
+      "file_sha256": "6971013ecf720517e6eaab1ea2d1726d0e19b71e186b16599254da8209c2202d",
+      "spec": {
+        "file_sha256": "6971013ecf720517e6eaab1ea2d1726d0e19b71e186b16599254da8209c2202d"
+      },
+      "ARM_decode_AUs": 25,
+      "physical_RF_verified": false,
+      "physical_HDMI_verified": false,
+      "elapsed_s": 7.58422975800022
+    }
+  ],
+  "scope": "Offline original-file framing and real ARM NULL decode only"
+}

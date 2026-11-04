@@ -1,0 +1,71 @@
+{
+  "schema": "mrf1-interoperability-run-v1",
+  "template_only_not_an_admission_receipt": true,
+  "run_id": "FILL_unique_run_id",
+  "protocol_commit": "FILL_exact_published_git_commit",
+  "profile_id": "MRF1-QPSK-2X2-4M-v1",
+  "enable_tx": false,
+  "mode": "functional_test_not_video_performance",
+  "desired": {
+    "sample_rate_hz": 4000000,
+    "symbol_rate_hz": 1000000,
+    "center_frequency_hz": 2450000000,
+    "analog_bandwidth_hz": 3000000,
+    "tx_channels": [0, 1],
+    "rx_channels": [0, 1],
+    "samples_per_api_block": 16384,
+    "max_queued_iq_blocks": 8,
+    "initial_iq_peak_component": 0.125,
+    "duration_s": 60
+  },
+  "actual_readback": {
+    "usrp_model_serial": null,
+    "uhd_driver_version": null,
+    "tx_sample_rate_hz": null,
+    "tx_frequency_hz": null,
+    "tx_bandwidth_hz": null,
+    "tx_gain_db_per_channel": null,
+    "tx_antenna_ports": null,
+    "clock_source": null,
+    "time_source": null,
+    "timed_start_device_seconds": null,
+    "rx_board_bitstream_sha256": null,
+    "rx_boot_id": null,
+    "rx_driver_module_sha256": null,
+    "rx_sample_rate_hz": null,
+    "rx_frequency_hz": null,
+    "measured_or_estimated_cfo_hz": null,
+    "measured_or_estimated_sfo_ppm": null
+  },
+  "safety": {
+    "cables_ports_and_attenuators_operator_confirmed": false,
+    "external_attenuation_db_per_path": null,
+    "safe_input_power_budget_reviewed": false,
+    "local_ad9361_tx_disabled": false
+  },
+  "video_goal_when_enabled": {
+    "source_width": 1024,
+    "source_height": 600,
+    "minimum_new_source_fps": 30,
+    "stretch_new_source_fps": 60,
+    "codec": "H264_AnnexB_constrained_baseline_no_B_single_slice_YUV420P_progressive",
+    "bitrate_bps_actual_not_claimed": null,
+    "gop": null,
+    "vbv": null,
+    "quality_reference_and_metrics": null
+  },
+  "results_not_yet_measured": {
+    "tx_samples_accepted_per_channel": null,
+    "tx_partial_send_events": null,
+    "tx_underflows": null,
+    "tx_late_or_async_errors": null,
+    "rf_frames_crc_pass_both_streams": null,
+    "rf_frames_crc_failed": null,
+    "missing_duplicate_out_of_order_frames": null,
+    "rx_adc_fifo_dma_errors": null,
+    "source_frames_new": null,
+    "video_frames_reassembled_decoded_new": null,
+    "effective_new_video_fps": null,
+    "end_to_end_latency_p50_p95_ms": null
+  }
+}

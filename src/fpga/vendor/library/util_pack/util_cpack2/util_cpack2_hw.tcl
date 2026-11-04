@@ -1,0 +1,132 @@
+###############################################################################
+## Copyright (C) 2018-2026 Analog Devices, Inc. All rights reserved.
+## Short identifier: ADIBSD
+##
+## Redistribution and use in source and binary forms, with or without modification,
+## are permitted provided that the following conditions are met:
+##     - Redistributions of source code must retain the above copyright
+##       notice, this list of conditions and the following disclaimer.
+##     - Redistributions in binary form must reproduce the above copyright
+##       notice, this list of conditions and the following disclaimer in
+##       the documentation and/or other materials provided with the
+##       distribution.
+##     - Neither the name of Analog Devices, Inc. nor the names of its
+##       contributors may be used to endorse or promote products derived
+##       from this software without specific prior written permission.
+##     - The use of this software may or may not infringe the patent rights
+##       of one or more patent holders. This license does not release you
+##       from the requirement that you obtain separate licenses from these
+##       patent holders to use this software.
+##     - Use of the software either in source or binary form, must be run
+##       on or directly connected to an Analog Devices Inc. component.
+##
+## THIS SOFTWARE IS PROVIDED BY ANALOG DEVICES "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+## INCLUDING, BUT NOT LIMITED TO, NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A
+## PARTICULAR PURPOSE ARE DISCLAIMED.
+##
+## IN NO EVENT SHALL ANALOG DEVICES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+## EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, INTELLECTUAL PROPERTY
+## RIGHTS, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+## BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+## STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
+## THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+###############################################################################
+
+package require qsys 14.0
+source ../../../scripts/adi_env.tcl
+source ../../scripts/adi_ip_intel.tcl
+
+ad_ip_create util_cpack2 {Channel Pack Utility v2} util_cpack_elab
+ad_ip_files util_cpack2_impl [list \
+  $ad_hdl_dir/library/common/ad_perfect_shuffle.v \
+  ../util_pack_common/pack_ctrl.v \
+  ../util_pack_common/pack_interconnect.v \
+  ../util_pack_common/pack_network.v \
+  ../util_pack_common/pack_shell.v \
+  util_cpack2_impl.v ]
+
+# parameters
+
+ad_ip_parameter NUM_OF_CHANNELS INTEGER 4 true [list \
+  DISPLAY_NAME "Number of Channels" \
+  ALLOWED_RANGES {2 4 8 16 32 64}
+]
+
+ad_ip_parameter SAMPLES_PER_CHANNEL INTEGER 1 true [list \
+  DISPLAY_NAME "Samples per Channel"
+]
+
+ad_ip_parameter SAMPLE_DATA_WIDTH INTEGER 16 true [list \
+  DISPLAY_NAME "Sample Data Width"
+]
+
+ad_ip_parameter INTERFACE_TYPE INTEGER 1 true [list \
+  DISPLAY_NAME "Interface Type" \
+  ALLOWED_RANGES {"0:AXIS" "1:FIFO"} \
+]
+
+ad_ip_parameter PARALLEL_OR_SERIAL_N INTEGER 0 true [list \
+  DISPLAY_NAME "Parallel prefix sum calculation" \
+  ALLOWED_RANGES {"0:Serial" "1:Parallel"} \
+]
+
+# defaults
+
+proc util_cpack_elab {} {
+  set num_channels [get_parameter_value NUM_OF_CHANNELS]
+  set samples_per_channel [get_parameter_value SAMPLES_PER_CHANNEL]
+  set sample_data_width [get_parameter_value SAMPLE_DATA_WIDTH]
+  set interface_type [get_parameter_value INTERFACE_TYPE]
+
+  set channel_data_width [expr $sample_data_width * $samples_per_channel]
+  set total_data_width [expr $num_channels * $channel_data_width]
+  set disabled_intfs {}
+
+  add_interface clk clock end
+  add_interface_port clk clk clk Input 1
+  add_interface reset reset end
+  add_interface_port reset reset reset Input 1
+  set_interface_property reset associatedClock clk
+
+  add_interface m_axis axi4stream start
+  set_interface_property m_axis associatedClock clk
+  set_interface_property m_axis associatedReset reset
+  add_interface_port  m_axis  m_axis_valid tvalid  Output  1
+  add_interface_port  m_axis  m_axis_ready tready  Input   1
+  add_interface_port  m_axis  m_axis_last  tlast   Output  1
+  add_interface_port  m_axis  m_axis_data  tdata   Output  $total_data_width
+  add_interface_port  m_axis  m_axis_keep  tkeep   Output  $total_data_width/8
+
+  ad_interface signal packed_fifo_wr_en       output 1                 valid
+  ad_interface signal packed_fifo_wr_data     output $total_data_width data
+  ad_interface signal packed_fifo_wr_overflow input  1                 ovf
+  ad_interface signal packed_sync             output 1                 sync
+
+  ad_interface signal fifo_wr_overflow        output 1                 ovf
+
+  if {$interface_type == 0} {
+    lappend disabled_intfs \
+      if_packed_fifo_wr_en if_packed_fifo_wr_data if_packed_fifo_wr_overflow \
+      if_packed_sync
+  } else {
+    lappend disabled_intfs m_axis
+  }
+
+  foreach intf $disabled_intfs {
+    set_interface_property $intf ENABLED false
+  }
+
+  for {set n 0} {$n < $num_channels} {incr n} {
+    add_interface adc_ch_$n conduit end
+    add_interface_port adc_ch_$n enable_$n enable Input 1
+    set_port_property enable_$n fragment_list [format "enable(%d:%d)" $n $n]
+
+    add_interface_port adc_ch_$n fifo_wr_en_$n valid Input 1
+    set_port_property fifo_wr_en_$n fragment_list [format "fifo_wr_en(%d)" $n]
+    add_interface_port adc_ch_$n fifo_wr_data_$n data Input $channel_data_width
+    set_port_property fifo_wr_data_$n fragment_list [format "fifo_wr_data(%d:%d)" \
+      [expr ($n+1) * $channel_data_width - 1] [expr $n * $channel_data_width]]
+    set_interface_property adc_ch_$n associatedClock clk
+    set_interface_property adc_ch_$n associatedReset ""
+  }
+}

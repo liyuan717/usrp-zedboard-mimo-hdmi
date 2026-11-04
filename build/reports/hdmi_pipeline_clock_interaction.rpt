@@ -1,0 +1,36 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Oct 26 13:32:43 2026
+| Host         : Camellia running 64-bit major release  (build 9200)
+| Command      : report_clock_interaction -file G:/fpga_transformer/zedboard_rf_migration/build/hp1v1t/hdmi_pipeline_clock_interaction.rpt
+| Design       : zedboard_rf_system_wrapper
+| Device       : 7z020-clg484
+| Speed File   : -1  PRODUCTION 1.12 2019-11-22
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Interaction Report
+
+Clock Interaction Table
+-----------------------
+
+                                                                                                  WNS                            TNS Failing  TNS Total    WNS Path         Clock-Pair           Inter-Clock              
+From Clock                                       To Clock                                         Clock Edges  WNS(ns)  TNS(ns)    Endpoints    Endpoints  Requirement(ns)  Classification       Constraints              
+-----------------------------------------------  -----------------------------------------------  -----------  -------  -------  -----------  -----------  ---------------  -------------------  -----------------------  
+ad9361_spi_clk                                   clk_fpga_0                                       rise - rise     0.49     0.00            0            1            20.00  Clean                Timed                    
+clk_fpga_0                                       ad9361_spi_clk                                   rise - fall    10.53     0.00            0            2            20.00  Clean                Timed                    
+clk_fpga_0                                       clk_fpga_0                                       rise - rise     0.16     0.00            0       130474            20.00  Clean                Partial False Path       
+clk_fpga_0                                       clk_out1_zedboard_rf_system_rf_sampling_clock_0  rise - rise    61.24     0.00            0         1000            62.50  Ignored              Max Delay Datapath Only  
+clk_fpga_0                                       mmcm_clk_0_s                                     rise - rise     4.55     0.00            0          221             6.00  Ignored              Max Delay Datapath Only  
+clk_out1_zedboard_rf_system_delay_clock_0        clk_out1_zedboard_rf_system_delay_clock_0        rise - rise     3.31     0.00            0            4             5.00  Clean                Timed                    
+clk_out1_zedboard_rf_system_rf_sampling_clock_0  ad9361_fb_clk                                    rise - fall    12.88     0.00            0            7            15.62  Clean                Timed                    
+clk_out1_zedboard_rf_system_rf_sampling_clock_0  clk_fpga_0                                       rise - rise    18.79     0.00            0          266            20.00  Ignored              Max Delay Datapath Only  
+clk_out1_zedboard_rf_system_rf_sampling_clock_0  clk_out1_zedboard_rf_system_delay_clock_0                                                 0            3                   Ignored              False Path               
+clk_out1_zedboard_rf_system_rf_sampling_clock_0  clk_out1_zedboard_rf_system_rf_sampling_clock_0  rise - rise    52.01     0.00            0        13886            62.50  Clean                Partial False Path       
+mmcm_clk_0_s                                     clk_fpga_0                                                                                0           50                   Ignored              False Path               
+mmcm_clk_0_s                                     hdmi_forwarded                                   rise - rise     0.98     0.00            0           19             3.37  Clean                Timed                    
+mmcm_clk_0_s                                     mmcm_clk_0_s                                     rise - rise     0.58     0.00            0         1502             6.75  Clean                Timed                    
+rx_clk_in_p                                      clk_out1_zedboard_rf_system_rf_sampling_clock_0  rise - rise    13.70     0.00            0            7            15.63  Clean                Timed                    
+
+

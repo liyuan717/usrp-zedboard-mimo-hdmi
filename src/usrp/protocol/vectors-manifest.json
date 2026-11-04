@@ -1,0 +1,582 @@
+{
+  "schema": "mrf1-air-interface-v1-vectors",
+  "profile": {
+    "profile_id": "MRF1-QPSK-2X2-4M-v1",
+    "sample_rate_hz": 4000000,
+    "symbol_rate_hz": 1000000,
+    "samples_per_symbol": 4,
+    "rolloff": 0.35,
+    "rrc_span_symbols": 10,
+    "rrc_tap_count": 41,
+    "payload_bytes_per_stream": 128,
+    "pilot_interval_symbols": 64,
+    "iq_peak_component": 0.125,
+    "frame_symbols": 950,
+    "frame_scans": 3840
+  },
+  "iq_layout": "sample-major I0,Q0,I1,Q1; little-endian components",
+  "hardware_tested": false,
+  "uhd_transmit_executed": false,
+  "reference_sha256": "284fded05641b3e90649d261ca4011fe2ccaffa5d4d45d988294a77f0f5189d7",
+  "rrc_taps": [
+    0.003751585637890183,
+    -0.0011889692939383305,
+    -0.005813723431035162,
+    -0.0051356958864536215,
+    0.0010215774483170346,
+    0.006660606416501738,
+    0.004786529868486134,
+    -0.004774879383476198,
+    -0.012727745080260169,
+    -0.00738810814995924,
+    0.01280841083956978,
+    0.032674528296556135,
+    0.02856169072001492,
+    -0.011037104899771688,
+    -0.06758688021245063,
+    -0.09432326149272875,
+    -0.04234815425514363,
+    0.10344298356895472,
+    0.30390849113996066,
+    0.47859713518808034,
+    0.5478560066809867,
+    0.47859713518808034,
+    0.30390849113996066,
+    0.10344298356895472,
+    -0.04234815425514363,
+    -0.09432326149272875,
+    -0.06758688021245063,
+    -0.011037104899771688,
+    0.02856169072001492,
+    0.032674528296556135,
+    0.01280841083956978,
+    -0.00738810814995924,
+    -0.012727745080260169,
+    -0.004774879383476198,
+    0.004786529868486134,
+    0.006660606416501738,
+    0.0010215774483170346,
+    -0.0051356958864536215,
+    -0.005813723431035162,
+    -0.0011889692939383305,
+    0.003751585637890183
+  ],
+  "vectors": [
+    {
+      "name": "deterministic_0",
+      "frame_id": 0,
+      "payload_hex": [
+        "e55a5cfe58253ea338b01ef33226b3c1c6db50c1db84549be6381a6d8e1471cfb09bc269b81c028f514a64a8ffc2c8ea6f44a5e4fcb2cc9720e1b856c0c8bb18affdfc6623c63f16c14ae418d3bf750680eabff6df277ca3f080409b83a985db3e93dce3309e7bb7a85662840d91b08497da7d10aff601d0dd8ab81ec2806491",
+        "8520b79ec742b5618ecfa2d767eabb05a985eda300c2bb5e530f974ee0a2b6ba23e5fae345d9f4c1b17427b6f8edf28d9c80121e561a67394134deb02af87f6214781777896560349beb614c34368c32ae9ce51dd63b0d4afe0849b930fc00d24cd8dc796dfa1bdc12ba7a0da8fbe5b77b78c44de8d85a873e4e09115b345082"
+      ],
+      "header_hex": [
+        "4d524631010001000000000080000000d2b33a17",
+        "4d524631010101000000000080000000126cb4d6"
+      ],
+      "sections": [
+        {
+          "name": "leading_guard",
+          "start_symbol": 0,
+          "symbol_count": 32
+        },
+        {
+          "name": "preamble_tx0",
+          "start_symbol": 32,
+          "symbol_count": 96
+        },
+        {
+          "name": "separator_before_training",
+          "start_symbol": 128,
+          "symbol_count": 12
+        },
+        {
+          "name": "training_tx0",
+          "start_symbol": 140,
+          "symbol_count": 64
+        },
+        {
+          "name": "training_separator",
+          "start_symbol": 204,
+          "symbol_count": 12
+        },
+        {
+          "name": "training_tx1",
+          "start_symbol": 216,
+          "symbol_count": 64
+        },
+        {
+          "name": "separator_before_header",
+          "start_symbol": 280,
+          "symbol_count": 12
+        },
+        {
+          "name": "headers",
+          "start_symbol": 292,
+          "symbol_count": 80
+        },
+        {
+          "name": "pilots_0",
+          "start_symbol": 372,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_0",
+          "start_symbol": 374,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_1",
+          "start_symbol": 438,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_1",
+          "start_symbol": 440,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_2",
+          "start_symbol": 504,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_2",
+          "start_symbol": 506,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_3",
+          "start_symbol": 570,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_3",
+          "start_symbol": 572,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_4",
+          "start_symbol": 636,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_4",
+          "start_symbol": 638,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_5",
+          "start_symbol": 702,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_5",
+          "start_symbol": 704,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_6",
+          "start_symbol": 768,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_6",
+          "start_symbol": 770,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_7",
+          "start_symbol": 834,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_7",
+          "start_symbol": 836,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_8",
+          "start_symbol": 900,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_8",
+          "start_symbol": 902,
+          "symbol_count": 16
+        },
+        {
+          "name": "trailing_guard",
+          "start_symbol": 918,
+          "symbol_count": 32
+        }
+      ],
+      "amplitude_scale": 0.22382234594870432,
+      "artifacts": [
+        {
+          "path": "deterministic_0.fc32le",
+          "bytes": 61440,
+          "sha256": "75a60b6a0a13914364fbd8cc6e5e1af70cab27fc8777d3c53b7b46a2486ba394"
+        },
+        {
+          "path": "deterministic_0.sc16le",
+          "bytes": 30720,
+          "sha256": "73c816207279c3da131fc56827487caa844ae188b2556bb6e1af970f903f931b"
+        },
+        {
+          "path": "deterministic_0.stream0.packet.bin",
+          "bytes": 152,
+          "sha256": "eba554ad046abc041d647791201f3582d3a9c48e59ee25e367b0b842fd9136af"
+        },
+        {
+          "path": "deterministic_0.stream1.packet.bin",
+          "bytes": 152,
+          "sha256": "6c0bef5d6632783ff0272826829932ec52e6cb59e753587dc9df7bf5d1f2a1f9"
+        }
+      ]
+    },
+    {
+      "name": "ascending_1",
+      "frame_id": 1,
+      "payload_hex": [
+        "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f505152535455565758595a5b5c5d5e5f606162636465666768696a6b6c6d6e6f707172737475767778797a7b7c7d7e7f",
+        "fffefdfcfbfaf9f8f7f6f5f4f3f2f1f0efeeedecebeae9e8e7e6e5e4e3e2e1e0dfdedddcdbdad9d8d7d6d5d4d3d2d1d0cfcecdcccbcac9c8c7c6c5c4c3c2c1c0bfbebdbcbbbab9b8b7b6b5b4b3b2b1b0afaeadacabaaa9a8a7a6a5a4a3a2a1a09f9e9d9c9b9a999897969594939291908f8e8d8c8b8a89888786858483828180"
+      ],
+      "header_hex": [
+        "4d5246310100010001000000800000004cb390db",
+        "4d5246310101010001000000800000008c6c1e1a"
+      ],
+      "sections": [
+        {
+          "name": "leading_guard",
+          "start_symbol": 0,
+          "symbol_count": 32
+        },
+        {
+          "name": "preamble_tx0",
+          "start_symbol": 32,
+          "symbol_count": 96
+        },
+        {
+          "name": "separator_before_training",
+          "start_symbol": 128,
+          "symbol_count": 12
+        },
+        {
+          "name": "training_tx0",
+          "start_symbol": 140,
+          "symbol_count": 64
+        },
+        {
+          "name": "training_separator",
+          "start_symbol": 204,
+          "symbol_count": 12
+        },
+        {
+          "name": "training_tx1",
+          "start_symbol": 216,
+          "symbol_count": 64
+        },
+        {
+          "name": "separator_before_header",
+          "start_symbol": 280,
+          "symbol_count": 12
+        },
+        {
+          "name": "headers",
+          "start_symbol": 292,
+          "symbol_count": 80
+        },
+        {
+          "name": "pilots_0",
+          "start_symbol": 372,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_0",
+          "start_symbol": 374,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_1",
+          "start_symbol": 438,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_1",
+          "start_symbol": 440,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_2",
+          "start_symbol": 504,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_2",
+          "start_symbol": 506,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_3",
+          "start_symbol": 570,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_3",
+          "start_symbol": 572,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_4",
+          "start_symbol": 636,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_4",
+          "start_symbol": 638,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_5",
+          "start_symbol": 702,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_5",
+          "start_symbol": 704,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_6",
+          "start_symbol": 768,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_6",
+          "start_symbol": 770,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_7",
+          "start_symbol": 834,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_7",
+          "start_symbol": 836,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_8",
+          "start_symbol": 900,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_8",
+          "start_symbol": 902,
+          "symbol_count": 16
+        },
+        {
+          "name": "trailing_guard",
+          "start_symbol": 918,
+          "symbol_count": 32
+        }
+      ],
+      "amplitude_scale": 0.2265685245453484,
+      "artifacts": [
+        {
+          "path": "ascending_1.fc32le",
+          "bytes": 61440,
+          "sha256": "64dd6dc19783e032184ddfe8902cefa623916f959b007ac08590c7a48c8657f8"
+        },
+        {
+          "path": "ascending_1.sc16le",
+          "bytes": 30720,
+          "sha256": "f001370cd3af6c67d9005a43df4cd40663a1eb005d425eaa8d01e543ca418993"
+        },
+        {
+          "path": "ascending_1.stream0.packet.bin",
+          "bytes": 152,
+          "sha256": "7101432e6cb59306b5936568cacdaccf9b9e2ab3bddff7f6a656f2564f866fb7"
+        },
+        {
+          "path": "ascending_1.stream1.packet.bin",
+          "bytes": 152,
+          "sha256": "4c21d874a0306fd89cf99504f8f30d9722a620a4420c94fe9d08699e667ad4b1"
+        }
+      ]
+    },
+    {
+      "name": "deterministic_65535",
+      "frame_id": 65535,
+      "payload_hex": [
+        "5c7ac4fdcf92205d58cc8827559be17d9661f1d335de4cef38d689738dd3b713c63e95d0a7f1320d996e6492f6b7d0c5cf95a7a204baba95593dc10b14f8e7321e2b18093fd11c224a5806727b372d99b8fb28a99ecad87ffa645ed452e63623b2b32a44dc0d4a2fab470a315598b13e62b66e2a70bda20a8c20a1cae3b4bedb",
+        "750a9acb1333b34931c9b8bb292438f8ac55627a628a576f47156f5246e65f0c9868fac6f9a405d4b89cdd020651634644dd2af075148aafc39bf664a43da7a1a66390d76a3fd7b35ba4f588456444a9fe542e7df9d569ab5e1e8cfbe477d9d487e06a7cf902ed71f64fc685b3b6e2a2cf08661abaf0ca1181518cf1a504aee1"
+      ],
+      "header_hex": [
+        "4d52463101000100ffff00008000000004ff47a3",
+        "4d52463101010100ffff000080000000c420c962"
+      ],
+      "sections": [
+        {
+          "name": "leading_guard",
+          "start_symbol": 0,
+          "symbol_count": 32
+        },
+        {
+          "name": "preamble_tx0",
+          "start_symbol": 32,
+          "symbol_count": 96
+        },
+        {
+          "name": "separator_before_training",
+          "start_symbol": 128,
+          "symbol_count": 12
+        },
+        {
+          "name": "training_tx0",
+          "start_symbol": 140,
+          "symbol_count": 64
+        },
+        {
+          "name": "training_separator",
+          "start_symbol": 204,
+          "symbol_count": 12
+        },
+        {
+          "name": "training_tx1",
+          "start_symbol": 216,
+          "symbol_count": 64
+        },
+        {
+          "name": "separator_before_header",
+          "start_symbol": 280,
+          "symbol_count": 12
+        },
+        {
+          "name": "headers",
+          "start_symbol": 292,
+          "symbol_count": 80
+        },
+        {
+          "name": "pilots_0",
+          "start_symbol": 372,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_0",
+          "start_symbol": 374,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_1",
+          "start_symbol": 438,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_1",
+          "start_symbol": 440,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_2",
+          "start_symbol": 504,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_2",
+          "start_symbol": 506,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_3",
+          "start_symbol": 570,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_3",
+          "start_symbol": 572,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_4",
+          "start_symbol": 636,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_4",
+          "start_symbol": 638,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_5",
+          "start_symbol": 702,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_5",
+          "start_symbol": 704,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_6",
+          "start_symbol": 768,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_6",
+          "start_symbol": 770,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_7",
+          "start_symbol": 834,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_7",
+          "start_symbol": 836,
+          "symbol_count": 64
+        },
+        {
+          "name": "pilots_8",
+          "start_symbol": 900,
+          "symbol_count": 2
+        },
+        {
+          "name": "payload_8",
+          "start_symbol": 902,
+          "symbol_count": 16
+        },
+        {
+          "name": "trailing_guard",
+          "start_symbol": 918,
+          "symbol_count": 32
+        }
+      ],
+      "amplitude_scale": 0.22382234594870432,
+      "artifacts": [
+        {
+          "path": "deterministic_65535.fc32le",
+          "bytes": 61440,
+          "sha256": "6734b3bb9c81fd52ff79fc2fe607c6de90494dc92dd63b8624d006e4f1cbcecc"
+        },
+        {
+          "path": "deterministic_65535.sc16le",
+          "bytes": 30720,
+          "sha256": "531f959643c0f0cf251d9604a356de41789d495feb1b15ce7f12e4df8a2f76b3"
+        },
+        {
+          "path": "deterministic_65535.stream0.packet.bin",
+          "bytes": 152,
+          "sha256": "79c71014062c261d6645ed626e872f0f0f5ee2bf41e727d29079c080016555be"
+        },
+        {
+          "path": "deterministic_65535.stream1.packet.bin",
+          "bytes": 152,
+          "sha256": "93578e575c90ae3f0220d8296aed2fdfa488e48b11116ef91c55c890f151f357"
+        }
+      ]
+    }
+  ]
+}

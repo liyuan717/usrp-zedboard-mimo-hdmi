@@ -1,0 +1,19 @@
+{
+  "valid": false,
+  "new_RF": true,
+  "new_ADC": true,
+  "original_file_mode": true,
+  "run_id": "d2bd6afcac4ccfe01c8a6821b76cc811",
+  "boot_id": "e3cb5d0c-38d2-48e1-a69c-45246f28a981",
+  "visual_pass": false,
+  "failure": "AssertionError: native receiver failed",
+  "kernel_error_lines": [],
+  "rx_lo_powerdown": "1",
+  "tx_lo_powerdown": "1",
+  "adc_buffer_enable": "0",
+  "rxth_after": {
+    "ring_halts": 0,
+    "ready_blocks": 0,
+    "ring_capacity": 64
+  }
+}

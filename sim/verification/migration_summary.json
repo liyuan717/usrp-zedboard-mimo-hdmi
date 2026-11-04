@@ -1,0 +1,29 @@
+{
+  "valid": true,
+  "visible_source_files": 797,
+  "frozen_source_package_matches": 772,
+  "original_source_manifest_only": 24,
+  "curated_vendor_inventory_only": 1,
+  "source_bytes_unchanged": true,
+  "runtime_tar_files_verified": 2159,
+  "runtime_entries": 2235,
+  "skill_tests": 7,
+  "restoration_verified": true,
+  "ARM_receiver_byte_identical": true,
+  "ARM_NULL_decode_AUs": 25,
+  "fresh_Vivado_project_BD_validation": true,
+  "full_RTL_synthesis_implementation_rerun": false,
+  "new_hardware_round": false,
+  "SD_written": false,
+  "public_visible_secret_scan_findings": 0,
+  "authored_files_whitespace_check_passed": true,
+  "distribution_structure": [
+    "src",
+    "sim",
+    "build",
+    "board",
+    "data",
+    "skill",
+    "report"
+  ]
+}

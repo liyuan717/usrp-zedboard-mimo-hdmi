@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "profile_id": "lvds_2r2t_2v5",
+  "status": "PREBOARD_CONSERVATIVE_APPROVED",
+  "interface_mode": "LVDS_25_DUAL_PORT_FULL_DUPLEX_2R2T_DDR",
+  "vadj_mv": 2500,
+  "rx_channels": 2,
+  "tx_channels": 2,
+  "complex_sample_rate_msps_per_stream": 4.0,
+  "data_clk_period_ns": 62.5,
+  "sample_clock_divider": 4,
+  "device_timing_model": {
+    "kind": "PREBOARD_ENGINEERING_MODEL_NOT_A_MEASUREMENT",
+    "source": "ADI UG-570 Rev. A, Table 51 (public): DATA_CLK/FB_CLK source-synchronous LVDS topology; tDDRX/tDDDV min 0.25 ns, max 1.25 ns; tSTX min 1.0 ns; tHTX min 0 ns. Board skew/margin below remain project assumptions pending PN/tap-window measurement.",
+    "rx_data_clk_to_output_min_ns": 0.25,
+    "rx_data_clk_to_output_max_ns": 1.25,
+    "tx_data_setup_at_ad9361_ns": 1.0,
+    "tx_data_hold_at_ad9361_ns": 0.0
+  },
+  "board_assumptions": {
+    "interconnect_data_minus_clock_min_ns": -0.5,
+    "interconnect_data_minus_clock_max_ns": 0.5,
+    "tx_data_minus_fbclk_min_ns": -0.5,
+    "tx_data_minus_fbclk_max_ns": 0.5,
+    "io_margin_ns": 0.25,
+    "basis": "Offline conservative model only. It is deliberately not recorded as a measured FMC/FMCOMMS3 PVT timing bound.",
+    "required_board_validation": "At 16 MHz DATA_CLK and 200 MHz IDELAYCTRL reference, sweep every RX lane through tap values 0..31 using AD9361 PN data. Require a contiguous zero-error window of at least 8 taps per lane, record the selected midpoint and temperature, then replace this model with measured min/max values."
+  }
+}

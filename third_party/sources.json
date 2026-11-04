@@ -1,0 +1,21 @@
+{
+  "adi_hdl": {
+    "repository": "https://github.com/analogdevicesinc/hdl",
+    "commit": "4366bd63c1fe56b680b69145981a4493c6f8753a",
+    "note": "Exact project vendor tree and its patches preserved; source hashes checked."
+  },
+  "linux": {
+    "repository": "https://github.com/analogdevicesinc/linux",
+    "archive_revision": "b124eeed",
+    "version": "6.12.0-xilinx",
+    "note": "Project-specific drivers and UAPI included; full upstream build tree is an external dependency."
+  },
+  "ffmpeg": {
+    "repository": "https://github.com/FFmpeg/FFmpeg",
+    "version": "n6.1.2-27-ge16ff06adb"
+  },
+  "toolchain": {
+    "source": "https://toolchains.bootlin.com/",
+    "release": "armv7-eabihf--glibc--stable-2024.02-1"
+  }
+}

@@ -1,0 +1,24 @@
+# Project-specific additions to xilinx_zynq_defconfig. Names are checked against
+# the selected ADI kernel source by linux_build.sh before the resulting .config
+# is accepted.
+CONFIG_IIO=y
+CONFIG_IIO_BUFFER=y
+CONFIG_IIO_KFIFO_BUF=y
+CONFIG_IIO_BUFFER_DMA=y
+CONFIG_AD9361=y
+CONFIG_CF_AXI_ADC=y
+CONFIG_CF_AXI_DDS=y
+CONFIG_AXI_DMAC=y
+CONFIG_SPI_XILINX=y
+CONFIG_SPI_SPIDEV=y
+CONFIG_GPIO_XILINX=y
+CONFIG_DMA_ENGINE=y
+CONFIG_XILINX_DMA=y
+CONFIG_UIO=y
+CONFIG_UIO_PDRV_GENIRQ=y
+CONFIG_DEVTMPFS=y
+CONFIG_DEVTMPFS_MOUNT=y
+CONFIG_TMPFS=y
+CONFIG_EXT4_FS=y
+CONFIG_VFAT_FS=y
+CONFIG_NFS_FS=y

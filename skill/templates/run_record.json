@@ -1,0 +1,14 @@
+{
+  "run_id": "",
+  "boot_id": "",
+  "source_sha256": "",
+  "new_adc_sha256": "",
+  "expected_unique_frames": null,
+  "actual_unique_frames": null,
+  "crc_rejections": null,
+  "original_byte_identical": null,
+  "physical_frames": null,
+  "visual_feedback": "not_observed",
+  "cleanup_confirmed": null,
+  "limitations": []
+}

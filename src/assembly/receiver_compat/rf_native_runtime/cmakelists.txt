@@ -1,0 +1,56 @@
+cmake_minimum_required(VERSION 3.16)
+project(mrf1_native_rx_runtime LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+
+find_package(Threads REQUIRED)
+
+# Link the two independently-owned C ABIs as source libraries.  The runtime
+# owns orchestration only; it neither copies their implementation nor edits
+# their directories.
+add_library(mrf1_native_frontend_runtime STATIC
+  ../rf_native_frontend/src/mrf1_native_frontend.cpp)
+target_include_directories(mrf1_native_frontend_runtime PUBLIC ../rf_native_frontend/include)
+target_compile_options(mrf1_native_frontend_runtime PRIVATE -Wall -Wextra -Wpedantic -Werror)
+
+add_library(rf_native_transport_runtime STATIC
+  ../rf_native_transport/src/rf_native_transport.cpp)
+target_include_directories(rf_native_transport_runtime PUBLIC ../rf_native_transport/include)
+target_compile_options(rf_native_transport_runtime PRIVATE -Wall -Wextra -Wpedantic -Werror)
+
+add_executable(mrf1_native_rx_backend src/mrf1_native_rx_backend.cpp)
+target_include_directories(mrf1_native_rx_backend PRIVATE
+  include ../rf_native_frontend/include ../rf_native_transport/include ../kernel/uapi)
+target_link_libraries(mrf1_native_rx_backend PRIVATE
+  mrf1_native_frontend_runtime rf_native_transport_runtime Threads::Threads)
+target_compile_options(mrf1_native_rx_backend PRIVATE -Wall -Wextra -Wpedantic -Werror)
+
+enable_testing()
+add_test(NAME mrf1_native_rx_backend_identity COMMAND mrf1_native_rx_backend identity --manifest /dev/null)
+
+option(MRF1_RUNTIME_BUILD_TESTS "Build Linux fake-IO lifecycle tests (not hardware tests)" ON)
+if(MRF1_RUNTIME_BUILD_TESTS)
+  set(MRF1_RUNTIME_TEST_TIMEOUT_SCALE "1" CACHE STRING
+    "Test-only wall-clock multiplier for slow functional emulation (not production timing)")
+  if(NOT MRF1_RUNTIME_TEST_TIMEOUT_SCALE MATCHES "^[1-9][0-9]*$" OR MRF1_RUNTIME_TEST_TIMEOUT_SCALE GREATER 50)
+    message(FATAL_ERROR "MRF1_RUNTIME_TEST_TIMEOUT_SCALE must be an integer in 1..50")
+  endif()
+  add_executable(runtime_lifecycle_test tests/runtime_lifecycle_test.cpp)
+  target_compile_definitions(runtime_lifecycle_test PRIVATE
+    MRF1_RUNTIME_TEST_TIMEOUT_SCALE=${MRF1_RUNTIME_TEST_TIMEOUT_SCALE})
+  target_include_directories(runtime_lifecycle_test PRIVATE
+    include ../rf_native_frontend/include ../rf_native_transport/include ../kernel/uapi)
+  target_compile_options(runtime_lifecycle_test PRIVATE -Wall -Wextra -Wpedantic -Werror)
+  # The test includes the real scheduler and supplies explicitly FAKE frontend,
+  # batch and device edges. Do not link the production DSP/transport libraries
+  # into this target or permit these wrappers in the production executable.
+  target_link_libraries(runtime_lifecycle_test PRIVATE Threads::Threads)
+  target_link_options(runtime_lifecycle_test PRIVATE
+    -Wl,--wrap=open,--wrap=read,--wrap=write,--wrap=ioctl,--wrap=close,--wrap=fstat)
+  add_test(NAME runtime_lifecycle_test COMMAND runtime_lifecycle_test)
+  math(EXPR lifecycle_test_timeout "30 * ${MRF1_RUNTIME_TEST_TIMEOUT_SCALE}")
+  set_tests_properties(runtime_lifecycle_test PROPERTIES TIMEOUT ${lifecycle_test_timeout})
+endif()

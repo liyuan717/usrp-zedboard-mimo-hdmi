@@ -1,0 +1,8 @@
+{
+  "route_checkpoint_rebuild_pass": true,
+  "original_bit_sha256": "e4b219d08c3779499017cba7bd848b7a4ab18bd4d6af82e70673b839188a99dd",
+  "new_bit_sha256": "a3c20019d8561a473385d85cc4e43f1de8531932b164f6b5b64caded715a67f1",
+  "configuration_payload_byte_identical": true,
+  "hardware_programmed": false,
+  "full_RTL_synthesis_rerun": false
+}

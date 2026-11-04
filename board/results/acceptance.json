@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-01",
+  "web_url": "http://127.0.0.1:8098/",
+  "status": "accepted_within_finite_clip_bounds",
+  "real_full_OTA_runs": [
+    {
+      "run_id": "5a72fa0d585f9311571ddf4479765e25",
+      "file": "01_sintel_1024x600_5fps_5s.mp4",
+      "bytes": 153160,
+      "sha256": "6971013ecf720517e6eaab1ea2d1726d0e19b71e186b16599254da8209c2202d",
+      "boot_id": "3e447490-62c7-4101-813c-11719219cea9",
+      "RF_records": 837,
+      "CRC_correct_packets": 1674,
+      "HDMI_frames": 25,
+      "original_file_byte_identical": true,
+      "ADC_contract_valid": true,
+      "physical_pixel_CRCs_match_independent_ARM_reference": true,
+      "actual_fps": 4.29854929334537,
+      "uniform_5fps": false,
+      "visual": {
+        "choice": "stable",
+        "confirmed_unix_ns": 1793490922586906551
+      },
+      "cleanup_confirmed": true,
+      "kernel_errors": []
+    },
+    {
+      "run_id": "d99541c284d220bc50971b0a192395a7",
+      "file": "02_big_buck_bunny_1024x600_5fps_5s.mp4",
+      "bytes": 141378,
+      "sha256": "598e751ec208580bec9c3bc530b4e64a3ce99408b2727f39e128a995954edf8c",
+      "boot_id": "f4d4a557-126f-402c-9933-f081a2fb05ea",
+      "RF_records": 773,
+      "CRC_correct_packets": 1546,
+      "HDMI_frames": 25,
+      "original_file_byte_identical": true,
+      "ADC_contract_valid": true,
+      "physical_pixel_CRCs_match_independent_ARM_reference": true,
+      "actual_fps": 4.486606917525321,
+      "uniform_5fps": false,
+      "visual": {
+        "choice": "stable",
+        "confirmed_unix_ns": 1793491462526023928
+      },
+      "cleanup_confirmed": true,
+      "kernel_errors": []
+    }
+  ],
+  "controlled_stop_tests": [
+    {
+      "run_id": "d269d02ca399b7053632a5f912c5b363",
+      "phase": "offline_prepare",
+      "stopped": true,
+      "TX_started": false,
+      "cleanup_unconfirmed": false
+    },
+    {
+      "run_id": "cc36c785ca47c699498e83b031a06fb8",
+      "phase": "actual_capture_processing",
+      "stopped": true,
+      "TX_started": true,
+      "cleanup_unconfirmed": false
+    }
+  ],
+  "offline_ARM_decoded_files": 5,
+  "unit_tests_passed": 31,
+  "SD_written": false,
+  "algorithm_RTL_driver_changed": false,
+  "source_video_reencoded": false,
+  "continuous_realtime_verified": false,
+  "bounds": {
+    "width": 1024,
+    "height": 600,
+    "source_fps": 5,
+    "frames": 25,
+    "maximum_file_bytes": 180000,
+    "tx_gain_default_db": 18,
+    "frequency_hz": 5500000000,
+    "bandwidth_hz": 40000000
+  },
+  "recorded_unix_ns": 1793491583175132468
+}

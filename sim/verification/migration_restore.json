@@ -1,0 +1,15 @@
+{
+  "restored": true,
+  "source_files": 797,
+  "runtime_entries": 2235,
+  "deferred_external_links": [
+    {
+      "workspace_path": "deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/standalone-video-acceptance-20261030/private/image-build/root-tree/lib/modules/6.12.0-xilinx/build",
+      "kind": "symlink",
+      "target": "/home/builder/mimo/build/zedboard/linux_release_v8"
+    }
+  ],
+  "SD_written": false,
+  "hardware_access": false,
+  "legacy_recorded_workspace": "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3"
+}

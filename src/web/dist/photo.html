@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MIMO 照片控制台</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<main>
+  <header><div class="brand">MIMO <span>LAB</span></div><div class="local"><i></i> 本机控制 · 127.0.0.1</div></header>
+  <section class="intro"><div class="eyebrow">USRP → FMCOMMS3 / ZEDBOARD → HDMI</div><h1>照片空口测试</h1><p>固定发送 <strong>seu.png</strong>，查看本轮真实接收与显示结果。</p></section>
+  <section class="control card">
+    <div class="toolbar"><div><span class="badge">新空口传输</span><p class="small">42 个双流突发 · 原 MIMO / PL / CRC · 干净 RAM 启动</p></div><div class="actions"><button id="start" class="primary">开始照片测试 <span>↗</span></button><button id="stop" class="secondary" disabled>停止</button></div></div>
+    <div id="connection" class="notice">保持 USRP、板卡上电，连接原网线、USB 串口和 HDMI。每轮会恢复已验证 RAM 环境。</div>
+    <div class="stage-top"><h2 id="stage">准备就绪</h2><span id="live" class="idle-dot">空闲</span></div>
+    <p id="detail">正在连接本机后台…</p>
+    <ol class="steps" aria-label="测试阶段"><li data-stage="preparing">准备</li><li data-stage="transmitting">发送</li><li data-stage="processing">接收处理</li><li data-stage="displaying">HDMI 显示</li><li data-stage="complete">完成</li></ol>
+    <div id="error" class="error" role="alert" hidden></div>
+    <div id="setup" class="setup" hidden><strong>首次权限配置</strong><p>只在本机终端执行一次；此操作安装固定文件 TFTP 服务，不写 SD、不启动射频。</p><code>sudo /usr/bin/python3 '/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/photo-console/setup_once.py'</code></div>
+  </section>
+  <section class="results card"><div class="section-title"><h2>本轮结果</h2><span id="result-status">等待运行</span></div>
+    <div class="metrics"><div><label>新 ADC 数据</label><strong id="adc">—</strong></div><div><label>双流 RF 记录</label><strong id="rf">—</strong></div><div><label>CRC 正确包</label><strong id="crc">—</strong></div><div><label>HDMI 呈现</label><strong id="hdmi">—</strong></div></div>
+    <div class="result-body"><div class="image-box"><img id="photo" alt="本轮空口接收并独立解码的照片" hidden><div id="empty"><span>▧</span><p>接收照片将在核验后显示</p></div></div><div class="evidence"><h3>恢复与收尾</h3><dl><dt>照片内容</dt><dd id="content">尚未核验</dd><dt>射频与采集</dt><dd id="closed">尚未核验</dd><dt>运行编号</dt><dd id="run">—</dd><dt>日志目录</dt><dd id="directory">—</dd><dt>ADC SHA256</dt><dd id="hash">—</dd></dl><p class="small">传输采用已验证的 H.264 照片编码；接收编码及解码像素会与发送端独立比对。</p></div></div>
+    <div id="visual" class="visual" hidden><div><h3>视觉确认</h3><p>技术回执不能代替你的屏幕观察，请根据本轮 HDMI 画面选择。</p></div><div class="visual-actions"><button data-choice="stable">稳定</button><button data-choice="accepted_minor_flicker">轻微闪动，可接受</button><button data-choice="unstable">明显异常</button><button data-choice="not_seen">未看到</button></div><p id="visual-result"></p></div>
+  </section>
+  <footer><span>PHOTO CONSOLE / V1</span><span>仅固定照片流程 · 参数锁定 · 每轮独立证据</span></footer>
+</main><script src="/photo.js"></script>
+</body></html>

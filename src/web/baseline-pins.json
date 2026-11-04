@@ -1,0 +1,30 @@
+{
+  "files": {
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/execute_round.py": "b84cfa9bae93a92c6d4b840a85f47d13e288d9a5f93cc53d65835ead9177f4a4",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/board_supervisor.py": "ac1d93eae14ac1c576375be51e7c78e2b8feff5af0cf6e69b68e4bfea012b32d",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/send_gain18_12f.py": "9d20808e474ba158b05bd6bd292a0bb78249876c72741fab2dc27846d32ff658",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/acceptance_gate.py": "097a70a6e78cb2d25fbd9abd4b5ba40804a1f21b935b97d496acba5f973259ce",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/grade_evidence.py": "c98fb5d11b535e13552c0e21705161379fda7cd52f5169d15a724927490eac98",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/test_gates.py": "bfe58fc9fb3d7970fc58ffe4687cecf0c7e7f41e48c085b6b49dec3a0da676d6",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/test_cli.py": "7bc12a865ebb4a5a1379ffbd836cbc4c4051966a8e60c1fe91535845ea8e9f0a",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/make_runtime_closure.py": "150118b8fccf1fb85109d897c8a09b5343194bae3dd72cfef8aafbffb82b8e66",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/evidence_http_gain18.py": "719cf339f28dbe54506bac22320e75ca04fad4a50d7fb74bc32654b2cdf02c15",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/scanout_health.py": "f1f0be2c3041217ec16d01f24b2927e46f5a54e41bbac2607a7f7bac6712dfe8",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/AUTHORIZATION.json": "10bb2b3fdf39eb865beee137e9a7fc1aa2438c3250cc6e57f628b912d9f18eae",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/tx-admission-gain18.json": "a1b80f69e0e7c0beb2494065ab7c0bc65093313e02da41520e61af4154b594a5",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/tx-gain18/continuous_tx": "2efb1fb561577468445f4f2df87396b0c818af35d0e21ec9f7d85442d966212e",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030/photo-tx.iqb": "69332288caa98bcc38d0e08134fa87d9819c8bcafac6e90f91dcf2a3d10352ee",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/candidates/finite-video-long-r2/live-rx-arm": "5921cc57a76155d72df01d709d5608d328959a3184b3b1be16184f851c357c03",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/candidates/finite-video-long-r2/runtime-tools/rf_native_video_receiver.py": "ad931cb2eee95755c12efe413969ffd2d9fb69832bf51fb28c4484d018a7154f",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/candidates/hdmi-lazy-r6-idle-repeat/build-arm/hdmi-presenter": "33414cfa2ba8ae6e48f946ce098f8d90e0b65465333069aa41acb0930b72f295",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reobserve-r1-20261030/receiver_offline_diag.py": "e47e2227a604781f6d39d0935006ed63d63516fee10fd0d251198e198770ede2",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reobserve-r1-20261030/make_runtime_closure.py": "150118b8fccf1fb85109d897c8a09b5343194bae3dd72cfef8aafbffb82b8e66",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/resume6-candidate/live-runtime.tar.gz": "6d4214aecdb892ed3c25840ecaeff6e580ef3d7a3d6d2a3f14867a16e69d4294",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/boot/BOOT_MANIFEST.json": "550a9cafbebb3709eec14ebcd5c0f44334aae252279d4eaaa226a47c8a275179",
+    "/home/leeeo/Downloads/seu.png": "ccc6a6eeed8ea9c4bd564a696b28cdf0bb4d1b10b5eccd5a23483706a132dfcc"
+  },
+  "source_photo": "/home/leeeo/Downloads/seu.png",
+  "baseline": "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reproduce-r2-20261030",
+  "stable_reference": "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/photo-seu-reobserve-r1-20261030",
+  "new_RF_only": true
+}

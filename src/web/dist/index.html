@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MIMO · 视频播放器</title><link rel="stylesheet" href="/video.css"></head>
+<body>
+<header><a class="brand" href="/">MIMO<span> / VIDEO</span></a><div class="header-right"><span class="local">● 本机控制</span><a href="/photo">原照片测试 ↗</a></div></header>
+<main>
+  <section class="intro"><div><p class="eyebrow">USRP TRANSMITTER</p><h1>原视频，直接播放。</h1><p class="muted">固定 1024 × 600 · 保留原文件 · 适配现有板端程序</p></div><span class="resolution">1024 × 600</span></section>
+  <div class="workspace">
+    <section class="player-panel" aria-label="视频播放器">
+      <div class="screen"><video id="player" controls playsinline preload="metadata" aria-label="本地原视频预览" hidden></video><div id="placeholder"><div class="play-icon">▷</div><h2>选择你的视频</h2><p>MP4 · H.264 Constrained Baseline · 无 B 帧 · 1024 × 600</p><button id="choose-empty" class="primary">选择本地视频</button></div></div>
+      <label for="library">本机视频目录 · Downloads/videos</label><select id="library"><option value="">选择已准备的视频…</option></select><div class="player-bar"><div class="file"><strong id="filename">尚未选择文件</strong><span id="fileinfo">平台不会转码、抽帧、缩放或压缩视频</span></div><button id="choose" class="secondary">选择视频</button><input id="file" type="file" accept="video/mp4,.mp4" hidden></div>
+      <p class="caption">参考成功参数：1024×600、5 fps、约 250 kbps、YUV420P、无 B 帧、每张图像单 slice。文件由你自行准备；元信息通过不代表完整板端验收。</p>
+      <div id="error" role="alert" class="error" hidden></div>
+      <section class="transfer"><div class="section-row"><h2>传送状态</h2><span id="stage" class="tag">待选择</span></div><p id="detail">正在连接本机服务…</p><progress id="progress" value="0" max="100" aria-label="原文件传送进度"></progress><div class="facts"><div><span>原文件大小</span><strong id="size">—</strong></div><div><span>设备参数回读</span><strong id="applied">未应用</strong></div><div><span>任务编号</span><strong id="run">—</strong></div></div><p id="rf-result" class="hint">等待新空口验收。</p><div id="visual" hidden><span>本轮 HDMI 视觉确认：</span><button data-visual="stable">稳定</button><button data-visual="unstable">有异常</button><button data-visual="not_seen">未看到</button><p id="visual-result"></p></div><details><summary>原文件一致性</summary><p>只读取视频元信息，不输出重编码媒体。导入时计算 SHA-256；发送接口传递完整原文件字节。</p><code id="sha">尚无文件</code></details></section>
+    </section>
+    <aside class="settings-panel"><div class="section-row"><h2>USRP 发射设置</h2><span id="adapter" class="tag">检测中</span></div><p class="hint">当前收发链固定 5500 MHz / 40 MHz。增益可调；保存不会开启射频。</p>
+      <form id="settings">
+        <label for="gain">发射增益 <span>dB</span></label><div class="gain-row"><input id="gain-range" type="range" min="0" max="18" step="0.5" value="18" aria-label="发射增益滑块"><input id="gain" type="number" min="0" max="18" step="0.5" value="18" required></div><small>当前范围 0–18 dB，默认沿用已验证配置。</small>
+        <label for="frequency">中心频率 <span>MHz</span></label><input id="frequency" readonly type="number" min="1200" max="6000" step="0.001" value="5500" required>
+        <label for="bandwidth">发射带宽 <span>MHz</span></label><input id="bandwidth" readonly type="number" min="0.001" max="40" step="0.001" value="40" required>
+        <div class="fixed"><div><span>采样率</span><strong>4 MS/s</strong></div><div><span>通道 / 天线</span><strong>0 + 1 / TX/RX</strong></div><div><span>设备地址</span><strong>192.168.10.2</strong></div></div>
+        <div class="config-actions"><button type="submit" class="secondary" id="save">保存参数</button><button type="button" id="reset" class="text-button">恢复默认</button></div><p id="saved" class="hint" role="status">参数仅保存在本机。</p>
+      </form>
+      <div class="send-actions"><button id="send" class="primary" disabled>发送原视频 <span>↗</span></button><button id="stop" class="secondary" disabled>停止发送</button></div><p id="interface-note" class="hint">USRP 接口预留中。未接入后端时，本地播放可用，不会发射。</p>
+      <details><summary>接口与播放说明</summary><p>预留接口携带原视频和发射参数。USRP 的 UHD 接口接收 IQ 样本，MP4 不能直接交给 UHD；你接入的发送程序负责协议与调制。平台本身不处理视频内容。</p><p>1024 × 600 是源视频的校验条件，不是自动缩放目标。浏览器不支持的编码需要你自行准备兼容原文件。</p></details>
+    </aside>
+  </div>
+</main><footer><span>MIMO LAB · LOCAL VIDEO PLAYER</span><span>原文件播放 / USRP 发射接口</span></footer><script src="/app.js"></script>
+</body></html>

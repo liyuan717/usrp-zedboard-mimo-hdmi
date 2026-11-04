@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "runtime_package": {
+    "path": "data/runtime_assets.tar.zst",
+    "bytes": 225162361,
+    "sha256": "f9db871089372a96db162964ef34f78fded7dcaaa2aca79febd0e6fefa9422d0",
+    "compression": "zstd tar",
+    "source_commit": "fdc1b75c33411a24b49e9a7d8c8b719a5494e99e"
+  },
+  "rootfs_login_configuration_sanitized": true,
+  "hardware_retested": false
+}

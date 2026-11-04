@@ -1,0 +1,12 @@
+{
+  "exact_archive": "video-radio-v3-worktree/deliverables/rfv2-r9-adi-source-20261029.zip",
+  "archive_sha256": "c45fd0ae0bb00792a3e5ba10870a578a545bedec6a3835454d33e07e24e3329a",
+  "matched_vendor_inputs": 102,
+  "ADI_content_mismatches": [],
+  "xilinx_tool_generated_inputs": 47,
+  "own_recipe_inputs_checked": 18,
+  "own_recipe_mismatches": [],
+  "full_synthesis_implementation_rerun": false,
+  "hardware_access": false,
+  "recovery_note": "Located original archived vendor tree after initial source reconstruction mismatches; do not ship approximate reconstruction."
+}

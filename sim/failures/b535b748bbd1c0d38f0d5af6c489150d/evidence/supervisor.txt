@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/link-live/photo-console/board_supervisor.py", line 55, in main
+    assert ids==[1]*(len(ids)-auth['unique_frames']+1)+list(range(2,auth['unique_frames']+1))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

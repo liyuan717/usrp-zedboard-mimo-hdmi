@@ -1,0 +1,27 @@
+{
+  "build_pass": true,
+  "sha256": "09fd7222ec31434d5643c9235171add705c747e5e9b853da2182f99228d83eec",
+  "frozen_binary_sha256": "09fd7222ec31434d5643c9235171add705c747e5e9b853da2182f99228d83eec",
+  "byte_identical": true,
+  "command": [
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/hardware-review/boot-fix-build/toolchain/bin/arm-buildroot-linux-gnueabihf-g++",
+    "-std=c++17",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-pthread",
+    "-DMRF1_NF_ENABLE_DIAG_DC_BLOCKER",
+    "-I/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/reception-display-optimization/20261030/candidates/capture5120-r1/source/rf_native_frontend/include",
+    "-I/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/reception-display-optimization/20261030/candidates/capture5120-r1/source/rf_native_runtime/include",
+    "-I/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/reception-display-optimization/20261030/candidates/capture5120-r1/source/rf_native_transport/include",
+    "-I/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/reception-display-optimization/20261030/candidates/capture5120-r1/source/kernel/uapi",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/reception-display-optimization/20261030/candidates/capture5120-r1/source/rf_native_runtime/src/mrf1_native_rx_backend.cpp",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/reception-display-optimization/20261030/candidates/capture5120-r1/source/rf_native_frontend/src/mrf1_native_frontend.cpp",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/restored_competition_final/reception-display-optimization/20261030/candidates/capture5120-r1/source/rf_native_transport/src/rf_native_transport.cpp",
+    "-o",
+    "/home/leeeo/Documents/ChatGPT/zedboard+fmcomms3/deliverables/competition-migration-20261104/receiver_final/live-rx-arm"
+  ],
+  "elapsed_s": 2.2705966089997673,
+  "hardware_test": false
+}
