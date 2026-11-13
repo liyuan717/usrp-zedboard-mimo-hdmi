@@ -13,9 +13,9 @@
 | 最终版本 | 算法与用途 | 结项时的完成度 |
 | --- | --- | --- |
 | MHGD · `main` | 网页发送照片或完整 MP4，接收端逐字节恢复原文件后通过 HDMI 播放 | 已验收的比赛交付。两份 MP4 的恢复与 HDMI 呈现结果见下文 |
-| ML · `codex/ml-final` | FPGA 使用联合最大似然检测。固定 8-bank，单向 2×2 MIMO，1024×600 实时摄像头到 HDMI 流水传输 | 工程最终归档。R22 短距 60 秒、条件帧龄及原 SD 脱机功能已有实测。最终 RAW 软件脱机、约 10 米及统一配置整体验收未完成 |
+| ML · `ml-final` | FPGA 使用联合最大似然检测。固定 8-bank，单向 2×2 MIMO，1024×600 实时摄像头到 HDMI 流水传输 | 工程最终归档。R22 短距 60 秒、条件帧龄及原 SD 脱机功能已有实测。最终 RAW 软件脱机、约 10 米及统一配置整体验收未完成 |
 
-ML 版的源码、R22 位流、构建输入和分项证据见独立分支。 [ML 最终版](https://github.com/liyuan717/usrp-zedboard-mimo-hdmi/tree/codex/ml-final)
+ML 版的源码、R22 位流、构建输入和分项证据见独立分支。 [ML 最终版](https://github.com/liyuan717/usrp-zedboard-mimo-hdmi/tree/ml-final)
 
 ## 比赛审阅入口
 
