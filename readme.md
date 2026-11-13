@@ -5,7 +5,7 @@
 | 最终版本 | 数据路径与算法 | 结项时的完成度 |
 | --- | --- | --- |
 | [MHGD · main](https://github.com/liyuan717/usrp-zedboard-mimo-hdmi/tree/main) | 网页发送照片或完整 MP4，接收端恢复原文件后通过 HDMI 播放，PL 使用 MHGD 检测 | 已验收的比赛交付。两份 MP4 逐字节恢复，分别记录 25 个物理 HDMI 呈现帧 |
-| ML · codex/ml-final | 单向 2×2 MIMO，实时摄像头编码、无线传输与 HDMI 呈现并行，PL 使用联合 ML 检测 | 工程最终归档。R22 的短距实时视频、条件帧龄和原 SD 脱机功能各有实测，统一配置的整体验收未完成 |
+| ML · ml-final | 单向 2×2 MIMO，实时摄像头编码、无线传输与 HDMI 呈现并行，PL 使用联合 ML 检测 | 工程最终归档。R22 的短距实时视频、条件帧龄和原 SD 脱机功能各有实测，统一配置的整体验收未完成 |
 
 ## R22 已测结果
 
@@ -18,7 +18,7 @@
 ## 获取与核验
 
 ```bash
-git clone --branch codex/ml-final --single-branch https://github.com/liyuan717/usrp-zedboard-mimo-hdmi.git
+git clone --branch ml-final --single-branch https://github.com/liyuan717/usrp-zedboard-mimo-hdmi.git
 cd usrp-zedboard-mimo-hdmi
 python3 tools/prepare_r22_archive.py
 python3 -m unittest discover -s tests -p 'test_offline_boundaries.py'
