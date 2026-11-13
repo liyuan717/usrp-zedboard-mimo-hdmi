@@ -1,0 +1,32 @@
+{
+  "scope": "R22 limited short-range G7 functional run, with operator-witnessed HDMI and independent host TX logs.",
+  "candidate_bit_crc32": "f35c9d9a",
+  "physical_SD_readback": {
+    "bytes": 68157440,
+    "sha256": "dcfb16ca2a8f5d0a5a5294c7304e111e3102bfaeeb230ec5506ddd60fd122784"
+  },
+  "host_late_TX_wait_at_least_ns": 16287961067,
+  "conservative_inter_burst_silence_at_least_ns": 11811325530,
+  "host_both_dual_channel_EOB_confirmed": true,
+  "operator_confirmed_cold_power_on_and_initial_recording": true,
+  "operator_display_quality_acceptable": true,
+  "operator_confirmed_first_HDMI_picture": true,
+  "operator_confirmed_second_HDMI_picture_automatic_without_receiver_restart_or_development_links": true,
+  "recording_supplied": false,
+  "packaged_RX_startup_requires_reverse_TX_LO_powerdown": true,
+  "independent_live_reverse_TX_measurement": false,
+  "exact_initramfs_SHA256": "e84fe4ad33a34e8708bbeb674ff541374b964122d3db6bbae2c4fed2156e398d",
+  "exact_initramfs_startup_file_SHA256": {
+    "etc/inittab": "7711006f9ff0e00a3d7c770b103745a6a60f91179bb7c6c86e8c8e5deba302f0",
+    "etc/v3-receive-init": "a9e2a3b2b24844a09939c303ec26fe2ab686d1357a0c2b37e59ba032faef9564",
+    "opt/video-radio-v3/g0_receive_service.sh": "e32bcc5d0f9cfbefa9510ac2b1d6dc4878b703703a309a592d810c4196ce9cab",
+    "opt/video-radio-v3/g0_forward_video_rx_setup.sh": "01d446aac7941b25868dbb83961cd7ffcfb70e27fef2d1932333a81475b596cb"
+  },
+  "R22_short_range_G7_functional_passed": true,
+  "independent_picture_frame_counts_or_age_measured": false,
+  "G6_or_10m_or_overall_stage1_passed": false,
+  "file_SHA256": {
+    "docs/evidence/g0-R22-G7-physical-SD-readback-20261106.json": "ed90df1a01b9a3ec8d26ee55df3425ccfcebd991a7be7b2e6da39dd1f7cd62f0",
+    "docs/evidence/g0-R22-G7-detached-TX-20261106.json": "7361bddb91534d6457b06dbe603a04e6c3bc9bc714efaa80341ccaf35ee742a7"
+  }
+}

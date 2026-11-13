@@ -1,0 +1,72 @@
+{
+  "status": "historical_unfrozen_two_way_budget_candidate",
+  "production_use_allowed": false,
+  "sample_rate_hz": 4000000,
+  "symbol_rate_hz": 1000000,
+  "spatial_streams": 2,
+  "qpsk_bits_per_symbol": 2,
+  "superframe_us": 21000,
+  "forward_us": 19000,
+  "guard_rx_to_tx_us": 250,
+  "feedback_us": 1500,
+  "guard_tx_to_rx_us": 250,
+  "packets_per_stream": 8,
+  "symbol_bytes": 512,
+  "video_header_bytes": 40,
+  "link_header_bytes": 32,
+  "link_crc_bytes": 4,
+  "preamble_symbols": 128,
+  "training_symbols_per_tx": 128,
+  "phy_header_bytes": 24,
+  "phy_header_bpsk_repetitions": 2,
+  "pilot_spacing_data_symbols": 256,
+  "orthogonal_pilot_symbols_per_group": 2,
+  "tail_symbols": 32,
+  "fec_candidates": [
+    [
+      20,
+      32
+    ],
+    [
+      18,
+      32
+    ],
+    [
+      22,
+      40
+    ],
+    [
+      27,
+      48
+    ]
+  ],
+  "interleave_blocks_candidates": [
+    4,
+    8
+  ],
+  "feedback_candidate": {
+    "payload_bytes": 80,
+    "link_header_bytes": 32,
+    "link_crc_bytes": 4,
+    "packet_repetitions": 2,
+    "preamble_symbols": 128,
+    "training_symbols": 64,
+    "phy_header_bytes": 12,
+    "phy_header_bpsk_repetitions": 2,
+    "tail_symbols": 32
+  },
+  "requires_measurement_before_freeze": [
+    "actual AD9361 ENSM and X310 timed TX/RX switching and guards",
+    "two independent CBX TX residual CFO and phase drift",
+    "blind acquisition, pilot tracking and sample-rate offset coverage",
+    "real loss sequence plus random and burst FEC recovery data comparisons",
+    "RRC, preamble, training, header combining and exact sample mapping",
+    "FEC GF/matrix and on-chip storage/port/throughput synthesis",
+    "minimum useful video quality and packet padding using selected encoder",
+    "native decode/convert/physical HDMI throughput and concurrent DDR budget",
+    "measured reliable useful throughput, not nominal calculated capacity"
+  ],
+  "stage": 2,
+  "feedback_enabled": true,
+  "gate_scope": "stage2_B0_only_not_stage1_G0"
+}

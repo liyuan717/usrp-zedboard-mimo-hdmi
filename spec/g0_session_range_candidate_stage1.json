@@ -1,0 +1,120 @@
+{
+  "status": "unfrozen_G0_candidate_not_production_schema",
+  "scope": "CRC-good VRL3 kind3 payload,512B in currentf0 physical framing; first32B significant and rest ignored padding. No reverse TX.",
+  "magic_ascii": "VRS3",
+  "fields": [
+    {
+      "offset": 0,
+      "bytes": 4,
+      "name": "magic",
+      "value_or_semantics": "VRS3"
+    },
+    {
+      "offset": 4,
+      "bytes": 1,
+      "name": "major",
+      "value_or_semantics": 1
+    },
+    {
+      "offset": 5,
+      "bytes": 1,
+      "name": "profile",
+      "value_or_semantics": 240
+    },
+    {
+      "offset": 6,
+      "bytes": 2,
+      "name": "flags",
+      "value_or_semantics": "LE; bit0 feedback_enabled must0; bit1 advertises candidate periodic forward-timebase metadata (see g0_forward_timebase_candidate_stage1.json); remaining noncritical bits ignored"
+    },
+    {
+      "offset": 8,
+      "bytes": 1,
+      "name": "k",
+      "value_or_semantics": 20
+    },
+    {
+      "offset": 9,
+      "bytes": 1,
+      "name": "n",
+      "value_or_semantics": 32
+    },
+    {
+      "offset": 10,
+      "bytes": 2,
+      "name": "symbol_bytes",
+      "value_or_semantics": 512
+    },
+    {
+      "offset": 12,
+      "bytes": 2,
+      "name": "width",
+      "value_or_semantics": 1024
+    },
+    {
+      "offset": 14,
+      "bytes": 2,
+      "name": "height",
+      "value_or_semantics": 600
+    },
+    {
+      "offset": 16,
+      "bytes": 2,
+      "name": "fps_numerator",
+      "value_or_semantics": 20
+    },
+    {
+      "offset": 18,
+      "bytes": 2,
+      "name": "fps_denominator",
+      "value_or_semantics": 1
+    },
+    {
+      "offset": 20,
+      "bytes": 4,
+      "name": "first_block",
+      "value_or_semantics": "LE uint32 modulo"
+    },
+    {
+      "offset": 24,
+      "bytes": 1,
+      "name": "block_count",
+      "value_or_semantics": "1..8 contiguous blocks; bank=block_id low3"
+    },
+    {
+      "offset": 25,
+      "bytes": 1,
+      "name": "mapping",
+      "value_or_semantics": "0=current no-interleave block identity admission; packet_seq is independent"
+    },
+    {
+      "offset": 26,
+      "bytes": 2,
+      "name": "reserved",
+      "value_or_semantics": "ignored noncritical, sender0"
+    },
+    {
+      "offset": 28,
+      "bytes": 4,
+      "name": "range_serial",
+      "value_or_semantics": "LEuint32 half-range advance; exact repeats allowed without age reset/reopen"
+    }
+  ],
+  "identity": "session_id comes from CRC-good32B VRL3 header already checked against protected PHY envelope; block owner uses full32bit fec_block_id.",
+  "scope_limits": [
+    "Not final PC/PL/PS schema generation or freeze",
+    "Immediate previous-session tombstone only; full production session lifetime policy pending",
+    "Range announcement does not imply whole AU required",
+    "Capacity collision yields local code6 event/busy counter; missed announcements can be retried by repeating the descriptor, no infinite wait"
+  ],
+  "replacement_range_lifetime_policy": {
+    "status": "unfrozen_G0_candidate_local_RTL_pass_not_yet_board_deployed",
+    "current_window": "CRC-good accepted descriptor replaces DATA admission [first_block,first_block+block_count), modulo32; existing data admission rule unchanged.",
+    "loading_outside_window": "Rotating8-bank scan seals only eligible LOADING owners; emit committed sources, terminal code1 with missing bitmap if fewer thank, normal terminal/release acknowledgment before reuse.",
+    "queued_or_working_outside_window": "Finish the existing finite job; no direct cancellation, source revocation or live overwrite. Absolute500ms/active20ms bounds remain.",
+    "bad_CRC_or_stale_descriptor": "No change to window or bank lifetime.",
+    "repeat": "No age reset or completed-block reopening; a repeated descriptor can retry a declaration after the prior owner releases.",
+    "closed_block_late_packets": "Outside-window DATA remains unadmitted; already complete SOURCE and DMA records retain their ownership.",
+    "evidence": "docs/evidence/g0-fec-window-seal-20261103.json"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "description": "Pinned recursive ADI axi_ad9361 IP closure before RX-only overlay patching.",
+  "ip_tcl": "library/axi_ad9361/axi_ad9361_ip.tcl",
+  "ip_tcl_sha256": "ea41f4245f9cc9b1e2fe2e5d7ccbba4388b112719cb84176b40a907cb44b00dc",
+  "entry_scripts": [
+    "scripts/adi_env.tcl",
+    "library/scripts/adi_ip_xilinx.tcl",
+    "library/scripts/adi_xilinx_device_info_enc.tcl",
+    "projects/scripts/adi_xilinx_msg.tcl",
+    "library/axi_ad9361/component.xml",
+    "library/axi_ad9361/bd/bd.tcl",
+    "library/axi_ad9361/xgui/axi_ad9361_v1_0.tcl"
+  ],
+  "retired_from_generated_fileset": [
+    "axi_ad9361_tx.v",
+    "axi_ad9361_tx_channel.v"
+  ],
+  "canonical_record": "UTF-8 sorted records path<TAB>sha256<LF>; paths are normalized relative to the ADI root",
+  "closure_file_count": 53,
+  "closure_sha256": "d23a1ae8d0f944b28fb15d8cb38e4ffd93c8e7578b79487c90d73d73e2dc41ad",
+  "source_tree_file_count": 3486,
+  "source_tree_sha256": "8c5b87f2eb7379d1c7e653476a8189860a463997e421ffc8b6a0a6faa9097ae2",
+  "expected_output_tree_file_count": 3487,
+  "expected_output_tree_sha256": "968bccab042ced0620824cc88b584e26fa96a439f375182c69fe1f7f99ecab43",
+  "expected_overlay_file_sha256": {
+    "library/axi_ad9361/axi_ad9361.v": "b5787e14d7efbb986d17894dd7f533425f2cfec4c8347834a8c44e0bd17f60d7",
+    "library/axi_ad9361/axi_ad9361_ip.tcl": "132d78320cbd890e337eb0c25314db22d8ee46588c5b03eea45759c717fdf67f",
+    "library/axi_ad9361/component.xml": "0eae008492a5c1dc8c3c136647cebaa0af8cb877491299482385dc4dd0fa11f1",
+    "library/axi_ad9361/rfv2_tx_register_stub.v": "d6dcf84af8bd3113dfe31affc4a9917337df683e999efd6ac475fd73e630a49f",
+    "library/axi_ad9361/xilinx/axi_ad9361_lvds_if.v": "42b7c61f3a4b6760f641deb13dec92a84b4168004b9d358ab5c31a2ef60ea067"
+  }
+}

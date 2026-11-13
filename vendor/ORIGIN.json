@@ -1,0 +1,87 @@
+{
+  "commit": "5642c5a1df5d862c75c6c22ecce36bd3e463843c",
+  "note": "HDMI provider, frame ownership and physical ACK are locked reuse. No legacy RF/video control copied.",
+  "copied_files": [
+    {
+      "path": "vendor/hdmi/include/hdmi_presenter/rgb_expand.h",
+      "source": "ps/zedboard/hdmi_presenter/include/hdmi_presenter/rgb_expand.h",
+      "git_blob": "07b12e255c47627dceaf03f46cc387e722679cee"
+    },
+    {
+      "path": "vendor/hdmi/include/hdmi_presenter/receiver.h",
+      "source": "ps/zedboard/hdmi_presenter/include/hdmi_presenter/receiver.h",
+      "git_blob": "562fa9d4506bd795d63c40878ee7d8191032d289"
+    },
+    {
+      "path": "vendor/hdmi/include/hdmi_presenter/app_runner.h",
+      "source": "ps/zedboard/hdmi_presenter/include/hdmi_presenter/app_runner.h",
+      "git_blob": "22590d2929249c3005e77fc5186f755a23d719e6"
+    },
+    {
+      "path": "vendor/hdmi/include/hdmi_presenter/presenter.h",
+      "source": "ps/zedboard/hdmi_presenter/include/hdmi_presenter/presenter.h",
+      "git_blob": "1b4e1f97990fb6cd1a387fb4c2b561c8a148fd29",
+      "normalization": "removed one trailing space from SubmitResult enum; semantics unchanged"
+    },
+    {
+      "path": "vendor/hdmi/include/hdmi_presenter/drm_uapi_min.h",
+      "source": "ps/zedboard/hdmi_presenter/include/hdmi_presenter/drm_uapi_min.h",
+      "git_blob": "3a553454f77f175c754a40b4552a79efc7f9f9c7"
+    },
+    {
+      "path": "vendor/hdmi/include/hdmi_presenter/protocol.h",
+      "source": "ps/zedboard/hdmi_presenter/include/hdmi_presenter/protocol.h",
+      "git_blob": "4d18ddb4443c1ef0db42b36a813351e11aa0415c"
+    },
+    {
+      "path": "vendor/hdmi/src/protocol.cpp",
+      "source": "ps/zedboard/hdmi_presenter/src/protocol.cpp",
+      "git_blob": "4ef1848bf46821c75556c276a7d42f7e7407b524"
+    },
+    {
+      "path": "vendor/hdmi/src/rgb_expand.cpp",
+      "source": "ps/zedboard/hdmi_presenter/src/rgb_expand.cpp",
+      "git_blob": "b54c391f500572175c432ed02ac6b5ff4fa5db8d"
+    },
+    {
+      "path": "vendor/hdmi/src/presenter.cpp",
+      "source": "ps/zedboard/hdmi_presenter/src/presenter.cpp",
+      "git_blob": "521ac39e5bb1d04e65ad116294b59ab158350cb1"
+    },
+    {
+      "path": "vendor/hdmi/src/null_backend.cpp",
+      "source": "ps/zedboard/hdmi_presenter/src/null_backend.cpp",
+      "git_blob": "9d237f2247f8d697bc749790d654e93b097612fd"
+    },
+    {
+      "path": "vendor/hdmi/src/drm_backend.cpp",
+      "source": "ps/zedboard/hdmi_presenter/src/drm_backend.cpp",
+      "git_blob": "eebaa8832ee945c8eee937bfec47edcc0b40b210"
+    },
+    {
+      "path": "vendor/pixels/yuv420p_rgb565_neon.c",
+      "source": "ps/zedboard/video_codec_helper/diagnostics/neon_converter/yuv420p_rgb565_neon.c",
+      "git_blob": "05d614bc3448c8e9e0fd8d434b60a44de4a80fef"
+    },
+    {
+      "path": "vendor/pixels/yuv420p_rgb565.h",
+      "source": "ps/zedboard/video_codec_helper/diagnostics/neon_converter/yuv420p_rgb565.h",
+      "git_blob": "243993d60b6f7b548f7ba2e5a31d2f37200dbe67"
+    },
+    {
+      "path": "vendor/pixels/yuv420p_rgb565_internal.h",
+      "source": "ps/zedboard/video_codec_helper/diagnostics/neon_converter/yuv420p_rgb565_internal.h",
+      "git_blob": "95a10f15d19a0d50f0be7cda8a38f7d7abb61a79"
+    },
+    {
+      "path": "vendor/hdmi/include/crc32_slice8_unroll_candidate.h",
+      "source": "ps/zedboard/video_codec_helper/diagnostics/crc32_slice8_unroll_candidate.h",
+      "git_blob": "8a68e77b9cc66801d740961c4ac9f8063522e079"
+    },
+    {
+      "path": "vendor/hdmi/include/crc32_slice8_candidate.h",
+      "source": "ps/zedboard/video_codec_helper/diagnostics/crc32_slice8_candidate.h",
+      "git_blob": "cece62b16bb8e75f027b4c0bf4e768d904708810"
+    }
+  ]
+}

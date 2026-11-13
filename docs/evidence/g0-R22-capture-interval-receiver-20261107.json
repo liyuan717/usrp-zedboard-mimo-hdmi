@@ -1,0 +1,279 @@
+{
+  "scope": "R22 candidate receiver capture interval propagation; unchanged PL and G7 SD; no RF emission.",
+  "planning_commit": "c2797d2bb5624a050810893d581dc974e41a3f8b",
+  "boot_id": "a119345d-788a-4c10-9c5c-7b200aecc657",
+  "wire_extension": {
+    "SOURCE_symbol_bytes": 512,
+    "video_header_bytes": 40,
+    "video_flags_bit": 3,
+    "width_offset_bytes": 36,
+    "width_encoding": "uint32 little endian; 1..50000us or UINT32_MAX unknown; zero when flag absent",
+    "legacy_SOURCE_bytes_changed": false,
+    "activated_by_live_sender": false,
+    "clock_domain_must_match_forward_TIMEBASE": true
+  },
+  "host_ASan_UBSan": {
+    "frames": 200,
+    "payloads_identical": true,
+    "invalid_fragments_rejected": 6,
+    "unknown_time_video_continues": true,
+    "Info_bytes": 32,
+    "FrameIdentity_bytes": 32,
+    "fragment_context_bytes": 3024,
+    "AU_context_bytes": 1048800,
+    "completed": true
+  },
+  "actual_CortexA9_component": {
+    "completed": true,
+    "RF_started": false,
+    "SD_written": false,
+    "boot_id": "a119345d-788a-4c10-9c5c-7b200aecc657",
+    "board_directory": "/tmp/r22-capture-interval-r2",
+    "native": {
+      "frames": 200,
+      "payloads_identical": true,
+      "invalid_fragments_rejected": 6,
+      "unknown_time_video_continues": true,
+      "Info_bytes": 32,
+      "FrameIdentity_bytes": 32,
+      "fragment_context_bytes": 2768,
+      "AU_context_bytes": 1048800,
+      "completed": true
+    },
+    "input_sha256": {
+      "probe": "f3c4944efeb3264a2a49a9791d606872bd0c0bb2197337645760c6b2d42b9a9f",
+      "source": "c1ae328f625ed2191e928d0868eb811d6ce45038bbd6b3545b8addd89af9d782"
+    },
+    "board_temporary_files_removed": true
+  },
+  "actual_CortexA9_complete_decoder": {
+    "completed": true,
+    "RF_started": false,
+    "SD_written": false,
+    "boot_id": "a119345d-788a-4c10-9c5c-7b200aecc657",
+    "physical_RF_video_age_verified": false,
+    "all200_pixels_and_identities_equal": true,
+    "legacy_physical_frames": 200,
+    "bounded_physical_frames": 200,
+    "tail64_metadata_verified": true,
+    "unknown_frame7_decoded_and_displayed": true,
+    "board_temporary_files_removed": true,
+    "runtime_shared_cache_retained": "/tmp/v3-g0-rt-40f15ffa"
+  },
+  "actual_HDMI_queue_and_expiry": {
+    "completed": true,
+    "runs": [
+      {
+        "name": "expired",
+        "physical_ACKs": 3,
+        "queued_expired": 1
+      },
+      {
+        "name": "expired-after-anchor",
+        "physical_ACKs": 3,
+        "queued_expired": 1
+      },
+      {
+        "name": "held-through-stale-anchor",
+        "physical_ACKs": 3,
+        "queued_expired": 1
+      },
+      {
+        "name": "exact-edge",
+        "physical_ACKs": 4,
+        "queued_expired": 0
+      },
+      {
+        "name": "disabled",
+        "physical_ACKs": 4,
+        "queued_expired": 0
+      },
+      {
+        "name": "bounded-capture",
+        "physical_ACKs": 4,
+        "queued_expired": 0
+      },
+      {
+        "name": "unknown-capture",
+        "physical_ACKs": 4,
+        "queued_expired": 0
+      }
+    ],
+    "boot_id": "a119345d-788a-4c10-9c5c-7b200aecc657",
+    "RF_started": false,
+    "SD_written": false,
+    "board_temporary_files_removed": true,
+    "synthetic_clock_anchors": true,
+    "physical_RF_video_age_verified": false,
+    "initial_cleanup_rejection": "UART command line exceeded 470-byte limit; not executed; replaced with exact per-file short lines; no repeated HDMI tests"
+  },
+  "legacy_SourceAge_controls": [
+    "SOURCE_AGE_CONDITIONAL_CONTROLS_PASS",
+    "SOURCE_AGE_EDGE_CONTROLS_PASS",
+    "SOURCE_AGE_LOWER_BOUND_CONTROLS_PASS"
+  ],
+  "host_HDMI_queue_controls": [
+    "HDMI_QUEUED_AGE_CONTROLS_PASS expired_stale_anchor_exact_edge_disabled_slot_reuse"
+  ],
+  "native_decode_reports": {
+    "legacy": {
+      "machine": "armv7l",
+      "wall_seconds": 10.2605,
+      "cpu_seconds": 10.2208,
+      "valid_decoded_frames": 200,
+      "HDMI_physical_frames": 200,
+      "HDMI_max_new_frame_gap_ns": 100296000,
+      "dropped": 0,
+      "display_dropped_frames": 0,
+      "decode_errors": 0,
+      "reader_error": false,
+      "owners_after_codec_close": 0,
+      "bytes_after_codec_close": 0,
+      "pool_peak_bytes": 51427,
+      "peak_ready": 5,
+      "physical_ACK_span_fps": 20.4193,
+      "retained_physical_rows": 64
+    },
+    "bounded": {
+      "machine": "armv7l",
+      "wall_seconds": 10.244,
+      "cpu_seconds": 10.2248,
+      "valid_decoded_frames": 200,
+      "HDMI_physical_frames": 200,
+      "HDMI_max_new_frame_gap_ns": 100304000,
+      "dropped": 0,
+      "display_dropped_frames": 0,
+      "decode_errors": 0,
+      "reader_error": false,
+      "owners_after_codec_close": 0,
+      "bytes_after_codec_close": 0,
+      "pool_peak_bytes": 51427,
+      "peak_ready": 5,
+      "physical_ACK_span_fps": 20.4194,
+      "retained_physical_rows": 64
+    }
+  },
+  "resources": {
+    "ARM_ELF_delta_bytes": {
+      "text": 240,
+      "data": 0,
+      "BSS": 0
+    },
+    "ARM_fragment_context_bytes": {
+      "before": 2512,
+      "after": 2768,
+      "delta": 256
+    },
+    "ARM_AU_context_bytes": 1048800,
+    "Info_bytes": 32,
+    "FrameIdentity_bytes": 32,
+    "static_stack_changes": [
+      {
+        "file": "protocol.su",
+        "function": "hdmi_presenter::ParseError hdmi_presenter::parse_hdv1_header(const std::array<unsigned char, 64>&, FrameIdentity*)",
+        "old_bytes": 16,
+        "new_bytes": 24,
+        "delta_bytes": 8
+      },
+      {
+        "file": "protocol.su",
+        "function": "hdmi_presenter::ParseError hdmi_presenter::parse_vcdo_record_header(const std::array<unsigned char, 72>&, VcdoRecord*)",
+        "old_bytes": 8,
+        "new_bytes": 16,
+        "delta_bytes": 8
+      },
+      {
+        "file": "stream.su",
+        "function": "static int v3decode::SourceVideoIngress<Stats>::output_au(void*, const v3au_info*, const uint8_t*) [with Stats = ReaderStats]",
+        "old_bytes": 136,
+        "new_bytes": 144,
+        "delta_bytes": 8
+      }
+    ],
+    "ARM_main_SOURCE_DMA_feed_dma_static_stack_delta_bytes": 0,
+    "new_PL_DMA_pixel_video_payload_bytes_or_resources": 0,
+    "phase2_estimate_changed": false,
+    "complete_budget_passed": false
+  },
+  "retained_setup_failures": [
+    "Host HDMI link initially requested unavailable -ldrm; actual minimal-UAPI sources linked successfully without that external library.",
+    "Initial HDMI cleanup rejected by UART 470-byte per-line guard; tests and evidence had already completed; exact per-file short lines later removed all trial files without retesting."
+  ],
+  "source_sha256": {
+    "ps/g0_stream_decode.cpp": "b345d1940dfff33cfecef66ce018c6a04d5216cab95c7730c247c2a525d21cff",
+    "ps/g0_video_au.c": "698803e4a843960f9922b42dcee51c06d8c0abdbb3cf10fbfd41239effdf8feb",
+    "ps/g0_video_fragment.c": "7c66b2bf680bb7ed80175d3e08640918d79503814987246b51a01f578878df08",
+    "ps/include/g0_au_decode_queue.hpp": "2b6707f86c37c49596cf24ccc57cd81ccdf941f40358075daff45dc7f80742a5",
+    "ps/include/g0_source_age.hpp": "2a5398d3dd239492dd5a284aaeb497ca89c95b3f667517865781eeb0e32770dc",
+    "ps/include/g0_source_video_ingress.hpp": "a65c68a41274f22018d5cdaff2b924265ae275df91acd8901057eded82e4b4a6",
+    "ps/include/g0_video_au.h": "b784126ae7f336c59eb85106c523a9ff4469454371695a968c5ea4fcbc00c836",
+    "ps/include/g0_video_fragment.h": "29f1c7a58ec0409acf4b5caf0fedab380447d0144dfd4c7e93c6b11cda656130",
+    "vendor/hdmi/include/hdmi_presenter/protocol.h": "832840211b6b16af563d037aacc6fdb4afcbe593f0ed3dab034d416a2473dee7",
+    "vendor/hdmi/src/presenter.cpp": "2a788b7c1a2b7315bf9136d1c476f159a2acc808981cf02cc95b92f86543410f",
+    "vendor/hdmi/src/protocol.cpp": "cc2a253acbf7b9d855bdaf1abff70a991c703e0c499c92ed61e812cbd2b72bea",
+    "tests/g0_capture_interval_probe.cpp": "5437a5ca3c6b1da1e6bc46dd2ad58dde776e09be9761e3ff787d55ec042c6c4e",
+    "tests/g0_hdmi_queued_age_probe.cpp": "e3812c9dfb3859d26d979ca813438aea3999faad4c8e345b351059b71daa3979"
+  },
+  "artifact_sha256": {
+    "build/g0-R22-capture-interval-r1/native-receipt-r2.json": "1dd647e93cf94ad8d6c70f2e6e960b0940ee159e6916c78869a5e1116751259e",
+    "build/g0-R22-capture-interval-r1/HDMI-final-receipt.json": "06882c06cec89c9d9359778ef40b16e9a0037ce2854e3e7a14f5a2dbaabb363f",
+    "build/g0-R22-capture-interval-r1/decode-receipt.json": "ae0df2093815e48b6f9e3845fb694c6e9a83da7f06b96b9edfad0ac550ace5b1",
+    "build/g0-R22-capture-interval-r1/native-idle-after-r2.log": "890b1103d5cd004291b353accc5bc9e1d2954b78489ec909264747b6d2863cae",
+    "build/g0-R22-capture-interval-r1/HDMI-final-idle.log": "c1cbba1070bc03d245e9e3bd974bc0e795d2db55fc3d0e9fd319835c7b9d9b18",
+    "build/g0-R22-capture-interval-r1/decode-idle-after.log": "01b02025c2c06641db7b05de8a08e8e1f64ca519799836fe8edb29699ed45d7c",
+    "build/g0-R22-capture-interval-r1/size-paired.txt": "fd037edb82a31bf67f8a8964474b29f227c3ec8da718d4f30db6e597ace61b70",
+    "build/g0-R22-capture-interval-r1/stack-paired.json": "8f68164f138c2f1878da489b78c04b406a604510b21a79e292716852d61524f3",
+    "build/g0-R22-capture-interval-r1/run-native-r2.py": "352bd430334486e4e5c4081e842c0278410cb427bce295036772cc52542e28ec",
+    "build/g0-R22-capture-interval-r1/finish-HDMI.py": "50841c7a231aa4c3f0973f40a4bdb6f22c082a323d6c6ed5208df7ff82107346",
+    "build/g0-R22-capture-interval-r1/run-hdmi-native.py": "2447baaa94d96614780ffe0306072b01d2ddc5cdf1a3a22737cfd5504a73e004",
+    "build/g0-R22-capture-interval-r1/run-full-decode.py": "d9ad12e62a920cc17404bae045e4cf06ad86fd3918f97dea2974ad9a806e9438",
+    "build/g0-R22-capture-interval-r1/interval-ARM-command.json": "e710c4f7a0a2e3fde5e8b44f2b3f47c6619d28d1f9b99b8ab0bdea4b69323475",
+    "build/g0-R22-capture-interval-r1/decoder/commands.json": "0ac15337e221a669d0a37ad910453c3c1ae0e23dd5b71cc38ef64f92762d755e",
+    "build/g0-R22-capture-interval-r1/decoder/receipt.json": "502c91ad9ca5d6ce122e9372149e60791267788e95f552cccf9eb4f184e468a4",
+    "build/g0-R22-capture-interval-r1/legacy.events": "12f2e94ab467dce1a4e4d237a793fa15603bca457b431ab7c0b5a234f9aa13b5",
+    "build/g0-R22-capture-interval-r1/bounded.events": "fb3b982cd9155cfcdb6a04308f7cdbbab36feb92f92db7e54537990bac457e4d",
+    "build/g0-R22-capture-interval-r1/probe-arm-r2": "f3c4944efeb3264a2a49a9791d606872bd0c0bb2197337645760c6b2d42b9a9f",
+    "build/g0-R22-capture-interval-r1/hdmi-arm": "e9d645968d0ae0e303bf510d5fad0a18f4fbc27755dd16851374279cf3090d8e",
+    "build/g0-R22-capture-interval-r1/decoder/g0-stream-decode": "7ec4f657bd60d5a5c7e3966420b40bc9fe07ce698b0a17a71622648f2442cde4",
+    "build/g0-R22-capture-interval-r1/decode-legacy.json": "0ed02d7fe48239ef1b60257c3ef0a0060baa10a2918fe802cc4df7e572977da4",
+    "build/g0-R22-capture-interval-r1/decode-bounded.json": "e0af2e0538e5f1f3df93efa360f1e011073c62e87f28552d6a82bcac4cf7269e",
+    "build/g0-R22-capture-interval-r1/decode-legacy.json.physical.json": "65bc1bab48c2e6a8de542cc228d520b412f6361ff26eda942d967723a2d65da0",
+    "build/g0-R22-capture-interval-r1/decode-bounded.json.physical.json": "37e78003c7aed46bbbbf7ded9ba6cdad46c3bbb79fe74baef7417b6566fe24a9",
+    "build/g0-R22-capture-interval-r1/HDMI-expired.json": "4c57d1ef355074b55b5cefd4ec0e8f3fa4cd20a3e76108c88ea63f4f40319675",
+    "build/g0-R22-capture-interval-r1/HDMI-expired-after-anchor.json": "d98634c94806d996e8495ead89780ad1ad948b839aa6800b85e9a7533b465d09",
+    "build/g0-R22-capture-interval-r1/HDMI-held-through-stale-anchor.json": "1ff9028ef84f685380626ef63e0d3993af80071f72f25f0ef39060329a24891a",
+    "build/g0-R22-capture-interval-r1/HDMI-exact-edge.json": "979acffa50235a9060cc03220f4cf6ed8ee2543038a5909203214507c19d91be",
+    "build/g0-R22-capture-interval-r1/HDMI-disabled.json": "0e19737acd52443a047c1c2876c6b2f7b77a0f157d0cfdb209197afaef04ba68",
+    "build/g0-R22-capture-interval-r1/HDMI-bounded-capture.json": "aa04294e1fe4992e76e3524596ca191d96366209e52bf02f002ef8db9c62e7b7",
+    "build/g0-R22-capture-interval-r1/HDMI-unknown-capture.json": "19a68eef0384899967d0f1a2b965def33a2953dc921b5eb1794d26c016d0167b"
+  },
+  "receiver_capture_interval_subcondition_passed": true,
+  "source_UHD_forward_RAW_clock_connected": false,
+  "RF_or_physical_source_to_HDMI_age_verified": false,
+  "full_G0_G6_passed": false,
+  "final_state": {
+    "SOURCE_stopped": true,
+    "RX_LO_off": true,
+    "TX_LO_off": true,
+    "BIST_off": true,
+    "root_read_only": true,
+    "RAM_trial_files_removed": true,
+    "shared_checked_runtime_cache_retained": "/tmp/v3-g0-rt-40f15ffa",
+    "SD_or_bitstream_written": false
+  },
+  "disk_after": {
+    "total_bytes": 210241560576,
+    "used_bytes": 193827848192,
+    "available_bytes": 5659516928,
+    "available_GiB": 5.271,
+    "priority": "inspect_usage"
+  },
+  "next_required": "Carry actual RAW capture lower endpoints/uncertainty through live SOURCE and use matching RAW UHD brackets and forward TIMEBASE; validate actual RF age and deadline behavior.",
+  "disk_final": {
+    "total_bytes": 210241560576,
+    "used_bytes": 193832976384,
+    "available_bytes": 5654388736,
+    "available_GiB": 5.266,
+    "priority": "inspect_usage"
+  }
+}

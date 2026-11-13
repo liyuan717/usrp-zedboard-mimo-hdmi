@@ -1,0 +1,16 @@
+{
+  "planning_commit": "5642c5a1df5d862c75c6c22ecce36bd3e463843c",
+  "reference_files": [
+    {
+      "source": "pl/receiver_v2/integration/create_zedboard_receiver_v2.tcl",
+      "path": "vendor/r9_io/create_zedboard_receiver_v2.tcl",
+      "git_blob": "77dbb02cccb1676a859a4feaf7e883da70e96471"
+    },
+    {
+      "source": "pl/receiver_v2/integration/receiver_v2_topology_contract.tcl",
+      "path": "vendor/r9_io/receiver_v2_topology_contract.tcl",
+      "git_blob": "b7bff749eafe228e12ac616350b33a686f91cab9"
+    }
+  ],
+  "purpose": "read-only board IO/HDMI reference for explicit G0 raw ADC prototype; legacy RF solver is not compiled"
+}

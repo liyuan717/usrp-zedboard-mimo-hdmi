@@ -1,0 +1,291 @@
+{
+  "scope": "R22 short-range same-boot diagnostic. Fixed 4 MSPS, 5.5 GHz, gain 18/18 dB, RX 60/60 dB, +1 MHz TX LO offset, fixed8 dual spatial streams.",
+  "analog_RSSI_trial": {
+    "boot_id": "a119345d-788a-4c10-9c5c-7b200aecc657",
+    "SD_written": false,
+    "FMCOMMS3_TX_enabled": false,
+    "TX_frequency_Hz": 5500000000,
+    "TX_LO_offset_Hz": 1000000,
+    "TX_gain_dB": 18,
+    "RX_gain_dB": 60,
+    "sample_rate_Hz": 4000000,
+    "trials": [
+      {
+        "trial": "1-zero",
+        "baseband": "zero",
+        "RX_bandwidth_hz": 4000000,
+        "EOB_channels": [
+          0,
+          1
+        ],
+        "raw_RSSI_baseline_median": [
+          122.5,
+          123.25
+        ],
+        "raw_RSSI_during_burst_median": [
+          103.25,
+          103.25
+        ],
+        "raw_RSSI_after_EOB_median": [
+          122.5,
+          123.25
+        ],
+        "GO_minus_sampler_token_ms": 0.010666999969544122,
+        "armed_observed_minus_token_ms": 0.5312999996931467,
+        "TX_arm": "G0_ARMED lead_s=0.25 device_start_s=2.4887385"
+      },
+      {
+        "trial": "1-dual",
+        "baseband": "dual",
+        "RX_bandwidth_hz": 4000000,
+        "EOB_channels": [
+          0,
+          1
+        ],
+        "raw_RSSI_baseline_median": [
+          122.5,
+          123.25
+        ],
+        "raw_RSSI_during_burst_median": [
+          97.75,
+          99.5
+        ],
+        "raw_RSSI_after_EOB_median": [
+          122.5,
+          122.5
+        ],
+        "GO_minus_sampler_token_ms": 0.03456500007814611,
+        "armed_observed_minus_token_ms": 0.7782429997860163,
+        "TX_arm": "G0_ARMED lead_s=0.25 device_start_s=3.00599775"
+      },
+      {
+        "trial": "2-zero",
+        "baseband": "zero",
+        "RX_bandwidth_hz": 2000000,
+        "EOB_channels": [
+          0,
+          1
+        ],
+        "raw_RSSI_baseline_median": [
+          123.25,
+          123.25
+        ],
+        "raw_RSSI_during_burst_median": [
+          103.5,
+          103.25
+        ],
+        "raw_RSSI_after_EOB_median": [
+          123.25,
+          123.25
+        ],
+        "GO_minus_sampler_token_ms": 0.012216999948577723,
+        "armed_observed_minus_token_ms": 0.4418990001795464,
+        "TX_arm": "G0_ARMED lead_s=0.25 device_start_s=2.5009875"
+      },
+      {
+        "trial": "2-dual",
+        "baseband": "dual",
+        "RX_bandwidth_hz": 2000000,
+        "EOB_channels": [
+          0,
+          1
+        ],
+        "raw_RSSI_baseline_median": [
+          123.25,
+          123.25
+        ],
+        "raw_RSSI_during_burst_median": [
+          98.375,
+          100.0
+        ],
+        "raw_RSSI_after_EOB_median": [
+          123.25,
+          123.25
+        ],
+        "GO_minus_sampler_token_ms": 0.012972000149602536,
+        "armed_observed_minus_token_ms": 0.6612709998989885,
+        "TX_arm": "G0_ARMED lead_s=0.25 device_start_s=2.52894825"
+      },
+      {
+        "trial": "3-zero",
+        "baseband": "zero",
+        "RX_bandwidth_hz": 4000000,
+        "EOB_channels": [
+          0,
+          1
+        ],
+        "raw_RSSI_baseline_median": [
+          122.5,
+          122.5
+        ],
+        "raw_RSSI_during_burst_median": [
+          102.25,
+          108.5
+        ],
+        "raw_RSSI_after_EOB_median": [
+          122.5,
+          123.25
+        ],
+        "GO_minus_sampler_token_ms": 0.009509999927104218,
+        "armed_observed_minus_token_ms": 0.31962299999577226,
+        "TX_arm": "G0_ARMED lead_s=0.25 device_start_s=2.51941675"
+      },
+      {
+        "trial": "3-dual",
+        "baseband": "dual",
+        "RX_bandwidth_hz": 4000000,
+        "EOB_channels": [
+          0,
+          1
+        ],
+        "raw_RSSI_baseline_median": [
+          122.5,
+          123.25
+        ],
+        "raw_RSSI_during_burst_median": [
+          96.75,
+          100.5
+        ],
+        "raw_RSSI_after_EOB_median": [
+          122.5,
+          123.25
+        ],
+        "GO_minus_sampler_token_ms": 0.014374999864230631,
+        "armed_observed_minus_token_ms": 0.34668899979806156,
+        "TX_arm": "G0_ARMED lead_s=0.25 device_start_s=3.09984775"
+      }
+    ],
+    "both_AD9361_LOs_off_and_PL_idle_after": true
+  },
+  "saved_60_34s_exact_IQ_RX_bandwidth_trials": [
+    {
+      "RX_bandwidth_hz": 2000000,
+      "offered_SOURCE": 16760,
+      "byteexact_SOURCE": 16760,
+      "direct_by_TX": {
+        "0": 8380,
+        "1": 8380
+      },
+      "FEC_restored_SOURCE": 0,
+      "DMA_missing_batches": 0,
+      "IQ_sha256": "afee54c63c0b42a22f07284a1291a5e3e4a28f9e0421704f54f1581c42b876f0",
+      "EOB_channels": [
+        0,
+        1
+      ],
+      "local_capture_sha256": "1d02f2c0da2d97beb27680fa02507a3164b8a9779a0f4fabd6b6dac8e3a66629",
+      "native_receipt_sha256": "36e30497d73bb0d58cccb18c01ed1dc0963e2c66cceea7b5f6bf2214f614a5d8"
+    },
+    {
+      "RX_bandwidth_hz": 4000000,
+      "offered_SOURCE": 16760,
+      "byteexact_SOURCE": 16760,
+      "direct_by_TX": {
+        "0": 8380,
+        "1": 8380
+      },
+      "FEC_restored_SOURCE": 0,
+      "DMA_missing_batches": 0,
+      "IQ_sha256": "afee54c63c0b42a22f07284a1291a5e3e4a28f9e0421704f54f1581c42b876f0",
+      "EOB_channels": [
+        0,
+        1
+      ],
+      "local_capture_sha256": "6dfcc22ad5c5e8c6ad458a059dfdd68491bef46b34eec892d4eb33d054219b37",
+      "native_receipt_sha256": "35c78e873255f5380d0530f1aded03b6aba4780ac50d7faa5c38b676978cde33"
+    }
+  ],
+  "recorded_waveform_SOURCE_compatibility_subcondition_passed": true,
+  "limits": [
+    "The uncalibrated raw RSSI responds to aggregate power. A zero-baseband burst reveals a TX-correlated RF response, but does not establish its spectral composition or in-band interference.",
+    "The 2 MHz raw RSSI result lies within the observed behavior of the 4 MHz controls. The same-waveform compact runs show full direct delivery at both bandwidths."
+  ],
+  "G0_passed": false,
+  "G6_passed": false,
+  "PL_resource_delta": 0,
+  "local_artifacts": "build/g0-R22-RX-bandwidth-r1",
+  "artifact_SHA256": {
+    "run-rssi.py": "88c6db077cc3ea48537147419fcd8897dd0f44b8e5f418bc68b333c72ea33f28",
+    "zero.fc32": "83ee47245398adee79bd9c0a8bc57b821e92aba10f5f9ade8a5d1fae4d8c4302",
+    "2-dual-samples.json": "9cca3c59a0d754ae5cbcbea0d9ff05639d484f64d48482115e2fe4c5ee1bee94",
+    "3-zero-samples.json": "6cc8b34c11f63da5b060b5bad65e03374c2e3a101bd0384865ece5fe585816fa",
+    "1-zero-samples.json": "21f62e6376df80538bc73ced68244b6b0918327c48efc5f9d54df0ff9b5f3917",
+    "3-dual-samples.json": "0f9a7e3bdb2db1d691a19c440b4614a757c99b3abdbea72755a3c88c6c07e9cd",
+    "2-zero-samples.json": "2a57c910787e7e6d682d1ba604d26a17707fbdcccf49d9d5599d10f0de5c63cd",
+    "1-dual-samples.json": "ff5a0040aff84453fdeea5a87e4d0f74dbd5919289d0daad7e9bb4c4922076b4",
+    "live2/receipt.json": "f38cfda223a118f1ef2704eeafa6bc84b79bfc27c6cdf97747d5aac8787009b8",
+    "live2/native.json": "a95db50d810b6ed51a161bfdfc5356107c4d8d87faebecf06538cc3f787a4b65",
+    "live2/physical.json": "a15803ed5d5d846ee36b60899a09317c53b8bc44189c7e508d1734bd2d3be065",
+    "live2/clean-native.json": "f9daec96afe00ee1818555cb9576ae050abbbba44719ab22110151224fa82f94",
+    "live2/clock-all-source-age.json": "d5cecf9df7230b90b9e3322b655c6a506f428789e3eca9378740fbe28abdeba0",
+    "capacity2/receipt.json": "ac303e754cc772db927eb75c384a44a008b08af48cb1968f8572410894dc5c5b",
+    "capacity2/capture-review.json": "da8e6ef060573dd6350275ea2e177aee8df0706f3c301beb4827731ad11252ce",
+    "restored-default-after-capacity.log": "508006ff1cb117a8045c47b85c53b6bb0e6c8a5b4581c23fd65de28625405155"
+  },
+  "live_video": {
+    "camera_new_frames": 1200,
+    "camera_actual_fps": 20.06717600138472,
+    "image_width": 1024,
+    "image_height": 600,
+    "physical_new_frames": 1200,
+    "missing": 0,
+    "changed_pixel_CRCs": 0,
+    "physical_new_fps": 20.102549492845707,
+    "max_new_ACK_gap_ms": 217.313,
+    "SOURCE_records": 16860,
+    "DMA_missing_batches": 0,
+    "PL_packet_erasures": 0,
+    "all_source_age_upper_bound_ms_development_clock": 824.59365,
+    "live_camera_physical_picture_and_fps_subcondition_passed": true,
+    "production_age_passed": false,
+    "actual_camera_SOURCE_workload": {
+      "fixed_window_start_us": 5146471,
+      "fixed_five_second_Bps": [
+        145408.0,
+        143360.0,
+        143360.0,
+        143360.0,
+        143360.0,
+        143360.0
+      ],
+      "maximum_rolling_Bps_by_seconds": {
+        "1": 204800.0,
+        "5": 161792.0,
+        "30": 147114.66666666666
+      },
+      "p99_grid_step_us": 20000,
+      "rolling_p99_by_seconds": {
+        "1": {
+          "windows": 2936,
+          "p99_Bps": 163840.0
+        },
+        "5": {
+          "windows": 2736,
+          "p99_Bps": 155648.0
+        }
+      }
+    }
+  },
+  "capacity": {
+    "offered_SOURCE": 26256,
+    "byteexact_SOURCE": 26236,
+    "FEC_restored_SOURCE": 10,
+    "missing_SOURCE_only_block0": 20,
+    "DMA_missing_batches": 0,
+    "rolling5s_service_min_Bps": 223232.0,
+    "rolling30s_workload_peak_Bps": 147114.66666666666,
+    "sustained_reserve_fraction": 0.3409785932721713,
+    "sustained_30_percent_subcondition_passed": true,
+    "rolling1s_service_min_Bps": 222208.0,
+    "rolling1s_workload_peak_Bps": 204800.0,
+    "one_second_reserve_fraction": 0.07834101382488479,
+    "math": "1 - offered workload / minimum observed service"
+  },
+  "both_TX_EOB_all_rounds": true,
+  "SD_written": false,
+  "FMCOMMS3_reverse_TX_enabled": false,
+  "restored_4MHz_and_LOs_off": true,
+  "R22_G7_SD_unchanged": true,
+  "production_RF_profile_frozen": false,
+  "short_range_2MHz_is_candidate_for_replication": true
+}

@@ -1,0 +1,19 @@
+{
+  "scope": "G0 isolated arithmetic probe only",
+  "test_vectors": 1003,
+  "tested_minimum_II_cycles": 18,
+  "clock_MHz": 50,
+  "part": "xc7z020clg484-1",
+  "LUT": 595,
+  "FF": 262,
+  "DSP": 4,
+  "BRAM": 0,
+  "routed_WNS_ns": 0.058,
+  "routed_WHS_ns": 0.255,
+  "unconstrained_max_delay_endpoints": 0,
+  "g0_passed": false,
+  "limits": [
+    "not a complete receiver or clock/CDC/IO signoff",
+    "small setup slack and unpipelined DSP warnings; integration needs fresh timing"
+  ]
+}

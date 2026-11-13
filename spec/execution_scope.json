@@ -1,0 +1,208 @@
+{
+  "source_plan_commit": "f734decb2c2e2ef83c2f0c85a75555bf364a0bd2",
+  "source_plan_directory": "docs/video-radio-v3",
+  "current_stage": 1,
+  "stage1": {
+    "goal": "complete no-feedback one-way RF video through G0-G7",
+    "gates": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6",
+      "G7"
+    ],
+    "feedback_enabled": false,
+    "board_reverse_TX_enabled": false,
+    "wait_for_reverse_RF_ACK": false,
+    "require_feedback_RX_worker": false,
+    "require_dummy_feedback_or_TDD_module": false,
+    "recovery": "fixed FEC + periodic session/SPS/PPS + periodic recovery point + bounded concealment/reacquisition",
+    "G0_does_not_require": [
+      "feedback RF measurement",
+      "AD9361/X310 RX-TX switching latency",
+      "feedback PHY freeze",
+      "TDD guard/slot freeze"
+    ],
+    "future_feedback_budget": "estimate separately; never measured pass or subtracted twice",
+    "FEC_storage_banks": 8,
+    "maintain_multiple_bank_candidates": false,
+    "no_more_16_bank_tests_builds_or_implementation": true,
+    "per_block_FEC_current": {
+      "k": 20,
+      "n": 32,
+      "symbol_bytes": 512,
+      "changed_by_bank_selection": false
+    },
+    "nonessential_diagnostics_or_stage2_functions_block_core_video": false,
+    "quality_acceptance": {
+      "operator_confirmed_date": "2026-11-07",
+      "criterion": "bounded best-effort recovery with damaged/missing pictures and freezes counted",
+      "zero_pixel_CRC_differences_required": false,
+      "core_rate_resolution_age_and_safety_requirements_unchanged": true,
+      "stage_completion_automatically_passed": false
+    }
+  },
+  "stage2": {
+    "goal": "real RF feedback + TDD + encoder/scheduler linkage + full regression",
+    "gates": [
+      "B0",
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "status": "deferred_not_implemented_or_passed",
+    "requires_new_profile_and_full_regression": true
+  },
+  "performance_both_stages": {
+    "encoded_width": 1024,
+    "encoded_height": 600,
+    "real_new_source_fps": 20,
+    "end_to_end_source_age_target_seconds": 3,
+    "reliable_throughput_load_max_fraction": 0.7,
+    "material_RF_test_window_min_seconds": 60,
+    "camera_RF_test_required": true,
+    "indoor_distance_target_m": 10,
+    "standalone_cold_boot_without_development_lines_required": true,
+    "RF_dataplane_in_PL": true,
+    "audio": false,
+    "required_MIMO_TX": 2,
+    "required_MIMO_RX": 2,
+    "silent_SISO_resolution_or_fps_fallback_allowed": false
+  },
+  "resource_policy": {
+    "updated_date": "2026-11-03",
+    "source": "user instructed reasonable resource relaxation and functionality-first implementation; avoid excessive resource optimization",
+    "documentation": "docs/RESOURCE_POLICY_20261103.md",
+    "original_LUT_target_historical_only": 37240,
+    "LUT_planning_target_fraction": 0.85,
+    "LUT_planning_target_count": 45220,
+    "other_resource_targets_changed": false,
+    "original_70_percent_LUT_target_blocks_progress": false,
+    "priority": "complete required functions, then targeted evidence-based optimization where capacity, timing or throughput requires it",
+    "full_design_resource_timing_CDC_IO_and_performance_acceptance_required": true,
+    "future_stage2_reserve_remains_labelled_estimate": true,
+    "partial_resource_sum_is_not_complete_budget_pass": true,
+    "trim_priority": [
+      "nonessential large diagnostic buffers",
+      "redundant observation interfaces and detailed traces",
+      "legacy compatibility/multiple active alternatives"
+    ],
+    "trim_plan_requires_items_savings_basis_and_effect": true,
+    "documentation_current_scope": "docs/CORE_SCOPE_PRIORITY_20261103.md",
+    "core_CRC_DMA_boundaries_memory_ownership_bounded_buffers_RF_limits_required": true,
+    "Stage2_reserve_is_not_instantiated_Stage1_cost": true
+  },
+  "overall_completion_requires_both_stages": true,
+  "current_stage1_G0_passed": false,
+  "latest_scope_update": {
+    "date": "2026-11-03",
+    "source": "user fixed8bank/core-continuity priority instruction",
+    "documentation": "docs/CORE_SCOPE_PRIORITY_20261103.md"
+  },
+  "continuous_operation_policy": {
+    "duplicates": "ignore, no duplicate SOURCE delivery",
+    "reorder": "bounded reassembly",
+    "bad_CRC": "erasure, continue",
+    "FEC": "best effort plus received-source early delivery and missing-index events",
+    "expiry": "drop expired content without infinite wait",
+    "lock_loss": "local reacquisition",
+    "unrecoverable_video": "conceal/skip or wait periodic recovery point; record artifacts/freeze/age",
+    "local_packet_or_frame_failure_causes_process_exit_or_board_restart": false,
+    "whole_AU_all_fragments_required": false,
+    "RF_hot_data_plane_in_PL": true
+  },
+  "latest_planning_recheck": {
+    "commit": "f734decb2c2e2ef83c2f0c85a75555bf364a0bd2",
+    "snapshot": "docs/planning-RAW-timebase-refresh-20261107/",
+    "all_three_exact_readback": true,
+    "only_three_authorized_paths": true
+  },
+  "current_RF_measurement_context": {
+    "distance": "short_range_user_confirmed_2026-11-04",
+    "10m_acceptance_passed": false,
+    "10m_test_to_be_arranged_later": true,
+    "10m_test_deferred_until_standalone_by_user_20261105": true,
+    "10m_test_order_reconfirmed_by_user_20261106": "after physical SD standalone cold boot and recovery verification; user will arrange the test"
+  },
+  "latest_finite_camera_RF_subcondition": {
+    "evidence": "docs/evidence/g0-R22-live-RAW-timebase-20261107.json",
+    "date": "2026-11-07",
+    "candidate": "R22 RAM RAW SOURCE/TIMEBASE with unchanged bit/SD",
+    "live_camera_original_capture_frames": 1200,
+    "physical_HDMI_unique_new_frames": 1200,
+    "resolution": [
+      1024,
+      600
+    ],
+    "camera_new_fps": 20.06507107570302,
+    "physical_ACK_span_fps": 20.09691708933886,
+    "all_RGB565_CRC_equal_same_capture_native_reference": true,
+    "bounded_STOP_and_owner_release_passed": true,
+    "wire_age_upper_ns": 807946898,
+    "independent_wired_causal_age_upper_ns": 796597484,
+    "finite_all_physical_ACK_bounded_age_passed": true,
+    "full_frame_production_timebase_age_passed": false,
+    "new_RAW_SD_G7_passed": false,
+    "full_G0_passed": false
+  },
+  "planning_source_session_refresh_20261105": {
+    "commit": "66ba97110d5399af5afa0226d62d17e463f4180a",
+    "evidence": "docs/evidence/planning-source-session-refresh-20261105.json",
+    "snapshot": "docs/planning-source-session-refresh-20261105/",
+    "all_three_exact_readback": true,
+    "only_three_authorized_paths": true,
+    "full_G0_passed": false
+  },
+  "planning_AU_progress_refresh_20261105": {
+    "commit": "ce434626b736277dd74dd51a26a620063d6a1034",
+    "evidence": "docs/evidence/planning-AU-progress-refresh-20261105.json",
+    "snapshot": "docs/planning-AU-progress-refresh-20261105/",
+    "all_three_exact_readback": true,
+    "only_three_authorized_paths": true,
+    "full_G0_passed": false
+  },
+  "planning_forward_timebase_transport_refresh_20261105": {
+    "commit": "ed02cd826f5abd693ce339b722e2d51c8baa8c0a",
+    "evidence": "docs/evidence/planning-forward-timebase-transport-refresh-20261105.json",
+    "snapshot": "docs/planning-forward-timebase-transport-refresh-20261105/",
+    "all_three_exact_readback": true,
+    "only_three_authorized_paths": true,
+    "full_G0_passed": false
+  },
+  "planning_quality_recovery_refresh_20261107": {
+    "commit": "c2797d2bb5624a050810893d581dc974e41a3f8b",
+    "evidence": "docs/evidence/planning-quality-recovery-refresh-20261107.json",
+    "snapshot": "docs/planning-quality-recovery-refresh-20261107/",
+    "all_three_exact_readback": true,
+    "only_three_authorized_paths": true,
+    "full_G0_passed": false
+  },
+  "historical_finite_camera_RF_20261105": {
+    "evidence": "docs/evidence/g0-camera-RF-20261105.json",
+    "date": "2026-11-05",
+    "live_camera_original_capture_frames": 1200,
+    "physical_HDMI_unique_new_frames": 1200,
+    "resolution": [
+      1024,
+      600
+    ],
+    "camera_new_fps": 20.057499615369423,
+    "physical_ACK_span_fps": 20.0744,
+    "all_RGB565_CRC_equal_same_capture_native_reference": true,
+    "bounded_STOP_and_owner_release_passed": true,
+    "conditional_development_clock_tail64_age_upper_ns": 877141845,
+    "full_frame_production_timebase_age_passed": false,
+    "full_G0_passed": false
+  },
+  "planning_RAW_timebase_refresh_20261107": {
+    "commit": "f734decb2c2e2ef83c2f0c85a75555bf364a0bd2",
+    "snapshot": "docs/planning-RAW-timebase-refresh-20261107/",
+    "all_three_exact_readback": true,
+    "only_three_authorized_paths": true,
+    "evidence": "docs/evidence/planning-RAW-timebase-refresh-20261107.json",
+    "full_G0_passed": false
+  }
+}

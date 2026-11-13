@@ -1,0 +1,85 @@
+{
+  "status": "unfrozen_G0_atomic_delivery_candidate_not_production_ABI_signoff",
+  "source_plan_commit": "733a3e061d1094d24e8b05b656d7e59f12599027",
+  "core": "2x2 MIMO, fixed8 RS20/32/S512, RF data plane in PL",
+  "clock_hz": 50000000,
+  "SOURCE_staging_slots": 2,
+  "SOURCE_staging_payload_bytes": 1024,
+  "bounded_reorder_window_cycles": 4096,
+  "SOURCE_collection_absolute_timeout_cycles": 50000,
+  "admission_wait_upper_bound_cycles": 8192,
+  "admission_bound_update_reason": "Measured32KiB full joins lost1of136 at256 and2048 cycles. Worst-phase coupled actual SOURCE/batcher test measured4679cycles with14/19 DMA-ready; choose finite8192cycles (163.84us), without changing RS/FEC/video deadlines or adding payload RAM.",
+  "admission_overflow": "drain/drop whole SOURCE and count gap; FEC never waits indefinitely for DMA",
+  "ordering": "choose older available committed slot by modular epoch/block/index; bounded lookahead only; retain valid repairs older than watermark with flag8",
+  "duplicate_contract": "upstream FEC owns block-lifetime deduplication; bridge additionally ignores current-slot and exact-watermark duplicates",
+  "AXIS": {
+    "data_bits": 64,
+    "TKEEP": 255,
+    "TLAST": "last beat of a complete record",
+    "held_beat_stable_across_local_fence_or_source_abort": true,
+    "global_reset_requires_coordinated_DMA_owner_reset": true
+  },
+  "header": {
+    "byte_order": "LE",
+    "magic": "V3RX",
+    "ABI_major_candidate": 1,
+    "header_bytes": 64,
+    "layout": "unchanged planning ARCHITECTURE section4 layout",
+    "record_sequence": "64-bit monotonic per global reset, assigned at serialization",
+    "epoch": "diagnostic delivery generation; not final ADC/FEC ownership epoch",
+    "sample_index": "0 for SOURCE/ERASURE/DISCONTINUITY; type3 SESSION candidate uses ADC epoch16 + integer sample48 of the same protected frame; see g0_forward_timebase_candidate_stage1.json",
+    "capture_time_us": 0,
+    "unavailable_coordinates_explicitly_flagged": true,
+    "flags": {
+      "1": "SOURCE reconstructed by FEC",
+      "2": "sample coordinate unavailable",
+      "4": "header capture-time metadata unavailable; video SOURCE may contain its own capture time",
+      "8": "valid SOURCE retained outside bounded reorder window"
+    }
+  },
+  "record_types": {
+    "1_SOURCE": {
+      "payload_bytes": 512,
+      "record_bytes": 576,
+      "commit": "only all512 consistent bytes accepted; partial source never enters AXIS"
+    },
+    "2_ERASURE": {
+      "payload_bytes": 0,
+      "record_bytes": 64,
+      "symbol_index": 65535,
+      "status": "bits0..19 upstream FEC missing mask; bits20..22 FEC terminal code; not a DMA-delivery ACK"
+    },
+    "3_SESSION_candidate": {
+      "payload_bytes": 32,
+      "record_bytes": 96,
+      "subtypes": [
+        "VRS3 validated profile",
+        "VRT3 validated active-session clock bracket"
+      ],
+      "header_status": "same-frame ADC reference fraction Q32",
+      "storage": "one borrowed slot at most in existing1024B SOURCE RAM; no new payload RAM",
+      "whole_board_or_clock_age_passed": false
+    },
+    "4_DISCONTINUITY": {
+      "payload_bytes": 16,
+      "record_bytes": 80,
+      "payload_u32": [
+        "dropped_whole_SOURCE",
+        "malformed_SOURCE",
+        "aborted_or_timed_out_SOURCE",
+        "dropped_terminal_events"
+      ],
+      "status": "loss-generation snapshot"
+    }
+  },
+  "fence": "revoke only incomplete collector; complete queued/sending records retain immutable session/epoch and drain",
+  "terminal_queue": "one pending event; explicit drop counter and discontinuity on overflow; core releases banks independently",
+  "not_yet_proven": [
+    "production SESSION/timebase/coordinate/flag schema and parser compatibility",
+    "physical ADC IO/CDC/calibration joining",
+    "physical DMA record/batch boundaries, kernel/PS ring ownership and cancellation",
+    "continuous real RF video1024x600/20newfps/~3s and reliable throughput margin",
+    "complete board resources/IO/CDC/timing/DDR/HDMI and G0-G7"
+  ],
+  "full_R09_R10_or_G0_passed": false
+}

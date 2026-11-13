@@ -1,0 +1,42 @@
+{
+  "changed_file_sha256": {
+    "library/axi_hdmi_tx/axi_hdmi_tx.v": "134155836a94998566e1786a73aba6bae755fa2e9a94f751d2e1e9b848f382e1",
+    "library/axi_hdmi_tx/axi_hdmi_tx_axis_epoch_bridge.v": "53126d0a585a8704075fcd3847253cb1bbab053d51e455d95fc2546f371adfb6",
+    "library/axi_hdmi_tx/axi_hdmi_tx_core.v": "791ed81ffc399ef50c1bd6691112d2a0bc32aa25aaaaadd8f7040f738aed7684",
+    "library/axi_hdmi_tx/axi_hdmi_tx_ip.tcl": "4c6d13c66a5a8d5ddd4b61a2c694c2b5e137eff4ea99df52f1136b22a498f3e0",
+    "library/axi_hdmi_tx/axi_hdmi_tx_reset_sync.v": "5ee6f050775cddf7bb12c7b4259b920d2e7d9c6c114d8a809844243f451d1f05",
+    "library/axi_hdmi_tx/axi_hdmi_tx_vdma.v": "fdd90c0864b6b6a5bd6122f845d105d48ff240890047f8fa07d83d4c96a084c3",
+    "library/axi_hdmi_tx/component.xml": "1471bba5ca612abd6725ebcc02e0c02a57cc1b28c3a5cdce3e5afb8d612033c4",
+    "library/common/up_hdmi_tx.v": "5e0400bb02be05c5c81ed469e9e6ca7a1925e355c77a9709fa32a5ae876bf562"
+  },
+  "expected_output_tree_file_count": 3489,
+  "expected_output_tree_sha256": "ee16e2ea1658319464131d838568dbfa775c9f6b4d2a758d90f6ea80dec78d04",
+  "parent_static_controls": {
+    "configuration": {
+      "CMOS_OR_LVDS_N": 0,
+      "DAC_DATAPATH_DISABLE": 1,
+      "DAC_DDS_DISABLE": 1,
+      "DAC_IODELAY_ENABLE": 0,
+      "DAC_IQCORRECTION_DISABLE": 1,
+      "DAC_USERPORTS_DISABLE": 1,
+      "MODE_1R1T": 0,
+      "TDD_DISABLE": 1,
+      "USE_SSI_CLK": 0
+    },
+    "input_closure_count": 53,
+    "input_closure_sha256": "d23a1ae8d0f944b28fb15d8cb38e4ffd93c8e7578b79487c90d73d73e2dc41ad",
+    "parent_input_sha256": {
+      "library/axi_hdmi_tx/axi_hdmi_tx.v": "a2e14ab0a19e1dd57042c6df455df6360d270bc03b9ea6d3d1846026939b1420",
+      "library/axi_hdmi_tx/axi_hdmi_tx_core.v": "3dcdf3b9d6830a9679da2fe732117d96859242931f37101c72873babd9ee4092",
+      "library/axi_hdmi_tx/axi_hdmi_tx_vdma.v": "b271f457b5ff8ee4ed87e192c588e916ead92b7de21bc8b5e7b38c0d6295c692",
+      "library/common/ad_rst.v": "721cf03b9b6146a487aa4687482b3781230b0d5ea523741c946d4eb1c8dfd95f",
+      "library/common/up_hdmi_tx.v": "ffd377f89fc6b34de58df72689121ba0caa825eec6fbc3edba391392c8634ec7"
+    },
+    "parent_output_tree_count": 3487,
+    "parent_output_tree_sha256": "968bccab042ced0620824cc88b584e26fa96a439f375182c69fe1f7f99ecab43",
+    "parent_overlay": "receiver-v2-rxonly-adi",
+    "preparer_sha256": "6b8447339feae23932b373310c4946dfcce28b43f14606454dbedc2408da0bce",
+    "source_manifest_sha256": "4309b56a99b11d7074ac9af9b4b0283b11856370913db850d96141b02b12f594"
+  },
+  "schema": "receiver-v2-reset-hardened-r6/v1"
+}

@@ -1,0 +1,11 @@
+// G0 finite tagged raw capture. Include after the decompiled matched r9 DT.
+// The stream terminates by descriptor byte count and has no TLAST packets.
+&{/axi/dma@7c440000} {
+	/delete-property/ adi,expect-s-axis-tlast;
+};
+&{/axi/rf-receiver-v2@7c430000} {
+	compatible = "seu,video-radio-v3-g0-adc";
+};
+&{/chosen} {
+	seu,video-radio-v3-g0 = "finite-tagged-raw-adc;no-production-rf;no-tx-owner";
+};

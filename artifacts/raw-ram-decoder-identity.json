@@ -1,0 +1,32 @@
+{
+  "source_sha256": {
+    "ps/g0_stream_decode.cpp": "011801ac2e68deab8d92a9e090d56c954c9517e3b891a14d7abc4f961d083088",
+    "ps/include/g0_au_decode_queue.hpp": "2b6707f86c37c49596cf24ccc57cd81ccdf941f40358075daff45dc7f80742a5",
+    "ps/g0_video_fragment.c": "7c66b2bf680bb7ed80175d3e08640918d79503814987246b51a01f578878df08",
+    "ps/g0_video_au.c": "698803e4a843960f9922b42dcee51c06d8c0abdbb3cf10fbfd41239effdf8feb",
+    "ps/include/g0_video_fragment.h": "29f1c7a58ec0409acf4b5caf0fedab380447d0144dfd4c7e93c6b11cda656130",
+    "ps/include/g0_video_au.h": "b784126ae7f336c59eb85106c523a9ff4469454371695a968c5ea4fcbc00c836",
+    "ps/include/g0_source_dma_ingress.hpp": "045bb4643af3086e920a0a087e852644f0fef866994c2c496086e2a630202630",
+    "ps/include/g0_source_ring.h": "d107984979817485e1eb9e13aebf69c8647d6f96df3a0d568c109fc4e812f76b",
+    "ps/include/g0_dma_batch.h": "b1642c2422c5320a91c18809272b01685a4291fa303fd57c5cc565891da9cf67",
+    "ps/g0_dma_batch.c": "bf6233b4089a72d61c8c34fbec6720235ffa4d20c12fda76e3c6d4a96e131137",
+    "ps/include/g0_source_session.hpp": "47105477ad4350a75f04c43f81537dae311e6edc612deebe0bfd925e80fc59ed",
+    "ps/include/g0_source_video_ingress.hpp": "a65c68a41274f22018d5cdaff2b924265ae275df91acd8901057eded82e4b4a6",
+    "ps/include/g0_source_age.hpp": "2a5398d3dd239492dd5a284aaeb497ca89c95b3f667517865781eeb0e32770dc",
+    "vendor/hdmi/src/protocol.cpp": "cc2a253acbf7b9d855bdaf1abff70a991c703e0c499c92ed61e812cbd2b72bea",
+    "vendor/hdmi/src/rgb_expand.cpp": "85b658363acd3b805fb26be1a465ff50e8240af01fc5d62fff6fdd42306fb7b6",
+    "vendor/hdmi/src/presenter.cpp": "2a788b7c1a2b7315bf9136d1c476f159a2acc808981cf02cc95b92f86543410f",
+    "vendor/hdmi/src/null_backend.cpp": "dd7a54e014db9d677062610bcc92794109051c2d082105c4117059f04e4c15bc",
+    "vendor/hdmi/src/drm_backend.cpp": "16ccb524485adf197fef3f7b6aab70a4f2c5db7768c882c35c9b837eb26eda7d",
+    "vendor/hdmi/include/crc32_slice8_candidate.h": "789b053994cffe3d23143e97d8adfc2a7f38394982bb896413e6f749c59e51f5",
+    "vendor/hdmi/include/crc32_slice8_unroll_candidate.h": "657284818ea17a58483e614e7b882a31d63b23f106224f756687e2bf9524022e",
+    "vendor/hdmi/include/hdmi_presenter/app_runner.h": "0dc26212a31dd5d6bb3478d90b9bf89116aa367e65466f0d4e84ff95be8841c2",
+    "vendor/hdmi/include/hdmi_presenter/drm_uapi_min.h": "2c0bab8e5792f4edc6f7cdf0a5747823a55ce475a4e03df30fdd87c5e10c44ef",
+    "vendor/hdmi/include/hdmi_presenter/presenter.h": "9a824b2d725d3e9b28f589cafd86d933e8d4d52fc5ed6969749696e37eaf3139",
+    "vendor/hdmi/include/hdmi_presenter/protocol.h": "832840211b6b16af563d037aacc6fdb4afcbe593f0ed3dab034d416a2473dee7",
+    "vendor/hdmi/include/hdmi_presenter/receiver.h": "e1fdfb34614171ec3f80ca2893403ef8dafd7b5b0209953ee73adbe6b81567f2",
+    "vendor/hdmi/include/hdmi_presenter/rgb_expand.h": "349d06ab7fa6cde6dbf57e998ea3a7331487b6996b1502278f2a5b52a097ac94"
+  },
+  "decoder_binary_sha256": "c61a388644d6ce4aeb1727d3fad69754ad8d57b104d73913fc0888bb52104f56",
+  "ffmpeg_commit": "b1a4534186ca51b0457579fc05a5739eb2cc45cd"
+}

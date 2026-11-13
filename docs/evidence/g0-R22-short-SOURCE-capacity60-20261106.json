@@ -1,0 +1,108 @@
+{
+  "scope": "R22 short range, fixed-eight dual-RF finite SOURCE service against same-boot independent live camera offered load",
+  "boot_id": "f56f28b6-9d36-4b02-a456-730d0a9f9d43",
+  "bit_crc32": "f35c9d9a",
+  "RF_center_Hz": 5500000000,
+  "TX_gain_dB_per_port": 18,
+  "RF_capacity_window_seconds": 60,
+  "fixed_FEC": {
+    "banks": 8,
+    "K": 20,
+    "N": 32,
+    "symbol_bytes": 512
+  },
+  "EOB_acknowledged_channels": [
+    0,
+    1
+  ],
+  "cleanup_both_FMCOMMS3_LOs_off": true,
+  "board_TX_enabled": false,
+  "SD_written": false,
+  "DMA_batches": 65536,
+  "DMA_missing_batches": 0,
+  "DMA_damaged_batches": 0,
+  "byte_join_passed": true,
+  "SOURCE_offered": 26256,
+  "SOURCE_delivered": 26050,
+  "SOURCE_delivered_bytes": 13337600,
+  "SOURCE_FEC_restored_bytes": 112640,
+  "SOURCE_missing": 206,
+  "SOURCE_blocks_with_missing_symbols": 20,
+  "first_block_SOURCE_missing": 20,
+  "capacity_steady_window": {
+    "rule": "first valid SOURCE observation +5s, then30s; no best-window search",
+    "covered_by_observation": true,
+    "begin_ns": 441721582895,
+    "end_ns": 471721582895,
+    "unique_bytes": 6704128,
+    "unique_Bps": 223470.93333333332,
+    "five_second_unique_Bps": [
+      224051.2,
+      223641.6,
+      224460.8,
+      223641.6,
+      224256.0,
+      220774.4
+    ],
+    "minimum_five_second_unique_Bps": 220774.4
+  },
+  "capacity_rolling_windows": {
+    "1": {
+      "window_count": 1451,
+      "minimum_grid_unique_Bps": 204800.0,
+      "minimum_all_offsets_unique_Bps": 204800.0
+    },
+    "5": {
+      "window_count": 1251,
+      "minimum_grid_unique_Bps": 219750.4,
+      "minimum_all_offsets_unique_Bps": 219750.4
+    },
+    "maximum_gap_between_SOURCE_bearing_batches_ns": 64414698
+  },
+  "camera_SOURCE_blocks": 845,
+  "camera_SOURCE_bytes": 8652800,
+  "camera_ready_windows": {
+    "1": {
+      "peak_Bps": 204800.0,
+      "p99_Bps_on_20ms_grid": 184320.0
+    },
+    "5": {
+      "peak_Bps": 161792.0,
+      "p99_Bps_on_20ms_grid": 153600.0
+    },
+    "30": {
+      "peak_Bps": 146773.33333333334,
+      "p99_Bps_on_20ms_grid": 145749.33333333334
+    }
+  },
+  "camera_mailbox_peak_blocks": 4,
+  "camera_maximum_ready_to_admission_us": 128069,
+  "camera_p99_ready_to_admission_us": 118127,
+  "sustained_margin_from_worst_rolling_5s": 0.33209071140105617,
+  "burst_margin_from_worst_rolling_1s": 0.0,
+  "short_range_sustained_SOURCE_transport_30_percent_margin_subcondition_passed": true,
+  "full_G0_passed": false,
+  "long_camera_video_passed": false,
+  "limits": [
+    "Capacity and camera are independent runs on the same boot and RF profile.",
+    "Both sides count SOURCE symbol bytes, including headers and padding. This is a transport-layer comparison. Final acceptance also requires actual useful video bytes and demonstrated burst deadlines.",
+    "Capacity windows use DMA consumer observation time, starting five seconds after first delivered SOURCE and ending 30 seconds later. Camera load counts ready 10240-byte blocks in complete half-open windows.",
+    "Startup and losses outside the steady interval remain counted. The RF capacity probe does not exercise H.264 or HDMI."
+  ],
+  "file_sha256": {
+    "build/g0-R22-SOURCE-capacity18-r1/air.v3bc": "58bf345e45b3d531e195fd3adbdf11e4df163e74efa2a537cc18aba97b03ed3e",
+    "build/g0-R22-SOURCE-capacity18-r1/receipt.json": "dae82f7058bc712c1d2d46a49c8389ecae072de289bea7c7a699227c8b2ab536",
+    "build/g0-R22-SOURCE-capacity18-r1/capture-review.json": "9401d13e20d98dff570186d2a37005d98149caade0b6d1a201571ac364e2a923",
+    "build/g0-R22-SOURCE-capacity18-r1/TX.log": "52f8488fe1c415e018d1718d8e9268e55a33331959e7e2974aabdd8811a6134d",
+    "build/g0-R22-SOURCE-capacity18-r1/RX-idle.log": "c77c4f1531ef12b6b4ccf94856c8ea0d83c5709bc7219a797775ba75a9688170",
+    "build/g0-R22-SOURCE-capacity18-r1/disk-before.json": "5bc2474769d05bf57d186c7c2d774ea5dd98371494f0598345a76b0c8d068081",
+    "build/g0-R22-SOURCE-capacity18-r1/disk-after.json": "b3b5af0f6a735b1feda1e9ddc677ca68aa2fada39dc75c1ab7b00b4a2d44590e",
+    "build/g0-R22-SOURCE-capacity18-r1/compare-camera.py": "4905d2cafa790293aba082093781e263617f4eb893aaaa21c4062df297d8617f",
+    "build/g0-R22-camera-lower1200-r1/receipt.json": "8a641492f2780316e203f12e4c204a6bfd5f8ac1dfb138bd1198142a0f112df9",
+    "build/g0-R22-camera-lower1200-r1/wave/receipt.json": "5c5c5548fb41cbccfe499ea88d42541a28100d3ef60083364d1c7bbbc1cb60a9",
+    "build/g0-R22-camera-lower1200-r1/wave/admissions.json": "e71f0cb1d0f5d5dac86b634546c7a712019b80b3ba7af76d47fd24ab63136627",
+    "build/g0-R22-camera-lower1200-r1/wave/camera/availability.json": "2b3e752fbd44a80a3e87f7611a9d1acbaab759e308f117ec0e1e1687283f8da4",
+    "build/g0-R22-camera-lower1200-r1/wave/camera/source-symbols.bin": "572ec61555592c4aa067074c73468de8b519bdd1005292e5ca2a6efc4745b6bb",
+    "tools/review_g0_source_long.py": "9f8746319ad270611a2e44717d191762692e1cb16f0a8dfb48077c95bebcdb57"
+  }
+}

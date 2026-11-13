@@ -1,0 +1,77 @@
+{
+  "status": "unfrozen_G0_control_transport_candidate_not_production_clock_or_age_signoff",
+  "link": {
+    "kind": 5,
+    "payload_bytes": 512,
+    "significant_bytes": 32,
+    "padding_bytes": 480,
+    "CRC": "existing VRL3 header+payload CRC; protected PHY session/superframe envelope unchanged",
+    "active_session_required": true,
+    "FEC_session_or_bank_mutation_allowed": false,
+    "legacy_empty_kind5_control_unchanged": true
+  },
+  "fields": [
+    {"offset":0,"bytes":4,"name":"magic","value":"VRT3"},
+    {"offset":4,"bytes":1,"name":"major","value":1},
+    {"offset":5,"bytes":1,"name":"profile","value":240},
+    {"offset":6,"bytes":2,"name":"flags","value":1,"meaning":"timestamp bracket available; no reverse TX authorization"},
+    {"offset":8,"bytes":8,"name":"tx_sample_index","meaning":"LE uint64, within this timed SOB; live candidate uses superframe*80000+1684 at TX training after RRC; new SOB requires a new session"},
+    {"offset":16,"bytes":8,"name":"source_lower_us","meaning":"LE int64 source-clock lower bound at tx_sample_index, relative to actual first camera capture epoch"},
+    {"offset":24,"bytes":8,"name":"source_upper_us","meaning":"LE int64 upper bound; must be >=lower"}
+  ],
+  "VRS3_flags_bit1": "periodic forward-timebase metadata supported; permits forwarding the validated VRS3 profile as SESSION. Existing bit0 feedback_enabled remains0.",
+  "PL_to_PS": {
+    "record_kind": 3,
+    "record_bytes": 96,
+    "payload_bytes": 32,
+    "payload_magic": ["VRS3","VRT3"],
+    "header_flags": 4,
+    "header_session": "actual CRC-good VRL3 session",
+    "header_epoch": "existing delivery generation, not ADC epoch",
+    "header_block_field": "protected PHY superframe corresponding to this reference",
+    "header_symbol_index": 65535,
+    "header_sample_index": "ADC epoch16 plus integer sample48 of the same protected-frame normal-training reference",
+    "header_status": "fractional sample Q32 from that same reference, not a FEC erasure code",
+    "header_capture_time_us": "0 with unavailable bit2 set; actual video capture time remains inside SOURCE",
+    "training_reference": "normal-training position already used by header replay; nominal public symbol416. RF/ADC group-delay and clock calibration remain separately unverified.",
+    "reference_identity_check": "id/context/generation/epoch must match the live descriptor before capture; verified through the complete 55-RTL synthetic ADC replay, physical RF reference proof pending"
+  },
+  "storage": {
+    "new_payload_RAM_bytes": 0,
+    "shared_existing_SOURCE_RAM_bytes": 1024,
+    "maximum_borrowed_control_slots": 1,
+    "reserved_SOURCE_slots": 1,
+    "transfer": "four64-bit words,32bytes total, into an existing slot; single shared write port",
+    "busy": "drop this metadata at admission, continue RF/FEC, count locally; periodic repetition supplies a later anchor",
+    "committed": "immutable across packet_abort/backpressure; no use of live replacement-reference values",
+    "partial_collection_bound_cycles": 50000
+  },
+  "known_byte_vector": {
+    "tx_sample_index": 17,
+    "source_lower_us": -123456,
+    "source_upper_us": -123000,
+    "hex": "5652543301f001001100000000000000c01dfeffffffffff881ffeffffffffff"
+  },
+  "clock_tag_CSR_candidate": {
+    "base": "0x7c430000",
+    "0x80": "read-only capability0x43543356 (V3TC); deployed R11 returns0",
+    "0x84": "read low32 and atomically latch the existing latest CPACK tag64 plus validity/freshness",
+    "0x88": "read high32 of that same latched tag",
+    "0x8c": "latched status: bit0 valid, bit1 reserved0, bits7:2 saturated6bit processing-cycle tag age",
+    "valid": "SOURCE run, existing sample origin, tag age<63cycles, no capture_epoch_fence",
+    "stale_or_stopped_or_fenced": "bit0 false; no fabricated clock anchor",
+    "new_declared_control_register_bits": 71,
+    "integrated_resource_cost_measured": false,
+    "scope": "atomic existing CPACK tag only. ADC/FIFO/RF propagation latency and PS monotonic read-bracket calibration remain unproven."
+  },
+  "not_yet_implemented_or_accepted": [
+    "On-air validation of the implemented timed UHD-to-camera bracket and periodic IQ injection. TX projection uses an uncalibrated 200ppm allowance.",
+    "Physical RF coordinate proof for VRT3 and live profile publication cadence; full PHY synthetic ADC proof is recorded in docs/evidence/g0-forward-timebase-phy-20261105.json",
+    "Native validation of the implemented SOURCE ring atomic tag/PS monotonic ioctl, calibration of the one-way path bound and relative drift",
+    "Physical validation of the implemented per-ACK conditional age census, and actual source deadline enforcement",
+    "Complete integrated resource/timing/IOCDC closure, RAM deployment of this candidate, long/moving/10m/standalone and full G0"
+  ],
+  "feedback_enabled": false,
+  "board_TX_enabled": false,
+  "full_G0_or_clock_age_passed": false
+}

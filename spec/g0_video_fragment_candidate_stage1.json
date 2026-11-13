@@ -1,0 +1,42 @@
+{
+  "status": "unfrozen_finite_G0_video_fragment_candidate",
+  "production_use_allowed": false,
+  "source_plan_commit": "54494565c59512adf83007a92a1e90fbcf406179",
+  "scope": "1024x600/20fps two-slice900k fixture; payload serialization only, no RF/PS/video system signoff",
+  "source_symbol_bytes": 512,
+  "header_bytes": 40,
+  "FEC": {
+    "banks": 8,
+    "k": 20,
+    "n": 32
+  },
+  "byte_order": "little_endian",
+  "struct_format": "<IQIIIHHHBBII",
+  "NAL_encapsulation": "AnnexB including original start code",
+  "unit_type": {
+    "0": "all512byteszero = finalFECblock empty padding; no video content",
+    "1": "nonIDR slice",
+    "5": "IDR slice",
+    "6": "SEI",
+    "7": "SPS",
+    "8": "PPS",
+    "9": "AUD"
+  },
+  "flags": {
+    "1": "first fragment of first NAL in AU",
+    "2": "last fragment of last NAL in AU",
+    "4": "IDR slice membership"
+  },
+  "time_units": "us; exact timestamp-bearing MP4 packet PTS for finite fixture, camera capture mapping pending",
+  "receiver_requirements": [
+    "bounds/length/identity/ownership remain checked",
+    "duplicates ignored; bounded reorder and unit/global caches",
+    "CRC errors are erasures before video parsing",
+    "complete slices may proceed when other units of same AU are missing",
+    "expired/incomplete content is dropped or concealed; continue to periodic recovery point",
+    "capture id/time preserved, no wholeAU completeness gate or process exit for local loss"
+  ],
+  "fixture_evidence": "docs/evidence/g0-video-source-load-20261103.json",
+  "native_PS_fragment_reassembly_or_RF_video_passed": false,
+  "profile_freeze_passed": false
+}

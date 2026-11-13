@@ -1,0 +1,34 @@
+# Production RXv2 synthesis closure, repository-relative paths only.
+# No testbench, known-IQ oracle, historical detector or RF TX transport.
+# This manifest is not a completion claim; all module/unit/system/route gates
+# in README.md must pass against the exact frozen source revision.
+pl/rtl/rf_rx_elastic_fifo.v
+pl/rtl/rf_lvds_forward_clock.v
+pl/rtl/mimo_cost_2x2.sv
+pl/rtl/mimo_mhgd_interleaved_candidate.sv
+pl/rtl/mimo_axis_frame_tx.sv
+pl/rtl/mimo_mhgd_interleaved_axis_candidate.sv
+pl/receiver_v2/dsp/rtl/rxv2_rrc_q15.svh
+pl/receiver_v2/dsp/rtl/rxv2_nco_q15.mem
+pl/receiver_v2/dsp/rtl/rxv2_nco_rrc_frontend.sv
+pl/receiver_v2/control/rfv2_ingress.sv
+pl/receiver_v2/control/rfv2_rf_clock_monitor.v
+pl/receiver_v2/control/rfv2_capture_reset_guard.v
+pl/receiver_v2/control/rfv2_capture_axis_gate.v
+pl/receiver_v2/control/rfv2_control_regs.sv
+pl/receiver_v2/control/rfv2_fractional_reader.sv
+pl/receiver_v2/control/rfv2_packet_collector.sv
+pl/receiver_v2/control/rfv2_delivery_slot.sv
+pl/receiver_v2/control/rfv2_solver_delivery.sv
+pl/receiver_v2/control/rf_receiver_v2_core.sv
+pl/receiver_v2/control/rf_receiver_v2_bd.v
+pl/receiver_v2/acquisition/rtl/rxv2_scan_elastic_fifo.sv
+pl/receiver_v2/acquisition/rtl/rxv2_repetition_mac.sv
+pl/receiver_v2/acquisition/rtl/rxv2_nco_commit_controller.sv
+pl/receiver_v2/acquisition/timing/rtl/rxv2_timing_serial_divider.sv
+pl/receiver_v2/acquisition/timing/rtl/rxv2_timing_sfo.sv
+pl/receiver_v2/acquisition/rtl/rxv2_acquisition_frontend.sv
+pl/receiver_v2/channel/mrf1_channel_cordic.sv
+pl/receiver_v2/channel/mrf1_channel_divider.sv
+pl/receiver_v2/channel/mrf1_channel_serial_mult.sv
+pl/receiver_v2/channel/mrf1_symbol_channel_backend.sv

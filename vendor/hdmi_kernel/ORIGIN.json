@@ -1,0 +1,9 @@
+{
+  "scope": "G0 isolated HDMI-only restart candidate, not RF DMA",
+  "base": "deliverables/usrp-zedboard-integration-20261026/realtime-hdmi/candidates/hdmi-dmac-r2/hdmi_dmac_oneshot.c",
+  "reference": "board/zedboard/linux/patches/axi-dmac-hdmi-terminate-drain/prepare_axi_dmac_hdmi_terminate_drain.py",
+  "planning_commit": "5642c5a1df5d862c75c6c22ecce36bd3e463843c",
+  "kernel_release": "6.12.0-xilinx-usrp-hdmi",
+  "kernel_source": "existing ADI 6.12 snapshot, full upstream commit unavailable; isolated copy for G0 only",
+  "adaptation": "same bounded reset-manager drain; scope already restricted to 0x43000000; explicit terminal-state module parameter replaces DT property for this diagnostic boot; distinct driver/module name"
+}

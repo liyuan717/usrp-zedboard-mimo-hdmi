@@ -1,0 +1,85 @@
+{
+  "scope": "R22 canonical completed implementation. Separate finite prebit/physical gates remain.",
+  "route_complete_no_errors": true,
+  "full_routed_nets": 94768,
+  "route_wall_time_seconds": 140,
+  "final_ns": {
+    "WNS": 0.115,
+    "WHS": 0.023,
+    "WPWS": 0.264,
+    "TNS": 0,
+    "THS": 0
+  },
+  "final_setup_hold_pulse_violating_endpoints": [
+    0,
+    0,
+    0
+  ],
+  "HDMI_mailbox_and_gray_bus_skew_slack_ns": [
+    0.3,
+    5.082
+  ],
+  "routed_resources": {
+    "LUT": 47118,
+    "FF": 44183,
+    "BRAM36_equivalent": 74.0,
+    "DSP": 150
+  },
+  "stage2_uninstantiated_estimate": {
+    "LUT": 2500,
+    "FF": 2000,
+    "BRAM36_equivalent": 2,
+    "DSP": 8
+  },
+  "routed_plus_stage2_estimate": {
+    "LUT": 49618,
+    "FF": 46183,
+    "BRAM36_equivalent": 76.0,
+    "DSP": 158
+  },
+  "LUT_remaining_with_estimate": 3582,
+  "LUT_above_85_percent_with_estimate": 4398,
+  "implementation_attempt": {
+    "threads": 5,
+    "estimated_peak_mib": 5567,
+    "initial_memory": {
+      "ram_mib": 7264,
+      "swap_mib": 16,
+      "swap_pages_in": 1564454,
+      "swap_pages_out": 3395985
+    },
+    "script_sha256": "fd3a186f326c61d3f580835f05228b4f733ed8ac4d1b33ba0a7cee8b90875893",
+    "launcher_PID": 494749,
+    "stop_reason": null,
+    "measured_peak_group_mib": 5170,
+    "returncode": 0
+  },
+  "full_production_IO_CDC_or_G4_passed": false,
+  "disk_before": {
+    "total_bytes": 210241560576,
+    "used_bytes": 190337503232,
+    "available_bytes": 9149861888,
+    "available_GiB": 8.521,
+    "priority": "inspect_usage"
+  },
+  "disk_after": {
+    "total_bytes": 210241560576,
+    "used_bytes": 187915980800,
+    "available_bytes": 11571384320,
+    "available_GiB": 10.777,
+    "priority": "normal"
+  },
+  "evidence_sha256": {
+    "build/g0-R22-area-explore-implementation-r1/receipt.json": "45d3784042054e3dfe7e29d3d46f58b9935cf113097f8c59c0575e14d2b19e09",
+    "build/g0-R22-area-explore-implementation-r1/attempt-1/run.log": "2de6a75d28f7aff816260009dcfc6b5ecda342744bcc33cd8d1eda982b46a3e5",
+    "build/g0-R22-area-explore-implementation-r1/attempt-1/memory.jsonl": "b60c2b29ac01560b357a0a40d61edf77bebea6dd7af576433c3bf08ce4ca7945",
+    "build/g0-source-platform-r22-tag-reuse/project/implementation_timing.rpt": "53d0127a8b2c3a56884b006498aa95bc6c06f1d613088af2618b979b2937204d",
+    "build/g0-source-platform-r22-tag-reuse/project/implementation_route_status.rpt": "4424cb59c1a06f832654f5ac79b75bf80a2a5447e725ac74aba423ec2b65cca7",
+    "build/g0-source-platform-r22-tag-reuse/project/implementation_bus_skew.rpt": "94efbdf1a75f08e639c97f258afd47688c95bf77248db31c21286c8b7eff14e2",
+    "build/g0-source-platform-r22-tag-reuse/project/implementation_utilization.rpt": "7019fe1923eed1f6fc75cd721b403a65d055adc92cc14ff3f1db29fed23c9a71",
+    "build/g0-source-platform-r22-tag-reuse/project/implementation_drc.rpt": "a1f16aa0aba5ac1a3531349cc238bbd3abda3f056ec96d17e0d203fb9fd4a163",
+    "build/g0-source-platform-r22-tag-reuse/project/implementation_cdc.rpt": "09adbafe976ec0ef0d9278ea9db1d002187a46bf0da86e4cd432f847b5d20343",
+    "build/g0-source-platform-r22-tag-reuse/project/implementation_pulse_width.rpt": "3a6f00e8d3dda58a00b95616f61caaa35fa408c1ce48dcf29d163c1f38f045ab",
+    "build/g0-source-platform-r22-tag-reuse/project/g0_source_review_routed.dcp": "3263ca6fa9947c5d9a86bdd71819902be2dc01b073d040ee68f75d474b32bf61"
+  }
+}

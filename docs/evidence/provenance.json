@@ -1,0 +1,50 @@
+{
+  "g0-R22-DMA-service-20261107.json": {
+    "original_sha256": "173158094c6296d312901efeef6507cafe9700eb4a92d3ceffc1bfa48d9ed057",
+    "published_sha256": "173158094c6296d312901efeef6507cafe9700eb4a92d3ceffc1bfa48d9ed057"
+  },
+  "g0-R22-G7-detached-TX-20261106.json": {
+    "original_sha256": "7361bddb91534d6457b06dbe603a04e6c3bc9bc714efaa80341ccaf35ee742a7",
+    "published_sha256": "7361bddb91534d6457b06dbe603a04e6c3bc9bc714efaa80341ccaf35ee742a7"
+  },
+  "g0-R22-G7-detached-operator-acceptance-20261106.json": {
+    "original_sha256": "c6d091a23b5bb24d806e92e9c925160bf96c091827c602522834446e582c562c",
+    "published_sha256": "c6d091a23b5bb24d806e92e9c925160bf96c091827c602522834446e582c562c"
+  },
+  "g0-R22-IO-CDC-scope-20261107.json": {
+    "original_sha256": "30b84d5ee11960b1a52e2a5c15ded8c823b8903d540272beae7de14671e781d4",
+    "published_sha256": "e7e4c89fb8c0422becd943f6199ac820f7ce3caf6746fbdef7df74eac22e5ccf"
+  },
+  "g0-R22-RX-bandwidth-live-and-capacity-20261107.json": {
+    "original_sha256": "4611b632f05228f35776e538744b78eabc3e36bf864adfd7fc8c5531c0e29960",
+    "published_sha256": "4611b632f05228f35776e538744b78eabc3e36bf864adfd7fc8c5531c0e29960"
+  },
+  "g0-R22-capture-interval-receiver-20261107.json": {
+    "original_sha256": "bb2aafbdaf8990ee71c74d253aeb7de03626c3c8f58653442aa98c322566837b",
+    "published_sha256": "bb2aafbdaf8990ee71c74d253aeb7de03626c3c8f58653442aa98c322566837b"
+  },
+  "g0-R22-integrated-implementation-20261106.json": {
+    "original_sha256": "ee27b67dac402d6b129948b36dc4952e3bc577714b4815d902d72d6e152b8ea6",
+    "published_sha256": "ee27b67dac402d6b129948b36dc4952e3bc577714b4815d902d72d6e152b8ea6"
+  },
+  "g0-R22-integrated-synthesis-20261106.json": {
+    "original_sha256": "f58b81d8f7143cd813ff4aac5293d45d8737a781b0b3e3c1bf19543a85bacac0",
+    "published_sha256": "f58b81d8f7143cd813ff4aac5293d45d8737a781b0b3e3c1bf19543a85bacac0"
+  },
+  "g0-R22-live-RAW-timebase-20261107.json": {
+    "original_sha256": "44614b6828456745e8868081701697a9f38f5d42b43b11a3ee5e10835a014e44",
+    "published_sha256": "44614b6828456745e8868081701697a9f38f5d42b43b11a3ee5e10835a014e44"
+  },
+  "g0-R22-short-SOURCE-capacity60-20261106.json": {
+    "original_sha256": "2b8e80a469dd59a2c1d55341a2e7004d21fb321316d1eb3377459792ae85922f",
+    "published_sha256": "2b8e80a469dd59a2c1d55341a2e7004d21fb321316d1eb3377459792ae85922f"
+  },
+  "g0-R22-short-camera1200-20261106.json": {
+    "original_sha256": "de55606aadc0e55b2460362f9f461a431912cd90bf9366854c5252bb38b3777c",
+    "published_sha256": "de55606aadc0e55b2460362f9f461a431912cd90bf9366854c5252bb38b3777c"
+  },
+  "g0-ml-cost-20261102.json": {
+    "original_sha256": "d9f140b7683900362f7613740388b044d768d3f01d534bbf343e32d60d0cc7c1",
+    "published_sha256": "d9f140b7683900362f7613740388b044d768d3f01d534bbf343e32d60d0cc7c1"
+  }
+}

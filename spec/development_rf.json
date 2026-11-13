@@ -1,0 +1,53 @@
+{
+  "status": "development_bounds_confirmed_by_user_2026-11-02_not_G0_freeze",
+  "center_frequency_hz": 5500000000,
+  "sample_rate_candidate_hz": 4000000,
+  "x310_gain_max_db": 18,
+  "auto_start_tx": false,
+  "connection": "antennas_no_attenuated_cable_available_in_current_description",
+  "branches": [
+    {
+      "usrp_channel": 0,
+      "usrp_port_label": "RF0",
+      "usrp_antenna_orientation": "vertical",
+      "ad9361_input": "RX1A",
+      "receiver_antenna_orientation": "vertical"
+    },
+    {
+      "usrp_channel": 1,
+      "usrp_port_label": "RF1",
+      "usrp_antenna_orientation": "horizontal",
+      "ad9361_input": "RX2A",
+      "receiver_antenna_orientation": "horizontal"
+    }
+  ],
+  "still_to_verify": [
+    "actual UHD TX/RX port names and ATR under timed half-duplex",
+    "reverse FMCOMMS3 TX antenna path, port and gain",
+    "AD9361/X310 switching latency",
+    "independent TX phase drift and measured link quality"
+  ],
+  "g5_controlled_attenuation_stage_passed": false,
+  "feedback_tx_port": "TX1A",
+  "feedback_tx_antenna_connected": false,
+  "feedback_rf_measurement_deferred_by_user": true,
+  "feedback_tx_enabled": false,
+  "feedback_scope_note": "Stage1 is explicitly no-feedback; feedback/TDD measurement and final freeze belong to Stage2 B0 and do not block Stage1 G0. TX1A has no antenna.",
+  "current_stage": 1,
+  "feedback_enabled": false,
+  "TDD_enabled": false,
+  "plan_commit": "68cd4264b2f3e106ba6c1b845a31a1e578cd3a7d",
+  "latest_forward_G0_finite_measurement": {
+    "date": "2026-11-03",
+    "evidence": "docs/evidence/g0-live-fec-acquisition-20261103.json",
+    "TX_gain_db": 12,
+    "RX_gain_db": 60,
+    "RX_bandwidth_hz": 4000000,
+    "TX_LO_offset_hz": 1000000,
+    "sample_rate_hz": 4000000,
+    "fixed_FEC_banks": 8,
+    "RX40_point_did_not_acquire_in_latest_test": true,
+    "G0_or_production_profile_freeze": false,
+    "reverse_TX_enabled": false
+  }
+}

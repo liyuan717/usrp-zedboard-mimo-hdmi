@@ -1,0 +1,61 @@
+{
+  "scope": "R22 physical detached G7 witness transmission. Host TX completion only; independent HDMI and boot video awaiting review.",
+  "bit_crc32": "f35c9d9a",
+  "fixed_FEC_banks": 8,
+  "frequency_Hz": 5500000000,
+  "gain_dB_per_X310_port": 18,
+  "user_reported_power_on_and_continuous_recording_before_TX": true,
+  "receiver_links_observed_by_host": {
+    "receiver_UART_absent": true,
+    "receiver_ethernet_carrier": null,
+    "X310_ethernet_carrier": "1",
+    "X310_route": {
+      "dst": "192.168.10.2",
+      "dev": "enp12s0",
+      "prefsrc": "192.168.10.1",
+      "flags": [],
+      "uid": 1000,
+      "cache": []
+    }
+  },
+  "host_late_TX_wait_at_least_ns": 16287961067,
+  "conservative_inter_burst_silence_at_least_ns": 11811325530,
+  "bursts": [
+    {
+      "burst": "A",
+      "session": 1194807873,
+      "samples_per_channel": 40240000,
+      "duration_s": 10.06,
+      "dual_EOB_acknowledged": true,
+      "start_host_monotonic_ns": [
+        23029984526272,
+        23029984606729
+      ],
+      "host_wall_start_approx_UTC": "2026-11-06T15:08:45.084933+00:00",
+      "IQ_sha256": "7c3469b91f93047de91abed50af3cf6da8e82d51dd3d331bee087df06332a7d3"
+    },
+    {
+      "burst": "B",
+      "session": 1194807874,
+      "samples_per_channel": 40400000,
+      "duration_s": 10.1,
+      "dual_EOB_acknowledged": true,
+      "start_host_monotonic_ns": [
+        23052945604221,
+        23052945658576
+      ],
+      "host_wall_start_approx_UTC": "2026-11-06T15:09:08.046012+00:00",
+      "IQ_sha256": "b0e77cc11cb180639c7bc743e181c35a00e7c8fc55f4f5b76442ac44396c3a94"
+    }
+  ],
+  "both_transmissions_ended": true,
+  "G7_cold_boot_or_HDMI_passed": false,
+  "user_original_recording_received": false,
+  "G7_passed": false,
+  "file_sha256": {
+    "build/g0-R22-G7-detached-physical-r1/receipt.json": "2a4c843af389ca20c4b6448f03a51c95fcd1fa96fa6012c2f9a7e10eddc034c1",
+    "build/g0-R22-G7-detached-physical-r1/A-TX.log": "e6ed6eabacc6ff3c7fe4b4538844b7971245f00156b16e7b98718d03bff51534",
+    "build/g0-R22-G7-detached-physical-r1/B-TX.log": "f180720d8d1d904e2307ff76cf6d9040e5c8c57a86544d4f8d8c78da5fb181d3",
+    "build/g0-R22-G7-detached-physical-r1.log": "cc1a93898c1744b1c8095dc366e448c54def90234f00f86401b1332ba5b5fd77"
+  }
+}

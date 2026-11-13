@@ -1,0 +1,162 @@
+{
+  "scope": "R22 exact post-route checkpoint, bounded external async input exception trial, routed reset guard simulation and idle AD9361 SPI FDD readback.",
+  "external_async_inputs": {
+    "ports": [
+      "gpio_status[0]",
+      "gpio_status[1]",
+      "gpio_status[2]",
+      "gpio_status[3]",
+      "gpio_status[4]",
+      "gpio_status[5]",
+      "gpio_status[6]",
+      "gpio_status[7]",
+      "iic_mux_scl[0]",
+      "iic_mux_scl[1]",
+      "iic_mux_sda[0]",
+      "iic_mux_sda[1]"
+    ],
+    "exact_input_to_first_D_exception_pairs": 12,
+    "unique_first_stage_endpoints": 10,
+    "checked_setup_hold_path_pairs": 36,
+    "minimum_setup_ns": 18.431,
+    "minimum_hold_ns": 0.121,
+    "timing_unchanged_after_trial": true,
+    "output_inventory_unchanged": true,
+    "applied_to_deployed_design": false
+  },
+  "reset_release": {
+    "stage_paths": [
+      {
+        "interface": "reset",
+        "port": "din",
+        "stage": "1",
+        "start_pin": "receiver_v2_i/rf_capture_guard/inst/din_release_sync_reg[0]/Q",
+        "end_pin": "receiver_v2_i/rf_capture_guard/inst/din_release_sync_reg[1]/D",
+        "setup_ns": "61.077",
+        "hold_ns": "0.306"
+      },
+      {
+        "interface": "reset",
+        "port": "dout",
+        "stage": "1",
+        "start_pin": "receiver_v2_i/rf_capture_guard/inst/dout_release_sync_reg[0]/Q",
+        "end_pin": "receiver_v2_i/rf_capture_guard/inst/dout_release_sync_reg[1]/D",
+        "setup_ns": "19.005",
+        "hold_ns": "0.122"
+      }
+    ],
+    "simulation": {
+      "rtl": {
+        "fault_cases": 16,
+        "fences": 17,
+        "capture_recoveries": 17,
+        "log": "build/g0-R22-reset-guard-routed-r1/rtl-r2/run.log",
+        "sha256": "4767191ea2e0ca86c4e8c0c9f2bbbe46d51400f50a8dcd27f7373e77a9d21b8b"
+      },
+      "func": {
+        "fault_cases": 16,
+        "fences": 17,
+        "capture_recoveries": 17,
+        "log": "build/g0-R22-reset-guard-routed-r1/func-r2/run.log",
+        "sha256": "3abb83e8381d7f671842c25f448a1e8144da36d6b538f297a39bcdce1d214673"
+      },
+      "slow": {
+        "fault_cases": 16,
+        "fences": 17,
+        "capture_recoveries": 17,
+        "log": "build/g0-R22-reset-guard-routed-r1/slow-r2/run.log",
+        "sha256": "3f4ddcdb634f1b1c8937035b4e8dedcbad144f55924640021ddbd1b6b3d0955d"
+      },
+      "fast": {
+        "fault_cases": 16,
+        "fences": 17,
+        "capture_recoveries": 17,
+        "log": "build/g0-R22-reset-guard-routed-r1/fast-r2/run.log",
+        "sha256": "5b80a40c1a1caf8082573b8e0aea21220452a4a9cd1425be270756564284e890"
+      }
+    },
+    "remaining_CDC10_rows": [
+      [
+        "CDC-10",
+        "receiver_v2_i/reset_rf_lclk/U0/PR_OUT_DFF[0].FDRE_PER/C",
+        "receiver_v2_i/rf_capture_guard/inst/dout_release_sync_reg[0]/CLR"
+      ],
+      [
+        "CDC-10",
+        "receiver_v2_i/rf_lclk_monitor/inst/ready_reg/C",
+        "receiver_v2_i/rf_capture_guard/inst/din_release_sync_reg[0]/CLR"
+      ]
+    ],
+    "physical_metastability_and_board_fault_pulse_limits_verified": false
+  },
+  "AD9361_idle_SPI_FDD": {
+    "boot_id": "a119345d-788a-4c10-9c5c-7b200aecc657",
+    "registers": {
+      "0x013": "0x01",
+      "0x014": "0x29",
+      "0x015": "0x04"
+    },
+    "ENSM_pin_control_enabled": false,
+    "FDD_external_control_enabled": false,
+    "synth_pin_control_enabled": false,
+    "both_LOs_off": true,
+    "SOURCE_stopped": true
+  },
+  "execution": {
+    "exception_trial": {
+      "threads": 8,
+      "estimate_mib": 2557,
+      "launch_memory": {
+        "ram_mib": 11763,
+        "swap_mib": 605,
+        "swap_pages_in": 1456531,
+        "swap_pages_out": 2375784
+      },
+      "peak_group_mib": 2467,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    "reset_export": {
+      "threads": 8,
+      "estimate_mib": 2557,
+      "launch_memory": {
+        "ram_mib": 11765,
+        "swap_mib": 608,
+        "swap_pages_in": 1456718,
+        "swap_pages_out": 2375784
+      },
+      "peak_group_mib": 2319,
+      "returncode": 0,
+      "stop_reason": null
+    },
+    "place_route_run": false,
+    "RF_started": false,
+    "SD_written": false
+  },
+  "remaining_output_delay_inventory": {
+    "high": 13,
+    "forwarded_clock_only": 3
+  },
+  "production_G4_or_full_CDC_passed": false,
+  "production_resource_delta": 0,
+  "artifacts": {
+    "build/g0-source-platform-r22-tag-reuse/project/g0_source_review_routed.dcp": "3263ca6fa9947c5d9a86bdd71819902be2dc01b073d040ee68f75d474b32bf61",
+    "build/g0-source-platform-r22-tag-reuse/route-review.json": "d496dedf569dbfa57770eb902df4aed83f177f400a22460cc72f9ac8a9a70a98",
+    "build/g0-source-platform-r22-tag-reuse/project/implementation_cdc.rpt": "09adbafe976ec0ef0d9278ea9db1d002187a46bf0da86e4cd432f847b5d20343",
+    "build/g0-R22-IO-CDC-closure-r3/paths.tsv": "0bbd4f7552361ee090f5d0082aae7cf86acfb865286e5c71aab0fd756b4a0bed",
+    "build/g0-R22-IO-CDC-closure-r3/check-before.rpt": "ff572e4ad7c20b6a78a905ae613e70e5aa50301a57253099d9a1a0b7476bc5e1",
+    "build/g0-R22-IO-CDC-closure-r3/check-after.rpt": "f40a8a1734947cef87e759ad7aef70a2531c7aff4f4a179e8deac929b503e751",
+    "build/g0-R22-IO-CDC-closure-r3/input-exceptions.rpt": "fce814e2e6eeacff0e048e4331af2ac3b6e5e984b2793dfc04cc5bc5e98ce8c3",
+    "build/g0-R22-IO-CDC-closure-r3/receipt.json": "6b72d9941d4b7f74e9979cd3a111afa7e4e5759d53183b3ecb650500549f49b0",
+    "build/g0-R22-IO-CDC-closure-r3/memory.jsonl": "e522c558e3e702e98c2c9d0ffe8daa071c9494962656a9ae1b92cceb4a6b4c14",
+    "build/g0-R22-reset-guard-routed-r1/receipt.json": "c87c28a862ed107c92cd1264cb0fe8b5831996cd0377d4d5d68784959eb7841a",
+    "build/g0-R22-reset-guard-routed-r1/memory.jsonl": "be1a402421bfa2b3bc0dfee56f2c91089659a7803f536362c81fca3732be8eaa",
+    "build/g0-R22-reset-guard-routed-r1/capture-routed.v": "7440cff34fbcbae9ddadef36f98e75d37ff5e3350ea64aee26bd24679f096434",
+    "build/g0-R22-reset-guard-routed-r1/capture-timing.v": "53b11028ea31f7034f83d8c5a99931a93272787f771e8bde026302401309c85d",
+    "build/g0-R22-reset-guard-routed-r1/reset-fast.sdf": "7aa09477110fb799a171d48e7b7ca1097398661f81e58cdbdc9ed6f370c6e11e",
+    "build/g0-R22-reset-guard-routed-r1/reset-slow.sdf": "5841a2cb65fea6a430ded9eab4d4c753161dd5a5252f5054eb7436d811c93c35",
+    "build/g0-R22-IO-CDC-closure-r1/FDD-readonly.log": "b62b6c05204c79e78e6d6c4a23d4fd396709b463b0eb9fde98b0680b8c29157c",
+    "pl/g0/review_external_io_input_exceptions.tcl": "f16fda6b482300552440a24ed76201070604aa2a9f2b47fc916a561d96d77a05",
+    "pl/g0/g0_capture_reset_guard_tb.sv": "faa9bf9b6e3c419f64d14ad5cd84f8e143bdff706c373e02b5aa4e899225cf9a"
+  }
+}

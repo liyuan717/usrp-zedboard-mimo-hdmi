@@ -1,0 +1,12 @@
+// Isolated G0 SOURCE candidate; same locked IO/HDMI/provider, new CSR identity.
+// Provider completes each32KiB descriptor by byte count; PL additionally emits
+// one TLAST and validates whole-record prefix/trailer at exactly that boundary.
+&{/axi/dma@7c440000} {
+ /delete-property/ adi,expect-s-axis-tlast;
+};
+&{/axi/rf-receiver-v2@7c430000} {
+ compatible = "seu,video-radio-v3-g0-source-batch";
+};
+&{/chosen} {
+ seu,video-radio-v3-g0 = "finite-source-batch;pl-rf;no-production-video;no-tx-owner";
+};

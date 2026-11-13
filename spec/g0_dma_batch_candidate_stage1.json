@@ -1,0 +1,126 @@
+{
+  "status": "unfrozen_G0_transport_candidate_not_production_SOURCE_DMA_or_video_signoff",
+  "source_plan_commit": "733a3e061d1094d24e8b05b656d7e59f12599027",
+  "batch_bytes": 32768,
+  "byte_order": "LE",
+  "AXIS_data_bits": 64,
+  "AXIS_TKEEP": 255,
+  "AXIS_TLAST": "last trailer beat of exactly one fixed-size DMA batch; not each SOURCE",
+  "header_bytes": 32,
+  "header": [
+    {
+      "offset": 0,
+      "type": "4bytes",
+      "value": "V3DB"
+    },
+    {
+      "offset": 4,
+      "type": "u16",
+      "value": 1
+    },
+    {
+      "offset": 6,
+      "type": "u16",
+      "value": 32
+    },
+    {
+      "offset": 8,
+      "type": "u32",
+      "value": 32768
+    },
+    {
+      "offset": 12,
+      "type": "u32",
+      "value": 0
+    },
+    {
+      "offset": 16,
+      "type": "u64",
+      "value": "transport batch sequence, per global reset"
+    },
+    {
+      "offset": 24,
+      "type": "u64",
+      "value": 0
+    }
+  ],
+  "valid_record_prefix_capacity_bytes": 32704,
+  "record_size_range_bytes": [
+    64,
+    576
+  ],
+  "record_alignment_bytes": 8,
+  "record_layout": "existing64B V3RX SOURCE/ERASURE/DISCONTINUITY; opaque to transport batching",
+  "whole_record_reservation": "read two header beats; forward only if declared bounded record fits before trailer; otherwise carry to next batch",
+  "payload_cache_bytes": 0,
+  "record_header_staging_bytes": 16,
+  "trailer_offset": 32736,
+  "trailer_bytes": 32,
+  "trailer": [
+    {
+      "offset": 32736,
+      "type": "4bytes",
+      "value": "V3DE"
+    },
+    {
+      "offset": 32740,
+      "type": "u32",
+      "value": "contiguous complete-record prefix bytes, excluding transport header"
+    },
+    {
+      "offset": 32744,
+      "type": "u32",
+      "value": "complete records in valid prefix"
+    },
+    {
+      "offset": 32748,
+      "type": "u32",
+      "value": "flags1=discard/damage,2=timeout closure,4=stop closure"
+    },
+    {
+      "offset": 32752,
+      "type": "u64",
+      "value": "same sequence as header"
+    },
+    {
+      "offset": 32760,
+      "type": "u32",
+      "value": 0
+    },
+    {
+      "offset": 32764,
+      "type": "u32",
+      "value": "cumulative rejected record count snapshot"
+    }
+  ],
+  "batch_close_trigger_cycles": 50000,
+  "batch_close_trigger_at50MHz_us": 1000,
+  "trigger_is_not_DMA_completion_latency": true,
+  "completion_requires_padding_and_trailer_and_downstream_ready": true,
+  "input_record_timeout_cycles": 50000,
+  "malformed_drain_timeout_cycles": 50000,
+  "bad_input": "preserve earlier complete prefix, drain malformed remainder with deadline, close batch and resume; never expose partial SOURCE as committed",
+  "STOP": "finish active batch, drain/discard an unstarted carry record without a second DMA batch; publish rejection through control count and next available trailer snapshot",
+  "held_output_immutable_on_run_stop": true,
+  "global_reset_requires_coordinated_DMA_owner_reset": true,
+  "SOURCE_admission_wait_cap_cycles": 8192,
+  "SOURCE_admission_change_basis": "Measured32KiB full joins lost1of136 at256 and2048 cycles. Worst-phase coupled actual SOURCE/batcher test measured4679cycles with14/19 DMA-ready; choose finite8192cycles (163.84us), without changing RS/FEC/video deadlines or adding payload RAM.",
+  "PS_reader": "bounded parse; duplicate/late batch ignored, missing sequence counted; invalid metadata drops current batch; prior complete records survive a broken record prefix; unknown optional records skip; callback refusal counts and continues",
+  "PS_record_pointer_lifetime": "synchronous callback must copy/enqueue or retain USER lease; never retain pointer after DMA release",
+  "RF_CRC_and_FEC_stay_in_PL": true,
+  "FEC_banks": 8,
+  "RS_k_n_symbol_bytes": [
+    20,
+    32,
+    512
+  ],
+  "FEC_active_watchdog_cycles_unchanged": 1000000,
+  "FEC_block_deadline_cycles_unchanged": 25000000,
+  "not_yet_passed": [
+    "physical52RTL+IO/calibration to actual DMA provider and PS record batch ownership",
+    "production SESSION/timebase/coordinate/profile schema freeze",
+    "concurrent decoder/HDMI and real RF video1024x600/20newfps/~3s with measured reliable margin",
+    "complete resources/IO/CDC/timing/G0-G7 and standalone startup"
+  ],
+  "full_R10_or_G0_passed": false
+}

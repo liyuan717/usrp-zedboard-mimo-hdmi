@@ -1,0 +1,3911 @@
+{
+  "status": "partial_R17_fixed8_canonical_route_not_production",
+  "SOURCE_release_first_ARM_candidate": {
+    "evidence": "docs/evidence/g0-R16-release-first-ARM-20261105.json",
+    "ARM_decoder_ELF_delta_bytes": {"text": 144, "data": 0, "BSS": 0},
+    "ARM_SOURCE_module_ELF_delta_bytes": {"text": 32, "data": 0, "BSS": 0},
+    "ARM_decoder_static_stack_delta_bytes": {"main": 0, "feed_dma": 0, "source_dma": 0},
+    "new_coherent_DMA_or_pixel_payload_bytes": 0,
+    "PL_delta": {"LUT": 0, "FF": 0, "BRAM36_equivalent": 0, "DSP": 0},
+    "complete_budget_passed": false
+  },
+  "receiver_service_bundle_candidate": {
+    "evidence": "docs/evidence/g0-receiver-service-R16-native-20261105.json",
+    "new_board_script_file_bytes": 3385,
+    "bundle_payload_bytes": 12662845,
+    "bundle_includes_existing_ARM_runtime_and_drivers": true,
+    "PL_delta": {"LUT": 0, "FF": 0, "BRAM36_equivalent": 0, "DSP": 0},
+    "new_coherent_DMA_or_pixel_payload_bytes": 0,
+    "standalone_cold_boot_passed": false,
+    "complete_budget_passed": false
+  },
+  "receiver_only_initramfs_candidate": {
+    "compressed_archive_bytes": 5770339,
+    "unpacked_regular_file_bytes": 15232895,
+    "writable_runtime_tmpfs_cap_bytes": 8388608,
+    "new_PL_DMA_or_pixel_payload_bytes": 0,
+    "standalone_cold_boot_passed": false,
+    "board_runtime_RAM_measured": false
+  },
+  "continuous_SOURCE_ARM_candidate": {
+    "evidence": "docs/evidence/g0-source-continuous-R16-native-20261105.json",
+    "native_no_RF_continuous_DMA_batches": 113489,
+    "ARM_decoder_ELF_delta_bytes": {"text": 696, "data": 0, "BSS": 0},
+    "ARM_SOURCE_module_ELF_delta_bytes": {"text": 20, "data": 0, "BSS": 0},
+    "ARM_decoder_static_stack_delta_bytes": {"main": 8, "feed_dma": 0, "source_dma": -8},
+    "new_coherent_DMA_or_pixel_payload_bytes": 0,
+    "PL_delta": {"LUT": 0, "FF": 0, "BRAM36_equivalent": 0, "DSP": 0},
+    "standalone_cold_boot_passed": false,
+    "complete_budget_passed": false
+  },
+  "R17_SOURCE_bridge_admission_checkpoint": {
+    "evidence": "docs/evidence/g0-R17-source-admission-20261105.json",
+    "paired_local_synth_opt_baseline": {"LUT": 1330, "FF": 1589, "BRAM36_equivalent": 1, "DSP": 0},
+    "paired_local_synth_opt_candidate": {"LUT": 1327, "FF": 1591, "BRAM36_equivalent": 1, "DSP": 0},
+    "paired_local_net": {"LUT": -3, "FF": 2, "BRAM36_equivalent": 0, "DSP": 0},
+    "local_default_route": {"routed_nets": 2516, "routing_errors": 0, "WNS_ns": 6.288, "WHS_ns": 0.112, "WPWS_ns": 9.500},
+    "SOURCE_slots": 2,
+    "new_DMA_or_pixel_payload_bytes": 0,
+    "local_savings_deducted_from_integrated_budget": false,
+    "complete_budget_passed": false
+  },
+  "R18_three_slot_SOURCE_candidate": {
+    "evidence": "docs/evidence/g0-R18-three-slot-SOURCE-20261105.json",
+    "paired_local_route_R17": {"LUT": 1279, "FF": 1591, "BRAM36_equivalent": 1, "DSP": 0},
+    "paired_local_route_candidate": {"LUT": 1785, "FF": 1712, "BRAM36_equivalent": 1, "DSP": 0},
+    "paired_local_route_delta": {"LUT": 506, "FF": 121, "BRAM36_equivalent": 0, "DSP": 0},
+    "local_candidate_timing": {"WNS_ns": 5.145, "WHS_ns": 0.132},
+    "SOURCE_slots": 3,
+    "additional_usable_bytes_within_existing_BRAM": 512,
+    "admission_limit_cycles": 32768,
+    "new_DMA_or_pixel_payload_bytes": 0,
+    "whole_board_resource_or_timing_result": null,
+    "applied_local_delta_to_integrated_total": false,
+    "complete_budget_passed": false
+  },
+  "R18_integrated_synthesis_checkpoint": {
+    "evidence": "docs/evidence/g0-R18-integrated-synthesis-20261105.json",
+    "synthesis": {"LUT": 49359, "FF": 45033, "BRAM36_equivalent": 74, "DSP": 150},
+    "net_against_R17_synthesis": {"LUT": 517, "FF": 127, "BRAM36_equivalent": 0, "DSP": 0},
+    "stage2_not_instantiated_reserve_estimate": {"LUT": 2500, "FF": 2000, "BRAM36_equivalent": 2, "DSP": 8},
+    "synthesis_plus_stage2_estimate": {"LUT": 51859, "FF": 47033, "BRAM36_equivalent": 76, "DSP": 158},
+    "forecast_LUT_remaining_to_device": 1341,
+    "forecast_LUT_above_85_percent_soft_target": 6639,
+    "complete_budget_passed": false
+  },
+  "R18_canonical_placement_checkpoint": {
+    "evidence": "docs/evidence/g0-R18-canonical-placement-failure-20261105.json",
+    "failure_stage": "detail_placement",
+    "slice_deficit": 59,
+    "combined_LUTs_in_placement_report": 48289,
+    "control_sets": 1042,
+    "memory_pressure_stop": false,
+    "routed_or_bitstream_generated": false,
+    "complete_budget_passed": false
+  },
+  "R18_area_optimized_routing_terminal": {
+    "evidence": "docs/evidence/g0-R18-area-route-terminal-failure-20261105.json",
+    "placement_passed": true,
+    "route_passed": false,
+    "routing_overlap_nodes": 12468,
+    "signals_not_routed_due_to_congestion": 13563,
+    "bitstream_emitted": false,
+    "complete_budget_passed": false
+  },
+  "R19_shared_SOURCE_bridge_candidate": {
+    "evidence": "docs/evidence/g0-R19-shared-SOURCE-bridge-20261105.json",
+    "SOURCE_slots": 3,
+    "admission_limit_cycles": 32768,
+    "paired_local_route_from_R18": {"LUT": -34, "FF": -95, "BRAM36_equivalent": 0, "DSP": 0, "Slice": -42},
+    "local_50MHz": {"WNS_ns": 8.331, "WHS_ns": 0.122},
+    "full_synthetic_receive_DMA_byte_exact": true,
+    "whole_board_delta_measured": false,
+    "applied_local_delta_to_integrated_total": false,
+    "complete_budget_passed": false
+  },
+  "R20_RF_snapshot_trim_synthesis_checkpoint": {
+    "evidence": "docs/evidence/g0-R20-integrated-synthesis-20261106.json",
+    "production_hierarchy_audit": "docs/evidence/production-redundancy-current55-r20-20261106.json",
+    "synthesis": {
+      "LUT": 49113,
+      "FF": 44349,
+      "BRAM36_equivalent": 74.0,
+      "DSP": 150
+    },
+    "net_against_R19_synthesis": {
+      "LUT": -142,
+      "FF": -590,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 0
+    },
+    "stage2_not_instantiated_reserve_estimate": {
+      "LUT": 2500,
+      "FF": 2000,
+      "BRAM36_equivalent": 2,
+      "DSP": 8
+    },
+    "synthesis_plus_stage2_estimate": {
+      "LUT": 51613,
+      "FF": 46349,
+      "BRAM36_equivalent": 76.0,
+      "DSP": 158
+    },
+    "forecast_LUT_remaining_to_device": 1587,
+    "forecast_LUT_above_85_percent_soft_target": 6393,
+    "complete_budget_passed": false
+  },
+  "R21_registered_batch_busy_boundary": {
+    "evidence": "docs/evidence/g0-R20-repair-and-R21-busy-mapping-20261106.json",
+    "paired_OOC_net": {"LUT": 0, "FF": 1, "BRAM36_equivalent": 0, "DSP": 0},
+    "whole_board_synthesis_evidence": "docs/evidence/g0-R21-integrated-synthesis-20261106.json",
+    "production_hierarchy_audit_overlay": "docs/evidence/production-redundancy-current55-r21-delta-20261106.json",
+    "cumulative_synthesis_net_against_R19": {"LUT": -116, "FF": -588, "BRAM36_equivalent": 0, "DSP": 0},
+    "whole_board_synthesis": {"LUT": 49139, "FF": 44351, "BRAM36_equivalent": 74, "DSP": 150},
+    "whole_board_synthesis_net_against_R20": {"LUT": 26, "FF": 2, "BRAM36_equivalent": 0, "DSP": 0},
+    "synthesis_with_uninstantiated_stage2_estimate": {"LUT": 51639, "FF": 46351, "BRAM36_equivalent": 76, "DSP": 158},
+    "forecast_LUT_remaining_to_device": 1561,
+    "forecast_LUT_above_85_percent_soft_target": 6419,
+    "complete_budget_passed": false
+  },
+  "R22_AU_boundary_damage_attribution_candidate": {
+    "evidence": "docs/evidence/g0-R22-AU-boundary-damage-20261107.json",
+    "native_paired_file_replay_evidence": "docs/evidence/g0-R22-SD-PL-reuse-native-AU-20261107.json",
+    "ARM_decoder_ELF_delta_bytes": {"text": 80, "data": 0, "BSS": 0},
+    "ARM_v3au_push_static_stack_delta_bytes": 0,
+    "AU_context_delta_bytes": 0,
+    "new_coherent_DMA_or_pixel_payload_bytes": 0,
+    "PL_delta": {"LUT": 0, "FF": 0, "BRAM36_equivalent": 0, "DSP": 0},
+    "deployed": false,
+    "complete_budget_passed": false
+  },
+  "R22_held_frame_expiry_candidate": {
+    "evidence": "docs/evidence/g0-R22-held-frame-expiry-20261107.json",
+    "ARM_decoder_paired_ELF_delta_bytes": {"text": 184, "data": 0, "BSS": 0},
+    "ARM_main_static_stack_delta_bytes": 0,
+    "new_DMA_or_pixel_or_payload_storage_bytes": 0,
+    "PL_delta": {"LUT": 0, "FF": 0, "BRAM36_equivalent": 0, "DSP": 0},
+    "deployed": false,
+    "complete_budget_passed": false
+  },
+  "R22_HDMI_deadline_backlog_candidate": {
+    "evidence": "docs/evidence/g0-R22-HDMI-deadline-backlog-20261107.json",
+    "ARM_decoder_paired_ELF_delta_bytes": {"text": 232, "data": 0, "BSS": 0},
+    "ARM_main_static_stack_delta_bytes": 32,
+    "new_DMA_or_pixel_or_payload_storage_bytes": 0,
+    "PL_delta": {"LUT": 0, "FF": 0, "BRAM36_equivalent": 0, "DSP": 0},
+    "deployed": false,
+    "complete_budget_passed": false
+  },
+  "R22_upper_age_expiry_and_delay_observation": {
+    "evidence": "docs/evidence/g0-R22-upper-age-expiry-20261107.json",
+    "ARM_decoder_paired_ELF_delta_bytes": {"text": 1160, "data": 0, "BSS": 0},
+    "upper_bound_policy_only_ARM_text_bytes": 656,
+    "small_delay_counters_ARM_text_bytes": 504,
+    "ARM_main_static_stack_delta_bytes": 32,
+    "new_dynamic_DMA_pixel_payload_bytes": 0,
+    "PL_delta": {"LUT": 0, "FF": 0, "BRAM36_equivalent": 0, "DSP": 0},
+    "SD_deployed": false,
+    "strict_physical_deadline_passed": false,
+    "complete_budget_passed": false
+  },
+  "R22_four_refresh_display_budget": {
+    "evidence": "docs/evidence/g0-R22-display-budget-20261107.json",
+    "ARM_decoder_paired_ELF_delta_bytes": {"text": 16, "data": 0, "BSS": 0},
+    "ARM_main_static_stack_delta_bytes": 0,
+    "new_dynamic_DMA_pixel_payload_bytes": 0,
+    "PL_delta": {"LUT": 0, "FF": 0, "BRAM36_equivalent": 0, "DSP": 0},
+    "calibrated_finite_overload_deadline_passed": true,
+    "all_trial_strict_age_and_picture_passed": false,
+    "SD_deployed": false,
+    "complete_budget_passed": false
+  },
+  "R22_DMA_service_trace_diagnostic_only": {
+    "evidence": "docs/evidence/g0-R22-DMA-service-20261107.json",
+    "normal_receiver_PL_or_payload_delta": 0,
+    "diagnostic_ARM_ELF_delta_bytes": {"text": 3392, "data": 0, "BSS": 0},
+    "diagnostic_static_stack_delta_bytes": {"main": 3136, "source_dma": 120},
+    "controlled_pause_additional_ELF_delta_bytes": {"text": 81, "data": 4, "BSS": 0},
+    "read_only_MMIO_mapping_bytes": 4096,
+    "maximum_event_rows": 64,
+    "new_stream_DMA_or_pixel_payload_bytes": 0,
+    "SD_deployed": false,
+    "natural_drop_root_cause_proven": false,
+    "complete_budget_passed": false
+  },
+  "R22_host_clock_pair_probe_diagnostic_only": {
+    "evidence": "docs/evidence/g0-R22-clock-domains-20261107.json",
+    "PC_probe_ELF_bytes": {"text": 14848, "data": 1344, "BSS": 568},
+    "PC_runtime_RAM_CPU_measured": false,
+    "ARM_PL_DMA_pixel_payload_delta": 0,
+    "production_age_verified": false,
+    "complete_budget_passed": false
+  },
+  "R22_capture_RAW_observer_diagnostic_only": {
+    "evidence": "docs/evidence/g0-R22-capture-RAW-20261107.json",
+    "scope": "opt-in PC finite capture observer, not live RF age integration",
+    "PC_observation_ring_max_triples": 256,
+    "finite_audit_max_frames": 1200,
+    "finite_audit_rows_per_frame": {
+      "RAW_interval": 1,
+      "observation_pair": 1
+    },
+    "long_audit_compact_JSON_bytes": 144139,
+    "long_probe_GNU_time_user_s": 35.46,
+    "long_probe_GNU_time_system_s": 2.63,
+    "long_probe_GNU_time_wall_s": 62.97,
+    "long_probe_max_reaped_process_RSS_KiB": 131588,
+    "simultaneous_process_group_RSS_or_incremental_CPU_RAM_measured": false,
+    "default_PC_metadata_exact_footprint_measured": false,
+    "ARM_PL_DMA_pixel_payload_delta": 0,
+    "production_age_verified": false,
+    "SD_deployed": false,
+    "complete_budget_passed": false
+  },
+  "R22_capture_interval_receiver_candidate": {
+    "evidence": "docs/evidence/g0-R22-capture-interval-receiver-20261107.json",
+    "ARM_ELF_delta_bytes": {
+      "text": 240,
+      "data": 0,
+      "BSS": 0
+    },
+    "ARM_fragment_context_delta_bytes": 256,
+    "ARM_AU_context_delta_bytes": 0,
+    "ARM_AU_output_static_stack_delta_bytes": 8,
+    "ARM_legacy_HDV1_VCDO_parser_static_stack_delta_bytes_each": 8,
+    "ARM_main_SOURCE_DMA_feed_dma_static_stack_delta_bytes": 0,
+    "Info_and_FrameIdentity_bytes_each": 32,
+    "new_PL_DMA_pixel_video_payload_bytes_or_resources": 0,
+    "stage2_reserve_estimate_changed": false,
+    "source_clock_RAW_live_integration_complete": false,
+    "physical_RF_age_verified": false,
+    "SD_deployed": false,
+    "complete_budget_passed": false
+  },
+  "R22_live_RAW_timebase_candidate": {
+    "evidence": "docs/evidence/g0-R22-live-RAW-timebase-20261107.json",
+    "scope": "real finite RAW live camera/UHD/forward TIMEBASE/ACK candidate, unchanged PL and old G7 SD",
+    "ARM_ELF_delta_since_capture_interval_receiver_bytes": {
+      "text": 72,
+      "data": 0,
+      "BSS": 0
+    },
+    "PC_TX_ELF_delta_bytes": {
+      "text": 112,
+      "data": 0,
+      "BSS": 0
+    },
+    "explicit_full_ACK_requested_bytes": 38400,
+    "explicit_full_ACK_request_delta_bytes": 9600,
+    "ACK_callback_static_stack_delta_bytes": 8,
+    "other_common_static_stack_delta_bytes": 0,
+    "PC_observation_ring_max_records": 256,
+    "PC_frame_table_max_records_each": 1200,
+    "PC_FIFO_parent_VmHWM_KiB": 99540,
+    "PC_full_process_group_and_incremental_cost_measured": false,
+    "new_PL_DMA_pixel_video_payload_capacity": 0,
+    "stage2_reserve_estimate_changed": false,
+    "short_range60s_all1200_conditionally_bounded_age": true,
+    "finite_overload_age_and_recovery_passed": true,
+    "new_SD_G7_passed": false,
+    "production_or_standalone_age_passed": false,
+    "complete_budget_passed": false
+  },
+  "R22_calibrated_ADC_tag_reuse_synthesis": {
+    "evidence": "docs/evidence/g0-R22-integrated-synthesis-20261106.json",
+    "whole_board_synthesis": {
+      "LUT": 49032,
+      "FF": 44286,
+      "BRAM36_equivalent": 74.0,
+      "DSP": 150
+    },
+    "whole_board_synthesis_net_against_R21": {
+      "LUT": -107,
+      "FF": -65,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 0
+    },
+    "stage2_uninstantiated_estimate": {
+      "LUT": 2500,
+      "FF": 2000,
+      "BRAM36_equivalent": 2,
+      "DSP": 8
+    },
+    "synthesis_plus_stage2_estimate": {
+      "LUT": 51532,
+      "FF": 46286,
+      "BRAM36_equivalent": 76.0,
+      "DSP": 158
+    },
+    "forecast_LUT_remaining_to_device": 1668,
+    "forecast_LUT_above_85_percent_soft_target": 6312,
+    "routed_implementation_evidence": "docs/evidence/g0-R22-integrated-implementation-20261106.json",
+    "routed_implementation": {
+      "LUT": 47118,
+      "FF": 44183,
+      "BRAM36_equivalent": 74.0,
+      "DSP": 150
+    },
+    "routed_plus_uninstantiated_stage2_estimate": {
+      "LUT": 49618,
+      "FF": 46183,
+      "BRAM36_equivalent": 76.0,
+      "DSP": 158
+    },
+    "routed_forecast_LUT_remaining_to_device": 3582,
+    "routed_forecast_LUT_above_85_percent_soft_target": 4398,
+    "short_RF_camera_budget_evidence": "docs/evidence/g0-R22-short-camera1200-20261106.json",
+    "short_RF_host_process_group_sampled_peak_PSS_KiB": 276482,
+    "short_RF_board_sampled_decoder_RSS_KiB": 13744,
+    "short_RF_board_sampled_min_CMA_free_KiB": 57760,
+    "short_RF_host_kernel_or_IRQ_CPU_included": false,
+    "short_RF_SOURCE_capacity_evidence": "docs/evidence/g0-R22-short-SOURCE-capacity60-20261106.json",
+    "short_RF_SOURCE_capacity_worst_rolling_5s_Bps": 219750.4,
+    "short_RF_camera_SOURCE_load_peak_30s_Bps": 146773.33333333334,
+    "short_RF_sustained_SOURCE_transport_margin_percent": 33.20907114010562,
+    "short_RF_burst_SOURCE_transport_margin_percent": 0.0,
+    "short_RF_long_camera_video_passed": false,
+    "complete_budget_passed": false
+  },
+  "R19_integrated_synthesis_checkpoint": {
+    "evidence": "docs/evidence/g0-R19-integrated-synthesis-20261106.json",
+    "production_hierarchy_audit": "docs/evidence/production-redundancy-current55-r19-20261106.json",
+    "synthesis": {"LUT": 49255, "FF": 44939, "BRAM36_equivalent": 74, "DSP": 150},
+    "net_against_R18_synthesis": {"LUT": -104, "FF": -94, "BRAM36_equivalent": 0, "DSP": 0},
+    "stage2_not_instantiated_reserve_estimate": {"LUT": 2500, "FF": 2000, "BRAM36_equivalent": 2, "DSP": 8},
+    "synthesis_plus_stage2_estimate": {"LUT": 51755, "FF": 46939, "BRAM36_equivalent": 76, "DSP": 158},
+    "forecast_LUT_remaining_to_device": 1445,
+    "forecast_LUT_above_85_percent_soft_target": 6535,
+    "complete_budget_passed": false
+  },
+  "R19_calibrated_ADC_tag_reuse_isolated_option": {
+    "local_evidence": "docs/evidence/g0-R19-ADC-tag-contract-local-20261105.json",
+    "R20_exact_input_fallback_preflight": "docs/evidence/g0-R20-tag-fallback-preflight-20261106.json",
+    "healthy_full_replay_evidence": "docs/evidence/g0-R19-ADC-tag-contract-full-healthy-20261105.json",
+    "full_replay_duplicate_tag_fault_evidence": "docs/evidence/g0-R19-ADC-tag-contract-full-fault-pair-20261105.json",
+    "archived_raw_adc_equivalence_evidence": "docs/evidence/g0-R19-ADC-tag-contract-archived-raw-20261106.json",
+    "unapplied_exact_source_patch_evidence": "docs/evidence/g0-R19-ADC-tag-fallback-patch-20261106.json",
+    "paired_local_route_delta": {"LUT": -26, "FF": -66, "BRAM36_equivalent": 0, "DSP": 0},
+    "local_50MHz": {"WNS_ns": 10.389, "WHS_ns": 0.070},
+    "requires_calibrator_registered_loss_signal": true,
+    "current_whole_board_candidate_uses_this_option": true,
+    "applied_local_delta_to_integrated_total": false
+  },
+  "R17_integrated_synthesis_checkpoint": {
+    "evidence": "docs/evidence/g0-R17-integrated-synthesis-20261105.json",
+    "synthesis": {"LUT": 48842, "FF": 44906, "BRAM36_equivalent": 74, "DSP": 150},
+    "net_against_R16_synthesis": {"LUT": -15, "FF": -2, "BRAM36_equivalent": 0, "DSP": 0},
+    "stage2_not_instantiated_reserve_estimate": {"LUT": 2500, "FF": 2000, "BRAM36_equivalent": 2, "DSP": 8},
+    "synthesis_plus_stage2_estimate": {"LUT": 51342, "FF": 46906, "BRAM36_equivalent": 76, "DSP": 158},
+    "forecast_LUT_remaining_to_device": 1858,
+    "forecast_LUT_above_85_percent_soft_target": 6122,
+    "complete_budget_passed": false
+  },
+  "R17_integrated_implementation_checkpoint": {
+    "evidence": "docs/evidence/g0-R17-integrated-implementation-20261105.json",
+    "routed": {"LUT": 47374, "FF": 44803, "BRAM36_equivalent": 74, "DSP": 150},
+    "net_against_R16_route": {"LUT": -56, "FF": -2, "BRAM36_equivalent": 0, "DSP": 0},
+    "WNS_ns": 0.024,
+    "WHS_ns": 0.006,
+    "WPWS_ns": 0.264,
+    "stage2_not_instantiated_reserve_estimate": {"LUT": 2500, "FF": 2000, "BRAM36_equivalent": 2, "DSP": 8},
+    "route_plus_stage2_estimate": {"LUT": 49874, "FF": 46803, "BRAM36_equivalent": 76, "DSP": 158},
+    "forecast_LUT_remaining_to_device": 3326,
+    "forecast_LUT_above_85_percent_soft_target": 4654,
+    "complete_budget_passed": false
+  },
+  "R17_budget_status": {
+    "configuration": {
+      "PL_bit_crc32": "a9e5ad52",
+      "fixed_banks": 8,
+      "TX": 2,
+      "RX": 2
+    },
+    "routed_minus_soft_resource_targets": {
+      "LUT": 2154,
+      "FF": -24357,
+      "BRAM36_equivalent": -24,
+      "DSP": -15
+    },
+    "routed_plus_estimated_stage2_minus_soft_resource_targets": {
+      "LUT": 4654,
+      "FF": -22357,
+      "BRAM36_equivalent": -22,
+      "DSP": -7
+    },
+    "short_range_live_camera": {
+      "evidence": "docs/evidence/g0-R17-camera-ethernet-down-age-20261105.json",
+      "receiver_boot_id": "33843ab8-a80e-4d3e-bc81-846a5b333872",
+      "native_process_CPU_seconds": 67.7037,
+      "receiver_process_wall_seconds_including_waits": 74.9341,
+      "memory_rows": 75,
+      "decoder_RSS_peak_KiB": 12924,
+      "board_MemAvailable_min_KiB": 441768,
+      "board_CmaFree_min_KiB": 57760,
+      "AU_pool_peak_owners": 6,
+      "AU_queue_ready_peak": 5,
+      "AU_pool_payload_peak_bytes": 54739,
+      "SOURCE_fragment_cache_peak_bytes": 36181,
+      "memory_samples_sha256": "c62b6a970006b85f92cfbb3fd7778eb5d98ed673ab67784eaab84f65752b10fd",
+      "native_receiver_report_sha256": "7dfd4dc290eac40c467b119fa131cf7da9c13be5f9170ab57ee083517c4ad158"
+    },
+    "short_range_reliable_capacity": {
+      "evidence": "docs/evidence/g0-R17-short-camera-capacity-20261105.json",
+      "camera_worst_30s_load_Bps": 146090.66666666666,
+      "min_fixed_5s_reliable_Bps": 223641.6,
+      "remaining_fraction": 0.34676434676434686,
+      "rolling_evidence": "docs/evidence/g0-R17-rolling-service-20261105.json",
+      "min_all_offsets_5s_reliable_Bps": 223232,
+      "undelivered_SOURCE_in_capacity_probe": 20
+    },
+    "short_range_generation_host_with_local_paced_sink": {
+      "evidence": "docs/evidence/g0-R17-host-camera-resources-20261105.json",
+      "new_frames": 1200,
+      "new_capture_fps": 20.069444966359743,
+      "dual_IQ_bytes_compared": 3854080000,
+      "process_group_CPU_seconds": 48.88,
+      "process_group_wall_seconds": 61.01,
+      "process_group_average_core_equivalents": 0.801180134404196,
+      "proc_sample_count": 281,
+      "sampled_group_PSS_peak_KiB": 218436,
+      "sampled_group_RSS_peak_KiB": 246980,
+      "sampled_group_SwapPSS_peak_KiB": 0,
+      "mailbox_peak_blocks": 5,
+      "UHD_included": false
+    },
+    "R17_short_range_receiver_DDR_workload_accounting": {
+      "evidence": "docs/evidence/g0-R17-DDR-workload-accounting-20261106.json",
+      "completed_source_DMA_write_payload_bytes": 2218786816,
+      "minimum_process_lifetime_average_source_DMA_write_payload_Bps": 29609841.393971503,
+      "nominal_XRGB8888_scanout_read_payload_Bps": 147016089.6,
+      "rates_are_separate_and_must_not_be_added": true,
+      "DDR_controller_or_AXI_bus_bytes_measured": false,
+      "complete_standalone_DDR_budget_passed": false
+    },
+    "full_sender_observer_preflight": {
+      "evidence": "docs/evidence/g0-R20-sender-monitor-preflight-20261106.json",
+      "scope": "Synthetic co-residency control and no-hardware gate test. Real camera, encoder, IQ and UHD measurements are pending.",
+      "process_CPU_and_PSS_observer_ready": true,
+      "kernel_or_IRQ_CPU_included": false,
+      "actual_UHD_run_measured": false
+    },
+    "remaining_budget_measurements": [
+      "PC encoder, IQ generation and real UHD simultaneous memory and CPU, including driver and transmit-side pacing.",
+      "Full receiver memory and DDR throughput under RF, DMA and HDMI concurrently from the standalone boot.",
+      "Reliable throughput at the specified approximately 10 m distance.",
+      "Production I/O and CDC closure and measured Stage 2 costs after implementation."
+    ],
+    "complete_budget_passed": false
+  },
+  "R16_same_waveform_retest_checkpoint": {
+    "evidence": "docs/evidence/g0-R16-RF-IQ-mapping-20261105.json",
+    "normal_fixed_30s_reliable_SOURCE_Bps": [223948.8, 224017.06666666668],
+    "normal_min_fixed_5s_reliable_SOURCE_Bps": [223436.8, 223232],
+    "swapped_SOURCE_records": 0,
+    "long_camera_physical_new_frames": 1200,
+    "long_camera_physical_new_fps": 20.0969,
+    "long_camera_CRC_changed": 17,
+    "long_camera_PL_erasures": 0,
+    "long_camera_PL_bridge_admission_dropped": 2,
+    "all_frame_conditional_age_upper_ns": 798413832,
+    "whole_production_resource_delta": 0,
+    "repeatable_clean_video_or_full_G0_passed": false
+  },
+  "R16_physical_camera_capacity_checkpoint": {
+    "evidence": "docs/evidence/g0-R16-native-and-short-camera-clock-20261105.json",
+    "clean_short_camera_frames": 200,
+    "long_camera_frames_presented_of_1200": 1083,
+    "long_camera_missing": 117,
+    "long_camera_CRC_changed": 144,
+    "actual_camera_peak_ready_30s_Bps": 146773.33333333334,
+    "same_boot_fixed_30s_reliable_SOURCE_Bps": 187750.4,
+    "same_boot_min_fixed_5s_reliable_SOURCE_Bps": 129536.0,
+    "measured_steady_margin_share": 0.21825288610126348,
+    "sustained_video_or_capacity_passed": false,
+    "production_PL_DMA_pixel_increment": 0
+  },
+  "R16_fixed8_shared_FEC_checkpoint": {
+    "evidence": "docs/evidence/g0-R16-shared-fec-20261105.json",
+    "whole_board_baseline": "R14 pre-R15 CSR sharing",
+    "paired_local_synth_opt_baseline": {"LUT": 3727, "FF": 2741, "BRAM36_equivalent": 33, "DSP": 0},
+    "paired_local_synth_opt_candidate": {"LUT": 3665, "FF": 2767, "BRAM36_equivalent": 33, "DSP": 0},
+    "paired_local_net": {"LUT": -62, "FF": 26, "BRAM36_equivalent": 0, "DSP": 0},
+    "local_route": {"routable_nets": 5153, "errors": 0, "WNS_ns": 5.611, "WHS_ns": 0.110},
+    "captured_ADC_replay": {"samples": 2097152, "source_bytes": 69632, "restored_bytes": 13312, "batches_byte_exact_to_R14": 491},
+    "local_savings_deducted_from_integrated_budget": false,
+    "stage2_estimate": {"LUT": 2500, "FF": 2000, "BRAM36_equivalent": 2, "DSP": 8},
+    "integrated_synthesis": {"LUT": 48857, "FF": 44908, "BRAM36_equivalent": 74, "DSP": 150},
+    "R16_minus_R14_same_stage": {"LUT": -70, "FF": 23, "BRAM36_equivalent": 0, "DSP": 0},
+    "R16_synthesis_plus_stage2_estimate": {"LUT": 51357, "FF": 46908, "BRAM36_equivalent": 76, "DSP": 158},
+    "physical_LUT_remaining_with_stage2_estimate": 1843,
+    "routed_resources": {"LUT": 47430, "FF": 44805, "BRAM36_equivalent": 74, "DSP": 150},
+    "R16_ROUTE_plus_stage2_estimate": {"LUT": 49930, "FF": 46805, "BRAM36_equivalent": 76, "DSP": 158},
+    "physical_LUT_remaining_ROUTED_with_stage2_estimate": 3270,
+    "routed_resource_totals_available": true,
+    "routed_timing": {"WNS_ns": 0.176, "WHS_ns": 0.007, "WPWS_ns": 0.264, "routed_nets": 94761, "route_errors": 0},
+    "finite_RX_only_route_passed": true,
+    "production_IO_CDC_passed": false,
+    "route_evidence": "docs/evidence/g0-R16-route-bit-and-topology-20261105.json",
+    "complete_budget_passed": false
+  },
+  "R11_camera_native_memory_checkpoint": {
+    "evidence": "docs/evidence/g0-R11-camera-native-memory-20261105.json",
+    "ARM_decoder_max_observed_RSS_KiB": 13988,
+    "minimum_board_MemAvailable_KiB": 408428,
+    "minimum_board_CmaFree_KiB": 57760,
+    "idle_CmaFree_before_and_after_KiB": 64944,
+    "production_resource_delta": 0,
+    "all_frames_or_full_budget_passed": false
+  },
+  "camera_peak_fixed8_packet_service_checkpoint": {
+    "evidence": "docs/evidence/g0-camera-peak-fec-service-20261105.json",
+    "physical_FEC_banks": 8,
+    "observed_peak_bank_owners": 2,
+    "clock_hz": 50000000,
+    "observed_max_open_to_complete_cycles": 4592677,
+    "block_deadline_cycles": 25000000,
+    "PL_PS_DMA_resource_delta": 0,
+    "physical_deadline_or_full_G0_passed": false
+  },
+  "R11_short_range_camera_workload_checkpoint": {
+    "evidence": "docs/evidence/g0-R11-camera-workload-budget-20261105.json",
+    "max_rolling_30s_source_Bps": 147797.33333333334,
+    "conservative_measured_reference_Bps": 223436.8,
+    "minimum_sustained_margin_share": 0.3385273449434768,
+    "ready_1s_p99_Bps": 163840,
+    "ready_5s_p99_Bps": 153600,
+    "peak_ready_1s_Bps": 204800,
+    "peak_ready_5s_Bps": 161792,
+    "peak_PC_mailbox_blocks": 5,
+    "peak_ARM_decode_ready_AUs": 5,
+    "peak_ARM_decode_payload_owners": 6,
+    "max_ARM_process_average_CPU_core_equivalents": 1.058573571465751,
+    "new_production_resources": false,
+    "complete_CPU_RAM_budget_passed": false,
+    "production_RF_deadline_passed": false
+  },
+  "PS_full_ACK_age_and_HDMI_ready_FIFO_checkpoint": {
+    "evidence": "docs/evidence/g0-all-source-ACK-age-20261105.json",
+    "optional_development_ACK_storage_bytes": 28800,
+    "ARM_ELF_text_delta_bytes": 2208,
+    "ARM_ELF_data_delta_bytes": 4,
+    "ARM_ELF_BSS_delta_bytes": 0,
+    "ARM_presenter_context_delta_bytes": 32,
+    "ARM_main_static_stack_delta_bytes": 24,
+    "new_pixel_DMA_payload_storage_bytes": 0,
+    "new_PL_resources": false,
+    "complete_budget_passed": false
+  },
+  "R17_stale_anchor_expiry_checkpoint": {
+    "evidence": "docs/evidence/g0-R17-stale-anchor-20261105.json",
+    "baseline": "R17 READY-to-KMS age check, ELF text 132984 B",
+    "ARM_ELF_text_delta_bytes": 364,
+    "ARM_ELF_data_BSS_delta_bytes": 0,
+    "ARM_SourceAge_bytes_before_after": [384, 400],
+    "ARM_main_static_stack_bytes_before_after": [3304, 3328],
+    "SourceAge_storage_included_in_main_stack": true,
+    "ARM_feed_dma_static_stack_bytes": 192,
+    "new_PL_DMA_pixel_or_payload_bytes": 0,
+    "complete_budget_passed": false
+  },
+  "HDMI_signal_loss_notice_checkpoint": {
+    "evidence": "docs/evidence/g0-HDMI-signal-loss-20261105.json",
+    "ARM_ELF_text_delta_bytes": 1376,
+    "ARM_ELF_data_BSS_delta_bytes": 0,
+    "ARM_presenter_context_delta_bytes": 56,
+    "ARM_metrics_delta_bytes_included_in_presenter": 16,
+    "ARM_main_static_stack_delta_bytes": 24,
+    "new_pixel_DMA_payload_storage_bytes": 0,
+    "new_PL_resources": false,
+    "physical_HDMI_file_recovery_passed": true,
+    "complete_budget_passed": false
+  },
+  "HDMI_first_signal_loss_ACK_increment": {
+    "evidence": "docs/evidence/g0-R11-dual-IQ-blackout-20261105.json",
+    "ARM_ELF_text_delta_bytes": 48,
+    "ARM_ELF_data_BSS_delta_bytes": 0,
+    "ARM_presenter_context_delta_bytes_including_metrics": 8,
+    "ARM_main_static_stack_delta_bytes": 16,
+    "new_pixel_DMA_payload_storage_bytes": 0,
+    "new_PL_resources": false,
+    "complete_budget_passed": false
+  },
+  "R15_CSR_counter_sharing_checkpoint": {
+    "evidence": "docs/evidence/g0-R15-counter-sharing-20261105.json",
+    "paired_local_synthesis_baseline": {"LUT": 1001, "FF": 1119, "BRAM36_equivalent": 0, "DSP": 0, "control_sets": 17},
+    "paired_local_synthesis_candidate": {"LUT": 1001, "FF": 1023, "BRAM36_equivalent": 0, "DSP": 0, "control_sets": 16},
+    "paired_local_delta": {"LUT": 0, "FF": -96, "BRAM36_equivalent": 0, "DSP": 0, "control_sets": -1},
+    "integrated_synthesis": {"LUT": 48928, "FF": 44789, "BRAM36_equivalent": 74, "DSP": 150},
+    "R15_minus_R14_same_stage": {"LUT": 1, "FF": -96, "BRAM36_equivalent": 0, "DSP": 0},
+    "R15_synthesis_plus_stage2_estimate": {"LUT": 51428, "FF": 46789, "BRAM36_equivalent": 76, "DSP": 158},
+    "physical_LUT_remaining_with_stage2_estimate": 1772,
+    "placement_passed": false,
+    "detail_placement_reported_missing_slices": 72,
+    "post_opt_placement_diagnostic": {"combined_LUT": 48091, "FF": 44707, "control_sets": 1039},
+    "local_savings_deducted_from_integrated_budget": false,
+    "complete_budget_passed": false
+  },
+  "R14_DMA_batch_packing_checkpoint": {
+    "evidence": "docs/evidence/g0-R14-packing-expiry-20261105.json",
+    "paired_local_synth_opt_baseline": {"LUT": 532, "FF": 574, "BRAM36_equivalent": 0, "DSP": 0, "control_sets": 17},
+    "paired_local_synth_opt_candidate": {"LUT": 409, "FF": 410, "BRAM36_equivalent": 0, "DSP": 0, "control_sets": 14},
+    "paired_local_delta": {"LUT": -123, "FF": -164, "BRAM36_equivalent": 0, "DSP": 0, "control_sets": -3},
+    "integrated_batch_hierarchy_baseline": {"LUT": 975, "FF": 478, "BRAM36_equivalent": 0, "DSP": 0},
+    "integrated_batch_hierarchy_candidate": {"LUT": 935, "FF": 346, "BRAM36_equivalent": 0, "DSP": 0},
+    "integrated_synthesis": {"LUT": 48927, "FF": 44885, "BRAM36_equivalent": 74, "DSP": 150},
+    "R14_minus_R13_same_stage": {"LUT": -86, "FF": -134, "BRAM36_equivalent": 0, "DSP": 0},
+    "R14_synthesis_plus_stage2_estimate": {"LUT": 51427, "FF": 46885, "BRAM36_equivalent": 76, "DSP": 158},
+    "physical_LUT_remaining_with_stage2_estimate": 1773,
+    "placement_passed": false,
+    "detail_placement_reported_missing_slices": 11,
+    "post_opt_placement_diagnostic": {"combined_LUT": 48050, "FF": 44803, "control_sets": 1039},
+    "same_netlist_implementation_retries": {
+      "evidence": "docs/evidence/g0-R14-route-merge-congestion-20261105.json",
+      "control_set_merge_default_placement": {"placement_passed": true, "routing_passed": false, "illegal_route_overlaps": 3, "measured_peak_group_mib": 2993},
+      "control_set_merge_medium_spread": {"placement_passed": false, "routing_started": false, "detail_placement_missing_slices": 20, "measured_peak_group_mib": 2811},
+      "new_synthesis_resource_delta": 0,
+      "final_route_resource_totals_available": false
+    },
+    "local_savings_deducted_from_integrated_budget": false,
+    "complete_budget_passed": false
+  },
+  "R13_integrated_synthesis_checkpoint": {
+    "evidence": "docs/evidence/g0-R13-wired-calibration-20261105.json",
+    "R13_synthesis": {"LUT": 49013, "FF": 45019, "BRAM36_equivalent": 74, "DSP": 150},
+    "R13_minus_R12_same_stage": {"LUT": -323, "FF": -95, "BRAM36_equivalent": 0, "DSP": 0},
+    "R13_synthesis_plus_stage2_estimate": {"LUT": 51513, "FF": 47019, "BRAM36_equivalent": 76, "DSP": 158},
+    "remaining_LUT_against_device_before_unmeasured_work": 1687,
+    "placement_passed": false,
+    "detail_placement_reported_missing_slices": 34,
+    "incremental_placement_passed": false,
+    "complete_budget_passed": false
+  },
+  "R12_integrated_synthesis_checkpoint": {
+    "evidence": "docs/evidence/g0-R12-clock-synthesis-20261105.json",
+    "R11_synthesis": {"LUT": 48630, "FF": 44639, "BRAM36_equivalent": 74, "DSP": 150},
+    "R12_synthesis": {"LUT": 49336, "FF": 45114, "BRAM36_equivalent": 74, "DSP": 150},
+    "R12_minus_R11_same_stage": {"LUT": 706, "FF": 475, "BRAM36_equivalent": 0, "DSP": 0},
+    "R12_synthesis_plus_stage2_estimate": {"LUT": 51836, "FF": 47114, "BRAM36_equivalent": 76, "DSP": 158},
+    "remaining_LUT_against_device_before_unmeasured_work": 1364,
+    "placement_passed": false,
+    "detail_placement_reported_missing_slices": 107,
+    "complete_budget_passed": false
+  },
+  "source_plan_commit": "f734decb2c2e2ef83c2f0c85a75555bf364a0bd2",
+  "part": "xc7z020clg484-1",
+  "soft_resource_limits": {
+    "LUT": 45220,
+    "FF": 69160,
+    "BRAM36_equivalent": 98,
+    "DSP": 165
+  },
+  "measured_components": [
+    {
+      "name": "retained_G0_IO_HDMI_measurement_platform",
+      "source": "docs/evidence/g0-adc-prototype-20261102.json",
+      "LUT": 10295,
+      "FF": 13995,
+      "BRAM36_equivalent": 9,
+      "DSP": 21,
+      "note": "Conservative starting platform, includes diagnostic recorder; future production replacement is not assumed free."
+    },
+    {
+      "name": "actual54RTL_raw_ADC_PL_DC_fixed8_SOURCE_DMA_batches",
+      "source": "docs/evidence/g0-PL-DC-calibration-20261103.json",
+      "LUT": 42190,
+      "FF": 35720,
+      "BRAM36_equivalent": 54.0,
+      "DSP": 133,
+      "note": "Original52RTL sources unchanged. Raw capture2097152 words enters PL without SW preprocessing;136SOURCE69632B incl13312restored,142records491batches byteexact. Startup exact DC/RNE with shared divider; no notch. Same-source local route. Independent634LUT DC already included, not added again. Physical WFIFO/CPACK/CSR/DMA/timebase/video/G0 pending.",
+      "raw_ADC_DC_and_complete_SOURCE_batch_regression_passed": true,
+      "original52RTL_sources_unchanged": true,
+      "routed_candidate_timing_passed": true
+    }
+  ],
+  "stage2_reserve_estimate": {
+    "measured": false,
+    "LUT": 2500,
+    "FF": 2000,
+    "BRAM36_equivalent": 2,
+    "DSP": 8,
+    "basis": "New single control-TX RRC/NCO, small packet/FIFO, TDD/control-CDC allowance; vendor electrical interface retained in starting platform. Engineering allowance only, B0 must resynthesize/rebudget.",
+    "instantiated_in_stage1": false,
+    "resource_guarantee": false
+  },
+  "not_yet_in_measured_sum": [
+    "Final RF calibration and any adaptive CW/notch only if required. PL startup DC/RNE is already in55RTL; ADI extra IIR/nonzero offset removed with measured paired saving, IQ/RF calibration retained. Any new costs remain unmeasured.",
+    "Complete live forward SESSION/timebase and source-clock mapping, all-frame age/deadline enforcement and stale-screen overlay. VRT3/SESSION transport and atomic CPACK tag CSR are implemented in a finite prototype and locally measured; full PHY reference, actual timed UHD anchors, PS map/age, whole board integration and new bit/RF still pending. Local added LUT/FF are itemized separately, not assumed in deployed R11.",
+    "Final no-feedback profile/interleaving/whitening/periodic session/SPS/PPS/recovery scheduling and sustained PC live-camera/encoder pipeline, with p99 burst and bounded8-bank service/expiry. Finite VRS3 descriptors and prerecorded readiness model are not final production signoff.",
+    "Full IO/electrical/CDC production closure and standalone boot. Actual R11 route/finite scoped review is measured; inherited24 peripheral untimed ports and production CDC closure remain open.",
+    "Complete PS RAM/RSS/codec/allocator/threads/CMA and PC encoder/IQ/runtime budget. DMA294912B and existing NAL/AU/queue/pixel pools are already charged, not duplicated. Prefix-copy counter adds8B inside main, no new cache.",
+    "Complete continuous RF video/new source20fps/actual~3s age/camera/10m/standalone. Actual18dB60s synthetic dual SOURCE capacity and fixed30s reliable margin passed a finite subcondition;Latest60s prerecorded RF/physicalDMA/HDMI delivers1200 identities with0queue drops/0NAL evictions;78pixel CRC differences and17SOURCE losses remain, source age/live camera/10m/standalone still pending.",
+    "All remaining required integrated functions need separate measured cost increments before full budget signoff. R11 physicalLUT6079 remaining,3579 after Stage2 estimate, is not proof of remaining fit."
+  ],
+  "integration_note": "R11 actual ROUTE47121/44536/74/150,94560nets/noerrors,WNS+.009/WHS+.015/WPWS+.264. Finite scoped CDC cone equivalence and typed RF/HDMI/counter65 review passes; inherited24peripheral IO gaps/fullproductionIOCDC unpassed. R11 RAM boot and5/32 noRF DMA/HDMI externalstop39batches with7READYtail/5reentry pass;0SOURCE. Same-flow SYNTH net220LUT/956FF/4DSP saving vsR9 included once; do not compare R7 ROUTE to R11 SYNTH as savings. 18dB finite60s dual SOURCE join and fixed30s delivery capacity223914.6667B/s satisfy current149504B/s video load<=70%;12dB111957.3333B/s/zero directTX1 fails and remains. Remaining phase/CFO/video/sourceclock/camera/10m/standalone/core controls/fullbudget pending. Earlier checkpoints retain failures and independent scopes. Latest new software-only checkpoint: once160ms public-control warmup and bounded partial-NAL HOL skip(200ms with useful later complete content; otherwise500ms idleTTL), no new PL/DMA/cache. ELFtext+248,dataBSS0,context2512 unchanged; native16cases/6compiled faults and cleanHDMI200/200 pass. Actual60s prerecorded dualRF yields1200/1200physical frames,0AUqueue drops/0NALevictions,78CRCchanged,maxACKgap267.470ms; post-EOB UHDctrl exception retained and subsequent no-TX query succeeds, rootcause pending. PCcamera dynamicfps1 caused161input/46duplicates failure; temporary0 and select-only input299->200unique timestamps measured20.092fps, encoded1024x60020; restored1. CameraRF/sourceage/10m/standalone/fullIOCDC/fullbudget/G0 not passed. Latest PC camera-to-S512 finite1200-frame actual capture/readiness measurement and840-block/10080-CRC-erasure offline dual-wire recovery pass; no PL/PS/DMA/pixel increment. Camera->IQ/UHD streaming/backpressure, one-way cross-device clock mapping/HDMI age remain unimplemented/unpassed; finite readiness replay is not live RF. PC live1200-frame camera->S512->bounded6-block mailbox->existing2-source/1-coded scheduler->dual IQ FIFO now actual concurrent,841blocks/3850240000IQbytes exact and0drops nominal. Added PC sourcequeue capacity61440B, no PL/PS/DMA/pixel increment;60s parentVmHWM99916KiB excludes FFmpeg.800ms sink stall drops9overflow/1expired and continues; bank-age829636us exceeds500ms, not RF deadline proof. SIGTERM/disconnect owners0/reentry and explicitGO pass; actual RF coordination/sharedlease/source-clock/HDMI age remain pending. 2026-11-05 fresh R11 RAMboot cd5b40e0, sameboot SOURCE/HDMI/STOP requalified. Actual live camera dualRF200 and1200 frames all native RGB565 CRC/identity equal same-capture A9 clean reference,0queue/NAL drops.1200 source20.0575fps/physicalACK20.0744fps,60.28s,838blocks/8581120B,all16760records,TX errors none observed. No PL/PS/DMA/pixel increment; offline native reference file6.76MB and host clock probe <=16MiB temporary buffers separately measured/bounded, complete memory budget pending. Six development UART brackets plus actual V4L2/DRM monotonic flags conditionally bound recent64 ACK ages <=877141845ns under fixed-affine-clock assumption; NOT full-frame/production timebase/standalone age signoff. Final RUN0/LOs off/rootRO. Older78CRC/UHD exception not erased. 2026-11-05 PS auto_PL_SOURCE learns SID/epoch without TX SID in argv; native15policy/5byteexactAU/3compiled faults and32coordinator controls pass. Samebit RF auto1200-r1 zero output with8726/16700SOURCE and22774raw CRC bad, pinned200187frames, auto200198frames failures retained. Auto1200-r2 all16880SOURCE/1200newphysical frames/source20.06699/ACK20.0408fps but tail3pixel CRC differences and2damagedAU despite noNALloss; fullclean/G0 false. Existing AU250ms timer is based on first NAL rather than last progress; correction/reproduction pending. PStext+744/dataBSS0,main+8/feed_dma+16/source_dma0; PL/DMA/pixel unchanged. Full forward timebase/allframeage/10m/standalone/IOCDC/budget pending. 2026-11-05 AU idle corrected to last valid NAL500ms plus absolute1s; old same350ms full-byte native fixture produced8CRCchanged frames12-19, new200/200physical/allCRCclean. Native5deadline+15session/5ownedAU and6compiled faults/host9AU controls pass; controlledloss197frames/missing40-42/25CRCchanged but all140fromIDR60 recover. Newactualauto60.3s RF1200/1200unique physical frames/allCRCclean,16900SOURCE/8652800B,source20.06675/ACK20.1082fps,217.313ms maxgap,no>1s gap; noAU/NALdrop/CRCbad/decodeerror. This RF camera readinessmax156434us did not reproduce old330ms tail gap; not a paired RF causal proof. PStext+104/dataBSS0/AUstate+8/AUpushstack+8,othersunchanged; partialRAMsum16599856 excludes completecodec/allocator/stacks/CMA. PL/DMA/pixel/payload unchanged/fullbudgetfalse. Fullforwardtimebase/allframeage/10m/standalone/IOCDC stillpending. 2026-11-05 necessary forward VRT3 control transport prototype: actual CRC/active-session/profile/interval/reference checks -> one borrowed32B SESSION slot in existing1024B SOURCE BRAM -> opaque32KiB batch -> actualA9 file parser byteCRC1472f2b1. At most1controlslot preserves1SOURCEslot; busy dropsmetadata, doesnotresetFEC, no rawIQ/extra payloadRAM.7compiled functional faults pass. Current54core raw replay136SOURCE69632B/142records491batches unchanged; oldCSR adapter in raw run plus new atomic CPACK tag CSR6-batch test separately. Shared single write port fixes rejected LUTRAM candidate. Exact paired localbridge +422LUT/+329FF, same-code ingress +195/+227, disjointsum+617/+556,BRAM/DSP0; not fullboard cost. NewCSR declares71registerbits, wrapper/CSR wholecost unmeasured. DeployedR11 and Stage2reservation unchanged; do not infer timing/physicalfit. ActualUHD/capture clock anchors, fullPHY VRT reference, PS clockmap/allframeage, R12integration/RF/10m/standalone/fullbudget pending.",
+  "g0_passed": false,
+  "superseded_standalone_costs_not_added": [
+    {
+      "name": "isolated_RS20_32_coefficient_generator",
+      "source": "docs/evidence/g0-fec-inverse-cost-20261102.json",
+      "LUT": 459,
+      "FF": 138,
+      "BRAM36_equivalent": 1.0,
+      "DSP": 0,
+      "note": "Includes generator/inverse ROM, 800B scratch, 40B pivot cache and inversion FSM; not bank scheduling or coefficient consumer storage."
+    },
+    {
+      "name": "standalone_RAM_GF_MAC_8_16",
+      "source": "docs/evidence/g0-fec-memory-cost-20261102.json",
+      "note": "Contained in integrated FEC variant measurements; not added again."
+    },
+    {
+      "name": "isolated_four_real_lane_RRC",
+      "source": "docs/evidence/g0-rrc-cost-20261102.json",
+      "LUT": 2830,
+      "FF": 3413,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 12,
+      "note": "Two complex RX, 41 taps, signed18 input/Q17 coefficients, signed20 output, II8; no NCO/notch/interpolation. Superseded by actual connected NCO/RRC cost; not added again."
+    },
+    {
+      "name": "isolated_configured_dual_RX_NCO",
+      "source": "docs/evidence/g0-nco-cost-20261102.json",
+      "LUT": 209,
+      "FF": 469,
+      "BRAM36_equivalent": 0.5,
+      "DSP": 4,
+      "note": "Included in connected NCO/RRC measurement; not added again."
+    },
+    {
+      "name": "connected_NCO_RRC",
+      "source": "docs/evidence/g0-nco-rrc-cost-20261102.json",
+      "LUT": 3110,
+      "FF": 3889,
+      "BRAM36_equivalent": 0.5,
+      "DSP": 16,
+      "note": "Actual configured dual-RX NCO -> four-real-lane41tap RRC, II8. No calibration/notch/CFO estimator/interpolation; full platform integration pending. Superseded by connected configured frontend measurement; historical cost not added again."
+    },
+    {
+      "name": "isolated_bounded_RRC_history_interpolation",
+      "source": "docs/evidence/g0-interpolation-cost-20261102.json",
+      "LUT": 325,
+      "FF": 775,
+      "BRAM36_equivalent": 1.5,
+      "DSP": 1,
+      "note": "512x80bit history + configured Q16 linear interpolation, signed20 input/signed21 scale4 output, concurrent writes and II17 requests. Not connected to actual NCO/RRC or timing estimator. Superseded by connected configured frontend measurement; historical cost not added again."
+    },
+    {
+      "name": "isolated_Q32_timing_request_generator",
+      "source": "docs/evidence/g0-timing-request-cost-20261102.json",
+      "LUT": 160,
+      "FF": 231,
+      "BRAM36_equivalent": 0,
+      "DSP": 0,
+      "note": "Included in connected configured frontend measurement; not added again."
+    },
+    {
+      "name": "isolated_signed27_phase_angle_CORDIC",
+      "source": "docs/evidence/g0-phase-angle-cost-20261102.json",
+      "LUT": 656,
+      "FF": 261,
+      "BRAM36_equivalent": 0,
+      "DSP": 0,
+      "note": "Included in actual training CFO/H column measurement. Sharing with future acquisition/tracking is not assumed."
+    },
+    {
+      "name": "connected_configured_NCO_RRC_Q32_history_interpolation",
+      "source": "docs/evidence/g0-frontend-chain-cost-20261102.json",
+      "LUT": 3642,
+      "FF": 5028,
+      "BRAM36_equivalent": 2.0,
+      "DSP": 17,
+      "note": "Actual configured dual-RX NCO -> four-real-lane41tap RRC with context/start ->512x80 history/interpolation plus80bitQ32 request generator. ADC II8 and final response II32 for step4. Calibration/notch, timing/CFO estimators, training/pilot and full platform integration pending. Superseded by connected frontend/two-column training measurement; historical cost not added again."
+    },
+    {
+      "name": "isolated_training_CFO_H_column",
+      "source": "docs/evidence/g0-training-channel-cost-20261102.json",
+      "LUT": 2889,
+      "FF": 1409,
+      "BRAM36_equivalent": 2.0,
+      "DSP": 18,
+      "note": "Actual448x84 training RAM + online two-RX block CORDIC/OLS, energy selection,448-vector replay/rotation and H normalization. One TX column per descriptor. Includes phase-angle core; no separate addition. Frontend connection, atomic two-column H and consumers remain pending. Superseded by connected frontend/two-column training measurement; historical cost not added again."
+    },
+    {
+      "name": "isolated_public_differential_correlator",
+      "source": "docs/evidence/g0-differential-corr-cost-20261102.json",
+      "LUT": 5642,
+      "FF": 3122,
+      "BRAM36_equivalent": 3.5,
+      "DSP": 0,
+      "note": "Historical W29 standalone correlation only. Superseded by signed16 ADC lag4/E/W33 correlation/score/512-peak/phase/initial-NCO-descriptor chain; not added again."
+    },
+    {
+      "name": "connected_public_differential_coarse_acquisition_previous_measurement",
+      "source": "docs/evidence/g0-differential-acquisition-cost-20261102.json",
+      "LUT": 11206,
+      "FF": 8365,
+      "BRAM36_equivalent": 5.0,
+      "DSP": 76,
+      "note": "Superseded measurement retained as history, not added again. See current component source."
+    },
+    {
+      "name": "connected_configured_frontend_two_column_training_matrix_previous_measurement",
+      "source": "docs/evidence/g0-training-frontend-cost-20261102.json",
+      "LUT": 6976,
+      "FF": 7255,
+      "BRAM36_equivalent": 4.0,
+      "DSP": 35,
+      "note": "Superseded measurement retained as history, not added again. See current component source."
+    },
+    {
+      "name": "connected_configured_frontend_two_column_training_matrix",
+      "source": "docs/evidence/g0-training-frontend-default-refresh-r2-cost-20261102.json",
+      "LUT": 6928,
+      "FF": 7256,
+      "BRAM36_equivalent": 4.0,
+      "DSP": 35,
+      "note": "Superseded by actual shared configured frontend; not added again. Actual configured NCO/RRC/Q32/history/interpolation + two-column normal training. Refreshed with ENABLE_STARTUP=0 and explicit optional-input ties; optional quality logic compiled out. All original counters/milestones unchanged. Actual sharing with startup-enabled mode is not yet connected."
+    },
+    {
+      "name": "standalone_startup_enabled_training_core",
+      "source": "docs/evidence/g0-startup-training-cost-20261102.json",
+      "LUT": 3516,
+      "FF": 1831,
+      "BRAM36_equivalent": 2.0,
+      "DSP": 22,
+      "note": "Superseded by actual shared configured frontend; not added again. Runtime startup/normal arithmetic shares its own RAM/CORDIC/divider/rotation/normalization. Counted as a separate full core until actual integration replaces the normal frontend core; do not assume that sharing saving before measurement."
+    },
+    {
+      "name": "connected_configured_frontend_shared_startup_and_two_column_training",
+      "source": "docs/evidence/g0-shared-training-frontend-cost-20261102.json",
+      "LUT": 7825,
+      "FF": 7906,
+      "BRAM36_equivalent": 4.0,
+      "DSP": 39,
+      "note": "Superseded by actual frontend/startup/final-parameter connection; not added again. Actual one training instance shared by startup variable M and normal two-column jobs, connected to configured NCO/RRC/Q32/history/interpolation. Direction remains tied low; coarse/final dispatch and real startup deadline pending."
+    },
+    {
+      "name": "standalone_exact_fine_NCO_configuration",
+      "source": "docs/evidence/g0-fine-nco-config-cost-20261102.json",
+      "LUT": 671,
+      "FF": 768,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 0,
+      "note": "Superseded by actual frontend/startup/final-parameter connection; not added again. Exact rational final step/phase,96bit serial divider twice and48cycle shift-add;241cycle observed response. Actual startup handoff and NCO application pending."
+    },
+    {
+      "name": "connected_configured_frontend_startup_normal_and_exact_final_parameters",
+      "source": "docs/evidence/g0-startup-config-connected-cost-20261102.json",
+      "LUT": 9100,
+      "FF": 8952,
+      "BRAM36_equivalent": 4.0,
+      "DSP": 39,
+      "note": "Superseded by actual timed/conjugation-enabled frontend; not added again."
+    },
+    {
+      "name": "connected_timed_configured_frontend_startup_normal_and_final_parameters",
+      "source": "docs/evidence/g0-timed-training-cost-20261102.json",
+      "LUT": 9298,
+      "FF": 8945,
+      "BRAM36_equivalent": 4.0,
+      "DSP": 39,
+      "note": "Superseded by actual automatic self-configuration frontend; not added again."
+    },
+    {
+      "name": "connected_autocommit_frontend_startup_normal_and_final_parameters",
+      "source": "docs/evidence/g0-autocommit-cost-20261102.json",
+      "LUT": 9103,
+      "FF": 8926,
+      "BRAM36_equivalent": 4.0,
+      "DSP": 39,
+      "note": "Superseded by actual continuous-ingress shared frontend; not added again."
+    },
+    {
+      "name": "connected_public_differential_coarse_acquisition",
+      "source": "docs/evidence/g0-differential-acquisition-shared-cost-20261102.json",
+      "LUT": 11019,
+      "FF": 8400,
+      "BRAM36_equivalent": 5.0,
+      "DSP": 52,
+      "note": "Superseded by actual connected coarse/schedule/frontend top; not added again. Actual full coarse chain with one shared exact100x70 cross-product multiplier; output unchanged, terminal latency68cycles. Includes separate acquisition CORDIC; calibration/notch, dispatch and coherent timing pending."
+    },
+    {
+      "name": "continuous_ingress_shared_autocommit_frontend",
+      "source": "docs/evidence/g0-continuous-autocommit-cost-20261102.json",
+      "LUT": 11216,
+      "FF": 9939,
+      "BRAM36_equivalent": 6.0,
+      "DSP": 39,
+      "note": "Superseded by actual connected coarse/schedule/frontend top; not added again. Actual128word128bit XPM elastic FIFO + fail-stop guard + shared startup/normal + exact final parameters + same-NCO automatic timed application. Fixed no-ready4MSPS source, bounded stall and overflow tested. Retained IO measurement platform still separately includes its old FIFO; no unmeasured deduction for future physical reuse."
+    },
+    {
+      "name": "connected_calibrated_ADC_coarse_schedule_and_startup_frontend",
+      "source": "docs/evidence/g0-acquiring-frontend-cost-20261102.json",
+      "LUT": 22438,
+      "FF": 18069,
+      "BRAM36_equivalent": 11.0,
+      "DSP": 91,
+      "note": "Superseded by actual autonomous retry frontend; not added again."
+    },
+    {
+      "name": "autonomous_retry_calibrated_ADC_acquisition_frontend",
+      "source": "docs/evidence/g0-autonomous-retry-cost-20261102.json",
+      "LUT": 22659,
+      "FF": 18660,
+      "BRAM36_equivalent": 11.0,
+      "DSP": 91,
+      "note": "Superseded by actual compact-ingress joint route; not added again. Healthy-ingress autonomous failed-candidate retry semantics retained."
+    },
+    {
+      "name": "compact_ingress_autonomous_retry_calibrated_ADC_acquisition_frontend",
+      "source": "docs/evidence/g0-compact-autonomous-retry-cost-20261103.json",
+      "LUT": 20822,
+      "FF": 18144,
+      "BRAM36_equivalent": 11.0,
+      "DSP": 91,
+      "note": "Superseded by actual autonomous ingress recovery joint measurement; not added again. This is the user-accepted16-bank152LUT-excess baseline after estimated Stage2 reserve."
+    },
+    {
+      "name": "configured_integer_RRC_coherent_fractional_peak",
+      "source": "docs/evidence/g0-coherent-timing-cost-20261103.json",
+      "LUT": 3062,
+      "FF": 2642,
+      "BRAM36_equivalent": 9.0,
+      "DSP": 24,
+      "note": "Superseded by actual autonomous coherent/SFO/window-control joint measurement; not added again."
+    },
+    {
+      "name": "isolated_past_four_peak_SFO_and_predictions",
+      "source": "docs/evidence/g0-causal-sfo-20261103.json",
+      "LUT": 1999,
+      "FF": 1610,
+      "DSP": 0,
+      "BRAM36_equivalent": 0,
+      "note": "Contained in actual autonomous coherent/SFO/window-control joint measurement. Isolated cost is NOT added separately."
+    },
+    {
+      "name": "autonomous_ingress_recovery_calibrated_ADC_acquisition_frontend",
+      "source": "docs/evidence/g0-ingress-recovery-cost-20261103.json",
+      "LUT": 20884,
+      "FF": 18203,
+      "BRAM36_equivalent": 11.0,
+      "DSP": 91,
+      "note": "Superseded by actual merged acquisition/shared4096/normal-training implementation; historical cost not added again. Actual compact128word ingress + local autonomous rearm/flush/fresh-phase-origin search after fault, with healthy-ingress candidate retry and nonblocking diagnostics. Joint cost +62LUT/+59FF vs accepted152-excess baseline; no DSP/BRAM increment.24starts/18fault recoveries; softwarecalibration/notch and incomplete tracking/packet/video consumers remain pending."
+    },
+    {
+      "name": "autonomous_RRC_public_timing_and_past_only_SFO",
+      "source": "docs/evidence/g0-causal-tracking-timing-cost-20261103.json",
+      "LUT": 5522,
+      "FF": 4744,
+      "DSP": 24,
+      "BRAM36_equivalent": 9.0,
+      "note": "Superseded by actual merged acquisition/shared4096/normal-training implementation; historical cost not added again. Actual six-module coherent metrics/peak -> four-past-peak exact SFO -> autonomous next-window controller + nonblocking122bit diagnostic mailbox, private4096x80 history. No live upstream ADC/NCO/RRC connection, normal training dispatch or shared interpolation yet. Existing512 history stays in the separately counted frontend; no hypothetical sharing deduction."
+    },
+    {
+      "name": "live_acquisition_shared4096_autonomous_timing_and_normal_training",
+      "source": "docs/evidence/g0-live-tracking-acquisition-cost-20261103.json",
+      "LUT": 26460,
+      "FF": 23328,
+      "BRAM36_equivalent": 18.5,
+      "DSP": 115,
+      "note": "Superseded by actual31RTL protected-header chain; historical cost not added. Actual28RTL calibrated ADC/coarse/startup/same-final-NCO/RRC/shared4096/coherent/SFO/autonomous normal jobs/two-column H plus ingress/local recovery. Replaces previous20884+5522 components; +54LUT/+381FF/-1.5BRAM vs their conservative separate sum, not an old joint delta. Shared pool9RAMB36, private512 absent; no hypothetical deduction. Calibration/notch, physicalIO/CDC, header/pilot/packet/DMA/video remain pending."
+    },
+    {
+      "name": "isolated_full_precision_BPSKrepeat2_protected_PHY_header",
+      "source": "docs/evidence/g0-bpsk-header-20261103.json",
+      "LUT": 1167,
+      "FF": 1082,
+      "BRAM36_equivalent": 0.5,
+      "DSP": 1,
+      "note": "Contained in actual31RTL joint main; not added again."
+    },
+    {
+      "name": "live_acquisition_shared4096_normal_training_and_protected_PHY_header",
+      "source": "docs/evidence/g0-live-header-acquisition-cost-20261103.json",
+      "LUT": 28629,
+      "FF": 26014,
+      "BRAM36_equivalent": 19.0,
+      "DSP": 117,
+      "note": "Previous31RTL actual header acquisition baseline; replaced in current resource sum by actual35RTL routed header/pilot frame chain. Historical measurement retained, not added again."
+    },
+    {
+      "name": "shared_header_pilot_DSP_CORDIC_and_bounded_two_TX_smoothing",
+      "source": "docs/evidence/g0-pilot-tracking-cost-20261103.json",
+      "LUT": 4092,
+      "FF": 2544,
+      "BRAM36_equivalent": 0.5,
+      "DSP": 1,
+      "included_in_current_live_main": true,
+      "note": "Previous6RTL header/pilot/math/smoothing island now physically contained in35RTL frame chain.4092/2544/1/.5 not added again; constituent isolated costs also not added.",
+      "constituent_costs_not_added_separately": [
+        {
+          "name": "header_pilot_math",
+          "LUT": 2883,
+          "FF": 1914,
+          "DSP": 1,
+          "BRAM36_equivalent": 0.5
+        },
+        {
+          "name": "bounded_smoothing",
+          "LUT": 1171,
+          "FF": 598,
+          "DSP": 0,
+          "BRAM36_equivalent": 0
+        }
+      ],
+      "separately_counted": false
+    },
+    {
+      "name": "isolated_ML_arithmetic",
+      "source": "docs/evidence/g0-ml-cost-20261102.json",
+      "LUT": 595,
+      "FF": 262,
+      "BRAM36_equivalent": 0,
+      "DSP": 4,
+      "note": "Historical16bit-y/14bit-H standalone ML, not final full26bit-H payload arithmetic. Superseded by measured3139LUT/2645FF/16DSP phase-join/rotation/full-width ML island. It was never inside current35RTL main; do not subtract it from that main."
+    },
+    {
+      "name": "live_acquisition_shared4096_normal_training_protected_header_and_pilot_phase",
+      "source": "docs/evidence/g0-live-frame-acquisition-cost-20261103.json",
+      "LUT": 32223,
+      "FF": 27679,
+      "BRAM36_equivalent": 19.0,
+      "DSP": 117,
+      "note": "HISTORICAL component cost now contained in measured42RTL main; not added separately. Actual35RTL calibratedADC/coarse/startup/finalNCO/RRC/shared4096/coherent/SFO/normalH -> protectedheader and274pilotpairs/normalizedCORDIC/SG7. FULL10episode numerical/data/recovery passed27completeframes+9explicitpartialtailerrors,14868pilots/angles14796phasepoints; all prior acquisition/header counters/deadlines EXACT. Current42case sharedpool unit,6compiled controls and2actualADCactive/heldrecovery boundaries passed. ONE4096pool9RAMB36, ONEcommonheader/pilotF1samplerDSP andmathDSP, no private512/header/pilot sampleRAM.32223LUT27679FF117DSP19BRAM,WNS/WHS+.121/+.028 localOOC only. PhysicalIO/calibration/notch/businessphaseinterp/rotation/payload/link/FEC/DMA/DDR/video pending; notfullG0/boardCDC/IO/timing.",
+      "current_full_numerical_regression_passed": true,
+      "routed_candidate_timing_passed": true,
+      "separately_counted": false
+    },
+    {
+      "name": "payload_phase_join_full_H_rotation_and_exact_ML_numeric_island",
+      "source": "docs/evidence/g0-payload-datapath-20261103.json",
+      "LUT": 3139,
+      "FF": 2645,
+      "BRAM36_equivalent": 0,
+      "DSP": 16,
+      "note": "HISTORICAL component cost now contained in measured42RTL main; not added separately. Actual5RTL SG-node interpolation -> identity checked F1-sample join -> H26-to27 rotation/y21-to26 -> exact16-candidate62bit ML. Separate from actual35RTL acquisition/header/pilot main, not yet live shared-pool consumer. No PL linkCRC/phase-node queue/business sampler arbitration included. OOC50MHz2nsIO WNS/WHS+2.613/+.138, full finite numeric/ownership/whole-frame service passed. ROM actually LUT logic; rotation4DSP plusML12DSP, no assumed2DSP sharing.",
+      "current_numerical_regression_passed": true,
+      "routed_candidate_timing_passed": true,
+      "integrated_into_actual_ADC_main": false,
+      "separately_counted": false
+    },
+    {
+      "name": "actual_ADC_shared4096_header_pilot_SG_business_phase_rotation_ML",
+      "source": "docs/evidence/g0-live-payload-acquisition-cost-20261103.json",
+      "LUT": 36299,
+      "FF": 31438,
+      "BRAM36_equivalent": 19.0,
+      "DSP": 133,
+      "note": "HISTORICAL42RTL cost now contained in actual44RTL; not added separately. Actual42RTL routed candidate: entire previous35RTL plus real shared-F1 business arbitration/8SG-nodes-perTX/full phase-rotation-ML/499bit frame ownership domain. ONE4096pool9RAMB36, zero private512, ONE header/pilot/business F1 DSP and ONE header/pilot math DSP. No extra business sample RAM. Includes all current scheduling/domain mapping.50MHz2nsIO WNS/WHS+.936/+.028 local OOC only; full board IO/CDC/DDR not signed off. PL linkCRC still pending.",
+      "current_full_numerical_regression_passed": true,
+      "routed_candidate_timing_passed": true,
+      "functional_regression_status": "Current full10episode actualADC passed27full/9tail,473472exactF1+phase+ML, all original acquisition counts/deadlines;3actualADC recovery boundaries,36case unit,6compiled controls,499bit domain and42case legacy regression passed.",
+      "separately_counted": false
+    },
+    {
+      "name": "historical8bank_explicitSEAL_recovery_probe",
+      "source": "docs/evidence/g0-fec-recovery-cost-20261102.json",
+      "LUT": 2029,
+      "FF": 1155,
+      "BRAM36_equivalent": 33.0,
+      "DSP": 0,
+      "note": "Superseded in active8bank component sum by fixed8 streamed core. Existing history/evidence retained, not added again."
+    },
+    {
+      "name": "fixed8_streamed_FEC_without_CRC_ingress_adapter",
+      "source": "docs/evidence/g0-fec-stream-fixed8-20261103.json",
+      "LUT": 2718,
+      "FF": 1622,
+      "BRAM36_equivalent": 33.0,
+      "DSP": 0,
+      "note": "Included in current actual ingress+FEC joint component. Do not add it alongside3342LUT current cost."
+    },
+    {
+      "name": "actual_ADC_shared4096_full_payload_and_PL_link_CRC_packet_output",
+      "source": "docs/evidence/g0-live-link-acquisition-cost-20261103.json",
+      "LUT": 37667,
+      "FF": 32534,
+      "BRAM36_equivalent": 20.0,
+      "DSP": 133,
+      "note": "Historical44RTL component now contained in actual48RTL ADC/FEC joint main; not added again.",
+      "current_full_numerical_regression_passed": true,
+      "routed_candidate_timing_passed": true
+    },
+    {
+      "name": "actual48RTL_ADC_shared4096_payload_CRC_and_internal_fixed8_FEC_ingress",
+      "source": "docs/evidence/g0-live-fec-acquisition-20261103.json",
+      "LUT": 41050,
+      "FF": 35074,
+      "BRAM36_equivalent": 53.0,
+      "DSP": 133,
+      "note": "Actual48RTL main including previous44RTL plus inband fixed8 ingress/FEC and packet-abort join. New physical RF captured ADC (software bounded DC/rounding) ->69632sourceB/13312restoredB/6completeblocks, all old27full/9tail numeric checks and local route passed. FEC standalone3342 already contained, not added again. Not live fullboard timing/CDC/IO/video or whole G0.",
+      "current_full_numerical_regression_passed": true,
+      "routed_candidate_timing_passed": true,
+      "actual_inband_ADC_FEC_source_recovery_passed": true,
+      "historical_only": true,
+      "in_current_sum": false,
+      "contained_in_actual50RTL": true
+    },
+    {
+      "name": "standalone_SOURCE_record_bridge",
+      "source": "docs/evidence/g0-source-record-bridge-20261103.json",
+      "actual_resources": {
+        "LUT": 1013,
+        "FF": 1351,
+        "BRAM36_equivalent": 1.0,
+        "DSP": 0
+      },
+      "contained_in_actual50RTL": true,
+      "in_current_sum_separately": false
+    },
+    {
+      "name": "actual50RTL_ADC_fixed8_FEC_bounded_order_atomic_SOURCE_records",
+      "source": "docs/evidence/g0-source-record-bridge-20261103.json",
+      "LUT": 41077,
+      "FF": 34610,
+      "BRAM36_equivalent": 54.0,
+      "DSP": 133,
+      "note": "Original48RTL unchanged. Actual50RTL captured-ADC ->136whole SOURCE/69632exactB/13312restoredB/26valid late retained/6terminal records; default bridge and actual wrapper local route passed. Standalone FEC3342 and bridge1013 are inside main, never added again. Wide diagnostics unexported; required controls/counters preserved. Not physical DMA, final schema/timebase, live video or full G0.",
+      "captured_ADC_atomic_record_regression_passed": true,
+      "original48RTL_numeric_sources_identical": true,
+      "routed_candidate_timing_passed": true
+    },
+    {
+      "name": "actual52RTL_ADC_fixed8_SOURCE_to_fixed_DMA_batches",
+      "source": "docs/evidence/g0-dma-batch-stream-20261103.json",
+      "LUT": 41618,
+      "FF": 35133,
+      "BRAM36_equivalent": 54.0,
+      "DSP": 133,
+      "note": "Original48RF/FEC unchanged; SOURCE finite admission cap8192 after measured4679cycle coupling. Actual52 ADC replay136SOURCE/69632B incl13312restored,142records in472batches byteexact; same-source localroute. Not physical SOURCE DMA/PLcalibration/timebase/video/fullG0. No standalone FEC/record/batch added again.",
+      "captured_ADC_atomic_record_regression_passed": true,
+      "original48RTL_numeric_sources_identical": true,
+      "routed_candidate_timing_passed": true
+    }
+  ],
+  "unmeasured_buffer_audit": {
+    "source": "docs/G0_TIMING_BUFFER_AUDIT.md",
+    "synthesized_or_added_to_measured_sum": false,
+    "candidates_raw_data_only_bytes": {
+      "optional_384_header_vectors": 4032,
+      "462_pilot_lookahead_vectors": 4851
+    },
+    "note": "Actual44RTL includes shared4096x80 RRC/448x84 training history/one common F1/8SGnodes perTX and two512B private validated packet buffers. No extra raw business sample RAM. Future production FEC/DMA queues remain unmeasured.",
+    "historical_signed20_candidates_raw_data_only_bytes": {
+      "448_training_vectors": 4480,
+      "optional_384_header_vectors": 3840,
+      "462_pilot_lookahead_vectors": 4620
+    },
+    "candidate_vector_format": "four signed21 scale4 components after F=1 interpolation, packed84bits",
+    "implemented_training_raw_capacity_bytes": 4704,
+    "training_448_vectors_now_in_measured_component": "actual_ADC_shared4096_full_payload_and_PL_link_CRC_packet_output",
+    "conditional_full_matrix_header_waiting_lower_bound_symbols": 66,
+    "conditional_bound_source": "docs/G0_LIVE_TRACKING.md; actual liveADC8 matrix2109cycles after header-right-neighbor,66header vectors ready; no actual header consumer",
+    "actual_interpolation_history_reuse_implemented": true,
+    "existing512_interpolation_history_sufficient_after_current_coherent_estimate": false,
+    "historical_14symbol_header_bound_applies_only_to_preconfigured_timing": true,
+    "historical_2170_age_applies_only_before_actual_SFO_computation": true,
+    "historical_pre_SFO_nominal_first_training_read_age_samples": 2170,
+    "historical_configured_coherent_peak_publication_max_RRC_center_delay_samples": 2809,
+    "shared_RRC4096_vectors_now_in_measured_component": "actual_ADC_shared4096_full_payload_and_PL_link_CRC_packet_output",
+    "shared_RRC4096_raw_bytes": 40960,
+    "historical_preconfigured_header_waiting_lower_bound_symbols": 14,
+    "actual_live_matrix_minimum_data_lead_cycles": 10179,
+    "actual_live_matrix_maximum_header_wait_cycles": 2109,
+    "historical_timing_island_delay_bounds_not_new_live_measurements": true,
+    "historical_timing_island_maximum_read_age_samples": 2712,
+    "historical_timing_island_update_maximum_delay_from_fractional_center_floor_samples": 2828,
+    "historical_timing_island_first_training_read_age_before_additional_dispatch_samples": 2189,
+    "protected_header_replay_now_in_measured_component": "actual_ADC_shared4096_full_payload_and_PL_link_CRC_packet_output",
+    "separate384_header_vector_history_instantiated": false,
+    "actual_header_replay_retained_vectors_checked": 13824,
+    "actual_header_replay_maximum_read_age_samples": 271,
+    "actual_header_metadata_minimum_first_payload_lead_cycles": 52,
+    "actual_header_metadata_maximum_after_first_pilot_cycles": 12,
+    "first_payload_symbol_index": 1794,
+    "historical_DATA_START1792_is_first_pilot": true,
+    "actual_live_business_maximum_read_age_samples": 1844,
+    "SG_nodes_per_TX_in_measured_main": 8,
+    "validated_packet_payload_buffers_now_measured": {
+      "streams": 2,
+      "bytes_per_stream": 512,
+      "physical_RAM_primitives": 2,
+      "additional_BRAM36_equivalent": 1
+    }
+  },
+  "startup_and_normal_frontend_actual_core_sharing_verified": true,
+  "accepted_resource_deviations": [
+    {
+      "resource": "LUT",
+      "candidate": "16-bank FEC",
+      "accepted_excess": 152,
+      "basis": "User explicit acceptance on2026-11-03; after labelled Stage2 estimate, baseline cd27b82",
+      "baseline_frontend_source": "docs/evidence/g0-compact-autonomous-retry-cost-20261103.json",
+      "original_soft_limit": 37240,
+      "soft_limit_changed": false,
+      "complete_resource_budget_passed": false,
+      "later_increments_included": false,
+      "instruction": "Continue necessary functions; report subsequent resource increments separately. Do not repeatedly optimize solely to remove baseline152LUT. Video/timing/recovery/acceptance unchanged.",
+      "superseded_as_current_gate_by_resource_policy_update": true
+    }
+  ],
+  "measured_resource_changes_after_accepted_baseline": [
+    {
+      "function": "local autonomous ingress rearm and fresh-generation acquisition",
+      "source": "docs/evidence/g0-ingress-recovery-cost-20261103.json",
+      "baseline_source": "docs/evidence/g0-compact-autonomous-retry-cost-20261103.json",
+      "joint_delta": {
+        "LUT": 62,
+        "FF": 59,
+        "DSP": 0,
+        "BRAM36_equivalent": 0.0
+      },
+      "isolated_hierarchy_not_used_as_total_delta": {
+        "LUT": 172,
+        "FF": 66
+      },
+      "original_soft_limits_changed": false,
+      "complete_resource_budget_passed": false
+    },
+    {
+      "function": "configured192public coherent window and fractional peak; live connection/SFO pending",
+      "source": "docs/evidence/g0-coherent-timing-cost-20261103.json",
+      "additional_measured_island_resources": {
+        "LUT": 3062,
+        "FF": 2642,
+        "BRAM36_equivalent": 9.0,
+        "DSP": 24
+      },
+      "private_history_counted": true,
+      "old512_history_still_counted": true,
+      "hypothetical_sharing_deduction": false,
+      "combined_with_existing_acquisition_frontend_measured": false,
+      "original_soft_limits_changed": false,
+      "complete_resource_budget_passed": false,
+      "superseded_by_actual_timing_joint_component": "autonomous_RRC_public_timing_and_past_only_SFO",
+      "historical_cost_now_contained_in_live_joint_component": "live_acquisition_shared4096_autonomous_timing_and_normal_training"
+    },
+    {
+      "function": "actual past-only SFO, autonomous public-window control and nonblocking diagnostics",
+      "source": "docs/evidence/g0-causal-tracking-timing-cost-20261103.json",
+      "baseline_source": "docs/evidence/g0-coherent-timing-cost-20261103.json",
+      "timing_island_joint_delta": {
+        "LUT": 2460,
+        "FF": 2102,
+        "DSP": 0,
+        "BRAM36_equivalent": 0
+      },
+      "isolated_SFO_not_added_separately": {
+        "LUT": 1999,
+        "FF": 1610,
+        "DSP": 0,
+        "BRAM36_equivalent": 0
+      },
+      "combined_with_existing_acquisition_frontend_measured": false,
+      "actual_history_reuse_implemented": false,
+      "original_soft_limits_changed": false,
+      "complete_resource_budget_passed": false,
+      "historical_cost_now_contained_in_live_joint_component": "live_acquisition_shared4096_autonomous_timing_and_normal_training"
+    },
+    {
+      "function": "actual live acquisition/shared4096/normal-training dispatch and local-expiry recovery",
+      "source": "docs/evidence/g0-live-tracking-acquisition-cost-20261103.json",
+      "comparison_to_previous_separately_measured_sum": {
+        "sources": [
+          "docs/evidence/g0-ingress-recovery-cost-20261103.json",
+          "docs/evidence/g0-causal-tracking-timing-cost-20261103.json"
+        ],
+        "previous_sum": {
+          "LUT": 26406,
+          "FF": 22947,
+          "DSP": 115,
+          "BRAM36_equivalent": 20.0
+        },
+        "delta": {
+          "LUT": 54,
+          "FF": 381,
+          "DSP": 0,
+          "BRAM36_equivalent": -1.5
+        },
+        "not_a_previous_joint_implementation_delta": true
+      },
+      "current_complete_main_joint_measurement": {
+        "LUT": 26460,
+        "FF": 23328,
+        "BRAM36_equivalent": 18.5,
+        "DSP": 115
+      },
+      "hypothetical_memory_deduction": false,
+      "original_soft_limits_changed": false,
+      "complete_resource_budget_passed": false,
+      "historical_measurement_now_contained_in_protected_header_joint_main": "live_acquisition_shared4096_normal_training_and_protected_PHY_header"
+    },
+    {
+      "function": "protected PHY header shared-pool replay,fullprecision BPSKrepeat2,CRC/bounds/metadata/read ownership",
+      "source": "docs/evidence/g0-live-header-acquisition-cost-20261103.json",
+      "baseline_source": "docs/evidence/g0-live-tracking-acquisition-cost-20261103.json",
+      "joint_delta": {
+        "LUT": 2169,
+        "FF": 2686,
+        "BRAM36_equivalent": 0.5,
+        "DSP": 2
+      },
+      "actual_current_joint_resources": {
+        "LUT": 28629,
+        "FF": 26014,
+        "BRAM36_equivalent": 19.0,
+        "DSP": 117
+      },
+      "isolated_header_cost_not_added_separately": {
+        "LUT": 1167,
+        "FF": 1082,
+        "BRAM36_equivalent": 0.5,
+        "DSP": 1
+      },
+      "resource_target_changed_by_this_integration": false,
+      "current_LUT_planning_target": 45220,
+      "complete_resource_budget_passed": false
+    },
+    {
+      "name": "actual_shared_pool_header_pilot_frame_chain",
+      "source": "docs/evidence/g0-live-frame-acquisition-cost-20261103.json",
+      "baseline_source": "docs/evidence/g0-live-header-acquisition-cost-20261103.json",
+      "joint_delta": {
+        "LUT": 3594,
+        "FF": 1665,
+        "BRAM36_equivalent": 0.0,
+        "DSP": 0
+      },
+      "actual_current_joint_resources": {
+        "LUT": 32223,
+        "FF": 27679,
+        "BRAM36_equivalent": 19.0,
+        "DSP": 117
+      },
+      "previous_separate_main_plus_pilot_sum_difference": {
+        "LUT": -498,
+        "FF": -879,
+        "BRAM36_equivalent": -0.5,
+        "DSP": -1
+      },
+      "old_separate_sum_was_jointly_synthesized": false,
+      "current_full_numerical_regression_passed": true,
+      "current_LUT_planning_target": 45220,
+      "complete_resource_budget_passed": false
+    },
+    {
+      "function": "actual shared-F1 business requests/SG node queues/full payload phase-rotation-ML/frame-domain ownership",
+      "source": "docs/evidence/g0-live-payload-acquisition-cost-20261103.json",
+      "baseline_source": "docs/evidence/g0-live-frame-acquisition-cost-20261103.json",
+      "joint_delta": {
+        "LUT": 4076,
+        "FF": 3759,
+        "DSP": 16,
+        "BRAM36_equivalent": 0
+      },
+      "actual_current_joint_resources": {
+        "LUT": 36299,
+        "FF": 31438,
+        "BRAM36_equivalent": 19.0,
+        "DSP": 133
+      },
+      "difference_from_previous_separately_measured35RTL_plus_arithmetic_sum": {
+        "LUT": 937,
+        "FF": 1114,
+        "DSP": 0,
+        "BRAM36_equivalent": 0
+      },
+      "previous_separate_sum_jointly_synthesized": false,
+      "current_LUT_planning_target": 45220,
+      "complete_resource_budget_passed": false
+    },
+    {
+      "function": "actual PL link CRC/private packet buffers/ML framing/locked output/public fence",
+      "source": "docs/evidence/g0-live-link-acquisition-cost-20261103.json",
+      "baseline_source": "docs/evidence/g0-live-payload-acquisition-cost-20261103.json",
+      "joint_delta": {
+        "LUT": 1368,
+        "FF": 1096,
+        "BRAM36_equivalent": 1.0,
+        "DSP": 0
+      },
+      "actual_current_joint_resources": {
+        "LUT": 37667,
+        "FF": 32534,
+        "BRAM36_equivalent": 20.0,
+        "DSP": 133
+      },
+      "current_LUT_planning_target": 45220,
+      "complete_resource_budget_passed": false
+    },
+    {
+      "function": "fixed8bank streamed FEC whole commit/early original/dedup/autok/absolute expiry",
+      "source": "docs/evidence/g0-fec-stream-fixed8-20261103.json",
+      "baseline_source": "docs/evidence/g0-fec-recovery-cost-20261102.json",
+      "joint_delta": {
+        "LUT": 689,
+        "FF": 467,
+        "BRAM36_equivalent": 0.0,
+        "DSP": 0
+      },
+      "complete_resource_budget_passed": false
+    },
+    {
+      "function": "fixed8 FEC SOURCE complete-record staging/bounded lookahead/AXIS plus reduced wide diagnostic exports",
+      "source": "docs/evidence/g0-source-record-bridge-20261103.json",
+      "baseline_source": "docs/evidence/g0-live-fec-acquisition-20261103.json",
+      "joint_delta": {
+        "LUT": 27,
+        "FF": -464,
+        "BRAM36_equivalent": 1.0,
+        "DSP": 0
+      },
+      "actual_current_joint_resources": {
+        "LUT": 41077,
+        "FF": 34610,
+        "BRAM36_equivalent": 54.0,
+        "DSP": 133
+      },
+      "standalone_new_bridge_resources_not_added_again": {
+        "LUT": 1013,
+        "FF": 1351,
+        "BRAM36_equivalent": 1.0,
+        "DSP": 0
+      },
+      "complete_resource_budget_passed": false
+    },
+    {
+      "function": "complete SOURCE record to bounded fixed32KiB batches plus finite admission8192",
+      "source": "docs/evidence/g0-dma-batch-stream-20261103.json",
+      "baseline_source": "docs/evidence/g0-source-record-bridge-20261103.json",
+      "joint_delta": {
+        "LUT": 541,
+        "FF": 523,
+        "BRAM36_equivalent": 0.0,
+        "DSP": 0
+      },
+      "actual_current_joint_resources": {
+        "LUT": 41618,
+        "FF": 35133,
+        "BRAM36_equivalent": 54.0,
+        "DSP": 133
+      },
+      "complete_resource_budget_passed": false
+    },
+    {
+      "function": "PL startup exact DC and ties-even plus raw-input wrapper",
+      "source": "docs/evidence/g0-PL-DC-calibration-20261103.json",
+      "baseline_source": "docs/evidence/g0-dma-batch-stream-20261103.json",
+      "joint_delta": {
+        "LUT": 572,
+        "FF": 587,
+        "BRAM36_equivalent": 0.0,
+        "DSP": 0
+      },
+      "actual_current_joint_resources": {
+        "LUT": 42190,
+        "FF": 35720,
+        "BRAM36_equivalent": 54.0,
+        "DSP": 133
+      },
+      "standalone634LUT647FF_not_added_again": true,
+      "complete_resource_budget_passed": false
+    },
+    {
+      "change": "Exact41tap/II8 RRC history to3TDP images and3recent bypass words",
+      "whole_board_same_flow_R6_to_R7_SYNTH_delta": {
+        "LUT": -2436,
+        "FF": -2734,
+        "BRAM36_equivalent": 6,
+        "DSP": 0
+      },
+      "included_in_latest_integrated_candidate": true,
+      "source": "docs/evidence/g0-rrc-bram-20261103.json",
+      "full_budget_passed": false
+    }
+  ],
+  "resource_policy_update": {
+    "date": "2026-11-03",
+    "source": "user-directed reasonable resource relaxation; prioritize necessary functionality over repeated resource optimization",
+    "documentation": "docs/RESOURCE_POLICY_20261103.md",
+    "original_LUT_target_historical_only": 37240,
+    "current_LUT_target": 45220,
+    "physical_LUT_count": 53200,
+    "original_target_blocks_progress": false,
+    "other_resource_targets_unchanged": true,
+    "historical_integration_note_before_policy_update": "BaseIO/HDMI, isolatedML, actual merged acquisition/timing/normal-training and FEC component sums, not full board. New26460LUT23328FF115DSP18.5BRAM replaces prior20884+5522 main sum26406LUT22947FF115DSP20BRAM. Comparison +54LUT/+381FF/-1.5BRAM is vs separate modules, not an old joint measurement. Shared4096 RAM actually present9RAMB36; private512 absent. After labelled Stage2 estimate8/16bank LUT-4639/-5790,FF28420/27843,BRAM35.5/3.5,DSP17.16excess5790=acceptedbaseline152+recovery62+coherent3062+timingdelta2460+liveintegration54; later5638 separately unaccepted. Softlimits unchanged, fullbudget/G0 false. Header/pilot/packet/DMA/physicalIO/DDR/video pending."
+  },
+  "capacity_forecast": {
+    "active_FEC_banks": 8,
+    "basis": "actual R11 whole-board ROUTE, finite G0 scoped qualification only; remaining required functions unmeasured",
+    "soft_LUT_remaining_before_stage2_estimate": -1901,
+    "soft_LUT_remaining_after_stage2_estimate": -4401,
+    "physical_LUT_remaining_before_stage2_estimate_before_unimplemented_components": 6079,
+    "physical_LUT_remaining_after_stage2_estimate": 3579,
+    "unimplemented_functions_fit_proven": false,
+    "complete_resource_budget_passed": false,
+    "forecast": "47121/44536/74/150 measured ROUTE; uninstantiated Stage2 +2500/2000/2/8 ->49621/46536/76/158. All remaining core costs remain pending, full budget not passed."
+  },
+  "measured_unintegrated_function_islands": [],
+  "required_function_checkpoints": [
+    {
+      "name": "pilot_phase_math_bounded_smoothing_island",
+      "source": "docs/evidence/g0-pilot-tracking-cost-20261103.json",
+      "actual_resources": {
+        "LUT": 4092,
+        "FF": 2544,
+        "BRAM36_equivalent": 0.5,
+        "DSP": 1
+      },
+      "in_live_main": false,
+      "complete_resource_budget_passed": false,
+      "superseded_by_actual_frame_chain": true,
+      "historical_cost_now_contained_in_actual42RTL": true
+    },
+    {
+      "name": "actual_shared_pool_header_pilot_frame_chain",
+      "source": "docs/evidence/g0-live-frame-acquisition-cost-20261103.json",
+      "actual_resources": {
+        "LUT": 32223,
+        "FF": 27679,
+        "DSP": 117,
+        "BRAM36_equivalent": 19.0
+      },
+      "in_live_main": false,
+      "complete_resource_budget_passed": false,
+      "historical_cost_now_contained_in_actual42RTL": true
+    },
+    {
+      "name": "actual_ADC_shared4096_header_pilot_SG_business_phase_rotation_ML",
+      "source": "docs/evidence/g0-live-payload-acquisition-cost-20261103.json",
+      "actual_resources": {
+        "LUT": 36299,
+        "FF": 31438,
+        "BRAM36_equivalent": 19.0,
+        "DSP": 133
+      },
+      "in_live_main": false,
+      "current_full_numerical_regression_passed": true,
+      "routed_candidate_timing_passed": true,
+      "complete_resource_budget_passed": false,
+      "historical_cost_now_contained_in_actual44RTL": true
+    },
+    {
+      "name": "actual_ADC_shared4096_full_payload_and_PL_link_CRC_packet_output",
+      "source": "docs/evidence/g0-live-link-acquisition-cost-20261103.json",
+      "actual_resources": {
+        "LUT": 37667,
+        "FF": 32534,
+        "BRAM36_equivalent": 20.0,
+        "DSP": 133
+      },
+      "in_live_main": false,
+      "current_full_numerical_regression_passed": true,
+      "routed_candidate_timing_passed": true,
+      "complete_resource_budget_passed": false,
+      "historical_cost_now_contained_in_actual48RTL": true
+    },
+    {
+      "name": "fixed8_streamed_FEC_core",
+      "source": "docs/evidence/g0-fec-stream-fixed8-20261103.json",
+      "actual_resources": {
+        "LUT": 2718,
+        "FF": 1622,
+        "BRAM36_equivalent": 33.0,
+        "DSP": 0
+      },
+      "included_via_FEC_storage": false,
+      "in_live_main": false,
+      "current_numerical_queue_service_deadline_passed": true,
+      "routed_candidate_timing_passed": true,
+      "complete_resource_budget_passed": false,
+      "historical_cost_now_contained_in_ingress_FEC": true
+    },
+    {
+      "name": "fixed8_inband_session_range_CRC_to_FEC_ingress",
+      "source": "docs/evidence/g0-crc-fec-pipeline-20261103.json",
+      "actual_resources": {
+        "LUT": 3342,
+        "FF": 2504,
+        "BRAM36_equivalent": 33.0,
+        "DSP": 0
+      },
+      "included_via_FEC_storage": false,
+      "in_live_main": false,
+      "current_numerical_deadline_recovery_passed": true,
+      "routed_candidate_timing_passed": true,
+      "complete_resource_budget_passed": false,
+      "routed_top": "link_fec_ingress_cost_probe",
+      "CRC_byte_wrapper_used_in_simulation_only_not_added_again": true,
+      "historical_cost_now_contained_in_actual48RTL": true
+    },
+    {
+      "name": "actual48RTL_ADC_shared4096_payload_CRC_and_internal_fixed8_FEC_ingress",
+      "source": "docs/evidence/g0-live-fec-acquisition-20261103.json",
+      "actual_resources": {
+        "LUT": 41050,
+        "FF": 35074,
+        "BRAM36_equivalent": 53.0,
+        "DSP": 133
+      },
+      "in_live_main": false,
+      "current_legacy_numerical_regression_passed": true,
+      "actual_ADC_inband_source_recovery_passed": true,
+      "routed_candidate_timing_passed": true,
+      "complete_resource_budget_passed": false,
+      "historical_cost_now_contained_in_actual50RTL": true
+    },
+    {
+      "name": "actual50RTL_ADC_fixed8_FEC_bounded_order_atomic_SOURCE_records",
+      "source": "docs/evidence/g0-source-record-bridge-20261103.json",
+      "actual_resources": {
+        "LUT": 41077,
+        "FF": 34610,
+        "BRAM36_equivalent": 54.0,
+        "DSP": 133
+      },
+      "in_live_main": false,
+      "captured_ADC_record_regression_passed": true,
+      "routed_candidate_timing_passed": true,
+      "original48RTL_sources_unchanged": true,
+      "complete_resource_budget_passed": false,
+      "historical_cost_now_contained_in_actual52RTL": true
+    },
+    {
+      "name": "native_ADC_provider_queued_DMA_owner_readonly_mmap_USER_lease_and_cancel_reentry",
+      "source": "docs/evidence/g0-native-dma-ring-20261103.json",
+      "PS_coherent_DDR_bytes": 294912,
+      "new_PL_resources": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM36_equivalent": 0,
+        "DSP": 0
+      },
+      "native_subcondition_passed": true,
+      "complete_R10_or_resource_budget_passed": false
+    },
+    {
+      "name": "actual52RTL_ADC_fixed8_SOURCE_fixed32KiB_batches",
+      "source": "docs/evidence/g0-dma-batch-stream-20261103.json",
+      "actual_resources": {
+        "LUT": 41618,
+        "FF": 35133,
+        "BRAM36_equivalent": 54.0,
+        "DSP": 133
+      },
+      "in_live_main": false,
+      "captured_ADC_all_SOURCE_and_batch_bytes_equal": true,
+      "routed_candidate_timing_passed": true,
+      "physical_SOURCE_DMA_or_complete_resource_budget_passed": false,
+      "historical_cost_now_contained_in_actual54RTL": true
+    },
+    {
+      "name": "actual54RTL_raw_ADC_PL_DC_fixed8_SOURCE_batches",
+      "source": "docs/evidence/g0-PL-DC-calibration-20261103.json",
+      "actual_resources": {
+        "LUT": 42190,
+        "FF": 35720,
+        "BRAM36_equivalent": 54.0,
+        "DSP": 133
+      },
+      "in_live_main": true,
+      "raw_ADC_no_software_DC_source_regression_passed": true,
+      "routed_candidate_timing_passed": true,
+      "physical_SOURCE_DMA_or_complete_resource_budget_passed": false
+    }
+  ],
+  "capacity_options_not_yet_counted": [
+    {
+      "option": "Necessary physical ADC/DMA integration can replace proven old capture ingress/serializer duplication",
+      "source": "docs/evidence/g0-platform-resource-audit-20261103.json",
+      "old_component_union_LUT": 2547,
+      "savings_counted": false,
+      "tradeoff": "2547 is NOT measured net saving and cannot alone close revised target deficit. Retain physical WFIFO/CPACK/AD9361/HDMI/EOF; prove no-ready continuity/CDC/flush/fault/DMA ownership."
+    },
+    {
+      "option": "After measured service/lifetime analysis, evaluate bounded sharing of actual phase-angle/arithmetic instances",
+      "savings_counted": false,
+      "tradeoff": "Current133DSP main/retained21DSP platform/estimated8DSP Stage2 remain charged. Keep precision, recovery and original deadlines; no cosmetic old70percent optimization."
+    },
+    {
+      "option": "Trim nonessential production diagnostics and redundant wide observations after actual dependency audit",
+      "documentation": "docs/CORE_SCOPE_PRIORITY_20261103.md",
+      "known_diagnostic_mailbox_component_union": {
+        "LUT": 136,
+        "FF": 546
+      },
+      "tradeoff": "Current50RTL wrapper no longer exports redundant wide observations/diagnostic mailboxes. Joint delta already includes actual pruning/integration; do not deduct historical136LUT/546FF again. Further optional traces need new dependency audit and measurement; keep mandatory counters/ownership.",
+      "already_measured_joint_trim_included": true,
+      "future_additional_savings_counted": false
+    }
+  ],
+  "historical_retired_16_bank_candidates": [
+    {
+      "FEC_banks": 16,
+      "FEC_scope": "Integrated probe: RAM/GF-MAC, inverse/ROM/scratch, coefficient cache, packet commit, bank owner/queue, parity check and source output; early forwarding/queued expiry/atomic DMA pending",
+      "FEC_source": "docs/evidence/g0-fec-recovery-cost-20261102.json",
+      "measured_component_sum": {
+        "LUT": 51142,
+        "FF": 48261,
+        "BRAM36_equivalent": 94.0,
+        "DSP": 154
+      },
+      "remaining_before_unimplemented_components": {
+        "LUT": -5922,
+        "FF": 20899,
+        "BRAM36_equivalent": 4.0,
+        "DSP": 11
+      },
+      "remaining_after_future_estimated_reserve_before_unimplemented_components": {
+        "LUT": -8422,
+        "FF": 18899,
+        "BRAM36_equivalent": 2.0,
+        "DSP": 3
+      },
+      "combined_synthesis_or_timing_verified": false,
+      "complete_resource_budget_passed": false,
+      "FEC_measured_resources": {
+        "LUT": 3180,
+        "FF": 1732,
+        "BRAM36_equivalent": 65.0,
+        "DSP": 0
+      },
+      "FEC_components_combined_OOC_verified": true,
+      "soft_limit_deficits_after_estimated_reserve": {
+        "LUT": 8422
+      },
+      "historical_increment_accounting": {
+        "historical_70_percent_LUT_deficit_after_estimated_reserve": 14097,
+        "accepted_baseline_LUT_excess": 152,
+        "subsequent_measured_joint_LUT_increment": 62,
+        "subsequent_standalone_coherent_LUT_cost": 3062,
+        "total_measured_LUT_increments_after_accepted_baseline": 10351,
+        "subsequent_causal_timing_island_LUT_delta": 2460,
+        "subsequent_live_integration_delta_from_previous_separate_component_sum": 54,
+        "subsequent_protected_header_measured_joint_LUT_increment": 2169,
+        "subsequent_frame_pilot_measured_joint_LUT_increment": 3594,
+        "subsequent_full_width_payload_island_replaces_old_ML_component_delta": {
+          "LUT": 2544,
+          "FF": 2383,
+          "DSP": 12,
+          "BRAM36_equivalent": 0,
+          "note": "Delta of separate measured components only; not an actual integrated40RTL main increment."
+        },
+        "previous42RTL_delta_from35RTL": {
+          "LUT": 4076,
+          "FF": 3759,
+          "DSP": 16,
+          "BRAM36_equivalent": 0
+        }
+      },
+      "component_sum_plus_stage2_estimate": {
+        "LUT": 53642,
+        "FF": 50261,
+        "BRAM36_equivalent": 96.0,
+        "DSP": 162
+      },
+      "physical_LUT_remaining_after_estimate_before_unimplemented_components": -442,
+      "latest_measured_PL_link_joint_delta_from42RTL": {
+        "LUT": 1368,
+        "FF": 1096,
+        "BRAM36_equivalent": 1.0,
+        "DSP": 0
+      },
+      "historical_only": true,
+      "active_implementation": false,
+      "retired_by_user_fixed8_scope": true
+    }
+  ],
+  "FEC_storage": {
+    "FEC_banks": 8,
+    "FEC_scope": "Fixed8 inside actual54RTL rawADC PLDC/SOURCE/batches;136SOURCE/69632B incl13312restored/142records491batches. Physical IO/CSR/DMA/session/timebase/video pending.",
+    "FEC_source": "docs/evidence/g0-crc-fec-pipeline-20261103.json",
+    "measured_component_sum": {
+      "LUT": 52485,
+      "FF": 49715,
+      "BRAM36_equivalent": 63.0,
+      "DSP": 154
+    },
+    "remaining_before_unimplemented_components": {
+      "LUT": -7265,
+      "FF": 19445,
+      "BRAM36_equivalent": 35.0,
+      "DSP": 11
+    },
+    "remaining_after_future_estimated_reserve_before_unimplemented_components": {
+      "LUT": -9765,
+      "FF": 17445,
+      "BRAM36_equivalent": 33.0,
+      "DSP": 3
+    },
+    "combined_synthesis_or_timing_verified": false,
+    "complete_resource_budget_passed": false,
+    "FEC_measured_resources": {
+      "LUT": 3342,
+      "FF": 2504,
+      "BRAM36_equivalent": 33.0,
+      "DSP": 0
+    },
+    "FEC_components_combined_OOC_verified": true,
+    "soft_limit_deficits_after_estimated_reserve": {
+      "LUT": 9765
+    },
+    "historical_increment_accounting": {
+      "historical_70_percent_LUT_deficit_after_estimated_reserve": 12946,
+      "subsequent_frame_pilot_measured_joint_LUT_increment": 3594,
+      "subsequent_full_width_payload_island_replaces_old_ML_component_delta": {
+        "LUT": 2544,
+        "FF": 2383,
+        "DSP": 12,
+        "BRAM36_equivalent": 0,
+        "note": "Delta of separate measured components only; not an actual integrated40RTL main increment."
+      },
+      "previous42RTL_delta_from35RTL": {
+        "LUT": 4076,
+        "FF": 3759,
+        "DSP": 16,
+        "BRAM36_equivalent": 0
+      }
+    },
+    "component_sum_plus_stage2_estimate": {
+      "LUT": 54985,
+      "FF": 51715,
+      "BRAM36_equivalent": 65.0,
+      "DSP": 162
+    },
+    "physical_LUT_remaining_after_estimate_before_unimplemented_components": -1785,
+    "latest_measured_PL_link_joint_delta_from42RTL": {
+      "LUT": 1368,
+      "FF": 1096,
+      "BRAM36_equivalent": 1.0,
+      "DSP": 0
+    },
+    "active_implementation": true,
+    "connected_to_actual44RTL_link_main": true,
+    "joint_delta_from_previous_stream_FEC": {
+      "LUT": 624,
+      "FF": 882,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 0
+    },
+    "joint_delta_from_previous8bank_recovery_historical": {
+      "LUT": 689,
+      "FF": 467,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 0
+    },
+    "CRC_byte_validator_already_charged_in44RTL_not_added_again": true,
+    "FEC_separately_counted": false,
+    "FEC_standalone_resources_already_contained_in_current_main": true,
+    "actual_ADC_inband_source_recovery_passed": true,
+    "ADC_FEC_joint_delta_vs_separate_components": {
+      "LUT": 41,
+      "FF": 36,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "connected_actual_ADC_RTL_count": 54,
+    "FEC_current_integrated_source": "docs/evidence/g0-PL-DC-calibration-20261103.json",
+    "record_bridge_already_contained_in_current_main": true,
+    "record_delivery_joint_delta_vs_actual48RTL": {
+      "LUT": 27,
+      "FF": -464,
+      "BRAM36_equivalent": 1.0,
+      "DSP": 0
+    },
+    "batcher_already_contained_in_current_main": true
+  },
+  "fixed_bank_policy": {
+    "banks": 8,
+    "no_future16_tests_builds_or_implementation": true,
+    "per_block_RS20_32_S512_unchanged": true,
+    "documentation": "docs/CORE_SCOPE_PRIORITY_20261103.md"
+  },
+  "native_DMA_owner_candidate": {
+    "source": "docs/evidence/g0-native-dma-ring-20261103.json",
+    "measured_on_native_Cortex_A9": true,
+    "scope": "finite actual ADC/provider ownership only, not production SOURCE batching",
+    "coherent_DDR_bytes": 294912,
+    "user_slots": 8,
+    "unmapped_STOP_drain_slots": 1,
+    "slot_bytes": 32768,
+    "PL_resources_added": {
+      "LUT": 0,
+      "FF": 0,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "PL_measured_components_and_Stage2_estimate_unchanged": true,
+    "no_RF_processing_moved_to_ARM": true,
+    "raw_loss_free_or_video_throughput_passed": false,
+    "production_DMA_record_batch_boundaries_and_integration_passed": false
+  },
+  "redundancy_audit": {
+    "documentation": "docs/PRODUCTION_REDUNDANCY_AUDIT_20261103.md",
+    "evidence": "docs/evidence/production-redundancy-audit-20261103.json",
+    "cache_island_net_synthesis_saving": {
+      "LUT": 2320,
+      "FF": 824,
+      "BRAM36_equivalent": 4.0,
+      "DSP": 0
+    },
+    "whole_board_saving_applied": false,
+    "whole_board_required_adaptation_net_saving_pending": true,
+    "core_targets_or_FEC_parameters_changed": false
+  },
+  "historical_failed_batch_integration_candidates": [
+    {
+      "scope": "Separate finite candidate cost, not replacement of last data-verified actual50RTL baseline",
+      "routed_receipt": "build/g0-adc-dma-batch-timing-r2/receipt.json",
+      "failed_ADC_replay": "build/g0-adc-dma-batch-air-r3/simulate.log",
+      "source_admission_wait_cycles": 2048,
+      "RTL_count": 52,
+      "resource_and_timing_measurement": {
+        "part": "xc7z020clg484-1",
+        "LUT": 41588,
+        "FF": 35180,
+        "LUT_logic": 40186,
+        "LUT_memory": 1402,
+        "RAMB36": 50,
+        "RAMB18": 8,
+        "DSP": 133,
+        "BRAM36_equivalent": 54.0,
+        "WNS_ns": 0.14,
+        "TNS_ns": 0.0,
+        "WHS_ns": 0.057,
+        "THS_ns": 0.0,
+        "unconstrained_internal_endpoints": 0,
+        "no_input_delay": 0,
+        "no_output_delay": 0,
+        "no_clock": 0,
+        "DRC_warning_ids": [
+          "DPIP-1",
+          "DPOP-1",
+          "DPOP-2",
+          "RTSTAT-10",
+          "ZPS7-1"
+        ],
+        "severe_DRC": 0,
+        "full_design_IO_CDC_and_timing_verified": false
+      },
+      "changed_source_sha256": {
+        "source_record_bridge_cost_probe.sv": "a8a347cfb0d0c19338028c59652e8986521b0a72d7482e56314c9297f7b4543d",
+        "record_acquiring_frontend_cost_probe.sv": "87209ab1d5a47a460a08b7a454e3bcb5175c9d82895f39ce085649dad04b4fcd",
+        "dma_batch_stream_cost_probe.sv": "1136640955b108f0604c6314524e7ca896b362f9dab7d5c4a48e9202c1a00d49",
+        "batched_acquiring_frontend_cost_probe.sv": "a1ba3c2c5bc802324d34a484185fcf1f591264173de1df87c1dc24731720000f"
+      },
+      "delta_from_data_verified50RTL": {
+        "LUT": 511,
+        "FF": 570,
+        "BRAM36_equivalent": 0,
+        "DSP": 0
+      },
+      "diagnostic_fixture_SOURCE_expected": 136,
+      "diagnostic_fixture_SOURCE_delivered": 135,
+      "diagnostic_fixture_SOURCE_dropped": 1,
+      "joint_functional_regression_passed": false,
+      "capacity_forecast_with_retained_platform": {
+        "LUT": 51883,
+        "FF": 49175,
+        "BRAM36_equivalent": 63,
+        "DSP": 154
+      },
+      "physical_LUT_remaining_before_unfinished_core": 1317,
+      "soft_LUT_target_deficit": 6663,
+      "capacity_forecast_plus_uninstantiated_Stage2_estimate": {
+        "LUT": 54383,
+        "FF": 51175,
+        "BRAM36_equivalent": 65,
+        "DSP": 162
+      },
+      "physical_LUT_deficit_plus_uninstantiated_Stage2_estimate": 1183,
+      "standalone_batch_525LUT_574FF_already_in_candidate_not_added_again": true,
+      "future_fix_resources_or_throughput_passed": false,
+      "full_budget_or_G0_passed": false,
+      "scope_note": "Underlying48RF/FEC sources unchanged. SOURCE admission bound differs from historical50RTL; current2048cycle full join loses1SOURCE. Short8192cycle coupled experiment is not a completed full regression or frozen profile."
+    }
+  ],
+  "PL_DC_calibration_candidate": {
+    "N": 80000,
+    "guard_samples": 2048,
+    "sum_signed_bits": 33,
+    "whole54_delta": {
+      "LUT": 572,
+      "FF": 587,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 0
+    },
+    "notch_implemented": false,
+    "source": "docs/evidence/g0-PL-DC-calibration-20261103.json",
+    "physical_integration_passed": false
+  },
+  "latest_integrated_candidate": {
+    "LUT": 47121,
+    "FF": 44536,
+    "BRAM36_equivalent": 74.0,
+    "DSP": 150,
+    "source": "docs/evidence/g0-R11-route-RAM-20261104.json",
+    "scope": "R11 fixed8/2x2 actual whole-board ROUTE and finite RAM/no-RF controls; not production IO/CDC, reliable RF, video or G0 signoff.",
+    "physical_LUT_room": 6079,
+    "soft_LUT_deficit": 1901,
+    "routed": true,
+    "complete_budget_passed": false,
+    "full_production_IO_signoff": false,
+    "WNS_ns": 0.009,
+    "WHS_ns": 0.015,
+    "WPWS_ns": 0.264,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 49621,
+      "FF": 46536,
+      "BRAM36_equivalent": 76,
+      "DSP": 158,
+      "physical_LUT_room": 3579,
+      "soft_LUT_deficit": 4401,
+      "measured": false,
+      "remaining_core_fit_proven": false
+    }
+  },
+  "historical_component_sum_note": "Existing measured_components retain54RTL local routed cost plus old retained platform,52485/49715/63/154. Compare scopes explicitly; never subtract island2320 or diagnostic202 from the already measured55RTL whole-board candidate.",
+  "paired_redundancy_savings": {
+    "entry_FIFO_island": {
+      "LUT": 2320,
+      "FF": 824,
+      "BRAM36_equivalent": 4,
+      "DSP": 0,
+      "source": "docs/evidence/production-redundancy-audit-20261103.json",
+      "full_board_saving_booked": false
+    },
+    "HDMI_diagnostic_island": {
+      "LUT": 202,
+      "FF": 297,
+      "BRAM36_equivalent": 0,
+      "DSP": 0,
+      "source": "docs/evidence/production-diagnostic-redundancy-20261103.json",
+      "production_adopted": true,
+      "full_board_saving_booked": false
+    },
+    "raw_CSR_replacement_net_saving": "not isolated/measured; gross removal not credited",
+    "HDMI_diagnostic_whole_board_SYNTH": {
+      "LUT": 212,
+      "FF": 285,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 0,
+      "source": "docs/evidence/production-diagnostic-whole-board-net-20261103.json",
+      "included_in_latest_integrated_total": true,
+      "routed": false
+    },
+    "R3_to_R7_aggregate_whole_board_SYNTH": {
+      "baseline": [
+        51893,
+        49383,
+        59,
+        154
+      ],
+      "current": [
+        48467,
+        45599,
+        74,
+        154
+      ],
+      "net_saved_LUT": 3426,
+      "net_saved_FF": 3784,
+      "added_BRAM36": 15,
+      "DSP_delta": 0,
+      "scope": "HDMI detail off + correlation history + RRC history; same-flow SYNTH checkpoints, not R3 SYNTH minus R7 ROUTE. Old externalFIFO/raw adapter replacement predates R3 and is not separately net-credited here.",
+      "included_in_latest_total": true
+    }
+  },
+  "additional_board_control_cost_included_in_latest_synthesis": {
+    "LUT": 346,
+    "FF": 1207,
+    "BRAM36_equivalent": 0,
+    "DSP": 0,
+    "note": "Inner bridge local346/1074 plus outer module boundary133FF. Already in43741/36535 subtree; not additive."
+  },
+  "R4_CE_mapping_trial": {
+    "synthesis_CE_threshold": 16,
+    "FEC_banks": 8,
+    "LUT": 52869,
+    "FF": 49372,
+    "BRAM36_equivalent": 59,
+    "DSP": 154,
+    "LUT_delta_vs_R3": 976,
+    "FF_delta_vs_R3": -11,
+    "adopted": false,
+    "route_status": "failed_place30_487",
+    "slice_deficit": 1174,
+    "control_sets": 698
+  },
+  "R3_before_diagnostic_trim": {
+    "source": "docs/evidence/g0-source-platform-20261103.json",
+    "LUT": 51893,
+    "FF": 49383,
+    "BRAM36_equivalent": 59,
+    "DSP": 154,
+    "scope": "Whole-board correct-ROM SYNTH; not additive to historical routed component sum. R3 placement failed by865slices, not a routed budget pass. Old externalFIFO/raw recorder absent; new CSR/auto-search cost included. Detailed HDMI diagnostics still included.",
+    "physical_LUT_room": 1307,
+    "soft_LUT_deficit": 6673,
+    "routed": false,
+    "complete_budget_passed": false,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 54393,
+      "FF": 51383,
+      "BRAM36_equivalent": 61,
+      "DSP": 162,
+      "physical_LUT_deficit": 1193
+    }
+  },
+  "PS_DDR_memory_separate_from_PL_resources": {
+    "SOURCE_DMA_owner_coherent_bytes": 294912,
+    "SOURCE_DMA_user_mapped_bytes": 262144,
+    "SOURCE_DMA_physical_board_validation": true,
+    "HDMI_scanout_format": "retained driver XRGB8888,64-bit AXIS,307200accepted beats per1024x600frame",
+    "scanout_one_frame_bytes": 2457600,
+    "scanout_three_frame_estimate_bytes": 7372800,
+    "scanout_three_frame_is_measured_production_allocation": false,
+    "decoder_reference_conversion_CMA_alignment_and_video_pool_budget": "pending final production integration; historical RGB565 intermediate estimate is not the scanout pool",
+    "new_PL_resources_from_PS_owner": 0,
+    "SOURCE_DMA_validation_scope": "R7 finite physical SOURCE byte join plus continuous65536-batch no-RF padding/STOP/reentry and16384empty batches overlapping local SOURCE-file/physical HDMI200frames; not effective payload through DMA+video or continuous RF signoff.",
+    "G0_HDMI_RGB565_three_requested_bytes": 3686400,
+    "G0_HDMI_XRGB8888_three_requested_minimum_bytes": 7372800,
+    "G0_HDMI_extra_null_RGB_scratch_bytes": 0,
+    "pixel_pool_requested_minimum_bytes": 11059200,
+    "NAL_AU_queue_pixel_and_DMA_partial_requested_sum_bytes": 16599856,
+    "partial_requested_sum_is_complete_RAM_or_RSS_budget": false
+  },
+  "R5_before_correlation_BRAM_mapping": {
+    "LUT": 51681,
+    "FF": 49098,
+    "BRAM36_equivalent": 59.0,
+    "DSP": 154,
+    "source": "docs/evidence/production-diagnostic-whole-board-net-20261103.json",
+    "scope": "R5 whole-board correct-ROM SYNTH, detail trace disabled. Not additive to historical54RTL routed component sum. R5 strict preplacement IO contracts pass, placement/route untested; prior R3/R4 packing failures remain.",
+    "physical_LUT_room": 1519,
+    "soft_LUT_deficit": 6461,
+    "routed": false,
+    "complete_budget_passed": false,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 54181,
+      "FF": 51098,
+      "BRAM36_equivalent": 61,
+      "DSP": 162,
+      "physical_LUT_deficit": 981
+    }
+  },
+  "correlation_history_mapping_actual_delta_included": {
+    "whole_board_LUT_change": -778,
+    "whole_board_FF_change": -765,
+    "whole_board_BRAM36_change": 9,
+    "DSP_change": 0,
+    "scope": "R5/R6 same canonical top, ROM and bridge, only verified W33 correlator history mapping replaced",
+    "source": "docs/evidence/g0-correlation-bram-20261103.json"
+  },
+  "additional_resources_not_yet_measured": {
+    "remaining_production_control_and_calibration": "SESSION/timebase/schema/periodic recovery and any calibration actually required; added costs unmeasured, not assigned zero",
+    "physical_concurrency": "Native SOURCE DMA/DDR/HDMI/video performance and final IO/CDC closure pending"
+  },
+  "R6_before_RRC_BRAM_mapping": {
+    "LUT": 50903,
+    "FF": 48333,
+    "BRAM36_equivalent": 68.0,
+    "DSP": 154,
+    "source": "docs/evidence/g0-correlation-bram-20261103.json",
+    "scope": "R6 whole-board correct-ROM SYNTH with coarse-history BRAM mapping and HDMI detail off. Full55raw accepted batch stream byteidentical toR5. Strict IO preplace contracts pass, placement fails512slice. Not additive to historical component sums.",
+    "physical_LUT_room": 2297,
+    "soft_LUT_deficit": 5683,
+    "routed": false,
+    "complete_budget_passed": false,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 53403,
+      "FF": 50333,
+      "BRAM36_equivalent": 70,
+      "DSP": 162,
+      "physical_LUT_deficit": 203
+    }
+  },
+  "R7_SYNTH_checkpoint": {
+    "source": "docs/evidence/g0-rrc-bram-20261103.json",
+    "LUT": 48467,
+    "FF": 45599,
+    "BRAM36_equivalent": 74,
+    "DSP": 154,
+    "relative_R6_actual_SYNTH_delta": {
+      "LUT": -2436,
+      "FF": -2734,
+      "BRAM36_equivalent": 6,
+      "DSP": 0
+    },
+    "whole_board_placement_reached_routing": true,
+    "whole_board_route_passed": true,
+    "full55_raw_accepted_stream_byteexact": true,
+    "stage2_uninstantiated_estimate_included_only_as_forecast": {
+      "LUT": 50967,
+      "FF": 47599,
+      "BRAM36_equivalent": 76,
+      "DSP": 162,
+      "physical_LUT_room": 2233
+    },
+    "complete_resource_budget_passed": false,
+    "future_added_resources": "Still separately budget production session/timebase/schema, real concurrency and any RF calibration needed; no full-budget pass from arithmetic alone."
+  },
+  "historical_capacity_forecast_component_sum": {
+    "active_FEC_banks": 8,
+    "remaining_LUT_after_stage2_estimate": -9765,
+    "component_sum_only_remaining_LUT": -7265,
+    "physical_LUT_remaining_after_stage2_estimate": -1785,
+    "unimplemented_functions_fit_proven": false,
+    "forecast": "RetainedIO/HDMI + actual54RTL rawADC/PLDC/fixed8/SOURCE/batches = {'LUT': 52485, 'FF': 49715, 'BRAM36_equivalent': 63.0, 'DSP': 154}; physical LUT room715, soft85percent deficit7265, remaining physical adaptation/core not all included. Deferred uninstantiated Stage2 estimate gives{'LUT': 54985, 'FF': 51715, 'BRAM36_equivalent': 65.0, 'DSP': 162}, physical LUT deficit1785. Joint delta vs52RTL {'LUT': 572, 'FF': 587, 'BRAM36_equivalent': 0.0, 'DSP': 0}; no standalone DC/FEC/SOURCE/batcher added again. Cache-island2320LUT/824FF/4BRAM saving not applied. Raw capture2097152 ->136SOURCE/142records491batches passes without SW DC/notch; public search coordinate still configured, physical IO/CSR/provider/PLnotch/timebase/video/fullG0 and full resource/CDC/timing pending.",
+    "options": [
+      {
+        "option": "Necessary physical ADC/DMA integration can replace proven old capture ingress/serializer duplication",
+        "source": "docs/evidence/g0-platform-resource-audit-20261103.json",
+        "old_component_union_LUT": 2547,
+        "savings_counted": false,
+        "tradeoff": "2547 is NOT measured net saving and cannot alone close revised target deficit. Retain physical WFIFO/CPACK/AD9361/HDMI/EOF; prove no-ready continuity/CDC/flush/fault/DMA ownership."
+      },
+      {
+        "option": "After measured service/lifetime analysis, evaluate bounded sharing of actual phase-angle/arithmetic instances",
+        "savings_counted": false,
+        "tradeoff": "Current133DSP main/retained21DSP platform/estimated8DSP Stage2 remain charged. Keep precision, recovery and original deadlines; no cosmetic old70percent optimization."
+      },
+      {
+        "option": "Trim nonessential production diagnostics and redundant wide observations after actual dependency audit",
+        "documentation": "docs/CORE_SCOPE_PRIORITY_20261103.md",
+        "known_diagnostic_mailbox_component_union": {
+          "LUT": 136,
+          "FF": 546
+        },
+        "tradeoff": "Current50RTL wrapper no longer exports redundant wide observations/diagnostic mailboxes. Joint delta already includes actual pruning/integration; do not deduct historical136LUT/546FF again. Further optional traces need new dependency audit and measurement; keep mandatory counters/ownership.",
+        "already_measured_joint_trim_included": true,
+        "future_additional_savings_counted": false
+      }
+    ],
+    "physical_LUT_remaining_before_stage2_estimate_before_unimplemented_components": 715
+  },
+  "rrc_history_mapping_actual_delta_included": {
+    "source": "docs/evidence/g0-rrc-bram-20261103.json",
+    "same_flow_R6_to_R7_SYNTH_delta": {
+      "LUT": -2436,
+      "FF": -2734,
+      "BRAM36_equivalent": 6,
+      "DSP": 0
+    },
+    "separately_added_resources": {
+      "BRAM36_equivalent": 6
+    },
+    "paired_island_net_saving": {
+      "LUT": 2027,
+      "FF": 2743,
+      "BRAM36_equivalent": -6,
+      "DSP": 0
+    },
+    "included_in_latest_total": true,
+    "not_additive_to_routed_delta": true
+  },
+  "native_SOURCE_DMA_control": {
+    "source": "docs/evidence/g0-rrc-bram-20261103.json",
+    "native_padding_batch_counts": [
+      5,
+      32
+    ],
+    "STOP_and_reentry_passed": true,
+    "queued_user_poisoned_pinned_after_STOP": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "additional_PL_resources": 0,
+    "DDR_coherent_bytes": 294912,
+    "DDR_already_charged_in_native_owner": true,
+    "physical_SOURCE_payload_byte_join_passed": true,
+    "scope_note": "Finite actualRF payload byte join passes; sustained reliable throughput remains open.",
+    "evidence": "docs/evidence/g0-source-native-forward-20261103.json",
+    "reliable_RF_throughput_passed": false
+  },
+  "pending_window_lifetime_integration": {
+    "source": "docs/evidence/g0-fec-window-seal-20261103.json",
+    "required_function": "Retire out-of-window LOADING blocks without waiting for unusable future packets; retain queued/working/source/DMA ownership",
+    "local_pair_before": [
+      3421,
+      2504,
+      33,
+      0
+    ],
+    "local_pair_after": [
+      3682,
+      2509,
+      33,
+      0
+    ],
+    "local_incremental_resources": {
+      "LUT": 261,
+      "FF": 5,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "local_routed": [
+      3609,
+      2509,
+      33,
+      0
+    ],
+    "local_WNS_WHS_ns": [
+      6.242,
+      0.094
+    ],
+    "whole_board_delta_not_yet_measured_or_added_to_latest_total": false,
+    "full55_raw_replay_status": "passed byteexact SOURCE136/69632B/142records491batches; whole accepted stream same R7",
+    "whole_board_build": "build/g0-source-platform-r8b",
+    "whole_board_status": "second_host_reboot_interrupted_saved_physopt_and_logs_preserved_R8_not_resumed_current_R9_only",
+    "physical_RF_not_yet_tested": true,
+    "complete_resource_budget_passed": false,
+    "whole_board_same_flow_SYNTH_delta": {
+      "LUT": 382,
+      "FF": -4,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "R8_SYNTH": {
+      "LUT": 48849,
+      "FF": 45595,
+      "BRAM36_equivalent": 74,
+      "DSP": 154
+    },
+    "R8_SYNTH_plus_uninstantiated_stage2_estimate": {
+      "LUT": 51349,
+      "FF": 47595,
+      "BRAM36_equivalent": 76,
+      "DSP": 162,
+      "physical_LUT_room": 1851
+    },
+    "whole_board_SYNTH_delta_measured_ROUTE_pending": true
+  },
+  "latest_RF_limitation": {
+    "evidence": "docs/evidence/g0-R11-forward-capacity-20261104.json",
+    "platform": "R11",
+    "12dB_dual_SOURCE_capacity_passed": false,
+    "18dB_finite_dual_SOURCE_capacity_margin_subcondition_passed": true,
+    "steady_reliable_unique_Bps": 223914.66666666666,
+    "video_load_Bps": 149504,
+    "full_G0_RF_or_video_passed": false,
+    "phase_CFO_camera_10m_standalone_pending": true
+  },
+  "PS_video_fragment_candidate": {
+    "evidence": "docs/evidence/g0-video-ordered-AU-native-20261104.json",
+    "PL_added": {
+      "LUT": 0,
+      "FF": 0,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "PS_requested_unit_buffer_cap_bytes": 2097152,
+    "max_live_units": 32,
+    "host_context_bytes": 2768,
+    "ARM_context_pending": false,
+    "additional_allocator_overhead": "separate implementation-dependent allowance, not included in requested bytes",
+    "host_clean_peak_requested_bytes": 17605,
+    "host_loss_peak_requested_bytes": 28118,
+    "host_pressure_peak_requested_bytes": 1063548,
+    "existing_SOURCE_DMA_288KiB_and_HDMI_pixel_pools_not_replaced_by_this_component": true,
+    "ARM_context_bytes": 2512,
+    "native_CortexA9_component_passed": true,
+    "full_RF_video_pipeline_passed": false,
+    "ARM_cpu_seconds_for10s_fixture": 0.020435844,
+    "ordered_NAL_native_scenarios": 13,
+    "duplicate_completed_NAL_payload_queue_bytes": 0,
+    "ordered_complete_NALs_share_existing2MiB_cap": true
+  },
+  "actual_video_SOURCE_load_candidate": {
+    "evidence": "docs/evidence/g0-video-source-load-20261103.json",
+    "1024x600_20fps_200_timestamped_frames_AnnexB_bytes_exact": true,
+    "source_load_Bps_including_40B_header_padding_and_final_FEC_block": 149504,
+    "required_measured_reliable_SOURCE_Bps_for70percent_load": 213577.14285714287,
+    "nominal_current_probe_SOURCE_Bps_not_measured": 224000,
+    "reliable_capacity_or_RF_video_passed": false
+  },
+  "fresh_coarse_capture_diagnosis": {
+    "evidence": "docs/evidence/g0-fresh-RF-coarse-diagnosis-20261104.json",
+    "gate10_local_cost_status": "local+1LUT/0FF/0BRAM/0DSP measured separately; actual whole-board same-flow+1LUT verified, not added twice",
+    "full_system_budget_or_G0_passed": false,
+    "local_incremental_resources": {
+      "LUT": 1,
+      "FF": 0,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "unfrozen_R9_candidate_not_deployed": true,
+    "whole_board_build": "build/g0-source-platform-r9",
+    "whole_board_status": "SYNTH_passed_ROUTE_running",
+    "fresh_actual_tag_full55_SOURCE_records": 189,
+    "fresh_actual_tag_full55_SOURCE_bytes_exact": 96768,
+    "original136_SOURCE_complete_accepted_stream_equal": true,
+    "wrong_coarse_training_reject_then_SOURCE25600B_without_reset": true,
+    "source_candidate_RTL_changed": true,
+    "whole_board_same_flow_net_added_resources": {
+      "LUT": 1,
+      "FF": 0,
+      "BRAM36_equivalent": 0.0,
+      "DSP": 0
+    },
+    "R9_SYNTH": {
+      "LUT": 48850,
+      "FF": 45595,
+      "BRAM36_equivalent": 74.0,
+      "DSP": 154
+    },
+    "whole_board_evidence": "docs/evidence/g0-coarse-gate-whole-synth-20261104.json"
+  },
+  "latest_qualified_ROUTED_candidate": {
+    "LUT": 47121,
+    "FF": 44536,
+    "BRAM36_equivalent": 74.0,
+    "DSP": 150,
+    "source": "docs/evidence/g0-R11-route-RAM-20261104.json",
+    "scope": "R11 fixed8/2x2 actual whole-board ROUTE and finite RAM/no-RF controls; not production IO/CDC, reliable RF, video or G0 signoff.",
+    "physical_LUT_room": 6079,
+    "soft_LUT_deficit": 1901,
+    "routed": true,
+    "complete_budget_passed": false,
+    "full_production_IO_signoff": false,
+    "WNS_ns": 0.009,
+    "WHS_ns": 0.015,
+    "WPWS_ns": 0.264,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 49621,
+      "FF": 46536,
+      "BRAM36_equivalent": 76,
+      "DSP": 158,
+      "physical_LUT_room": 3579,
+      "soft_LUT_deficit": 4401,
+      "measured": false,
+      "remaining_core_fit_proven": false
+    }
+  },
+  "PS_partial_AU_candidate": {
+    "evidence": "docs/evidence/g0-AU-progress-20261105.json",
+    "PL_added": {
+      "LUT": 0,
+      "FF": 0,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "ARM_fixed_AU_context_bytes": 1048800,
+    "included_payload_cap_bytes": 1048576,
+    "included_padding_bytes": 64,
+    "included_state_bytes": 160,
+    "native_scenarios": 5,
+    "additional_allocator_overhead": "not included; separate allowance",
+    "whole_AU_completeness_gate": false,
+    "full_live_DMA_decoder_HDMI_pipeline_passed": false,
+    "idle_us": 500000,
+    "absolute_hold_us": 1000000,
+    "idle_refresh_only_after_accepted_NAL": true,
+    "native_scenarios_scope": "five latest AU deadline cases, with real decoder/physicalHDMI gap and loss controls separately; historical native9 remains in before-progress record",
+    "legacy_host_scenarios": 9
+  },
+  "PS_NAL_AU_combined_max_requested_bytes_excluding_allocator_codec_DMA_HDMI": 3148464,
+  "PS_G0_long_measurement_candidate": {
+    "document": "docs/G0_SOURCE_LONG_MEASUREMENT_20261104.md",
+    "native_long_control_passed": true,
+    "driver_MAX_batches": 65536,
+    "raw_client_MAX_batches": 1024,
+    "compact_client_MAX_batches": 65536,
+    "coherent_DDR_bytes_unchanged": 294912,
+    "new_PL_resources": {
+      "LUT": 0,
+      "FF": 0,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "ARM_main_static_stack_bytes": 33296,
+    "ARM_main_static_stack_net_added_bytes": 32848,
+    "ARM_static_ELF_text_net_added_bytes": 1336,
+    "ELF_data_BSS_net_added_bytes": 0,
+    "PS_copy_buffer_bytes_included_in_main_stack": 32784,
+    "evidence_file_cap_bytes": 67108864,
+    "evidence_storage_not_production_video_memory": true,
+    "reliable_RF_capacity_or_full_video_passed": false,
+    "paired_build_receipt": "build/g0-source-client-stack-r1/receipt.json",
+    "native_observed_span_seconds": 71.553719295,
+    "evidence": "docs/evidence/g0-source-long-native-20261104.json"
+  },
+  "current_implementation_checkpoint": {
+    "evidence": "docs/evidence/g0-R11-route-RAM-20261104.json",
+    "host_boot_id": "cc10b96d-17f1-4b0c-a289-37aa2b54179c",
+    "R8": "stopped_host_reboot_preserved_history",
+    "R9": "terminal_AlternateCLB47349_overlap_and_opt_spread_place53_slice_deficit",
+    "R9_route_passed": false,
+    "latest_qualified_route": "R11",
+    "full_budget_passed": false,
+    "R10": "terminal_place_failed72slice_deficit_rejected",
+    "R10_route_passed": false,
+    "R11": "ROUTE_passed_finite_scope_RAM_loaded_native_empty_DMA_HDMI_STOP_reentry_passed",
+    "R11_route_passed": true
+  },
+  "PC_G0_stream_TX_preparation": {
+    "evidence": "docs/evidence/g0-stream-TX-offline-20261104.json",
+    "offline_only": true,
+    "new_PL_resources": 0,
+    "new_PS_resources": 0,
+    "PC_FEC_cache_peak_blocks": 2,
+    "PC_sampled_peak_RSS_KiB": 94504,
+    "IQ_payload_file_bytes": 0,
+    "full_packet_trace_enabled": false,
+    "UHD_RF_underflow_EOB_or_capacity_passed": false
+  },
+  "PC_SOURCE_capacity_accounting": {
+    "evidence": "docs/evidence/g0-source-capacity-review-20261104.json",
+    "offline_only": true,
+    "new_PL_resources": 0,
+    "new_PS_resources": 0,
+    "max_unique_source_identities": 26256,
+    "max_error_examples": 16,
+    "real_RF_capacity_passed": false
+  },
+  "G0_long_RF_coordinator": {
+    "evidence": "docs/evidence/g0-long-RF-coordinator-20261104.json",
+    "PL_added": 0,
+    "resident_PS_data_plane_added": 0,
+    "G0_tmpfs_evidence_cap_already_counted_bytes": 67108864,
+    "file_sized_Python_transfer_copy": false,
+    "temporary_Python_socket_OS_RSS": "not measured",
+    "actual_RF_run_passed": false
+  },
+  "PS_known_damage_decoder_handoff": {
+    "evidence": "docs/evidence/g0-AU-damage-handoff-20261104.json",
+    "PL_added": 0,
+    "ARM_Input_bytes_unchanged": 32,
+    "ARM_main_static_stack_added_bytes": 16,
+    "ELF_text_added_bytes": 492,
+    "ELF_data_BSS_added_bytes": 0,
+    "native_four_case_handoff_and_periodic_recovery_passed": true,
+    "continuous_queue_or_RF_video_passed": false
+  },
+  "PS_AU_decode_queue_candidate": {
+    "evidence": "docs/evidence/g0-SOURCE-callback-chain-20261104.json",
+    "previous_AU_file_queue_evidence": "docs/evidence/g0-bounded-AU-decode-20261104.json",
+    "new_PL_resources": 0,
+    "queue_owned_payload_cap_bytes": 2097280,
+    "ready_cap": 8,
+    "all_payload_owner_cap": 10,
+    "ARM_Queue_bytes": 584,
+    "ARM_Queue_added_over_previous_bytes": 424,
+    "ARM_Payload_bytes": 28,
+    "ARM_Info_bytes": 32,
+    "ARM_Info_added_over_previous_bytes": 8,
+    "ready_slots_included_in_Queue_object_not_added_again": true,
+    "allocator_container_codec_stack_extra": "not included",
+    "G0_file_reader_scratch_bytes": 1048576,
+    "G0_SOURCE_file_mode_scratch_bytes": 544,
+    "G0_null_RGB565_bytes": 1228800,
+    "native_clean200_paced_all_output_and_identity_equal": true,
+    "native_high_u32_session_and_overload_passed": true,
+    "native_RSS_pair_KiB": {
+      "scope": "Historical AU-file queue pair, not current SOURCE callback mode",
+      "old": 14880,
+      "new": 14880,
+      "net": 0
+    },
+    "replaces_whole_fixture_cache_in_new_probe": true,
+    "old_decoder_probe_not_additive": true,
+    "current_SOURCE_mode_RSS_measured": false,
+    "SOURCE_NAL_AU_SPSC_decoder_native_finite_callback_chain_passed": true,
+    "native_SOURCE_clean_output_frames": 200,
+    "native_SOURCE_loss_output_frames": 196,
+    "native_SOURCE_loss_full_ready_drop": 1,
+    "native_SOURCE_loss_missing_frames": 4,
+    "native_SOURCE_loss_changed_CRC_frames": 43,
+    "native_SOURCE_loss_periodic_IDR60_equal_frames": 140,
+    "source_clock_mapping_valid": false,
+    "native_coded_pixel_limit": 622592,
+    "format_rejection_followed_by_normal200_recovery_passed": true,
+    "full_live_DMA_decoder_HDMI_pipeline_passed": false
+  },
+  "PS_NAL_AU_queue_payload_caps_excluding_queue_objects_allocator_codec_DMA_HDMI_bytes": 5245744,
+  "PS_physical_DMA_decode_ingress_candidate": {
+    "evidence": "docs/evidence/g0-SOURCE-DMA-decode-ingress-20261104.json",
+    "new_PL_resources": 0,
+    "new_coherent_DDR_bytes": 0,
+    "same_decode_process_DMA32_STOP_reentry5_empty_passed": true,
+    "SOURCE_video_payload_through_physical_DMA_passed": false,
+    "new_binary_clean_SOURCE_file200_CRC_identity_regression_passed": true,
+    "expected_session_mode": "finite G0 explicit SID; autonomous production SESSION/timebase pending",
+    "ELF_text_added_bytes": 7660,
+    "ELF_data_added_bytes": 76,
+    "ELF_BSS_added_bytes": 0,
+    "ARM_main_static_stack_previous_current_bytes": [
+      2040,
+      2240
+    ],
+    "ARM_feed_dma_static_stack_bytes": 168,
+    "ARM_source_dma_static_stack_including_32768_batch_staging_bytes": 33024,
+    "ARM_SOURCE_file_producer_static_stack_unchanged_bytes": 1072,
+    "stack_scope": "function static frames only, separate producer/main threads; nested calls and full stack reservations not included",
+    "replaces_old_standalone_SOURCE_recorder_not_additive": true,
+    "full_DMA_video_HDMI_source_clock_RF_G0_budget_passed": false
+  },
+  "PS_SOURCE_HDMI_join_candidate": {
+    "evidence": "docs/evidence/g0-SOURCE-HDMI-join-20261104.json",
+    "native_SOURCE_file_clean200_to_physical_HDMI_ACK_passed": true,
+    "native_empty_DMA16384_parallel_file_HDMI200_passed": true,
+    "effective_video_SOURCE_payload_through_physical_DMA_RF_passed": false,
+    "display_slot_wait_bound_ms": 50,
+    "ELF_text_added_bytes": 67758,
+    "ELF_data_added_bytes": 280,
+    "ELF_BSS_added_bytes": 0,
+    "ARM_main_static_stack_previous_current_bytes": [
+      2240,
+      2488
+    ],
+    "ARM_receive_static_frame_bytes": 160,
+    "ARM_Presenter_previous_current_bytes": [
+      1008,
+      1024
+    ],
+    "ARM_Metrics_previous_current_bytes": [
+      136,
+      152
+    ],
+    "Metrics_included_in_Presenter_not_double_added": true,
+    "new_PL_resources": 0,
+    "new_coherent_DMA_bytes": 0,
+    "extra_slots_or_frame_copies_beyond_retained_three_slot_presenter": 0,
+    "physical_ACK_gap_aggregate_counters_added": 2,
+    "initial_or_trailing_freeze_source_age_overlay_passed": false,
+    "full_RAM_CMA_codec_allocator_threads_and_concurrency_budget_passed": false,
+    "old_standalone_HDMI_probe_not_added_as_second_runtime": true
+  },
+  "PC_video_TX_payload_candidate": {
+    "evidence": "docs/evidence/g0-video-TX-payload-20261104.json",
+    "new_PL_LUT_FF_BRAM_DSP": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "new_PS_or_SOURCE_coherent_DMA_bytes": 0,
+    "physical_RX_FEC_bank_count": 8,
+    "active_ready_block_descriptor_range": [
+      1,
+      2
+    ],
+    "hardware_bank_count_reduced": false,
+    "PC_source_cache_payload_cap_bytes": 20480,
+    "PC_coded_cache_payload_cap_bytes": 16384,
+    "PC_one_period_wire_bytes": 8768,
+    "cache_excludes_numpy_IQ_filter_arrays_tables_metadata_and_libraries": true,
+    "PC_sampled_VmHWM_fast_paced_KiB": [
+      94816,
+      94192
+    ],
+    "net_RSS_saving_measured": false,
+    "all146_blocks_12_source_CRC_erasure_recovery_scope": "offline host oracle only",
+    "actual_PL_CRC_FEC_video_scope": "five-block accelerated packet-stage prefix,51200B incl30720restored; not ADC or physicalDMA",
+    "modeled_availability": "max block capture timestamp+50000us; no live encoder/camera readiness measurement",
+    "maximum_descriptor_to_coded_tail_model_us": 93106,
+    "modeled_over3s_source_queue_rejected_before_FIFO_RF": true,
+    "maximum_modeled_capture_to_period_tail_us": 260000,
+    "actual_source_clock_age_passed": false,
+    "IQ_file_bytes_saved": 0,
+    "RF_USRP_SD_started": false,
+    "full_G0_or_complete_resource_budget_passed": false
+  },
+  "PS_finite_video_DMA_stop_and_coordinator_candidate": {
+    "evidence": "docs/evidence/g0-video-air-coordinator-20261104.json",
+    "native_external_stop53_including_READY_tail8_then_reentry5_passed": true,
+    "new_binary_clean_null200_CRC_identity_passed": true,
+    "latest_new_binary_clean_HDMI200_passed": false,
+    "latest_new_binary_HDMI_decoded_valid_frames": 200,
+    "latest_new_binary_HDMI_physical_frames": 199,
+    "display_slot_wait_bound_ms": 50,
+    "unresolved_display_admission_drop_frames": [
+      2
+    ],
+    "ELF_text_added_bytes": 881,
+    "ELF_data_added_bytes": 4,
+    "ELF_BSS_added_bytes": 8,
+    "ARM_main_static_stack_previous_current_bytes": [
+      2488,
+      2496
+    ],
+    "ARM_source_dma_static_stack_previous_current_bytes": [
+      33024,
+      33040
+    ],
+    "ARM_SourceDmaStats_previous_current_bytes": [
+      184,
+      192
+    ],
+    "Stats_inside_main_not_double_added": true,
+    "PL_added": 0,
+    "coherent_DMA_added_bytes": 0,
+    "cache_or_pixel_slots_added": 0,
+    "net_savings_claimed": false,
+    "coordinator_offline_control_count": 19,
+    "coordinator_actual_RF_run_passed": false,
+    "full_budget_passed": false,
+    "superseded_by_HDMI_startup_fix": "docs/evidence/g0-HDMI-startup-20261104.json"
+  },
+  "PS_HDMI_startup_candidate": {
+    "evidence": "docs/evidence/g0-HDMI-startup-20261104.json",
+    "native_clean200_physical_ACK_identity_CRC_passed": true,
+    "native_empty_DMA_HDMI_STOP_reentry_passed": true,
+    "native_empty_DMA16384_concurrent_clean200_ACK_passed": true,
+    "physical_clean_new_ACK_span_fps": 20.1771,
+    "physical_concurrent_new_ACK_span_fps": 20.143,
+    "prior199_failure_retained": true,
+    "display_slot_wait_ms_unchanged": 50,
+    "pixel_slots_unchanged": 3,
+    "ELF_text_net_delta_bytes": -16,
+    "ELF_data_net_delta_bytes": 0,
+    "ELF_BSS_net_delta_bytes": 0,
+    "ARM_backend_submit_static_stack_previous_current_bytes": [
+      200,
+      104
+    ],
+    "ARM_backend_init_static_stack_unchanged_bytes": 360,
+    "new_PL_or_DMA_cache_bytes": 0,
+    "old_lazy_activation_removed_not_parallel_path": true,
+    "RF_video_payload_DMA_passed": false,
+    "full_budget_passed": false
+  },
+  "PC_video_full146_packet_stage_simulation": {
+    "passed": true,
+    "state": "nominal20ms_period_full146_byteexact_passed",
+    "physical_banks": 8,
+    "source_blocks": 146,
+    "accelerated_failure_directory": "build/g0-video-CRC-FEC-full-r2",
+    "delivered_source_bytes": 245760,
+    "diagnostic_directory": "build/g0-video-CRC-FEC-full-diagnostic-r1",
+    "diagnostic_counters": {
+      "last_packet": 8073,
+      "SOURCE_bytes": 245760,
+      "packets_accepted": 484,
+      "CRC_erased": 1752,
+      "packets_unmapped": 2484,
+      "descriptors_accepted": 3354,
+      "bad_descriptors": 0,
+      "range_busy": 2740,
+      "events_dropped": 0,
+      "expired_blocks": 0,
+      "ingress_state": 0,
+      "FEC_state": 0
+    },
+    "interpretation": "Unpaced accelerated input saturates fixed8 admission; not a valid nominal20ms throughput test. Rejected input remains a recorded failure; no RTL change or extra banks.",
+    "nominal_period_candidate_directory": "build/g0-video-CRC-FEC-full-paced-r1",
+    "nominal_period_cycles": 1000000,
+    "clock_hz": 50000000,
+    "nominal_period_seconds": 0.02,
+    "actual_nominal_period_result_pending": false,
+    "original_five_block_input_prefix_byteexact": true,
+    "first_attempt": "full-r1 retained; unsized timeout literal overflow at time0, fixed explicit64bit guard; not a FEC result",
+    "new_PL_resources": 0,
+    "full_G0_or_video_passed": false,
+    "evidence": "docs/evidence/g0-video-full-period-20261104.json",
+    "source_bytes": 1495040,
+    "restored_bytes": 897024,
+    "nominal_range_busy": 0,
+    "nominal_expired_blocks": 0,
+    "nominal_events_dropped": 0
+  },
+  "R9_route_congestion_replacement": {
+    "evidence": "docs/evidence/g0-r9-route-congestion-20261104.json",
+    "failed_node_overlaps": 47349,
+    "new_mode": "opt-spread-high",
+    "pending": false,
+    "new_RTL_or_synthesis": false,
+    "full_budget_passed": false,
+    "terminal_place_failed": true,
+    "missing_slices": 53
+  },
+  "R10_CE8_mapping_candidate": {
+    "scope": "CE mapping threshold8, not a different FEC bank count; physical FEC remains8",
+    "new_RTL": false,
+    "synthesis_pending": false,
+    "resource_delta_unmeasured_not_assumed_zero": false,
+    "new_device_resource_target": false,
+    "motivation": "actual53 slice deficit and congestion, not old70percent soft target",
+    "historical_CE16_failure_retained": "R4 +976LUT/-11FF;1174slice deficit; no repeat CE16 candidate",
+    "evidence": "docs/evidence/g0-R10-CE8-synthesis-20261104.json",
+    "synthesis_passed": true,
+    "actual_net_delta": {
+      "LUT": 318,
+      "FF": 1,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "SYNTH_control_sets_previous_current": [
+      1106,
+      937
+    ],
+    "implementation_pending": false,
+    "placement_failed": true,
+    "missing_slices": 72,
+    "rejected_as_active_candidate": true
+  },
+  "R9_SYNTH_checkpoint": {
+    "LUT": 48850,
+    "FF": 45595,
+    "BRAM36_equivalent": 74.0,
+    "DSP": 154,
+    "source": "docs/evidence/g0-coarse-gate-whole-synth-20261104.json",
+    "scope": "R9 actual whole-board SYNTH only; fixed8/2x2/full55RTL, gate10 after fresh raw189SOURCE/old136 full stream/retry recovery proofs. ROUTE/native RF/reliable capacity/IO/video pending. Latest qualified ROUTED R7 is separate.",
+    "physical_LUT_room": 4350,
+    "soft_LUT_deficit": 3630,
+    "routed": false,
+    "complete_budget_passed": false,
+    "full_production_IO_signoff": false,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 51350,
+      "FF": 47595,
+      "BRAM36_equivalent": 76.0,
+      "DSP": 162,
+      "physical_LUT_room": 1850,
+      "soft_LUT_deficit": 6130
+    }
+  },
+  "R7_qualified_route_capacity_forecast_history": {
+    "active_FEC_banks": 8,
+    "basis": "actual whole-board R7 ROUTED, remaining functions not all included",
+    "remaining_LUT_after_stage2_estimate": -4405,
+    "component_sum_only_remaining_LUT": -1905,
+    "physical_LUT_remaining_after_stage2_estimate": 3575,
+    "physical_LUT_remaining_before_stage2_estimate_before_unimplemented_components": 6075,
+    "unimplemented_functions_fit_proven": false,
+    "complete_resource_budget_passed": false,
+    "forecast": "Routed47125/45498/74/154; uninstantiated Stage2 +2500/2000/2/8 gives49625/47498/76/162. Revised85percent LUT soft target exceeded4405 with reserve; do not optimize cosmetically or lower core targets. Integrate and measure necessary functionality/concurrency before complete budget signoff. All implemented savings already included."
+  },
+  "R10_failed_CE8_synth_history": {
+    "LUT": 49168,
+    "FF": 45596,
+    "BRAM36_equivalent": 74.0,
+    "DSP": 154,
+    "source": "docs/evidence/g0-R10-CE8-synthesis-20261104.json",
+    "scope": "R10-CE8 actual same55RTL whole-board SYNTH only. CE threshold8, fixed8-bank/2x2 unchanged; physical placement/route/timing/IO/nativeRF/video pending.",
+    "physical_LUT_room": 4032,
+    "soft_LUT_deficit": 3948,
+    "routed": false,
+    "complete_budget_passed": false,
+    "full_production_IO_signoff": false,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 51668,
+      "FF": 47596,
+      "BRAM36_equivalent": 76,
+      "DSP": 162,
+      "physical_LUT_room": 1532,
+      "soft85percent_LUT_deficit": 6448
+    },
+    "rejected_as_active_candidate": true,
+    "placement_missing_slices": 72
+  },
+  "R11_ADI_DC_bypass_candidate": {
+    "evidence": "docs/evidence/g0-R11-DC-bypass-synthesis-20261104.json",
+    "gross_filter_cost_only": {
+      "LUT": 160,
+      "FF": 704,
+      "DSP": 4,
+      "BRAM36_equivalent": 0
+    },
+    "actual_net_savings_measured": true,
+    "whole_board_synthesis_pending": false,
+    "data_valid_latency_preserved_clocks": 3,
+    "IQ_and_PL_DC_retained": true,
+    "fixed_banks": 8,
+    "actual_whole_board_net_saved": {
+      "LUT": 220,
+      "FF": 956,
+      "BRAM36_equivalent": 0,
+      "DSP": 4
+    },
+    "synthesis_passed": true,
+    "implementation_pending": false,
+    "route_passed": true,
+    "route_RAM_evidence": "docs/evidence/g0-R11-route-RAM-20261104.json"
+  },
+  "R10_failed_capacity_forecast_history": {
+    "active_FEC_banks": 8,
+    "basis": "latest R10-CE8 actual whole-board SYNTH only; no legal route/timing or unimplemented-function fit claim",
+    "soft_LUT_remaining_before_stage2_estimate": -3948,
+    "soft_LUT_remaining_after_stage2_estimate": -6448,
+    "physical_LUT_remaining_after_stage2_estimate": 1532,
+    "physical_LUT_remaining_before_stage2_estimate_before_unimplemented_components": 4032,
+    "unimplemented_functions_fit_proven": false,
+    "complete_resource_budget_passed": false,
+    "forecast": "Measured49168/45596/74/154; labelled uninstantiated Stage2 +2500/2000/2/8 ->51668/47596/76/162. Mapping added318LUT/1FF vsR9, reduced SYNTH controlsets1106->937. Does not prove placement/route/remaining core fit. R7 ROUTE cost remains separate qualified history; no double subtraction of prior savings."
+  },
+  "R9_default_CE_before_ADI_trim": {
+    "LUT": 48850,
+    "FF": 45595,
+    "BRAM36_equivalent": 74.0,
+    "DSP": 154,
+    "source": "docs/evidence/g0-coarse-gate-whole-synth-20261104.json",
+    "scope": "R9 last measured same55RTL/default-CE baseline only; R9 placement/route failed. Active R11 ADI DC bypass cost is pending, not assigned this baseline as its result.",
+    "physical_LUT_room": 4350,
+    "soft_LUT_deficit": 3630,
+    "routed": false,
+    "complete_budget_passed": false,
+    "full_production_IO_signoff": false,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 51350,
+      "FF": 47595,
+      "BRAM36_equivalent": 76.0,
+      "DSP": 162,
+      "physical_LUT_room": 1850,
+      "soft_LUT_deficit": 6130
+    }
+  },
+  "R9_baseline_capacity_forecast_history": {
+    "active_FEC_banks": 8,
+    "basis": "R9 same55RTL/default-CE measured baseline; R11 static DC bypass whole cost pending, do not subtract gross",
+    "baseline_SYNTH_LUT": 48850,
+    "labelled_stage2_estimate_LUT": 2500,
+    "baseline_with_stage2_LUT": 51350,
+    "physical_LUT_remaining_after_stage2_estimate_on_baseline_only": 1850,
+    "soft_LUT_deficit_on_baseline_with_stage2_only": 6130,
+    "R11_actual_total_or_fit_proven": false,
+    "complete_resource_budget_passed": false
+  },
+  "R11_SYNTH_checkpoint": {
+    "LUT": 48630,
+    "FF": 44639,
+    "BRAM36_equivalent": 74.0,
+    "DSP": 150,
+    "source": "docs/evidence/g0-R11-DC-bypass-synthesis-20261104.json",
+    "scope": "R11 actual paired whole-board SYNTH with static three-clock ADI DC bypass; physical timing/route/nativeRF remain pending",
+    "physical_LUT_room": 4570,
+    "soft_LUT_deficit": 3410,
+    "routed": false,
+    "complete_budget_passed": false,
+    "full_production_IO_signoff": false,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 51130,
+      "FF": 46639,
+      "BRAM36_equivalent": 76,
+      "DSP": 158,
+      "physical_LUT_room": 2070,
+      "soft85percent_LUT_deficit": 5910
+    }
+  },
+  "R7_qualified_ROUTED_checkpoint": {
+    "LUT": 47125,
+    "FF": 45498,
+    "BRAM36_equivalent": 74,
+    "DSP": 154,
+    "source": "docs/evidence/g0-rrc-bram-20261103.json",
+    "scope": "R7 actual whole-board ROUTED; fixed8/2x2/full55RTL; same-source SYNTH48467/45599/74/154. Do not compare routed cost to prior SYNTH to claim net saving. Typed RF/HDMI/counter65 gates and constrained timing pass; inherited peripheral IO/CDC production closure remains explicit. Finite G0 candidate only.",
+    "physical_LUT_room": 6075,
+    "soft_LUT_deficit": 1905,
+    "routed": true,
+    "complete_budget_passed": false,
+    "full_production_IO_signoff": false,
+    "WNS_ns": 0.173,
+    "WHS_ns": 0.015,
+    "with_uninstantiated_stage2_estimate": {
+      "LUT": 49625,
+      "FF": 47498,
+      "BRAM36_equivalent": 76,
+      "DSP": 162,
+      "physical_LUT_room": 3575,
+      "soft_LUT_deficit": 4405
+    }
+  },
+  "R11_forward_capacity_measurement": {
+    "scope": "Finite actual R11 fixed8 dual spatial TX -> PL PHY/CRC/FEC -> physical DMA SOURCE capacity measurements; not full G0 or video/camera/source-clock/10m signoff.",
+    "fixed_window_predeclared": "first valid SOURCE observation+5s then30s; no best-window search",
+    "12dB_two_stream_or_capacity_passed": false,
+    "18dB_dual_direct_SOURCE_join_and_current_load_30percent_margin_subcondition_passed": true,
+    "video_SOURCE_load_Bps": 149504,
+    "required_reliable_SOURCE_Bps": 213577.14285714287,
+    "18dB_fixed_window_measured_unique_Bps": 223914.66666666666,
+    "18dB_video_fraction_of_measured_steady_capacity": 0.6676829268292683,
+    "18dB_missing_offered_SOURCE_symbols_total": 21,
+    "missing_SOURCE_not_hidden_or_counted_as_restored": true,
+    "consumer_arrival_timestamps_not_RF_or_capture_age": true,
+    "end_to_end_packet_source_clock_age_passed": false,
+    "forward_phase_CFO_characterization_passed": false,
+    "camera_10m_or_standalone_passed": false,
+    "PL_resource_delta": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "coherent_DMA_delta_bytes": 0,
+    "full_resource_budget_passed": false,
+    "board_TX_enabled": false,
+    "SD_written": false,
+    "full_G0_or_video_passed": false,
+    "evidence": "docs/evidence/g0-R11-forward-capacity-20261104.json"
+  },
+  "PS_owned_prefix_DMA_copy": {
+    "replaces_full_padding_copy": true,
+    "helper": "ps/g0_dma_batch.c:v3b_copy_owned",
+    "bounds_and_original_metadata_record_checks_preserved": true,
+    "USER_lease_released_before_video_callback": true,
+    "no_DMA_mmap_pointer_escapes_RELEASE": true,
+    "actual_new_run_batches": 11613,
+    "actual_new_run_copied_bytes": 2422976,
+    "full_copy_bytes_for_same_batch_count": 380534784,
+    "bytes_avoided_same_batch_count": 378111808,
+    "CPU_old_new_seconds": [
+      14.4607,
+      11.253
+    ],
+    "CPU_workloads_differ_not_a_paired_net_CPU_saving_claim": true,
+    "ELF_text_delta_bytes": 352,
+    "ELF_data_BSS_delta_bytes": [
+      0,
+      0
+    ],
+    "ARM_main_static_frame_previous_current": [
+      2496,
+      2504
+    ],
+    "ARM_source_dma_static_frame_unchanged": 33040,
+    "counter_state_delta_bytes": 8,
+    "counter_inside_ReaderStats_main_not_double_added": true,
+    "new_PL_LUT_FF_BRAM_DSP": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "new_DMA_or_frame_cache_bytes": 0,
+    "retained_private_staging_bytes": 32768,
+    "evidence": "docs/evidence/g0-R11-video-DMA-HDMI-20261104.json"
+  },
+  "effective_video_RF_DMA_HDMI_candidate": {
+    "evidence": "docs/evidence/g0-R11-video-DMA-HDMI-20261104.json",
+    "actual_physical_payload_join_observed": true,
+    "RF_and_PS_local_damage_did_not_exit_or_wait_forever": true,
+    "physical_frames_old_new": [
+      197,
+      180
+    ],
+    "pixel_CRC_changed_frames_old_new": [
+      42,
+      0
+    ],
+    "AU_queue_drops_old_new": [
+      3,
+      1
+    ],
+    "periodic_IDR_recovery_observed": true,
+    "clean_full_video_or_core_performance_passed": false,
+    "new_PL_resources": 0,
+    "new_coherent_DDR": 0,
+    "source_clock_mapping_passed": false,
+    "superseded_by": "docs/evidence/g0-video-loop60-RF-20261104.json"
+  },
+  "pre_R11_not_yet_measured_history": [
+    "Adaptive CW/notch if required and final physical RF calibration. Startup bounded DC/RNE is now inside actual54RTL; current raw-capture proof receives no software preprocessing.",
+    "channel quality/conditioning admission and final detector/profile signoff; full-width arithmetic and actual shared-pool scheduling now INCLUDED in44RTL main, do not count them again",
+    "physical production SOURCE DMA/provider/PS lease join and final bounded queues; two-source staging and fixed32KiB record batching now included in actual54RTL",
+    "Effective SOURCE video payload/decoder/HDMI concurrency. Finite16384 physical empty-DMA batches parallel with local SOURCE-file/physical HDMI200frames now passed; not RF video signoff.",
+    "production interleaving/whitening and periodic no-feedback session/parameter/recovery-point control",
+    "measured reliable video throughput margin and source-age deadlines",
+    "Final production SESSION/timebase/coordinate/schema/periodic TX capacity/serial/loss regression. Actual50RTL calibrated captured-ADC -> fixed8 FEC -> bounded SOURCE record stream is included; physical DMA/PS ownership and whole-board video remain pending.",
+    "Physical WFIFO/CPACK/SOURCE bridge now in whole-board R7 route; native DMA join/ownership/real sustained service still unpassed, not an uncharged duplicate PL platform."
+  ],
+  "current_forward_phase_characterization": {
+    "evidence": "docs/evidence/g0-forward-phase-refresh-20261104.json",
+    "finite_measurement_completed": true,
+    "18dB_CFO_median_hz_by_TX": [
+      -234490.25653128166,
+      -234488.2713194199
+    ],
+    "18dB_SFO_ppm": 42.62914115593652,
+    "18dB_delta_CFO_min_median_max_hz": [
+      -1.200170973839704,
+      1.7835721807205118,
+      4.781135008233832
+    ],
+    "adaptive_notch_not_instantiated": true,
+    "complete_phase_quality_profile_budget_signed": false,
+    "new_PL_resources": 0
+  },
+  "current_RAM_checkpoint": {
+    "boot_receipt": "build/g0-source-ram-r11-boot-r2/receipt.json",
+    "boot_id": "f0b9bd49-dbc9-488e-a252-c6877af375dd",
+    "padding_control": "build/g0-R11-SOURCE-native-r2/receipt.json",
+    "HDMI_stop_reentry_control": "build/g0-owned-prefix-copy-stop-native-r2/receipt.json",
+    "ADC_controls": "build/g0-R11-ADC-config-r2/configure.log",
+    "noRF_new_boot_controls_passed": true,
+    "SD_written": false,
+    "board_TX_enabled": false
+  },
+  "PC_once_per_session_startup_training": {
+    "evidence": "docs/evidence/g0-video-startup-HOL-20261104.json",
+    "periods": 8,
+    "training_us": 160000,
+    "controls_before_FEC_admission": 128,
+    "new_PL_PS_DMA_resources": 0,
+    "source_cache_blocks": 2,
+    "coded_cache_blocks": 1,
+    "full146_CRC_FEC20ms_passed": true,
+    "ready_time_is_modeled_not_camera": true,
+    "full_budget_passed": false
+  },
+  "PS_ordered_partial_NAL_HOL": {
+    "evidence": "docs/evidence/g0-video-startup-HOL-20261104.json",
+    "later_useful_complete_content_and_partial_min_wait_us": 200000,
+    "without_later_complete_idle_TTL_us": 500000,
+    "same_cache_and_context_bytes": 2512,
+    "new_PL_LUT_FF_BRAM_DSP": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "new_coherent_DMA_or_pixel_cache_bytes": 0,
+    "ELF_text_delta_bytes": 248,
+    "ELF_data_BSS_delta_bytes": [
+      0,
+      0
+    ],
+    "ARM_drain_static_stack_previous_current_bytes": [
+      64,
+      48
+    ],
+    "new_state_bytes": 0,
+    "host_ASan_UBSan_cases": 16,
+    "native_byteexact_cases": 16,
+    "compiled_fault_controls": 6,
+    "native_clean_HDMI200_and_controlled_loss197_then_IDR60_recovery_passed": true,
+    "full_budget_passed": false
+  },
+  "finite_prerecorded_60s_RF_video": {
+    "evidence": "docs/evidence/g0-video-loop60-RF-20261104.json",
+    "continuous_RF_seconds": 60.1,
+    "finite_material_video_frames": 1200,
+    "physical_new_frames": 1200,
+    "missing_video_frames": 0,
+    "RGB565_CRC_changed_frames": 78,
+    "new_ACK_span_fps": 20.0688,
+    "max_new_ACK_gap_ms": 267.47,
+    "new_ACK_gaps_over1s": 0,
+    "AU_queue_full_drops": 0,
+    "NAL_cache_evictions": 0,
+    "RF_SOURCE_records_expected_observed": [
+      17480,
+      17463
+    ],
+    "bounded_continuation_and_periodic_IDR_recovery_observed": true,
+    "post_EOB_UHD_control_exception_remains_unresolved": true,
+    "source_clock_age_camera_10m_standalone_or_G0_passed": false,
+    "new_PL_PS_cache_or_DMA_bytes": 0,
+    "distance_context": "short_range_user_confirmed_10m_pending"
+  },
+  "PC_real_camera_finite_encode20": {
+    "evidence": "docs/evidence/g0-camera-encode20-20261104.json",
+    "initial_duplicate_filter_run_failed_real20": true,
+    "dynamic_framerate_temporarily_disabled_then_restored": true,
+    "real_camera_input_frames": 299,
+    "selected_unique_capture_timestamp_frames": 200,
+    "selected_new_source_fps": 20.092106659402546,
+    "encoded_width_height_fps": [
+      1024,
+      600,
+      20
+    ],
+    "new_PL_PS_or_DMA_resources": 0,
+    "measured_camera_SOURCE_load_Bps": 146432,
+    "required_reliable_SOURCE_Bps_for70percent": 209188.57142857145,
+    "camera_RF_live_pipeline_or_3s_age_passed": false,
+    "PC_buffers_CPU_full_budget_passed": false
+  },
+  "PC_actual_camera_SOURCE_readiness": {
+    "evidence": "docs/evidence/g0-camera-actual-ready-20261104.json",
+    "finite_actual_frames": 1200,
+    "unique_original_capture_timestamps": 1200,
+    "new_capture_fps": 20.06724585971211,
+    "capture_to_complete_AU_p99_max_us": [
+      161412,
+      167095
+    ],
+    "source_bytes": 8601600,
+    "source_blocks": 840,
+    "new_PL_PS_DMA_or_pixel_resources": 0,
+    "pipe_AU_hard_bound_bytes": 1114112,
+    "pipe_measured_peak_bytes": 44498,
+    "unmatched_capture_records_cap_peak": [
+      8,
+      3
+    ],
+    "partial_SOURCE_bytes_cap_peak": [
+      10240,
+      10240
+    ],
+    "finite_replay_SOURCE_cache_bytes": 20480,
+    "finite_replay_coded_cache_bytes": 16384,
+    "finite_measurement_metadata_frames_limit": 1200,
+    "measurement_metadata_and_FFmpeg_Python_full_RAM_CPU_budget_passed": false,
+    "live_camera_RF_clock_HDMI_age_or_G0_passed": false,
+    "all12_CRC_erasure_blocks_byteexact": 840,
+    "SOURCE_load_nominal60s_Bps": 143360,
+    "required_reliable_SOURCE_Bps_for70percent": 204800
+  },
+  "PC_live_camera_IQ_pipeline": {
+    "evidence": "docs/evidence/g0-camera-live-IQ-20261104.json",
+    "finite_live_capture_frames": 1200,
+    "unique_original_capture_timestamps": 1200,
+    "new_capture_fps": 20.06712327210395,
+    "SOURCE_blocks_produced_transmitted": [
+      841,
+      841
+    ],
+    "SOURCE_bytes": 8611840,
+    "CRC_erasures_audited": 10092,
+    "all_accepted_bytes_recovered_exactly": true,
+    "IQ_bytes_consumed_exactly": 3850240000,
+    "SOURCE_mailbox_cap_peak_blocks": [
+      6,
+      5
+    ],
+    "SOURCE_scheduler_cap_peak_blocks": [
+      2,
+      2
+    ],
+    "coded_cache_peak_blocks": 1,
+    "added_PC_SOURCE_queue_capacity_bytes": 61440,
+    "total_PC_SOURCE_block_capacity_bytes": 81920,
+    "audit_equation_payload_cap_bytes": 10240,
+    "PC_observed_capture_to_coded_tail_p99_max_us": [
+      403565,
+      426802
+    ],
+    "max_nominal_period_start_lateness_ms": 45.133464,
+    "parent_sampled_VmHWM_KiB": 99916,
+    "FFmpeg_child_and_complete_CPU_RAM_budget_measured": false,
+    "producer_and_consumer_run_concurrently": true,
+    "camera_start_and_IQ_before_GO_false_verified": true,
+    "actual_SIGTERM_reader_disconnect_and_reentry_passed": true,
+    "source_queue_coded_audit_owners_after_stop_zero": true,
+    "800ms_consumer_stall_SOURCE_overflow_expiry_drops": [
+      9,
+      1
+    ],
+    "800ms_stall_max_observed_bank_age_us": 829636,
+    "stall_RF_FEC500ms_deadline_passed": false,
+    "PL_PS_DMA_pixel_resources_added": 0,
+    "live_camera_RF_source_clock_HDMI_age_or_G0_passed": false,
+    "full_budget_passed": false
+  },
+  "actual_live_camera_RF_20261105": {
+    "evidence": "docs/evidence/g0-camera-RF-20261105.json",
+    "boot_id": "cd5b40e0-d96f-4385-9c5e-2d653fae5204",
+    "bit_crc32": "74419ca3",
+    "physical_new_frames": 1200,
+    "source_new_fps": 20.057499615369423,
+    "physical_ACK_span_fps": 20.0744,
+    "SOURCE_blocks": 838,
+    "SOURCE_bytes": 8581120,
+    "all1200_RGB565_CRC_equal_actual_native_clean_camera_reference": true,
+    "missing_frames": 0,
+    "AU_queue_drops": 0,
+    "NAL_evictions": 0,
+    "max_new_ACK_gap_ms": 200.6,
+    "actual_TX_samples": 241120000,
+    "actual_TX_seconds": 60.28,
+    "TX_reported_error_lines": [],
+    "coherent_DMA_PS_PL_pixel_increment": 0,
+    "existing_PC_mailbox_scheduler_coded_capacity_unchanged": true,
+    "extra_development_clock_observations": 6,
+    "retained_age_records_cap_unchanged": 64,
+    "native_clock_probe_temporary_host_buffers_max_bytes": 16777216,
+    "offline_oracle_SOURCE_input_cap_bytes": 67108864,
+    "actual_oracle_SOURCE_input_bytes": 8581120,
+    "actual_clean_AU_file_bytes": 6760475,
+    "complete_PC_PS_RAM_CMA_CPU_budget_passed": false,
+    "conditional_retained_tail_age_upper_max_ns": 877141845,
+    "all_frames_production_source_clock_or_standalone_age_passed": false,
+    "full_G0_or_budget_passed": false
+  },
+  "PS_autonomous_SOURCE_session_admission": {
+    "evidence": "docs/evidence/g0-source-session-20261105.json",
+    "cost": {
+      "same_compiler_baseline": "build/g0-video-HOL-decode-build-r1",
+      "candidate": "build/g0-video-auto-session-decode-r1",
+      "ELF_old": {
+        "text": 118797,
+        "data": 1344,
+        "BSS": 8216
+      },
+      "ELF_new": {
+        "text": 119541,
+        "data": 1344,
+        "BSS": 8216
+      },
+      "ELF_net_delta": {
+        "text": 744,
+        "data": 0,
+        "BSS": 0
+      },
+      "static_stack_old": {
+        "main": 2504,
+        "feed_dma": 168,
+        "source_dma": 33040
+      },
+      "static_stack_new": {
+        "main": 2512,
+        "feed_dma": 184,
+        "source_dma": 33040
+      },
+      "static_stack_delta": {
+        "main": 8,
+        "feed_dma": 16,
+        "source_dma": 0
+      },
+      "PL_net_delta": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM": 0,
+        "DSP": 0
+      },
+      "DMA_pool_net_delta_bytes": 0,
+      "pixel_pool_net_delta_bytes": 0,
+      "new_SOURCE_session_state_bytes": 16,
+      "ARM_SOURCE_ingress_context_bytes": 48,
+      "session_state_already_inside_context_and_stack": true,
+      "full_RAM_or_CPU_or_system_budget_passed": false,
+      "old_ELF_sha256": "f620d2df230abb8cc405ff93d0a96aabc67c353c9f03f40e952aa9c2fdd867d6",
+      "new_ELF_sha256": "fe6f1a3f0e4aa50f48c0b1c58244ab8fd0b80fa3dd7e6dcaa57bc5824799a452"
+    },
+    "native_component_policy_checks": 15,
+    "native_component_byteexact_AUs": 5,
+    "functional_compiled_faults": 3,
+    "coordinator_controls": 32,
+    "no_preselected_TX_session_in_PS_argv": true,
+    "full_profile_timebase_implemented": false,
+    "full_budget_passed": false,
+    "RF_runs": [
+      {
+        "local_evidence": "build/g0-R11-camera-auto-session-air1200-r1",
+        "session_mode": "auto_PL_SOURCE",
+        "session": 1724202203,
+        "boot_id": "cd5b40e0-d96f-4385-9c5e-2d653fae5204",
+        "bit_crc32": "74419ca3",
+        "completed": true,
+        "source_frames": 1200,
+        "unique_capture_timestamps": 1200,
+        "source_new_fps": 20.067129989194378,
+        "source_bytes": 8550400,
+        "expected_SOURCE_records": 16700,
+        "source_records": 8726,
+        "decoded_frames": 0,
+        "physical_new_frames": 0,
+        "missing_frames_count": 1200,
+        "RGB565_CRC_changed_frames": [],
+        "decode_errors": 39,
+        "known_damaged_AUs": 36,
+        "session_adoptions": 1,
+        "session_rejected": 0,
+        "physical_new_frame_fps": 0,
+        "max_new_ACK_gap_ns": 0,
+        "physical_ACK_window_available": false,
+        "source_DMA_missing_batches": 0,
+        "NAL_expired": 2330,
+        "NAL_skipped": 2979,
+        "NAL_evicted": 0,
+        "AU_queue_drops": 0,
+        "CPU_seconds": 3.95472,
+        "wall_seconds": 63.9614,
+        "owners_after_codec_close": 0,
+        "bytes_after_codec_close": 0,
+        "clean_join_passed": false,
+        "real_new_camera20_finite_subcondition": false,
+        "EOB_confirmed": true,
+        "cleanup_LOs_off": true,
+        "TX_samples": 241200000,
+        "TX_seconds": 60.3,
+        "PL_stopped_counters": {
+          "sources_committed": 8726,
+          "sources_dropped": 0,
+          "sources_bad": 0,
+          "sources_aborted": 0,
+          "packets_accepted": 13889,
+          "packets_erased": 22774,
+          "ingress_faults": 0,
+          "reacquisitions": 1,
+          "cal_faults": 0,
+          "cal_range": 0,
+          "batch_bad": 0,
+          "batch_timeout": 0,
+          "expired": 1,
+          "event_drops": 0
+        },
+        "receipt_sha256": "b5881be5653604dcd3698f526f3f00bc5e85cc0cb1137ac51ca45fc92e5f4ff4"
+      },
+      {
+        "local_evidence": "build/g0-R11-camera-auto-binary-pinned-air200-r1",
+        "session_mode": "pinned_G0",
+        "session": 2117961208,
+        "boot_id": "cd5b40e0-d96f-4385-9c5e-2d653fae5204",
+        "bit_crc32": "74419ca3",
+        "completed": true,
+        "source_frames": 200,
+        "unique_capture_timestamps": 200,
+        "source_new_fps": 20.09239269703115,
+        "source_bytes": 1464320,
+        "expected_SOURCE_records": 2860,
+        "source_records": 2764,
+        "decoded_frames": 187,
+        "physical_new_frames": 187,
+        "missing_frames_count": 13,
+        "RGB565_CRC_changed_frames": [
+          15,
+          16,
+          17,
+          18,
+          19,
+          157,
+          159,
+          192,
+          193,
+          194
+        ],
+        "decode_errors": 0,
+        "known_damaged_AUs": 5,
+        "session_adoptions": 0,
+        "session_rejected": 0,
+        "physical_new_frame_fps": 19.1511,
+        "max_new_ACK_gap_ns": 334330000,
+        "physical_ACK_window_available": true,
+        "source_DMA_missing_batches": 0,
+        "NAL_expired": 20,
+        "NAL_skipped": 31,
+        "NAL_evicted": 0,
+        "AU_queue_drops": 0,
+        "CPU_seconds": 10.9827,
+        "wall_seconds": 14.3393,
+        "owners_after_codec_close": 0,
+        "bytes_after_codec_close": 0,
+        "clean_join_passed": false,
+        "real_new_camera20_finite_subcondition": false,
+        "EOB_confirmed": true,
+        "cleanup_LOs_off": true,
+        "TX_samples": 41920000,
+        "TX_seconds": 10.48,
+        "PL_stopped_counters": {
+          "sources_committed": 2764,
+          "sources_dropped": 0,
+          "sources_bad": 0,
+          "sources_aborted": 0,
+          "packets_accepted": 2822,
+          "packets_erased": 361,
+          "ingress_faults": 0,
+          "reacquisitions": 1,
+          "cal_faults": 0,
+          "cal_range": 0,
+          "batch_bad": 0,
+          "batch_timeout": 0,
+          "expired": 0,
+          "event_drops": 0
+        },
+        "receipt_sha256": "e218ce45bb588a39a1efa8f7f1e4a4d89838ae1cfa46e3a739b8cab28f3e1ab4",
+        "conditional_last64_age_upper_ns": 832810479
+      },
+      {
+        "local_evidence": "build/g0-R11-camera-auto-session-air200-r1",
+        "session_mode": "auto_PL_SOURCE",
+        "session": 3884761307,
+        "boot_id": "cd5b40e0-d96f-4385-9c5e-2d653fae5204",
+        "bit_crc32": "74419ca3",
+        "completed": true,
+        "source_frames": 200,
+        "unique_capture_timestamps": 200,
+        "source_new_fps": 20.092167517790404,
+        "source_bytes": 1443840,
+        "expected_SOURCE_records": 2820,
+        "source_records": 2803,
+        "decoded_frames": 198,
+        "physical_new_frames": 198,
+        "missing_frames_count": 2,
+        "RGB565_CRC_changed_frames": [
+          2,
+          3,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "decode_errors": 0,
+        "known_damaged_AUs": 4,
+        "session_adoptions": 1,
+        "session_rejected": 0,
+        "physical_new_frame_fps": 20.0082,
+        "max_new_ACK_gap_ns": 200599000,
+        "physical_ACK_window_available": true,
+        "source_DMA_missing_batches": 0,
+        "NAL_expired": 6,
+        "NAL_skipped": 6,
+        "NAL_evicted": 0,
+        "AU_queue_drops": 0,
+        "CPU_seconds": 11.366,
+        "wall_seconds": 13.3374,
+        "owners_after_codec_close": 0,
+        "bytes_after_codec_close": 0,
+        "clean_join_passed": false,
+        "real_new_camera20_finite_subcondition": false,
+        "EOB_confirmed": true,
+        "cleanup_LOs_off": true,
+        "TX_samples": 41760000,
+        "TX_seconds": 10.44,
+        "PL_stopped_counters": {
+          "sources_committed": 2803,
+          "sources_dropped": 2,
+          "sources_bad": 0,
+          "sources_aborted": 0,
+          "packets_accepted": 2822,
+          "packets_erased": 237,
+          "ingress_faults": 0,
+          "reacquisitions": 1,
+          "cal_faults": 0,
+          "cal_range": 0,
+          "batch_bad": 0,
+          "batch_timeout": 0,
+          "expired": 0,
+          "event_drops": 0
+        },
+        "receipt_sha256": "31d9358d30cc43bb9b02f378b487a27291a50f0c53769cc386d6770cb7a7ca9f",
+        "conditional_last64_age_upper_ns": 823802527
+      },
+      {
+        "local_evidence": "build/g0-R11-camera-auto-session-air1200-r2",
+        "session_mode": "auto_PL_SOURCE",
+        "session": 647083343,
+        "boot_id": "cd5b40e0-d96f-4385-9c5e-2d653fae5204",
+        "bit_crc32": "74419ca3",
+        "completed": true,
+        "source_frames": 1200,
+        "unique_capture_timestamps": 1200,
+        "source_new_fps": 20.066986580290592,
+        "source_bytes": 8642560,
+        "expected_SOURCE_records": 16880,
+        "source_records": 16880,
+        "decoded_frames": 1200,
+        "physical_new_frames": 1200,
+        "missing_frames_count": 0,
+        "RGB565_CRC_changed_frames": [
+          1197,
+          1198,
+          1199
+        ],
+        "decode_errors": 0,
+        "known_damaged_AUs": 2,
+        "session_adoptions": 1,
+        "session_rejected": 0,
+        "physical_new_frame_fps": 20.0408,
+        "max_new_ACK_gap_ns": 217316000,
+        "physical_ACK_window_available": true,
+        "source_DMA_missing_batches": 0,
+        "NAL_expired": 0,
+        "NAL_skipped": 0,
+        "NAL_evicted": 0,
+        "AU_queue_drops": 0,
+        "CPU_seconds": 66.8225,
+        "wall_seconds": 64.4038,
+        "owners_after_codec_close": 0,
+        "bytes_after_codec_close": 0,
+        "clean_join_passed": false,
+        "real_new_camera20_finite_subcondition": true,
+        "EOB_confirmed": true,
+        "cleanup_LOs_off": true,
+        "TX_samples": 242160000,
+        "TX_seconds": 60.54,
+        "PL_stopped_counters": {
+          "sources_committed": 16880,
+          "sources_dropped": 0,
+          "sources_bad": 0,
+          "sources_aborted": 0,
+          "packets_accepted": 16880,
+          "packets_erased": 0,
+          "ingress_faults": 0,
+          "reacquisitions": 1,
+          "cal_faults": 0,
+          "cal_range": 0,
+          "batch_bad": 0,
+          "batch_timeout": 0,
+          "expired": 0,
+          "event_drops": 0
+        },
+        "receipt_sha256": "65da28a20b96ed90bf8379e3de1de4475e8317477fbe7ce709d1dcdb074177dd",
+        "conditional_last64_age_upper_ns": 846331549
+      }
+    ]
+  },
+  "PS_partial_AU_before_progress_deadlines": {
+    "evidence": "docs/evidence/g0-video-ordered-AU-native-20261104.json",
+    "PL_added": {
+      "LUT": 0,
+      "FF": 0,
+      "BRAM36_equivalent": 0,
+      "DSP": 0
+    },
+    "ARM_fixed_AU_context_bytes": 1048792,
+    "included_payload_cap_bytes": 1048576,
+    "included_padding_bytes": 64,
+    "included_state_bytes": 152,
+    "native_scenarios": 9,
+    "additional_allocator_overhead": "not included; separate allowance",
+    "whole_AU_completeness_gate": false,
+    "full_live_DMA_decoder_HDMI_pipeline_passed": false
+  },
+  "PS_AU_progress_deadlines_20261105": {
+    "evidence": "docs/evidence/g0-AU-progress-20261105.json",
+    "same_compiler_cost": {
+      "baseline": "build/g0-video-auto-session-decode-r1",
+      "candidate": "build/g0-AU-progress-decode-r2",
+      "ELF_old": {
+        "text": 119541,
+        "data": 1344,
+        "BSS": 8216
+      },
+      "ELF_new": {
+        "text": 119645,
+        "data": 1344,
+        "BSS": 8216
+      },
+      "ELF_net_delta": {
+        "text": 104,
+        "data": 0,
+        "BSS": 0
+      },
+      "static_stack_old": {
+        "main": 2512,
+        "feed_dma": 184,
+        "source_dma": 33040,
+        "AU_push": 56,
+        "AU_tick": 16
+      },
+      "static_stack_new": {
+        "main": 2512,
+        "feed_dma": 184,
+        "source_dma": 33040,
+        "AU_push": 64,
+        "AU_tick": 16
+      },
+      "static_stack_delta": {
+        "main": 0,
+        "feed_dma": 0,
+        "source_dma": 0,
+        "AU_push": 8,
+        "AU_tick": 0
+      },
+      "AU_context_old_bytes": 1048792,
+      "AU_context_new_bytes": 1048800,
+      "AU_context_net_delta_bytes": 8,
+      "idle_us": 500000,
+      "absolute_hold_us": 1000000,
+      "PL_net_delta": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM": 0,
+        "DSP": 0
+      },
+      "DMA_pixel_queue_payload_net_delta_bytes": 0,
+      "complete_RAM_CPU_budget_passed": false
+    },
+    "native_controlled_gap_old_RGB565_CRC_changes": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "native_controlled_gap_new_all200_identity_and_CRC_equal": true,
+    "native_deadline_cases": 5,
+    "compiled_functional_faults": 6,
+    "PL_DMA_pixel_queue_payload_caps_unchanged": true,
+    "full_G0_or_budget_passed": false,
+    "actual_RF": {
+      "local_evidence": "build/g0-R11-camera-AU-progress-air1200-r1",
+      "boot_id": "cd5b40e0-d96f-4385-9c5e-2d653fae5204",
+      "bit_crc32": "74419ca3",
+      "session_mode": "auto_PL_SOURCE",
+      "session": 182278351,
+      "TX_samples": 241200000,
+      "TX_seconds": 60.3,
+      "SOURCE_blocks": 845,
+      "SOURCE_bytes": 8652800,
+      "SOURCE_records": 16900,
+      "physical_new_frames": 1200,
+      "source_new_fps": 20.066749808951656,
+      "physical_ACK_span_fps": 20.1082,
+      "all1200_identity_RGB565_CRC_equal": true,
+      "max_new_ACK_gap_ns": 217313000,
+      "gaps_over1s": 0,
+      "session_adoptions": 1,
+      "session_rejected": 0,
+      "known_damaged_AUs": 0,
+      "decode_errors": 0,
+      "AU_queue_drops": 0,
+      "NAL_expired": 0,
+      "NAL_skipped": 0,
+      "NAL_evicted": 0,
+      "CPU_seconds": 66.9368,
+      "wall_seconds": 63.7518,
+      "owners_after_close": 0,
+      "bytes_after_close": 0,
+      "PL_stopped_counters": {
+        "sources_committed": 16900,
+        "sources_dropped": 0,
+        "sources_bad": 0,
+        "sources_aborted": 0,
+        "packets_accepted": 16900,
+        "packets_erased": 0,
+        "ingress_faults": 0,
+        "reacquisitions": 1,
+        "cal_faults": 0,
+        "cal_range": 0,
+        "batch_bad": 0,
+        "batch_timeout": 0,
+        "expired": 0,
+        "event_drops": 0
+      },
+      "max_capture_to_complete_AU_us": 156434,
+      "EOB_confirmed": true,
+      "cleanup_LOs_off": true,
+      "TX_reported_error_lines": [],
+      "conditional_last64_age_upper_ns": 753022890,
+      "full_frame_or_production_clock_or_standalone_age_passed": false
+    }
+  },
+  "forward_timebase_control_transport_candidate": {
+    "evidence": "docs/evidence/g0-forward-timebase-transport-20261105.json",
+    "wire_schema": "spec/g0_forward_timebase_candidate_stage1.json",
+    "local_cost": {
+      "bridge": {
+        "baseline": {
+          "part": "xc7z020clg484-1",
+          "LUT": 1008,
+          "FF": 1356,
+          "LUT_logic": 1008,
+          "LUT_memory": 0,
+          "RAMB36": 1,
+          "RAMB18": 0,
+          "DSP": 0,
+          "BRAM36_equivalent": 1.0,
+          "WNS_ns": 5.86,
+          "TNS_ns": 0.0,
+          "WHS_ns": 0.07,
+          "THS_ns": 0.0,
+          "unconstrained_internal_endpoints": 0,
+          "no_input_delay": 0,
+          "no_output_delay": 0,
+          "no_clock": 0,
+          "DRC_warning_ids": [
+            "ZPS7-1"
+          ],
+          "severe_DRC": 0,
+          "full_design_IO_CDC_and_timing_verified": false
+        },
+        "candidate": {
+          "part": "xc7z020clg484-1",
+          "LUT": 1430,
+          "FF": 1685,
+          "LUT_logic": 1430,
+          "LUT_memory": 0,
+          "RAMB36": 1,
+          "RAMB18": 0,
+          "DSP": 0,
+          "BRAM36_equivalent": 1.0,
+          "WNS_ns": 5.631,
+          "TNS_ns": 0.0,
+          "WHS_ns": 0.111,
+          "THS_ns": 0.0,
+          "unconstrained_internal_endpoints": 0,
+          "no_input_delay": 0,
+          "no_output_delay": 0,
+          "no_clock": 0,
+          "DRC_warning_ids": [
+            "ZPS7-1"
+          ],
+          "severe_DRC": 0,
+          "full_design_IO_CDC_and_timing_verified": false
+        },
+        "delta": {
+          "LUT": 422,
+          "FF": 329,
+          "BRAM36_equivalent": 0.0,
+          "DSP": 0
+        },
+        "same_20ns_clock_2ns_IO_constraints": true,
+        "whole_board_cost_measured": false,
+        "baseline_source_sha256": "c597db94d2e364fc5ccbf9ad70846c5821c5d3c900487c8957c0e0ebfaff2e1d",
+        "candidate_source_sha256": "673c31db3db4395e43c510767b58e77c7ad4839e373ea953bd1d2d75bf0d52af"
+      },
+      "ingress": {
+        "baseline": {
+          "part": "xc7z020clg484-1",
+          "LUT": 3609,
+          "FF": 2509,
+          "LUT_logic": 3469,
+          "LUT_memory": 140,
+          "RAMB36": 32,
+          "RAMB18": 2,
+          "DSP": 0,
+          "BRAM36_equivalent": 33.0,
+          "WNS_ns": 6.242,
+          "TNS_ns": 0.0,
+          "WHS_ns": 0.094,
+          "THS_ns": 0.0,
+          "unconstrained_internal_endpoints": 0,
+          "no_input_delay": 0,
+          "no_output_delay": 0,
+          "no_clock": 0,
+          "DRC_warning_ids": [
+            "RTSTAT-10",
+            "ZPS7-1"
+          ],
+          "severe_DRC": 0,
+          "full_design_IO_CDC_and_timing_verified": false
+        },
+        "candidate": {
+          "part": "xc7z020clg484-1",
+          "LUT": 3804,
+          "FF": 2736,
+          "LUT_logic": 3664,
+          "LUT_memory": 140,
+          "RAMB36": 32,
+          "RAMB18": 2,
+          "DSP": 0,
+          "BRAM36_equivalent": 33.0,
+          "WNS_ns": 5.547,
+          "TNS_ns": 0.0,
+          "WHS_ns": 0.068,
+          "THS_ns": 0.0,
+          "unconstrained_internal_endpoints": 0,
+          "no_input_delay": 0,
+          "no_output_delay": 0,
+          "no_clock": 0,
+          "DRC_warning_ids": [
+            "RTSTAT-10",
+            "ZPS7-1"
+          ],
+          "severe_DRC": 0,
+          "full_design_IO_CDC_and_timing_verified": false
+        },
+        "baseline_source_sha256": "ec5a8719149450a662c02c48dafa536fc04c99c491ff77d047304b07bbd5ba4e",
+        "candidate_source_sha256": "c7ee887951550261707baf3dad5fb74f053b0d3bf3c9450a1b73849dc4ba5ae3",
+        "net_delta": {
+          "LUT": 195,
+          "FF": 227,
+          "BRAM36_equivalent": 0.0,
+          "DSP": 0
+        }
+      },
+      "combined_disjoint_local_delta": {
+        "LUT": 617,
+        "FF": 556,
+        "BRAM36_equivalent": 0,
+        "DSP": 0
+      },
+      "new_declared_clock_CSR_register_bits": 71,
+      "clock_CSR_and_frame_adapter_integrated_cost_measured": false,
+      "whole_board_net_delta_measured": false,
+      "old_deployed_R11_resource_totals_unchanged": true
+    },
+    "new_payload_RAM_bytes": 0,
+    "existing_shared_SOURCE_payload_RAM_bytes": 1024,
+    "max_borrowed_control_slots": 1,
+    "coherent_DMA_or_pixel_or_AU_pool_increment": 0,
+    "PS_parser_changed": false,
+    "new_integrated_synthesis_route_or_RF_passed": false,
+    "full_G0_or_budget_passed": false
+  }
+}

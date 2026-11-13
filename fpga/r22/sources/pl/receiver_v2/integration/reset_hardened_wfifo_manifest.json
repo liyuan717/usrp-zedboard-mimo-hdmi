@@ -1,0 +1,27 @@
+{
+  "changed_file_sha256": {
+    "library/axi_hdmi_tx/axi_hdmi_tx_core.v": "3051a2cccb1b9922328bac35a07142d03e928096c79da378e70f06e27e078071",
+    "library/axi_hdmi_tx/axi_hdmi_tx_vdma.v": "20035d128e87ea259ce59a19444b642443799d4f4244b9ee3a459c85697f964a",
+    "library/util_wfifo/util_wfifo.v": "458616092189bba43233ee36084652356b7b1983799dbab9f8af30130de51206"
+  },
+  "expected_output_tree_file_count": 3490,
+  "expected_output_tree_sha256": "be7ba16a83dac1a9ac2ba05273c98fb86c9863590140e6dcecc6435419c81b2c",
+  "parent_static_identity": {
+    "parent_overlay": "receiver-v2-reset-hardened-r6",
+    "r6_changed_file_sha256": {
+      "library/axi_hdmi_tx/axi_hdmi_tx.v": "134155836a94998566e1786a73aba6bae755fa2e9a94f751d2e1e9b848f382e1",
+      "library/axi_hdmi_tx/axi_hdmi_tx_axis_epoch_bridge.v": "53126d0a585a8704075fcd3847253cb1bbab053d51e455d95fc2546f371adfb6",
+      "library/axi_hdmi_tx/axi_hdmi_tx_core.v": "791ed81ffc399ef50c1bd6691112d2a0bc32aa25aaaaadd8f7040f738aed7684",
+      "library/axi_hdmi_tx/axi_hdmi_tx_ip.tcl": "4c6d13c66a5a8d5ddd4b61a2c694c2b5e137eff4ea99df52f1136b22a498f3e0",
+      "library/axi_hdmi_tx/axi_hdmi_tx_reset_sync.v": "5ee6f050775cddf7bb12c7b4259b920d2e7d9c6c114d8a809844243f451d1f05",
+      "library/axi_hdmi_tx/axi_hdmi_tx_vdma.v": "fdd90c0864b6b6a5bd6122f845d105d48ff240890047f8fa07d83d4c96a084c3",
+      "library/axi_hdmi_tx/component.xml": "1471bba5ca612abd6725ebcc02e0c02a57cc1b28c3a5cdce3e5afb8d612033c4",
+      "library/common/up_hdmi_tx.v": "5e0400bb02be05c5c81ed469e9e6ca7a1925e355c77a9709fa32a5ae876bf562"
+    },
+    "r6_expected_tree_file_count": 3489,
+    "r6_expected_tree_sha256": "ee16e2ea1658319464131d838568dbfa775c9f6b4d2a758d90f6ea80dec78d04",
+    "r6_static_manifest_sha256": "5cfb54b7d4c8ed90f0268f4cd865ff3cfb11250846b6f970e8f453f59886de59",
+    "r6_status": "PREPARED_NOT_BUILT"
+  },
+  "schema": "receiver-v2-wfifo-reset-hardened-r7/v1"
+}
